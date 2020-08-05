@@ -51,26 +51,7 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-  assets:
-    - assets/images/catimage.png
-    - assets/images/background.png
-    - assets/images/bg.png
-    - assets/images/mountain-far.png
-    - assets/images/mountains.png
-    - assets/images/trees.png
-    - assets/images/foreground-trees.png
-    - assets/images/coin.png
-    - assets/images/cat.png
-    - assets/images/bg-trees.png
-    - assets/images/bg-mountains.png
-    - assets/images/bg-clouds.png
-    - assets/images/Running (32 x 32).png
 
-    - assets/images/cointrial.png
-    - assets/images/gemIcon.png
-    - assets/images/Spike.png
-    - assets/images/Collected.png
-    - assets/images/pause.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -51,39 +51,60 @@ void main() async {
 }
 
 double tempX = 0;
+double heightPos = 0;
 class Test extends TextComponent with Resizable{
   double speedX = 200.0;
 
-  Test(String text, TextConfig textConfig) : super(text) {
+  Test(String text, TextConfig textConfig, double posX, double posY) : super(text) {
     this.config = textConfig;
-
-    this.y = 200;
+    this.x = posX-100;
+    this.y = posY-100;
+    print("created");
   }
 
   void resize(Size size) {
     super.resize(size);
-    this.x = size.width;
-    this.y = 200;
+
   }
 
   @override
   void update(double t){
+    if (this.x <0){
+      this.destroy();
+
+    }
     this.x -= 2;
     super.update(t);
+    this.x -= 2;
   }
 }
+TextConfig regular = TextConfig(color: BasicPalette.white.color);
+double tempWidth = 0;
 class MyGame extends BaseGame {
-
+  double timerGem = 0;
   Test test;
-
+  var rng;
   MyGame(Size size) {
-    TextConfig regular = TextConfig(color: BasicPalette.white.color);
-    add(test = Test('PrimeDart', regular));
-
+    this.rng = new Random();
+    heightPos = size.height;
+    this.timerGem = Normal.quantile(rng.nextDouble(), mean: 3, variance: 0.7);
+    tempWidth = size.width;
+  }
     @override
     void render(Canvas c) {
       super.render(c);
     }
+    @override
+    void update(double t) {
+
+      timerGem -= t;
+      if (timerGem < 0) {
+        double posGem = rng.nextDouble() * heightPos;
+
+        add(test = Test('PrimeDart', regular, tempWidth, posGem));
+
+        timerGem = Normal.quantile(rng.nextDouble(), mean: 0, variance: 0.7) + 2;
+      }
+
   }
 }
-
