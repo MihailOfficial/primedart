@@ -9,6 +9,7 @@ import 'package:flame/components/mixins/resizable.dart';
 import 'package:flame/components/parallax_component.dart';
 import 'package:flame/components/text_box_component.dart';
 import 'package:flame/components/text_component.dart';
+import 'package:flame/effects/effects.dart';
 import 'package:flame/game/base_game.dart';
 import 'package:flame/palette.dart';
 import 'package:flame/position.dart';
@@ -52,30 +53,25 @@ void main() async {
 
 double tempX = 0;
 double heightPos = 0;
-class Test extends TextComponent with Resizable{
+class Test extends TextComponent{
   double speedX = 200.0;
-
+  double posX, posY;
   Test(String text, TextConfig textConfig, double posX, double posY) : super(text) {
     this.config = textConfig;
-    this.x = posX-100;
-    this.y = posY-100;
+    this.anchor = Anchor.center;
+    this.x = posX;
+    this.y = posY;
     print("created");
   }
 
-  void resize(Size size) {
-    super.resize(size);
-
-  }
-
   @override
-  void update(double t){
+  void update(double tt){
     if (this.x <0){
-      this.destroy();
-
+     destroy();
     }
-    this.x -= 2;
-    super.update(t);
-    this.x -= 2;
+    super.update(tt);
+    this.x -= speedX * tt;
+
   }
 }
 TextConfig regular = TextConfig(color: BasicPalette.white.color);
@@ -100,11 +96,11 @@ class MyGame extends BaseGame {
       timerGem -= t;
       if (timerGem < 0) {
         double posGem = rng.nextDouble() * heightPos;
-
-        add(test = Test('PrimeDart', regular, tempWidth, posGem));
+        int genInt = rng.nextInt(11);
+        add(test = Test(genInt.toString(), regular, tempWidth, posGem));
 
         timerGem = Normal.quantile(rng.nextDouble(), mean: 0, variance: 0.7) + 2;
       }
-
+      super.update(t);
   }
 }
