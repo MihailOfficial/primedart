@@ -104,7 +104,7 @@ class MyGame extends BaseGame {
       timerComp -= t;
       if (timerPrime < 0) {
         double posGem = rng.nextDouble() * heightPos;
-        int genInt = rng.nextInt(36);
+        int genInt = rng.nextInt(35);
         add(test = Test(primes[genInt].toString(), comp, tempWidth, posGem));
 
         timerPrime = Normal.quantile(rng.nextDouble(), mean: 0, variance: 0.7) + 2;
