@@ -111,7 +111,7 @@ class MyGame extends BaseGame {
       }
       if (timerComp < 0) {
         double posComp = rng.nextDouble() * heightPos;
-        int genInt = rng.nextInt(115);
+        int genInt = rng.nextInt(114);
         add(test = Test(composites[genInt].toString(), prime, tempWidth, posComp));
 
         timerComp = Normal.quantile(rng.nextDouble(), mean: 0, variance: 0.7) + 2;
