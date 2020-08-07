@@ -36,6 +36,7 @@ int highScore = 0;
 int gemCollected = -1;
 MyGame game;
 double tempHeight = 0;
+bool updateLives  =false;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //SharedPreferences storage = await SharedPreferences.getInstance();
@@ -54,7 +55,7 @@ void main() async {
 
 double tempX = 0;
 double heightPos = 0;
-
+int lives = 20;
 class Prime extends TextComponent{
    bool collectedItem = false;
   double speedX = 200.0;
@@ -71,6 +72,9 @@ class Prime extends TextComponent{
 
   @override
   void update(double tt){
+    if (paused){
+      this.x = -20000;
+    }
     double dist = sqrt((compy-y)*(compy-y) + (compx-x)*(compx-x));
 
     if (dist<45 && !collectedItem){
@@ -114,6 +118,9 @@ class Composite extends TextComponent{
 
   @override
   void update(double tt){
+    if (paused){
+      this.x = -20000;
+    }
     double dist = sqrt((compy-y)*(compy-y) + (compx-x)*(compx-x));
 
     if (dist<45 && !collectedItem){
@@ -121,7 +128,9 @@ class Composite extends TextComponent{
       TextConfig collected = TextConfig(color: Color( 0xFF808080), fontSize: 35);
       this.config = collected;
       if (score>0) {
+        lives--;
         score--;
+        updateLives  =true;
       }
       updateScore = true;
       collectedItem = true;
@@ -153,6 +162,7 @@ bool spikeDeath = false;
 bool frozen = true;
 double compx;
 double compy;
+bool paused = false;
 class CharacterSprite extends AnimationComponent with Resizable {
   double speedY = 0.0;
 
@@ -161,6 +171,7 @@ class CharacterSprite extends AnimationComponent with Resizable {
       textureWidth: 16.0, textureHeight: 16.0) {
     this.anchor = Anchor.center;
     frozen = true;
+    paused = true;
   }
 
   Position get velocity => Position(300.0, speedY);
@@ -196,11 +207,11 @@ class CharacterSprite extends AnimationComponent with Resizable {
       this.speedY += GRAVITY * t;
       this.angle = velocity.angle();
       if (y > size.height || y < 0) {
-
-        specialMessage = true;
-        message = "You died!";
-        updateScore = true;
+        lives--;
         score = 0;
+        updateLives  =true;
+        updateScore = true;
+        paused = true;
 
         reset();
       }
@@ -213,6 +224,7 @@ class CharacterSprite extends AnimationComponent with Resizable {
   }
 
   onTap() {
+    paused = false;
     print("tapped");
 
 
@@ -222,7 +234,9 @@ class CharacterSprite extends AnimationComponent with Resizable {
       return;
     }
 
+
       speedY = BOOST.toDouble();
+
 
   }
 }
@@ -393,14 +407,27 @@ class MyGame extends BaseGame {
   ];
   var rng;
   TextPainter textPainterScore;
+  TextPainter textPainterLives;
   Offset positionScore;
+  Offset positionLives;
 
   MyGame(Size size) {
     add(character = CharacterSprite());
     this.rng = new Random();
     heightPos = size.height;
-    this.timerPrime = Normal.quantile(rng.nextDouble(), mean: 3, variance: 0.7);
-    this.timerComp = Normal.quantile(rng.nextDouble(), mean: 3, variance: 0.7);
+
+    textPainterLives = TextPainter(text: TextSpan(
+        text: "Lives: " + lives.toString(),
+        style: TextStyle(
+            color: Color(0xFFFF0000), fontSize: 15)),
+        textDirection: TextDirection.ltr);
+    textPainterLives.layout(
+      minWidth: 0,
+      maxWidth: size.width,
+    );
+    positionLives = Offset(size.width / 2 - textPainterLives.width / 2,
+        size.height * 0.016 - textPainterLives.height / 2);
+
 
     textPainterScore = TextPainter(text: TextSpan(
         text: "Score: " + score.toString(),
@@ -412,7 +439,7 @@ class MyGame extends BaseGame {
       maxWidth: size.width,
     );
     positionScore = Offset(size.width / 2 - textPainterScore.width / 2,
-        size.height * 0.020 - textPainterScore.height / 2);
+        size.height * 0.05 - textPainterScore.height / 2);
 
   }
 
@@ -421,10 +448,25 @@ class MyGame extends BaseGame {
 
     super.render(c);
     textPainterScore.paint(c, positionScore);
+    textPainterLives.paint(c, positionLives);
   }
 
   @override
   void update(double t) {
+    if (updateLives) {
+      textPainterLives = TextPainter(text: TextSpan(
+          text: "Lives: " + lives.toString(),
+          style: TextStyle(
+              color: Color(0xFFFF0000), fontSize: 15)),
+          textDirection: TextDirection.ltr);
+      textPainterLives.layout(
+        minWidth: 0,
+        maxWidth: tempWidth,
+      );
+      positionScore = Offset(tempWidth / 2 - textPainterScore.width / 2,
+          heightPos * 0.016 - textPainterScore.height / 2);
+      updateLives = false;
+    }
     if (updateScore) {
       textPainterScore = TextPainter(text: TextSpan(
           text: "Score: " + score.toString(),
@@ -443,28 +485,29 @@ class MyGame extends BaseGame {
     TextConfig primeC = TextConfig(color: Color(0xFFFF00FF), fontSize: 35);
     timerPrime -= t;
     timerComp -= t;
-    if (timerPrime < 0) {
-      double posGem = rng.nextDouble() * heightPos;
-      int genInt = rng.nextInt(35);
-      add(prime =
-          Prime(primes[genInt].toString(), primeC, tempWidth, posGem));
+    if (!paused) {
+      if (timerPrime < 0) {
+        double posGem = rng.nextDouble() * heightPos;
+        int genInt = rng.nextInt(35);
+        add(prime =
+            Prime(primes[genInt].toString(), primeC, tempWidth, posGem));
 
-      timerPrime =
-          Normal.quantile(rng.nextDouble(), mean: 0, variance: 0.7) + 2;
+        timerPrime =
+            Normal.quantile(rng.nextDouble(), mean: 0, variance: 0.7) + 2;
+      }
+      if (timerComp < 0) {
+        double posGem = rng.nextDouble() * heightPos;
+        int genInt = rng.nextInt(35);
+        add(composite =
+            Composite(composites[genInt].toString(), comp, tempWidth, posGem));
+
+        timerComp =
+            Normal.quantile(rng.nextDouble(), mean: 0, variance: 0.7) + 2;
+      }
     }
-    if (timerComp < 0) {
-      double posGem = rng.nextDouble() * heightPos;
-      int genInt = rng.nextInt(35);
-      add(composite =
-          Composite(composites[genInt].toString(), comp, tempWidth, posGem));
-
-      timerComp =
-          Normal.quantile(rng.nextDouble(), mean: 0, variance: 0.7) + 2;
-    }
-
-    updateScore = false;
 
       super.update(t);
+
 
 }
     @override
