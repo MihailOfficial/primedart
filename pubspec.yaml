@@ -1,5 +1,5 @@
-name: PrimeDart
-description: Primes game.
+name: bird
+description: A new Flutter application.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -44,14 +44,33 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
   fonts:
-  - family: pixelfont
-    fonts:
-      - asset: assets/fonts/Minecraft.ttf
+    - family: pixelfont
+      fonts:
+        - asset: assets/fonts/Minecraft.ttf
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  assets:
+    - assets/images/catimage.png
+    - assets/images/background.png
+    - assets/images/bg.png
+    - assets/images/mountain-far.png
+    - assets/images/mountains.png
+    - assets/images/trees.png
+    - assets/images/foreground-trees.png
+    - assets/images/coin.png
+    - assets/images/cat.png
+    - assets/images/bg-trees.png
+    - assets/images/bg-mountains.png
+    - assets/images/bg-clouds.png
+    - assets/images/Running (32 x 32).png
 
+    - assets/images/cointrial.png
+    - assets/images/gemIcon.png
+    - assets/images/Spike.png
+    - assets/images/Collected.png
+    - assets/images/pause.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:
