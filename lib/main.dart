@@ -35,7 +35,7 @@ bool updateScore = false;
 int highScore = 0;
 int gemCollected = -1;
 MyGame game;
-
+double tempHeight = 0;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //SharedPreferences storage = await SharedPreferences.getInstance();
@@ -45,6 +45,7 @@ void main() async {
   final size = await Flame.util.initialDimensions();
   game = MyGame(size);
   tempWidth = size.width;
+  tempHeight = size.height;
   runApp(game.widget);
   TapGestureRecognizer tapper = TapGestureRecognizer();
   tapper.onTapDown = game.onTapDown;
@@ -53,36 +54,105 @@ void main() async {
 
 double tempX = 0;
 double heightPos = 0;
-class Test extends TextComponent{
+
+class Prime extends TextComponent{
+   bool collectedItem = false;
   double speedX = 200.0;
   double posX, posY;
-  Test(String text, TextConfig textConfig, double posX, double posY) : super(text) {
+  bool collectPrime = false;
+  double accel = 0;
+  Prime(String text, TextConfig textConfig, double posX, double posY) : super(text) {
     this.config = textConfig;
     this.anchor = Anchor.center;
     this.x = posX;
     this.y = posY;
-    print("created");
+
   }
 
   @override
   void update(double tt){
-    if (this.x <0){
+    double dist = sqrt((compy-y)*(compy-y) + (compx-x)*(compx-x));
+
+    if (dist<45 && !collectedItem){
+      collectPrime = true;
+      TextConfig collected = TextConfig(color: Color( 0xFFFFFF00), fontSize: 35);
+      this.config = collected;
+      score++;
+      updateScore = true;
+      collectedItem = true;
+    }
+    if (this.x <0 || this.y<0){
+      this.x = -20000;
      destroy();
+
     }
     super.update(tt);
-    this.x -= speedX * tt;
 
+    if(!collectPrime) {
+      this.x -= speedX * tt;
+    }
+    else {
+      accel++;
+      this.y -= 2*accel;
+
+    }
   }
 }
-TextConfig comp = TextConfig(color: BasicPalette.white.color);
-TextConfig prime = TextConfig(color: Color(0xFFFF00FF));
+class Composite extends TextComponent{
+  bool collectedItem = false;
+  double speedX = 200.0;
+  double posX, posY;
+  bool collectComp = false;
+  double accel = 0;
+  Composite(String text, TextConfig textConfig, double posX, double posY) : super(text) {
+    this.config = textConfig;
+    this.anchor = Anchor.center;
+    this.x = posX;
+    this.y = posY;
+
+  }
+
+  @override
+  void update(double tt){
+    double dist = sqrt((compy-y)*(compy-y) + (compx-x)*(compx-x));
+
+    if (dist<45 && !collectedItem){
+      collectComp = true;
+      TextConfig collected = TextConfig(color: Color( 0xFF808080), fontSize: 35);
+      this.config = collected;
+      if (score>0) {
+        score--;
+      }
+      updateScore = true;
+      collectedItem = true;
+    }
+    if (this.x <0 || this.y>tempHeight){
+      this.x = -20000;
+      destroy();
+
+    }
+    super.update(tt);
+
+    if(!collectComp) {
+      this.x -= speedX * tt;
+    }
+    else {
+      accel++;
+      this.y += 2*accel;
+
+    }
+  }
+}
+
+
 double tempWidth = 0;
 String message;
 bool specialMessage = false;
 bool eliminateScoreFlash = false;
 bool spikeDeath = false;
 bool frozen = true;
-
+double compx;
+double compy;
 class CharacterSprite extends AnimationComponent with Resizable {
   double speedY = 0.0;
 
@@ -119,6 +189,8 @@ class CharacterSprite extends AnimationComponent with Resizable {
   void update(double t) {
 
     super.update(t);
+    compx = this.x;
+    compy = this.y;
     if (!frozen) {
       this.y += speedY * t; // - GRAVITY * t * t / 2
       this.speedY += GRAVITY * t;
@@ -160,13 +232,169 @@ class MyGame extends BaseGame {
   void resize(Size size) {
     super.resize(size);
   }
+
   double timerPrime = 0;
   double timerComp = 0;
   CharacterSprite character;
-  Test test;
-  var primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149];
-  var composites = [4, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 21, 22, 24, 25, 26, 27, 28, 30, 32, 33, 34, 35, 36, 38, 39, 40, 42, 44, 45, 46, 48, 49, 50, 51, 52, 54, 55, 56, 57, 58, 60, 62, 63, 64, 65, 66, 68, 69, 70, 72, 74, 75, 76, 77, 78, 80, 81, 82, 84, 85, 86, 87, 88, 90, 91, 92, 93, 94, 95, 96, 98, 99, 100, 102, 104, 105, 106, 108, 110, 111, 112, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 128, 129, 130, 132, 133, 134, 135, 136, 138, 140, 141, 142, 143, 144, 145, 146, 147, 148, 150];
+  Prime prime;
+  Composite composite;
+  var primes = [
+    2,
+    3,
+    5,
+    7,
+    11,
+    13,
+    17,
+    19,
+    23,
+    29,
+    31,
+    37,
+    41,
+    43,
+    47,
+    53,
+    59,
+    61,
+    67,
+    71,
+    73,
+    79,
+    83,
+    89,
+    97,
+    101,
+    103,
+    107,
+    109,
+    113,
+    127,
+    131,
+    137,
+    139,
+    149
+  ];
+  var composites = [
+    4,
+    6,
+    8,
+    9,
+    10,
+    12,
+    14,
+    15,
+    16,
+    18,
+    20,
+    21,
+    22,
+    24,
+    25,
+    26,
+    27,
+    28,
+    30,
+    32,
+    33,
+    34,
+    35,
+    36,
+    38,
+    39,
+    40,
+    42,
+    44,
+    45,
+    46,
+    48,
+    49,
+    50,
+    51,
+    52,
+    54,
+    55,
+    56,
+    57,
+    58,
+    60,
+    62,
+    63,
+    64,
+    65,
+    66,
+    68,
+    69,
+    70,
+    72,
+    74,
+    75,
+    76,
+    77,
+    78,
+    80,
+    81,
+    82,
+    84,
+    85,
+    86,
+    87,
+    88,
+    90,
+    91,
+    92,
+    93,
+    94,
+    95,
+    96,
+    98,
+    99,
+    100,
+    102,
+    104,
+    105,
+    106,
+    108,
+    110,
+    111,
+    112,
+    114,
+    115,
+    116,
+    117,
+    118,
+    119,
+    120,
+    121,
+    122,
+    123,
+    124,
+    125,
+    126,
+    128,
+    129,
+    130,
+    132,
+    133,
+    134,
+    135,
+    136,
+    138,
+    140,
+    141,
+    142,
+    143,
+    144,
+    145,
+    146,
+    147,
+    148,
+    150
+  ];
   var rng;
+  TextPainter textPainterScore;
+  Offset positionScore;
+
   MyGame(Size size) {
     add(character = CharacterSprite());
     this.rng = new Random();
@@ -174,37 +402,74 @@ class MyGame extends BaseGame {
     this.timerPrime = Normal.quantile(rng.nextDouble(), mean: 3, variance: 0.7);
     this.timerComp = Normal.quantile(rng.nextDouble(), mean: 3, variance: 0.7);
 
-    print(composites.length);
+    textPainterScore = TextPainter(text: TextSpan(
+        text: "Score: " + score.toString(),
+        style: TextStyle(
+            color: Colors.white, fontSize: 32)),
+        textDirection: TextDirection.ltr);
+    textPainterScore.layout(
+      minWidth: 0,
+      maxWidth: size.width,
+    );
+    positionScore = Offset(size.width / 2 - textPainterScore.width / 2,
+        size.height * 0.020 - textPainterScore.height / 2);
+
   }
-    @override
-    void render(Canvas c) {
-      super.render(c);
-    }
-    @override
-    void update(double t) {
 
-      timerPrime -= t;
-      timerComp -= t;
-      if (timerPrime < 0) {
-        double posGem = rng.nextDouble() * heightPos;
-        int genInt = rng.nextInt(35);
-        add(test = Test(primes[genInt].toString(), comp, tempWidth, posGem));
-
-        timerPrime = Normal.quantile(rng.nextDouble(), mean: 0, variance: 0.7) + 2;
-      }
-      if (timerComp < 0) {
-        double posComp = rng.nextDouble() * heightPos;
-        int genInt = rng.nextInt(114);
-        add(test = Test(composites[genInt].toString(), prime, tempWidth, posComp));
-
-        timerComp = Normal.quantile(rng.nextDouble(), mean: 0, variance: 0.7) + 2;
-      }
-      super.update(t);
-  }
   @override
-  void onTapDown(TapDownDetails d) {
-    character.onTap();
+  void render(Canvas c) {
 
-
+    super.render(c);
+    textPainterScore.paint(c, positionScore);
   }
+
+  @override
+  void update(double t) {
+    if (updateScore) {
+      textPainterScore = TextPainter(text: TextSpan(
+          text: "Score: " + score.toString(),
+          style: TextStyle(
+              color: Colors.white, fontSize: 32)),
+          textDirection: TextDirection.ltr);
+      textPainterScore.layout(
+        minWidth: 0,
+        maxWidth: tempWidth,
+      );
+      positionScore = Offset(tempWidth / 2 - textPainterScore.width / 2,
+          heightPos * 0.05 - textPainterScore.height / 2);
+      updateScore = false;
+    }
+    TextConfig comp = TextConfig(color: BasicPalette.white.color, fontSize: 35);
+    TextConfig primeC = TextConfig(color: Color(0xFFFF00FF), fontSize: 35);
+    timerPrime -= t;
+    timerComp -= t;
+    if (timerPrime < 0) {
+      double posGem = rng.nextDouble() * heightPos;
+      int genInt = rng.nextInt(35);
+      add(prime =
+          Prime(primes[genInt].toString(), primeC, tempWidth, posGem));
+
+      timerPrime =
+          Normal.quantile(rng.nextDouble(), mean: 0, variance: 0.7) + 2;
+    }
+    if (timerComp < 0) {
+      double posGem = rng.nextDouble() * heightPos;
+      int genInt = rng.nextInt(35);
+      add(composite =
+          Composite(composites[genInt].toString(), comp, tempWidth, posGem));
+
+      timerComp =
+          Normal.quantile(rng.nextDouble(), mean: 0, variance: 0.7) + 2;
+    }
+
+    updateScore = false;
+
+      super.update(t);
+
+}
+    @override
+    void onTapDown(TapDownDetails d) {
+      character.onTap();
+    }
+
 }
