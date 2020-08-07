@@ -488,6 +488,13 @@ class MyGame extends BaseGame {
     if (!paused) {
       if (timerPrime < 0) {
         double posGem = rng.nextDouble() * heightPos;
+        if (posGem<40){
+            posGem += 40;
+        }
+        else if (posGem > heightPos-40){
+            posGem -= 40;
+        }
+
         int genInt = rng.nextInt(35);
         add(prime =
             Prime(primes[genInt].toString(), primeC, tempWidth, posGem));
@@ -497,6 +504,12 @@ class MyGame extends BaseGame {
       }
       if (timerComp < 0) {
         double posGem = rng.nextDouble() * heightPos;
+        if (posGem<50){
+          posGem += 60;
+        }
+        else if (posGem > heightPos-40){
+          posGem -= 40;
+        }
         int genInt = rng.nextInt(35);
         add(composite =
             Composite(composites[genInt].toString(), comp, tempWidth, posGem));
