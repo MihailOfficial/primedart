@@ -38,6 +38,7 @@ int gemCollected = -1;
 MyGame game;
 double tempHeight = 0;
 bool updateLives  =false;
+bool hasLives = true;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //SharedPreferences storage = await SharedPreferences.getInstance();
@@ -56,7 +57,7 @@ void main() async {
 
 double tempX = 0;
 double heightPos = 0;
-int lives = 20;
+int lives = 2;
 double orgPos = 0;
 class Prime extends TextComponent{
    bool collectedItem = false;
@@ -201,7 +202,10 @@ class CharacterSprite extends AnimationComponent with Resizable {
 
   @override
   void update(double t) {
-
+    if (lives<=0){
+      this.x = -20000;
+    }
+    else {
     super.update(t);
     compx = this.x;
     compy = this.y;
@@ -210,7 +214,9 @@ class CharacterSprite extends AnimationComponent with Resizable {
       this.speedY += GRAVITY * t;
       this.angle = velocity.angle();
       if (y > size.height || y < 0) {
-        lives--;
+        if (lives >= 0) {
+          lives--;
+        }
         score = 0;
         updateLives  =true;
         updateScore = true;
@@ -224,11 +230,11 @@ class CharacterSprite extends AnimationComponent with Resizable {
       }
 
     }
-  }
+  }}
 
   onTap() {
     paused = false;
-    print("tapped");
+
 
 
     spikeDeath = false;
@@ -256,16 +262,29 @@ class MyGame extends BaseGame {
   var primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149];
   var composites = [4, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 21, 22, 24, 25, 26, 27, 28, 30, 32, 33, 34, 35, 36, 38, 39, 40, 42, 44, 45, 46, 48, 49, 50, 51, 52, 54, 55, 56, 57, 58, 60, 62, 63, 64, 65, 66, 68, 69, 70, 72, 74, 75, 76, 77, 78, 80, 81, 82, 84, 85, 86, 87, 88, 90, 91, 92, 93, 94, 95, 96, 98, 99, 100, 102, 104, 105, 106, 108, 110, 111, 112, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 128, 129, 130, 132, 133, 134, 135, 136, 138, 140, 141, 142, 143, 144, 145, 146, 147, 148, 150];
   var rng;
+
   TextPainter textPainterScore;
   TextPainter textPainterLives;
+  TextPainter textPainterNoMoreLives;
   Offset positionScore;
   Offset positionLives;
-
+  Offset positionNoMoreLives;
   MyGame(Size size){
 
     add(character = CharacterSprite());
     this.rng = new Random();
     heightPos = size.height;
+    textPainterNoMoreLives = TextPainter(text: TextSpan(
+        text: "" ,
+        style: TextStyle(
+            color: Color(0xFFFF0000), fontSize: 32)),
+        textDirection: TextDirection.ltr);
+    textPainterNoMoreLives.layout(
+      minWidth: 0,
+      maxWidth: size.width,
+    );
+    positionNoMoreLives = Offset(size.width / 2 - textPainterNoMoreLives.width / 2,
+        size.height/2 - textPainterNoMoreLives.height / 2);
 
     textPainterLives = TextPainter(text: TextSpan(
         text: "Lives: " + lives.toString(),
@@ -277,7 +296,7 @@ class MyGame extends BaseGame {
       maxWidth: size.width,
     );
     positionLives = Offset(size.width / 2 - textPainterLives.width / 2,
-        size.height * 0.016 - textPainterLives.height / 2);
+        size.height * 0.07- textPainterLives.height / 2);
 
 
     textPainterScore = TextPainter(text: TextSpan(
@@ -290,7 +309,7 @@ class MyGame extends BaseGame {
       maxWidth: size.width,
     );
     positionScore = Offset(size.width / 2 - textPainterScore.width / 2,
-        size.height * 0.05 - textPainterScore.height / 2);
+        size.height * 0.1 - textPainterScore.height / 2);
 
   }
 
@@ -300,6 +319,7 @@ class MyGame extends BaseGame {
     super.render(c);
     textPainterScore.paint(c, positionScore);
     textPainterLives.paint(c, positionLives);
+    textPainterNoMoreLives.paint(c, positionNoMoreLives);
   }
 
   @override
@@ -315,7 +335,7 @@ class MyGame extends BaseGame {
         maxWidth: tempWidth,
       );
       positionScore = Offset(tempWidth / 2 - textPainterScore.width / 2,
-          heightPos * 0.016 - textPainterScore.height / 2);
+          heightPos * 0.07 - textPainterScore.height / 2);
       updateLives = false;
     }
     if (updateScore) {
@@ -329,14 +349,17 @@ class MyGame extends BaseGame {
         maxWidth: tempWidth,
       );
       positionScore = Offset(tempWidth / 2 - textPainterScore.width / 2,
-          heightPos * 0.05 - textPainterScore.height / 2);
+          heightPos * 0.1 - textPainterScore.height / 2);
       updateScore = false;
     }
     TextConfig comp = TextConfig(color: BasicPalette.white.color, fontSize: 35);
     TextConfig primeC = TextConfig(color: Color(0xFFFF00FF), fontSize: 35);
+    if (lives> 0){
+
     timerPrime -= t;
     timerComp -= t;
-    if (!paused) {
+
+    if (!paused){
       if (timerPrime < 0) {
         print("prime");
           double posGem = rng.nextDouble() * heightPos;
@@ -370,6 +393,19 @@ class MyGame extends BaseGame {
         }
           timerComp = 0.8;
       }
+    }}
+    else {
+      textPainterNoMoreLives = TextPainter(text: TextSpan(
+          text: "Out of lives" ,
+          style: TextStyle(
+              color: Color(0xFFFF0000), fontSize: 32)),
+          textDirection: TextDirection.ltr);
+      textPainterNoMoreLives.layout(
+        minWidth: 0,
+        maxWidth: size.width,
+      );
+      positionNoMoreLives = Offset(size.width / 2 - textPainterScore.width / 2,
+          size.height/2 - textPainterScore.height / 2);
     }
 
       super.update(t);
