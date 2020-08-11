@@ -64,7 +64,7 @@ class myApp extends StatelessWidget {
 
       color: Colors.red,
       home: Scaffold(
-        appBar: AppBar( title: Text("PrimeDart")),
+        appBar: AppBar( title: Text("PrimeDart"),backgroundColor: Colors.redAccent,),
 
         body: SafeArea(
           child: Center(
@@ -80,7 +80,7 @@ class myApp extends StatelessWidget {
 
 double tempX = 0;
 double heightPos = 0;
-int lives = 2;
+int lives = 22;
 double orgPos = 0;
 class Prime extends TextComponent{
 
@@ -316,14 +316,14 @@ class MyGame extends BaseGame {
     textPainterLives = TextPainter(text: TextSpan(
         text: "Lives: " + lives.toString(),
         style: TextStyle(
-            color: Color(0xFFFF0000), fontSize: 15)),
+            color: Color(0xFFFF0000), fontSize: 22)),
         textDirection: TextDirection.ltr);
     textPainterLives.layout(
       minWidth: 0,
       maxWidth: size.width,
     );
     positionLives = Offset(size.width / 2 - textPainterLives.width / 2,
-        size.height * 0.07- textPainterLives.height / 2);
+        size.height * 0.02- textPainterLives.height / 2);
 
 
     textPainterScore = TextPainter(text: TextSpan(
@@ -336,7 +336,7 @@ class MyGame extends BaseGame {
       maxWidth: size.width,
     );
     positionScore = Offset(size.width / 2 - textPainterScore.width / 2,
-        size.height * 0.1 - textPainterScore.height / 2);
+        size.height * 0.06 - textPainterScore.height / 2);
 
   }
 
@@ -363,14 +363,13 @@ class MyGame extends BaseGame {
       textPainterLives = TextPainter(text: TextSpan(
           text: "Lives: " + lives.toString(),
           style: TextStyle(
-              color: Color(0xFFFF0000), fontSize: 15)),
+              color: Color(0xFFFF0000), fontSize: 22)),
           textDirection: TextDirection.ltr);
       textPainterLives.layout(
         minWidth: 0,
         maxWidth: tempWidth,
       );
-      positionScore = Offset(tempWidth / 2 - textPainterScore.width / 2,
-          heightPos * 0.07 - textPainterScore.height / 2);
+
       updateLives = false;
     }
     if (updateScore) {
@@ -383,8 +382,7 @@ class MyGame extends BaseGame {
         minWidth: 0,
         maxWidth: tempWidth,
       );
-      positionScore = Offset(tempWidth / 2 - textPainterScore.width / 2,
-          heightPos * 0.1 - textPainterScore.height / 2);
+
       updateScore = false;
     }
     TextConfig comp = TextConfig(color: BasicPalette.white.color, fontSize: 35);
