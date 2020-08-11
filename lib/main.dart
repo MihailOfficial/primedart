@@ -114,12 +114,14 @@ class Composite extends TextComponent{
   double posX, posY;
   bool collectComp = false;
   double accel = 0;
+
   Composite(String text, TextConfig textConfig, double posX, double posY) : super(text) {
     this.config = textConfig;
     this.anchor = Anchor.center;
     this.x = posX;
     this.y = posY;
     orgPos = this.y;
+
   }
 
   @override
@@ -135,7 +137,7 @@ class Composite extends TextComponent{
       this.config = collected;
       if (score>0) {
         lives--;
-        score--;
+        score --;
         updateLives  =true;
       }
       updateScore = true;
@@ -365,7 +367,7 @@ class MyGame extends BaseGame {
 
     if (!paused){
       if (timerPrime < 0) {
-        print("prime");
+
           double posGem = rng.nextDouble() * heightPos;
           if ((posGem - orgPos)<30){
            posGem -= 40;
@@ -377,17 +379,26 @@ class MyGame extends BaseGame {
 
             int gen = rng.nextInt(2);
             if (gen == 0){
-              int gen = rng.nextInt(1);
-              int genInt = rng.nextInt(35);
-              add(prime = Prime(primes[genInt].toString(), primeC, tempWidth, posGem, 2));
+
+              add(prime = Prime(primes[rng.nextInt(35)].toString(), comp, tempWidth, posGem, 2));
             }
             else {
-              int genInt = rng.nextInt(35);
-              int genSpecific = rng.nextInt(10);
-              int tempGenNum = subtrators[genSpecific];
-              int tempPrime = primes[genInt];
+
+              int tempGenNum = subtrators[rng.nextInt(10)];
+              int tempLoop = 0;
+              int tempPrime;
+              while (tempLoop==0){
+                tempPrime = primes[rng.nextInt(35)];
+                if (tempPrime>tempGenNum){
+                  tempLoop++;
+                }
+                else {
+                  tempPrime = primes[rng.nextInt(35)];
+                }
+              }
+
               int finalnum = tempPrime - tempGenNum;
-              add(prime = Prime(finalnum.toString() + "+" + tempGenNum.toString() , primeC, tempWidth, posGem, 1));
+              add(prime = Prime(finalnum.toString() + "+" + tempGenNum.toString() , comp, tempWidth, posGem, 2));
             }
 
           }
@@ -396,7 +407,7 @@ class MyGame extends BaseGame {
 
       }
       if (timerComp < 0) {
-        print("comp");
+
           double posGem = rng.nextDouble() * heightPos;
         if ((posGem - orgPos)<30){
           posGem -= 40;
@@ -405,13 +416,36 @@ class MyGame extends BaseGame {
           posGem += 40;
         }
         if (posGem>60 && posGem<(heightPos-60)) {
-          int genInt = rng.nextInt(35);
-          add(composite = Composite(
-              composites[genInt].toString(), comp, tempWidth, posGem));
+
+          int gen = rng.nextInt(2);
+          if (gen == 0){
+
+            add(composite = Composite(composites[rng.nextInt(35)].toString(), primeC, tempWidth, posGem));
+          }
+          else {
+
+            int tempGenNum = subtrators[rng.nextInt(10)];
+            int tempLoop = 0;
+            int tempComp;
+            while (tempLoop==0){
+              tempComp = composites[rng.nextInt(35)];
+              if (tempComp>tempGenNum){
+                tempLoop++;
+              }
+              else {
+                tempComp = composites[rng.nextInt(35)];
+              }
+            }
+
+            int finalnum = tempComp - tempGenNum;
+            add(composite = Composite(finalnum.toString() + "+" + tempGenNum.toString() , primeC, tempWidth, posGem));
+          }
+
         }
           timerComp = 0.8;
       }
-    }}
+    }
+    }
     else {
       textPainterNoMoreLives = TextPainter(text: TextSpan(
           text: "Out of lives" ,
