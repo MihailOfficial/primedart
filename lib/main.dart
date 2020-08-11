@@ -56,6 +56,7 @@ void main() async {
 double tempX = 0;
 double heightPos = 0;
 int lives = 20;
+double orgPos = 0;
 class Prime extends TextComponent{
    bool collectedItem = false;
   double speedX = 200.0;
@@ -67,7 +68,7 @@ class Prime extends TextComponent{
     this.anchor = Anchor.center;
     this.x = posX;
     this.y = posY;
-
+    orgPos = this.y;
   }
 
   @override
@@ -102,6 +103,7 @@ class Prime extends TextComponent{
     }
   }
 }
+
 class Composite extends TextComponent{
   bool collectedItem = false;
   double speedX = 200.0;
@@ -113,7 +115,7 @@ class Composite extends TextComponent{
     this.anchor = Anchor.center;
     this.x = posX;
     this.y = posY;
-
+    orgPos = this.y;
   }
 
   @override
@@ -177,7 +179,7 @@ class CharacterSprite extends AnimationComponent with Resizable {
   Position get velocity => Position(300.0, speedY);
 
   reset() {
-    this.x = size.width / 2;
+    this.x = size.width / 4;
     this.y = size.height / 2;
 
     heightPos = size.height;
@@ -234,9 +236,7 @@ class CharacterSprite extends AnimationComponent with Resizable {
       return;
     }
 
-
       speedY = BOOST.toDouble();
-
 
   }
 }
@@ -248,170 +248,20 @@ class MyGame extends BaseGame {
   }
 
   double timerPrime = 0;
-  double timerComp = 0;
+  double timerComp  = 0;
   CharacterSprite character;
   Prime prime;
   Composite composite;
-  var primes = [
-    2,
-    3,
-    5,
-    7,
-    11,
-    13,
-    17,
-    19,
-    23,
-    29,
-    31,
-    37,
-    41,
-    43,
-    47,
-    53,
-    59,
-    61,
-    67,
-    71,
-    73,
-    79,
-    83,
-    89,
-    97,
-    101,
-    103,
-    107,
-    109,
-    113,
-    127,
-    131,
-    137,
-    139,
-    149
-  ];
-  var composites = [
-    4,
-    6,
-    8,
-    9,
-    10,
-    12,
-    14,
-    15,
-    16,
-    18,
-    20,
-    21,
-    22,
-    24,
-    25,
-    26,
-    27,
-    28,
-    30,
-    32,
-    33,
-    34,
-    35,
-    36,
-    38,
-    39,
-    40,
-    42,
-    44,
-    45,
-    46,
-    48,
-    49,
-    50,
-    51,
-    52,
-    54,
-    55,
-    56,
-    57,
-    58,
-    60,
-    62,
-    63,
-    64,
-    65,
-    66,
-    68,
-    69,
-    70,
-    72,
-    74,
-    75,
-    76,
-    77,
-    78,
-    80,
-    81,
-    82,
-    84,
-    85,
-    86,
-    87,
-    88,
-    90,
-    91,
-    92,
-    93,
-    94,
-    95,
-    96,
-    98,
-    99,
-    100,
-    102,
-    104,
-    105,
-    106,
-    108,
-    110,
-    111,
-    112,
-    114,
-    115,
-    116,
-    117,
-    118,
-    119,
-    120,
-    121,
-    122,
-    123,
-    124,
-    125,
-    126,
-    128,
-    129,
-    130,
-    132,
-    133,
-    134,
-    135,
-    136,
-    138,
-    140,
-    141,
-    142,
-    143,
-    144,
-    145,
-    146,
-    147,
-    148,
-    150
-  ];
+  var primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149];
+  var composites = [4, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 21, 22, 24, 25, 26, 27, 28, 30, 32, 33, 34, 35, 36, 38, 39, 40, 42, 44, 45, 46, 48, 49, 50, 51, 52, 54, 55, 56, 57, 58, 60, 62, 63, 64, 65, 66, 68, 69, 70, 72, 74, 75, 76, 77, 78, 80, 81, 82, 84, 85, 86, 87, 88, 90, 91, 92, 93, 94, 95, 96, 98, 99, 100, 102, 104, 105, 106, 108, 110, 111, 112, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 128, 129, 130, 132, 133, 134, 135, 136, 138, 140, 141, 142, 143, 144, 145, 146, 147, 148, 150];
   var rng;
   TextPainter textPainterScore;
   TextPainter textPainterLives;
   Offset positionScore;
   Offset positionLives;
 
-  MyGame(Size size) {
+  MyGame(Size size){
+
     add(character = CharacterSprite());
     this.rng = new Random();
     heightPos = size.height;
@@ -487,35 +337,37 @@ class MyGame extends BaseGame {
     timerComp -= t;
     if (!paused) {
       if (timerPrime < 0) {
-        double posGem = rng.nextDouble() * heightPos;
-        if (posGem<40){
-            posGem += 40;
-        }
-        else if (posGem > heightPos-40){
-            posGem -= 40;
-        }
+        print("prime");
+          double posGem = rng.nextDouble() * heightPos;
+          if ((posGem - orgPos)<30){
+           posGem -= 40;
+          }
+          if ((orgPos - posGem)<30){
+              posGem += 40;
+          }
+          if (posGem>60 && posGem<(heightPos-60)){
+            int genInt = rng.nextInt(35);
+            add(prime = Prime(primes[genInt].toString(), primeC, tempWidth, posGem));
+          }
 
-        int genInt = rng.nextInt(35);
-        add(prime =
-            Prime(primes[genInt].toString(), primeC, tempWidth, posGem));
+        timerPrime = 1;
 
-        timerPrime =
-            Normal.quantile(rng.nextDouble(), mean: 0, variance: 0.7) + 2;
       }
       if (timerComp < 0) {
-        double posGem = rng.nextDouble() * heightPos;
-        if (posGem<50){
-          posGem += 60;
-        }
-        else if (posGem > heightPos-40){
+        print("comp");
+          double posGem = rng.nextDouble() * heightPos;
+        if ((posGem - orgPos)<30){
           posGem -= 40;
         }
-        int genInt = rng.nextInt(35);
-        add(composite =
-            Composite(composites[genInt].toString(), comp, tempWidth, posGem));
-
-        timerComp =
-            Normal.quantile(rng.nextDouble(), mean: 0, variance: 0.7) + 2;
+        if ((orgPos - posGem)<30){
+          posGem += 40;
+        }
+        if (posGem>60 && posGem<(heightPos-60)) {
+          int genInt = rng.nextInt(35);
+          add(composite = Composite(
+              composites[genInt].toString(), comp, tempWidth, posGem));
+        }
+          timerComp = 0.8;
       }
     }
 
