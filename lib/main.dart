@@ -218,7 +218,7 @@ class CharacterSprite extends AnimationComponent with Resizable {
       this.speedY += GRAVITY * t;
       this.angle = velocity.angle();
       if (y > size.height || y < 0) {
-        if (lives >= 0) {
+        if (lives > 0) {
           lives--;
         }
         score = 0;
@@ -319,13 +319,19 @@ class MyGame extends BaseGame {
 
   }
 
+  static const COLOR = const Color(0xFF527A80);
   @override
   void render(Canvas c) {
 
+    final Paint _paint = Paint()
+    ..color = COLOR;
+    c.drawRect(Rect.fromLTWH(0.0, 0.0, size.width, size.height), _paint);
     super.render(c);
+
     textPainterScore.paint(c, positionScore);
     textPainterLives.paint(c, positionLives);
     textPainterNoMoreLives.paint(c, positionNoMoreLives);
+
   }
 
   @override
