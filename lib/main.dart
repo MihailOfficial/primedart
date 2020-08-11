@@ -39,20 +39,43 @@ MyGame game;
 double tempHeight = 0;
 bool updateLives  =false;
 bool hasLives = true;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //SharedPreferences storage = await SharedPreferences.getInstance();
 
+
   Util flameUtil = Util();
-  await flameUtil.fullScreen();
+
   final size = await Flame.util.initialDimensions();
-  game = MyGame(size);
   tempWidth = size.width;
   tempHeight = size.height;
-  runApp(game.widget);
+  game = MyGame(size);
+
+  runApp(myApp());
   TapGestureRecognizer tapper = TapGestureRecognizer();
   tapper.onTapDown = game.onTapDown;
   flameUtil.addGestureRecognizer(tapper);
+}
+class myApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+
+      color: Colors.red,
+      home: Scaffold(
+        appBar: AppBar( title: Text("PrimeDart")),
+
+        body: SafeArea(
+          child: Center(
+            child: Container(
+              child: game.widget,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 double tempX = 0;
@@ -60,6 +83,7 @@ double heightPos = 0;
 int lives = 2;
 double orgPos = 0;
 class Prime extends TextComponent{
+
    bool collectedItem = false;
   double speedX = 200.0;
   double posX, posY;
@@ -253,10 +277,7 @@ class CharacterSprite extends AnimationComponent with Resizable {
 }
 
 class MyGame extends BaseGame {
-  @override
-  void resize(Size size) {
-    super.resize(size);
-  }
+
 
   double timerPrime = 0;
   double timerComp  = 0;
@@ -279,7 +300,7 @@ class MyGame extends BaseGame {
 
     add(character = CharacterSprite());
     this.rng = new Random();
-    heightPos = size.height;
+
     textPainterNoMoreLives = TextPainter(text: TextSpan(
         text: "" ,
         style: TextStyle(
@@ -322,6 +343,8 @@ class MyGame extends BaseGame {
   static const COLOR = const Color(0xFF527A80);
   @override
   void render(Canvas c) {
+
+
 
     final Paint _paint = Paint()
     ..color = COLOR;
