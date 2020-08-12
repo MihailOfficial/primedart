@@ -48,6 +48,8 @@ void main() async {
   Util flameUtil = Util();
 
   final size = await Flame.util.initialDimensions();
+  SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
+
   tempWidth = size.width;
   tempHeight = size.height;
   game = MyGame(size);
@@ -56,17 +58,40 @@ void main() async {
   TapGestureRecognizer tapper = TapGestureRecognizer();
   tapper.onTapDown = game.onTapDown;
   flameUtil.addGestureRecognizer(tapper);
+
 }
 class myApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
 
       color: Colors.red,
       home: Scaffold(
-        appBar: AppBar( title: Text("PrimeDart"),backgroundColor: Colors.redAccent,),
+        appBar: AppBar(
+          title: Text("Prime Dart"),
+          backgroundColor: Colors.redAccent,
+            leading: GestureDetector(
+              onTap: () { /* Write listener code here */ },
+              child: Icon(
+                Icons.menu,  // add custom icons also
+              ),
+            ),
+            actions: <Widget>[
+        Padding(
+        padding: EdgeInsets.only(right: 20.0),
+          child: GestureDetector(
+            onTap: () {},
+            child: Icon(
+              Icons.star_border,
+              size: 26.0,
+            ),
+          )
+      ),
+        ]),
 
         body: SafeArea(
+
           child: Center(
             child: Container(
               child: game.widget,
@@ -74,6 +99,7 @@ class myApp extends StatelessWidget {
           ),
         ),
       ),
+
     );
   }
 }
@@ -280,13 +306,164 @@ class MyGame extends BaseGame {
 
 
   double timerPrime = 0;
-  double timerComp  = 0;
+  double timerComp = 0;
   CharacterSprite character;
   Prime prime;
   Composite composite;
-  var primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149];
-  var composites = [4, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 21, 22, 24, 25, 26, 27, 28, 30, 32, 33, 34, 35, 36, 38, 39, 40, 42, 44, 45, 46, 48, 49, 50, 51, 52, 54, 55, 56, 57, 58, 60, 62, 63, 64, 65, 66, 68, 69, 70, 72, 74, 75, 76, 77, 78, 80, 81, 82, 84, 85, 86, 87, 88, 90, 91, 92, 93, 94, 95, 96, 98, 99, 100, 102, 104, 105, 106, 108, 110, 111, 112, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 128, 129, 130, 132, 133, 134, 135, 136, 138, 140, 141, 142, 143, 144, 145, 146, 147, 148, 150];
-  var subtrators = [1,2,3,4,5,6,7,8,9,10];
+  var primes = [
+    2,
+    3,
+    5,
+    7,
+    11,
+    13,
+    17,
+    19,
+    23,
+    29,
+    31,
+    37,
+    41,
+    43,
+    47,
+    53,
+    59,
+    61,
+    67,
+    71,
+    73,
+    79,
+    83,
+    89,
+    97,
+    101,
+    103,
+    107,
+    109,
+    113,
+    127,
+    131,
+    137,
+    139,
+    149
+  ];
+  var composites = [
+    4,
+    6,
+    8,
+    9,
+    10,
+    12,
+    14,
+    15,
+    16,
+    18,
+    20,
+    21,
+    22,
+    24,
+    25,
+    26,
+    27,
+    28,
+    30,
+    32,
+    33,
+    34,
+    35,
+    36,
+    38,
+    39,
+    40,
+    42,
+    44,
+    45,
+    46,
+    48,
+    49,
+    50,
+    51,
+    52,
+    54,
+    55,
+    56,
+    57,
+    58,
+    60,
+    62,
+    63,
+    64,
+    65,
+    66,
+    68,
+    69,
+    70,
+    72,
+    74,
+    75,
+    76,
+    77,
+    78,
+    80,
+    81,
+    82,
+    84,
+    85,
+    86,
+    87,
+    88,
+    90,
+    91,
+    92,
+    93,
+    94,
+    95,
+    96,
+    98,
+    99,
+    100,
+    102,
+    104,
+    105,
+    106,
+    108,
+    110,
+    111,
+    112,
+    114,
+    115,
+    116,
+    117,
+    118,
+    119,
+    120,
+    121,
+    122,
+    123,
+    124,
+    125,
+    126,
+    128,
+    129,
+    130,
+    132,
+    133,
+    134,
+    135,
+    136,
+    138,
+    140,
+    141,
+    142,
+    143,
+    144,
+    145,
+    146,
+    147,
+    148,
+    150
+  ];
+  var subtrators = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   var rng;
 
@@ -296,13 +473,13 @@ class MyGame extends BaseGame {
   Offset positionScore;
   Offset positionLives;
   Offset positionNoMoreLives;
-  MyGame(Size size){
 
+  MyGame(Size size) {
     add(character = CharacterSprite());
     this.rng = new Random();
 
     textPainterNoMoreLives = TextPainter(text: TextSpan(
-        text: "" ,
+        text: "",
         style: TextStyle(
             color: Color(0xFFFF0000), fontSize: 32)),
         textDirection: TextDirection.ltr);
@@ -310,51 +487,48 @@ class MyGame extends BaseGame {
       minWidth: 0,
       maxWidth: size.width,
     );
-    positionNoMoreLives = Offset(size.width / 2 - textPainterNoMoreLives.width / 2,
-        size.height/2 - textPainterNoMoreLives.height / 2);
+    positionNoMoreLives =
+        Offset(size.width / 2 - textPainterNoMoreLives.width / 2,
+            size.height / 2 - textPainterNoMoreLives.height / 2);
 
     textPainterLives = TextPainter(text: TextSpan(
         text: "Lives: " + lives.toString(),
         style: TextStyle(
-            color: Color(0xFFFF0000), fontSize: 22)),
+            color: Colors.white, fontSize: 26)),
         textDirection: TextDirection.ltr);
     textPainterLives.layout(
       minWidth: 0,
       maxWidth: size.width,
     );
-    positionLives = Offset(size.width / 2 - textPainterLives.width / 2,
-        size.height * 0.02- textPainterLives.height / 2);
+    positionLives = Offset(size.width / 4 - textPainterLives.width / 2,
+        size.height * 0.03 - textPainterLives.height / 2);
 
 
     textPainterScore = TextPainter(text: TextSpan(
         text: "Score: " + score.toString(),
         style: TextStyle(
-            color: Colors.white, fontSize: 32)),
+            color: Colors.white, fontSize: 26)),
         textDirection: TextDirection.ltr);
     textPainterScore.layout(
       minWidth: 0,
       maxWidth: size.width,
     );
-    positionScore = Offset(size.width / 2 - textPainterScore.width / 2,
-        size.height * 0.06 - textPainterScore.height / 2);
-
+    positionScore = Offset(size.width * (3 / 4) - textPainterScore.width / 2,
+        size.height * 0.03 - textPainterScore.height / 2);
   }
 
   static const COLOR = const Color(0xFF527A80);
+
   @override
   void render(Canvas c) {
-
-
-
     final Paint _paint = Paint()
-    ..color = COLOR;
+      ..color = COLOR;
     c.drawRect(Rect.fromLTWH(0.0, 0.0, size.width, size.height), _paint);
     super.render(c);
 
     textPainterScore.paint(c, positionScore);
     textPainterLives.paint(c, positionLives);
     textPainterNoMoreLives.paint(c, positionNoMoreLives);
-
   }
 
   @override
@@ -363,7 +537,7 @@ class MyGame extends BaseGame {
       textPainterLives = TextPainter(text: TextSpan(
           text: "Lives: " + lives.toString(),
           style: TextStyle(
-              color: Color(0xFFFF0000), fontSize: 22)),
+              color: Colors.white, fontSize: 26)),
           textDirection: TextDirection.ltr);
       textPainterLives.layout(
         minWidth: 0,
@@ -376,7 +550,7 @@ class MyGame extends BaseGame {
       textPainterScore = TextPainter(text: TextSpan(
           text: "Score: " + score.toString(),
           style: TextStyle(
-              color: Colors.white, fontSize: 32)),
+              color: Colors.white, fontSize: 26)),
           textDirection: TextDirection.ltr);
       textPainterScore.layout(
         minWidth: 0,
@@ -385,38 +559,56 @@ class MyGame extends BaseGame {
 
       updateScore = false;
     }
-    TextConfig comp = TextConfig(color: BasicPalette.white.color, fontSize: 35);
-    TextConfig primeC = TextConfig(color: Color(0xFFFF00FF), fontSize: 35);
-    if (lives> 0){
+    TextConfig comp = TextConfig(color: BasicPalette.white.color, fontSize: 26);
+    TextConfig primeC = TextConfig(
+        color: BasicPalette.white.color, fontSize: 26);
+    if (lives > 0) {
+      timerPrime -= t;
+      timerComp -= t;
 
-    timerPrime -= t;
-    timerComp -= t;
-
-    if (!paused){
-      if (timerPrime < 0) {
-
+      if (!paused) {
+        if (timerPrime < 0) {
           double posGem = rng.nextDouble() * heightPos;
-          if ((posGem - orgPos)<30){
-           posGem -= 40;
+          if ((posGem - orgPos) < 30) {
+            posGem -= 40;
           }
-          if ((orgPos - posGem)<30){
-              posGem += 40;
+          if ((orgPos - posGem) < 30) {
+            posGem += 40;
           }
-          if (posGem>60 && posGem<(heightPos-60)){
-
-            int gen = rng.nextInt(2);
-            if (gen == 0){
-
-              add(prime = Prime(primes[rng.nextInt(35)].toString(), comp, tempWidth, posGem, 2));
+          if (posGem > 60 && posGem < (heightPos - 60)) {
+            int gen = rng.nextInt(3);
+            if (gen == 0) {
+              add(prime = Prime(
+                  primes[rng.nextInt(35)].toString(), comp, tempWidth, posGem,
+                  2));
             }
-            else {
-
+            else if (gen == 1) {
               int tempGenNum = subtrators[rng.nextInt(10)];
               int tempLoop = 0;
               int tempPrime;
-              while (tempLoop==0){
+              while (tempLoop == 0) {
                 tempPrime = primes[rng.nextInt(35)];
-                if (tempPrime>tempGenNum){
+                if (tempPrime > tempGenNum) {
+                  tempLoop++;
+                }
+                else {
+                  tempPrime = primes[rng.nextInt(35)];
+                }
+              }
+
+              int finalnum = tempPrime + tempGenNum;
+              add(prime = Prime(
+                  finalnum.toString() + "-" + tempGenNum.toString(), comp,
+                  tempWidth, posGem, 2));
+            }
+
+            else {
+              int tempGenNum = subtrators[rng.nextInt(10)];
+              int tempLoop = 0;
+              int tempPrime;
+              while (tempLoop == 0) {
+                tempPrime = primes[rng.nextInt(35)];
+                if (tempPrime > tempGenNum) {
                   tempLoop++;
                 }
                 else {
@@ -425,57 +617,77 @@ class MyGame extends BaseGame {
               }
 
               int finalnum = tempPrime - tempGenNum;
-              add(prime = Prime(finalnum.toString() + "+" + tempGenNum.toString() , comp, tempWidth, posGem, 2));
+              add(prime = Prime(
+                  finalnum.toString() + "+" + tempGenNum.toString(), comp,
+                  tempWidth, posGem, 2));
             }
-
           }
 
-        timerPrime = 1;
+          timerPrime = 1;
+        }
 
-      }
-      if (timerComp < 0) {
-
+        if (timerComp < 0) {
           double posGem = rng.nextDouble() * heightPos;
-        if ((posGem - orgPos)<30){
-          posGem -= 40;
-        }
-        if ((orgPos - posGem)<30){
-          posGem += 40;
-        }
-        if (posGem>60 && posGem<(heightPos-60)) {
-
-          int gen = rng.nextInt(2);
-          if (gen == 0){
-
-            add(composite = Composite(composites[rng.nextInt(35)].toString(), primeC, tempWidth, posGem));
+          if ((posGem - orgPos) < 30) {
+            posGem -= 40;
           }
-          else {
-
-            int tempGenNum = subtrators[rng.nextInt(10)];
-            int tempLoop = 0;
-            int tempComp;
-            while (tempLoop==0){
-              tempComp = composites[rng.nextInt(35)];
-              if (tempComp>tempGenNum){
-                tempLoop++;
-              }
-              else {
+          if ((orgPos - posGem) < 30) {
+            posGem += 40;
+          }
+          if (posGem > 60 && posGem < (heightPos - 60)) {
+            int gen = rng.nextInt(3);
+            if (gen == 0) {
+              add(composite = Composite(
+                  composites[rng.nextInt(35)].toString(), comp, tempWidth,
+                  posGem));
+            }
+            else if (gen == 1) {
+              int tempGenNum = subtrators[rng.nextInt(10)];
+              int tempLoop = 0;
+              int tempComp;
+              while (tempLoop == 0) {
                 tempComp = composites[rng.nextInt(35)];
+                if (tempComp > tempGenNum) {
+                  tempLoop++;
+                }
+                else {
+                  tempComp = composites[rng.nextInt(35)];
+                }
               }
+
+              int finalnum = tempComp + tempGenNum;
+              add(composite = Composite(
+                  finalnum.toString() + "-" + tempGenNum.toString(), comp,
+                  tempWidth, posGem));
             }
 
-            int finalnum = tempComp - tempGenNum;
-            add(composite = Composite(finalnum.toString() + "+" + tempGenNum.toString() , primeC, tempWidth, posGem));
-          }
+            else {
+              int tempGenNum = subtrators[rng.nextInt(10)];
+              int tempLoop = 0;
+              int tempComp;
+              while (tempLoop == 0) {
+                tempComp = composites[rng.nextInt(35)];
+                if (tempComp > tempGenNum) {
+                  tempLoop++;
+                }
+                else {
+                  tempComp = composites[rng.nextInt(35)];
+                }
+              }
 
-        }
+              int finalnum = tempComp - tempGenNum;
+              add(composite = Composite(
+                  finalnum.toString() + "+" + tempGenNum.toString(), comp,
+                  tempWidth, posGem));
+            }
+          }
           timerComp = 0.8;
+        }
       }
-    }
     }
     else {
       textPainterNoMoreLives = TextPainter(text: TextSpan(
-          text: "Out of lives" ,
+          text: "Out of lives",
           style: TextStyle(
               color: Color(0xFFFF0000), fontSize: 32)),
           textDirection: TextDirection.ltr);
@@ -483,17 +695,18 @@ class MyGame extends BaseGame {
         minWidth: 0,
         maxWidth: size.width,
       );
-      positionNoMoreLives = Offset(size.width / 2 - textPainterScore.width / 2,
-          size.height/2 - textPainterScore.height / 2);
-    }
+      positionNoMoreLives =
+          Offset(size.width / 2 - textPainterScore.width / 2,
+              size.height / 2 - textPainterScore.height / 2);
+    } super.update(t);
+  }
 
-      super.update(t);
 
-
+  @override
+  void onTapDown(TapDownDetails d) {
+    character.onTap();
+  }
 }
-    @override
-    void onTapDown(TapDownDetails d) {
-      character.onTap();
-    }
 
-}
+
+
