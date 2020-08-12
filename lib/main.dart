@@ -72,7 +72,7 @@ class myApp extends StatelessWidget {
           title: Text("Prime Dart"),
           backgroundColor: Colors.redAccent,
             leading: GestureDetector(
-              onTap: () { /* Write listener code here */ },
+              onTap: () { print("see menu");},
               child: Icon(
                 Icons.menu,  // add custom icons also
               ),
@@ -81,7 +81,7 @@ class myApp extends StatelessWidget {
         Padding(
         padding: EdgeInsets.only(right: 20.0),
           child: GestureDetector(
-            onTap: () {},
+            onTap: () {print("see high scores");},
             child: Icon(
               Icons.star_border,
               size: 26.0,
@@ -140,7 +140,7 @@ class Prime extends TextComponent{
       updateScore = true;
       collectedItem = true;
     }
-    if (this.x <0 || this.y<0){
+    if (this.x <-30 || this.y<0){
       this.x = -20000;
      destroy();
 
@@ -183,7 +183,7 @@ class Composite extends TextComponent{
 
     if (dist<45 && !collectedItem){
       collectComp = true;
-      TextConfig collected = TextConfig(color: Color( 0xFF808080), fontSize: 35);
+      TextConfig collected = TextConfig(color: Color( 0xFF808080), fontSize: 30);
       this.config = collected;
       if (score>0) {
         lives--;
@@ -193,7 +193,7 @@ class Composite extends TextComponent{
       updateScore = true;
       collectedItem = true;
     }
-    if (this.x <0 || this.y>tempHeight){
+    if (this.x <-30 || this.y>tempHeight){
       this.x = -20000;
       destroy();
 
