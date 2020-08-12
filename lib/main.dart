@@ -1,7 +1,6 @@
 
 import 'dart:io';
 import 'dart:ui';
-
 import 'package:flame/anchor.dart';
 import 'package:flame/animation.dart';
 import 'package:flame/components/animation_component.dart';
@@ -39,6 +38,9 @@ MyGame game;
 double tempHeight = 0;
 bool updateLives  =false;
 bool hasLives = true;
+
+//Building APK --> flutter build apk --split-per-abi
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -106,7 +108,7 @@ class myApp extends StatelessWidget {
 
 double tempX = 0;
 double heightPos = 0;
-int lives = 22;
+int lives = 25;
 double orgPos = 0;
 class Prime extends TextComponent{
 
@@ -464,7 +466,7 @@ class MyGame extends BaseGame {
     150
   ];
   var subtrators = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
+  var colours = [Color(0xFF0000FF), Color(0xFFFF0000), Color(0xFF00FF00), Color(0xFFFFFF00), Color(0xFFFFA500)];
   var rng;
 
   TextPainter textPainterScore;
@@ -559,9 +561,10 @@ class MyGame extends BaseGame {
 
       updateScore = false;
     }
-    TextConfig comp = TextConfig(color: BasicPalette.white.color, fontSize: 26);
-    TextConfig primeC = TextConfig(
-        color: BasicPalette.white.color, fontSize: 26);
+    int genColourComp = rng.nextInt(5);
+    TextConfig comp = TextConfig(color: colours[genColourComp], fontSize: 26);
+    int genColourPrime = rng.nextInt(5);
+    TextConfig primeC = TextConfig(color: colours[genColourPrime], fontSize: 26);
     if (lives > 0) {
       timerPrime -= t;
       timerComp -= t;
