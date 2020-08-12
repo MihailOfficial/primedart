@@ -119,7 +119,7 @@ class Prime extends TextComponent{
   Prime(String text, TextConfig textConfig, double posX, double posY, int value) : super(text) {
     this.config = textConfig;
     this.anchor = Anchor.center;
-    this.x = posX;
+    this.x = posX+30;
     this.y = posY;
     orgPos = this.y;
     value1 = value;
@@ -168,7 +168,7 @@ class Composite extends TextComponent{
   Composite(String text, TextConfig textConfig, double posX, double posY) : super(text) {
     this.config = textConfig;
     this.anchor = Anchor.center;
-    this.x = posX;
+    this.x = posX+30;
     this.y = posY;
     orgPos = this.y;
 
