@@ -46,6 +46,7 @@ bool hasLives = true;
 
 
 void main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
   //SharedPreferences storage = await SharedPreferences.getInstance();
   SystemChrome.setEnabledSystemUIOverlays([]);
@@ -53,8 +54,8 @@ void main() async {
   Util flameUtil = Util();
 
   final size = await Flame.util.initialDimensions();
-  SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
-
+ SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
+  //flameUtil.fullScreen();
   tempWidth = size.width;
   tempHeight = size.height;
   game = MyGame(size);
@@ -123,6 +124,7 @@ class Prime extends TextComponent{
   bool collectPrime = false;
   double accel = 0;
   int value1 = 0;
+   bool returned = false;
   Prime(String text, TextConfig textConfig, double posX, double posY, int value) : super(text) {
     this.config = textConfig;
     this.anchor = Anchor.center;
@@ -130,8 +132,12 @@ class Prime extends TextComponent{
     this.y = posY;
     orgPos = this.y;
     value1 = value;
-  }
 
+  }
+   @override
+   bool destroy() {
+     return returned;
+   }
   @override
   void update(double tt){
     if (paused){
@@ -147,8 +153,8 @@ class Prime extends TextComponent{
       updateScore = true;
       collectedItem = true;
     }
-    if (this.x <-30 || this.y<0){
-      this.x = -20000;
+    if (this.x <100 || this.y<0){
+      returned = true;
      destroy();
 
     }
@@ -171,7 +177,7 @@ class Composite extends TextComponent{
   double posX, posY;
   bool collectComp = false;
   double accel = 0;
-
+  bool returned = false;
   Composite(String text, TextConfig textConfig, double posX, double posY) : super(text) {
     this.config = textConfig;
     this.anchor = Anchor.center;
@@ -180,7 +186,10 @@ class Composite extends TextComponent{
     orgPos = this.y;
 
   }
-
+  @override
+  bool destroy() {
+    return returned;
+  }
   @override
   void update(double tt){
     if (paused){
@@ -200,8 +209,8 @@ class Composite extends TextComponent{
       updateScore = true;
       collectedItem = true;
     }
-    if (this.x <-30 || this.y>tempHeight){
-      this.x = -20000;
+    if (this.x <100 || this.y>tempHeight){
+      returned = true;
       destroy();
 
     }
@@ -508,7 +517,6 @@ class MyGame extends BaseGame {
     ParallaxImage("Nebula Blue.png"),
     ParallaxImage("Stars Small_1.png"),
     ParallaxImage("Stars Small_2.png"),
-    ParallaxImage("Stars Small_2.png"),
     ParallaxImage("Stars-Big_1_1_PC.png"),
     ParallaxImage("Stars-Big_1_2_PC.png"),
 
@@ -516,6 +524,7 @@ class MyGame extends BaseGame {
   final parallaxComponent = ParallaxComponent(images,
       baseSpeed: const Offset(20, 0), layerDelta: const Offset(30, 0));
   MyGame(Size size) {
+
     add(parallaxComponent);
     add(Bg());
     add(character = CharacterSprite());

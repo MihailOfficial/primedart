@@ -53,24 +53,8 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/catimage.png
-    - assets/images/background.png
-    - assets/images/bg.png
-    - assets/images/mountain-far.png
-    - assets/images/mountains.png
-    - assets/images/trees.png
-    - assets/images/foreground-trees.png
     - assets/images/coin.png
     - assets/images/cat.png
-    - assets/images/bg-trees.png
-    - assets/images/bg-mountains.png
-    - assets/images/bg-clouds.png
-    - assets/images/Running (32 x 32).png
-
-    - assets/images/cointrial.png
-    - assets/images/gemIcon.png
-    - assets/images/Spike.png
-    - assets/images/Collected.png
-    - assets/images/pause.png
     - assets/images/heart.png
     - assets/images/Nebula Aqua-Pink.png
     - assets/images/Stars Small_1.png
