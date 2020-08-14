@@ -20,13 +20,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+
+import 'package:flutter/services.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/services.dart';
 import 'dart:math';
 import "package:normal/normal.dart";
 import "package:flame/time.dart";
 import 'package:shared_preferences/shared_preferences.dart';
 
-const COLOR = const Color(0xff0000ff);
+const COLOR = const Color(0xFF6A60D6);
 const SIZE = 52.0;
 const GRAVITY = 700.0;
 const BOOST = -300;
@@ -45,7 +48,7 @@ bool hasLives = true;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //SharedPreferences storage = await SharedPreferences.getInstance();
-
+  SystemChrome.setEnabledSystemUIOverlays([]);
 
   Util flameUtil = Util();
 
@@ -72,7 +75,7 @@ class myApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           title: Text("Prime Dart"),
-          backgroundColor: Colors.redAccent,
+          backgroundColor: Color(0xFF383838),
             leading: GestureDetector(
               onTap: () { print("see menu");},
               child: Icon(
@@ -97,6 +100,7 @@ class myApp extends StatelessWidget {
           child: Center(
             child: Container(
               child: game.widget,
+
             ),
           ),
         ),
@@ -104,6 +108,7 @@ class myApp extends StatelessWidget {
 
     );
   }
+
 }
 
 double tempX = 0;
@@ -223,6 +228,7 @@ bool frozen = true;
 double compx;
 double compy;
 bool paused = false;
+
 class CharacterSprite extends AnimationComponent with Resizable {
   double speedY = 0.0;
 
@@ -303,7 +309,28 @@ class CharacterSprite extends AnimationComponent with Resizable {
 
   }
 }
+class Heart extends AnimationComponent with Resizable {
+  double speedY = 0.0;
 
+  Heart()
+      : super.sequenced(SIZE/2 , SIZE/2, 'heart.png', 1,
+      textureWidth: 200.0, textureHeight: 200.0) {
+    this.anchor = Anchor.center;
+    this.x = tempWidth*(4/13);
+    this.y = tempHeight * 0.04;
+  }
+
+
+  @override
+  void resize(Size size) {
+
+    super.resize(size);
+
+    frozen = true;
+  }
+
+
+}
 class MyGame extends BaseGame {
 
 
@@ -311,6 +338,7 @@ class MyGame extends BaseGame {
   double timerComp = 0;
   CharacterSprite character;
   Prime prime;
+  Heart heart;
   Composite composite;
   var primes = [
     2,
@@ -475,11 +503,25 @@ class MyGame extends BaseGame {
   Offset positionScore;
   Offset positionLives;
   Offset positionNoMoreLives;
+  static List<ParallaxImage> images = [
 
+    ParallaxImage("Nebula Blue.png"),
+    ParallaxImage("Stars Small_1.png"),
+    ParallaxImage("Stars Small_2.png"),
+    ParallaxImage("Stars Small_2.png"),
+    ParallaxImage("Stars-Big_1_1_PC.png"),
+    ParallaxImage("Stars-Big_1_2_PC.png"),
+
+  ];
+  final parallaxComponent = ParallaxComponent(images,
+      baseSpeed: const Offset(20, 0), layerDelta: const Offset(30, 0));
   MyGame(Size size) {
+    add(parallaxComponent);
+    add(Bg());
     add(character = CharacterSprite());
     this.rng = new Random();
 
+    add (heart = Heart());
     textPainterNoMoreLives = TextPainter(text: TextSpan(
         text: "",
         style: TextStyle(
@@ -494,7 +536,7 @@ class MyGame extends BaseGame {
             size.height / 2 - textPainterNoMoreLives.height / 2);
 
     textPainterLives = TextPainter(text: TextSpan(
-        text: "Lives: " + lives.toString(),
+        text: ": " + lives.toString(),
         style: TextStyle(
             color: Colors.white, fontSize: 26)),
         textDirection: TextDirection.ltr);
@@ -502,12 +544,12 @@ class MyGame extends BaseGame {
       minWidth: 0,
       maxWidth: size.width,
     );
-    positionLives = Offset(size.width / 4 - textPainterLives.width / 2,
-        size.height * 0.03 - textPainterLives.height / 2);
+    positionLives = Offset(size.width *(2/5)- textPainterLives.width / 2,
+        size.height * 0.04 - textPainterLives.height / 2);
 
 
     textPainterScore = TextPainter(text: TextSpan(
-        text: "Score: " + score.toString(),
+        text: "S: " + score.toString(),
         style: TextStyle(
             color: Colors.white, fontSize: 26)),
         textDirection: TextDirection.ltr);
@@ -515,17 +557,15 @@ class MyGame extends BaseGame {
       minWidth: 0,
       maxWidth: size.width,
     );
-    positionScore = Offset(size.width * (3 / 4) - textPainterScore.width / 2,
-        size.height * 0.03 - textPainterScore.height / 2);
+    positionScore = Offset(size.width * (6/11) - textPainterScore.width / 2,
+        size.height * 0.04 - textPainterScore.height / 2);
   }
 
   static const COLOR = const Color(0xFF527A80);
 
   @override
   void render(Canvas c) {
-    final Paint _paint = Paint()
-      ..color = COLOR;
-    c.drawRect(Rect.fromLTWH(0.0, 0.0, size.width, size.height), _paint);
+
     super.render(c);
 
     textPainterScore.paint(c, positionScore);
@@ -535,9 +575,10 @@ class MyGame extends BaseGame {
 
   @override
   void update(double t) {
+
     if (updateLives) {
       textPainterLives = TextPainter(text: TextSpan(
-          text: "Lives: " + lives.toString(),
+          text: ": " + lives.toString(),
           style: TextStyle(
               color: Colors.white, fontSize: 26)),
           textDirection: TextDirection.ltr);
@@ -550,7 +591,7 @@ class MyGame extends BaseGame {
     }
     if (updateScore) {
       textPainterScore = TextPainter(text: TextSpan(
-          text: "Score: " + score.toString(),
+          text: "S: " + score.toString(),
           style: TextStyle(
               color: Colors.white, fontSize: 26)),
           textDirection: TextDirection.ltr);
@@ -708,6 +749,21 @@ class MyGame extends BaseGame {
   @override
   void onTapDown(TapDownDetails d) {
     character.onTap();
+  }
+}
+class Bg extends Component with Resizable {
+  static final Paint _paint = Paint()
+    ..color = COLOR;
+
+  @override
+  void render(Canvas c) {
+    c.drawRect(Rect.fromLTWH(size.width/4, 10, size.width/2, 50), _paint);
+
+  }
+
+  @override
+  void update(double t) {
+    // TODO: implement update
   }
 }
 

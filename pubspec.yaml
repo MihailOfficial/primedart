@@ -71,6 +71,13 @@ flutter:
     - assets/images/Spike.png
     - assets/images/Collected.png
     - assets/images/pause.png
+    - assets/images/heart.png
+    - assets/images/Nebula Aqua-Pink.png
+    - assets/images/Stars Small_1.png
+    - assets/images/Stars Small_2.png
+    - assets/images/Stars-Big_1_1_PC.png
+    - assets/images/Stars-Big_1_2_PC.png
+    - assets/images/Nebula Blue.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:
