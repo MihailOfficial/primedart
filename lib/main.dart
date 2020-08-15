@@ -1,4 +1,3 @@
-
 import 'dart:io';
 import 'dart:ui';
 import 'package:flame/anchor.dart';
@@ -54,7 +53,7 @@ void main() async {
   Util flameUtil = Util();
 
   final size = await Flame.util.initialDimensions();
- SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
+  SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
   //flameUtil.fullScreen();
   tempWidth = size.width;
   tempHeight = size.height;
@@ -75,8 +74,8 @@ class myApp extends StatelessWidget {
       color: Colors.red,
       home: Scaffold(
         appBar: AppBar(
-          title: Text("Prime Dart"),
-          backgroundColor: Color(0xFF383838),
+            title: Text("Prime Dart"),
+            backgroundColor: Color(0xFF383838),
             leading: GestureDetector(
               onTap: () { print("see menu");},
               child: Icon(
@@ -84,17 +83,17 @@ class myApp extends StatelessWidget {
               ),
             ),
             actions: <Widget>[
-        Padding(
-        padding: EdgeInsets.only(right: 20.0),
-          child: GestureDetector(
-            onTap: () {print("see high scores");},
-            child: Icon(
-              Icons.star_border,
-              size: 26.0,
-            ),
-          )
-      ),
-        ]),
+              Padding(
+                  padding: EdgeInsets.only(right: 20.0),
+                  child: GestureDetector(
+                    onTap: () {print("see high scores");},
+                    child: Icon(
+                      Icons.star_border,
+                      size: 26.0,
+                    ),
+                  )
+              ),
+            ]),
 
         body: SafeArea(
 
@@ -118,13 +117,13 @@ int lives = 25;
 double orgPos = 0;
 class Prime extends TextComponent{
 
-   bool collectedItem = false;
+  bool collectedItem = false;
   double speedX = 200.0;
   double posX, posY;
   bool collectPrime = false;
   double accel = 0;
   int value1 = 0;
-   bool returned = false;
+  bool returned = false;
   Prime(String text, TextConfig textConfig, double posX, double posY, int value) : super(text) {
     this.config = textConfig;
     this.anchor = Anchor.center;
@@ -134,10 +133,10 @@ class Prime extends TextComponent{
     value1 = value;
 
   }
-   @override
-   bool destroy() {
-     return returned;
-   }
+  @override
+  bool destroy() {
+    return returned;
+  }
   @override
   void update(double tt){
     if (paused){
@@ -153,9 +152,9 @@ class Prime extends TextComponent{
       updateScore = true;
       collectedItem = true;
     }
-    if (this.x <100 || this.y<0){
+    if (this.x <-30 || this.y<0){
       returned = true;
-     destroy();
+      destroy();
 
     }
     super.update(tt);
@@ -209,7 +208,7 @@ class Composite extends TextComponent{
       updateScore = true;
       collectedItem = true;
     }
-    if (this.x <100 || this.y>tempHeight){
+    if (this.x <-30 || this.y>tempHeight){
       returned = true;
       destroy();
 
@@ -277,31 +276,31 @@ class CharacterSprite extends AnimationComponent with Resizable {
       this.x = -20000;
     }
     else {
-    super.update(t);
-    compx = this.x;
-    compy = this.y;
-    if (!frozen) {
-      this.y += speedY * t; // - GRAVITY * t * t / 2
-      this.speedY += GRAVITY * t;
-      this.angle = velocity.angle();
-      if (y > size.height || y < 0) {
-        if (lives > 0) {
-          lives--;
+      super.update(t);
+      compx = this.x;
+      compy = this.y;
+      if (!frozen) {
+        this.y += speedY * t; // - GRAVITY * t * t / 2
+        this.speedY += GRAVITY * t;
+        this.angle = velocity.angle();
+        if (y > size.height || y < 0) {
+          if (lives > 0) {
+            lives--;
+          }
+          score = 0;
+          updateLives  =true;
+          updateScore = true;
+          paused = true;
+
+          reset();
         }
-        score = 0;
-        updateLives  =true;
-        updateScore = true;
-        paused = true;
+        if (spikeDeath){
 
-        reset();
+          reset();
+        }
+
       }
-      if (spikeDeath){
-
-        reset();
-      }
-
-    }
-  }}
+    }}
 
   onTap() {
     paused = false;
@@ -314,7 +313,7 @@ class CharacterSprite extends AnimationComponent with Resizable {
       return;
     }
 
-      speedY = BOOST.toDouble();
+    speedY = BOOST.toDouble();
 
   }
 }
@@ -573,6 +572,11 @@ class MyGame extends BaseGame {
   static const COLOR = const Color(0xFF527A80);
 
   @override
+  bool recordFps() => true;
+  final debugTextconfig = TextConfig(color: Color(0xFFFFFFFF));
+  final Position debugPosition = Position(0, 50);
+
+  @override
   void render(Canvas c) {
 
     super.render(c);
@@ -580,6 +584,7 @@ class MyGame extends BaseGame {
     textPainterScore.paint(c, positionScore);
     textPainterLives.paint(c, positionLives);
     textPainterNoMoreLives.paint(c, positionNoMoreLives);
+    debugTextconfig.render(c, "FPS: " + fps(120).toInt().toString() , debugPosition);
   }
 
   @override
@@ -775,6 +780,3 @@ class Bg extends Component with Resizable {
     // TODO: implement update
   }
 }
-
-
-
