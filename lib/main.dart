@@ -574,7 +574,7 @@ class MyGame extends BaseGame {
   @override
   bool recordFps() => true;
   final debugTextconfig = TextConfig(color: Color(0xFFFFFFFF));
-  final Position debugPosition = Position(0, 50);
+  final Position debugPosition = Position(0, 20);
 
   @override
   void render(Canvas c) {
@@ -771,7 +771,7 @@ class Bg extends Component with Resizable {
 
   @override
   void render(Canvas c) {
-    c.drawRect(Rect.fromLTWH(size.width/4, 10, size.width/2, 50), _paint);
+    c.drawRect(Rect.fromLTWH(size.width/4, 15, size.width/2, 40), _paint);
 
   }
 
