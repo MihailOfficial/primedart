@@ -573,6 +573,11 @@ class MyGame extends BaseGame {
   static const COLOR = const Color(0xFF527A80);
 
   @override
+  bool recordFps() => true;
+  final debugTextconfig = TextConfig(color: Color(0xFFFFFFFF));
+  final Position debugPosition = Position(0, 50);
+
+  @override
   void render(Canvas c) {
 
     super.render(c);
@@ -580,6 +585,7 @@ class MyGame extends BaseGame {
     textPainterScore.paint(c, positionScore);
     textPainterLives.paint(c, positionLives);
     textPainterNoMoreLives.paint(c, positionNoMoreLives);
+    debugTextconfig.render(c, fps(120).toString(), debugPosition);
   }
 
   @override
