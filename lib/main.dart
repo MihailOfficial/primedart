@@ -28,7 +28,7 @@ import "package:normal/normal.dart";
 import "package:flame/time.dart";
 import 'package:shared_preferences/shared_preferences.dart';
 
-const COLOR = const Color(0xFF6A60D6);
+const COLOR = const Color.fromRGBO(38, 38, 38, 0.8);
 const SIZE = 52.0;
 const GRAVITY = 700.0;
 const BOOST = -300;
@@ -241,8 +241,8 @@ class CharacterSprite extends AnimationComponent with Resizable {
   double speedY = 0.0;
 
   CharacterSprite()
-      : super.sequenced(SIZE/1.5 , SIZE/1.5, 'cat.png', 4,
-      textureWidth: 16.0, textureHeight: 16.0) {
+      : super.sequenced(SIZE/1.5 , SIZE/1.5, 'circle.png', 1,
+      textureWidth: 256.0, textureHeight: 256.0) {
     this.anchor = Anchor.center;
     frozen = true;
     paused = true;
@@ -501,8 +501,17 @@ class MyGame extends BaseGame {
     148,
     150
   ];
+
   var subtrators = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  var colours = [Color(0xFF0000FF), Color(0xFFFF0000), Color(0xFF00FF00), Color(0xFFFFFF00), Color(0xFFFFA500)];
+  var colours = [
+    Color.fromRGBO(247, 220, 111, 1),
+    Color.fromRGBO(215, 219, 221, 1),
+    Color.fromRGBO(245, 176, 65, 1),
+    Color.fromRGBO(88, 214, 141, 1),
+    Color.fromRGBO(72, 201, 176, 1),
+    Color.fromRGBO(93, 173, 226, 1),
+    Color.fromRGBO(236, 112, 99, 1),
+    Color.fromRGBO(255, 111, 0, 1)];
   var rng;
 
   TextPainter textPainterScore;
@@ -616,7 +625,7 @@ class MyGame extends BaseGame {
 
       updateScore = false;
     }
-    int genColourComp = rng.nextInt(5);
+    int genColourComp = rng.nextInt(8);
     TextConfig comp = TextConfig(color: colours[genColourComp], fontSize: 26);
     int genColourPrime = rng.nextInt(5);
     TextConfig primeC = TextConfig(color: colours[genColourPrime], fontSize: 26);
