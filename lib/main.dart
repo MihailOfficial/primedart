@@ -48,32 +48,44 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   //SharedPreferences storage = await SharedPreferences.getInstance();
-  SystemChrome.setEnabledSystemUIOverlays([]);
+
 
   Util flameUtil = Util();
 
   final size = await Flame.util.initialDimensions();
-  SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
-  //flameUtil.fullScreen();
+
+
   tempWidth = size.width;
   tempHeight = size.height;
   game = MyGame(size);
 
-  runApp(myApp());
+  runApp(Test());
   TapGestureRecognizer tapper = TapGestureRecognizer();
   tapper.onTapDown = game.onTapDown;
   flameUtil.addGestureRecognizer(tapper);
+  Flame.util.fullScreen();
 
+}
+class Test extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: myApp(),
+    );
+  }
 }
 class myApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double statusBarHeight = MediaQuery.of(context).padding.top;
+    print(statusBarHeight);
     return MaterialApp(
 
       color: Colors.red,
       home: Scaffold(
         appBar: AppBar(
+
             title: Text("Prime Dart"),
             backgroundColor: Color(0xFF383838),
             leading: GestureDetector(
@@ -96,7 +108,7 @@ class myApp extends StatelessWidget {
             ]),
 
         body: SafeArea(
-
+          bottom: false,
           child: Center(
             child: Container(
               child: game.widget,
@@ -593,7 +605,7 @@ class MyGame extends BaseGame {
     textPainterScore.paint(c, positionScore);
     textPainterLives.paint(c, positionLives);
     textPainterNoMoreLives.paint(c, positionNoMoreLives);
-    debugTextconfig.render(c, "FPS: " + fps(120).toInt().toString() , debugPosition);
+    debugTextconfig.render(c, "FPS: " + fps(120).toString() , debugPosition);
   }
 
   @override
