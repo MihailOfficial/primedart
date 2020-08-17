@@ -40,7 +40,7 @@ MyGame game;
 double tempHeight = 0;
 bool updateLives  =false;
 bool hasLives = true;
-
+CharacterSprite character;
 //Building APK --> flutter build apk --split-per-abi
 
 
@@ -56,12 +56,13 @@ void main() async {
 
 
   tempWidth = size.width;
+
   tempHeight = size.height;
+  print( size.height);
   game = MyGame(size);
 
   runApp(Test());
   TapGestureRecognizer tapper = TapGestureRecognizer();
-  tapper.onTapDown = game.onTapDown;
   flameUtil.addGestureRecognizer(tapper);
   Flame.util.fullScreen();
 
@@ -74,12 +75,14 @@ class Test extends StatelessWidget {
     );
   }
 }
+bool tapped = false;
 class myApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     final double statusBarHeight = MediaQuery.of(context).padding.top;
-    print(statusBarHeight);
+
+
     return MaterialApp(
 
       color: Colors.red,
@@ -111,14 +114,19 @@ class myApp extends StatelessWidget {
           bottom: false,
           child: Center(
             child: Container(
-              child: game.widget,
+                      child: GestureDetector(
+                      // When the child is tapped, show a snackbar.
+                       onTap: () {
 
-            ),
+                         character.tap();
+                      },
+                        child: game.widget,
+                      ),
           ),
         ),
       ),
 
-    );
+    ),);
   }
 
 }
@@ -251,20 +259,28 @@ bool paused = false;
 
 class CharacterSprite extends AnimationComponent with Resizable {
   double speedY = 0.0;
-
+  Rect catchGameTaps;
+  double tempWid = 0;
+  double tempHi = 0;
   CharacterSprite()
       : super.sequenced(SIZE/1.5 , SIZE/1.5, 'circle.png', 1,
       textureWidth: 256.0, textureHeight: 256.0) {
     this.anchor = Anchor.center;
     frozen = true;
     paused = true;
+
+
   }
 
   Position get velocity => Position(300.0, speedY);
+  void  createTapRegion (){
 
+    print(tempHi);
+
+  }
   reset() {
     this.x = size.width / 4;
-    this.y = size.height / 2;
+    this.y = size.height/2;
 
     heightPos = size.height;
     speedY = 0;
@@ -278,6 +294,10 @@ class CharacterSprite extends AnimationComponent with Resizable {
 
     super.resize(size);
     reset();
+    createTapRegion();
+    double tempWid = size.width;
+    double tempHi = size.height;
+    createTapRegion();
     frozen = true;
   }
 
@@ -314,10 +334,9 @@ class CharacterSprite extends AnimationComponent with Resizable {
       }
     }}
 
-  onTap() {
+  void tap() {
+    print("debug");
     paused = false;
-
-
 
     spikeDeath = false;
     if (frozen) {
@@ -351,12 +370,13 @@ class Heart extends AnimationComponent with Resizable {
 
 
 }
+
 class MyGame extends BaseGame {
 
 
   double timerPrime = 0;
   double timerComp = 0;
-  CharacterSprite character;
+
   Prime prime;
   Heart heart;
   Composite composite;
@@ -605,7 +625,7 @@ class MyGame extends BaseGame {
     textPainterScore.paint(c, positionScore);
     textPainterLives.paint(c, positionLives);
     textPainterNoMoreLives.paint(c, positionNoMoreLives);
-    debugTextconfig.render(c, "FPS: " + fps(120).toString() , debugPosition);
+    debugTextconfig.render(c, "FPS: " + fps(120).toInt().toString() , debugPosition);
   }
 
   @override
@@ -781,10 +801,7 @@ class MyGame extends BaseGame {
   }
 
 
-  @override
-  void onTapDown(TapDownDetails d) {
-    character.onTap();
-  }
+
 }
 class Bg extends Component with Resizable {
   static final Paint _paint = Paint()
