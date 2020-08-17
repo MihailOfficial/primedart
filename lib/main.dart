@@ -349,28 +349,7 @@ class CharacterSprite extends AnimationComponent with Resizable {
 
   }
 }
-class Heart extends AnimationComponent with Resizable {
-  double speedY = 0.0;
 
-  Heart()
-      : super.sequenced(SIZE/2 , SIZE/2, 'heart.png', 1,
-      textureWidth: 200.0, textureHeight: 200.0) {
-    this.anchor = Anchor.center;
-    this.x = tempWidth*(4/13);
-    this.y = tempHeight * 0.04;
-  }
-
-
-  @override
-  void resize(Size size) {
-
-    super.resize(size);
-
-    frozen = true;
-  }
-
-
-}
 
 class MyGame extends BaseGame {
 
@@ -379,7 +358,7 @@ class MyGame extends BaseGame {
   double timerComp = 0;
 
   Prime prime;
-  Heart heart;
+
   Composite composite;
   var primes = [
     2,
@@ -571,7 +550,7 @@ class MyGame extends BaseGame {
     add(character = CharacterSprite());
     this.rng = new Random();
 
-    add (heart = Heart());
+
     textPainterNoMoreLives = TextPainter(text: TextSpan(
         text: "",
         style: TextStyle(
@@ -586,29 +565,29 @@ class MyGame extends BaseGame {
             size.height / 2 - textPainterNoMoreLives.height / 2);
 
     textPainterLives = TextPainter(text: TextSpan(
-        text: ": " + lives.toString(),
+        text: "Lives: " + lives.toString(),
         style: TextStyle(
-            color: Colors.white, fontSize: 26)),
+            color: Colors.white, fontSize: 24)),
         textDirection: TextDirection.ltr);
     textPainterLives.layout(
       minWidth: 0,
       maxWidth: size.width,
     );
-    positionLives = Offset(size.width *(2/5)- textPainterLives.width / 2,
-        size.height * 0.04 - textPainterLives.height / 2);
+    positionLives = Offset(size.width *(1/3)- textPainterLives.width / 2,
+        size.height * 0.03 - textPainterLives.height / 2);
 
 
     textPainterScore = TextPainter(text: TextSpan(
-        text: "S: " + score.toString(),
+        text: "Score: " + score.toString(),
         style: TextStyle(
-            color: Colors.white, fontSize: 26)),
+            color: Colors.white, fontSize: 24)),
         textDirection: TextDirection.ltr);
     textPainterScore.layout(
       minWidth: 0,
       maxWidth: size.width,
     );
-    positionScore = Offset(size.width * (6/11) - textPainterScore.width / 2,
-        size.height * 0.04 - textPainterScore.height / 2);
+    positionScore = Offset(size.width *(2/3) - textPainterScore.width / 2,
+        size.height * 0.03 - textPainterScore.height / 2);
   }
 
   static const COLOR = const Color(0xFF527A80);
@@ -616,13 +595,12 @@ class MyGame extends BaseGame {
   @override
   bool recordFps() => true;
   final debugTextconfig = TextConfig(color: Color(0xFFFFFFFF));
-  final Position debugPosition = Position(0, 20);
+  final Position debugPosition = Position(0, 60);
 
   @override
   void render(Canvas c) {
 
     super.render(c);
-
     textPainterScore.paint(c, positionScore);
     textPainterLives.paint(c, positionLives);
     textPainterNoMoreLives.paint(c, positionNoMoreLives);
@@ -634,9 +612,9 @@ class MyGame extends BaseGame {
 
     if (updateLives) {
       textPainterLives = TextPainter(text: TextSpan(
-          text: ": " + lives.toString(),
+          text: "Lives: " + lives.toString(),
           style: TextStyle(
-              color: Colors.white, fontSize: 26)),
+              color: Colors.white, fontSize: 24)),
           textDirection: TextDirection.ltr);
       textPainterLives.layout(
         minWidth: 0,
@@ -647,9 +625,9 @@ class MyGame extends BaseGame {
     }
     if (updateScore) {
       textPainterScore = TextPainter(text: TextSpan(
-          text: "S: " + score.toString(),
+          text: "Score: " + score.toString(),
           style: TextStyle(
-              color: Colors.white, fontSize: 26)),
+              color: Colors.white, fontSize: 24)),
           textDirection: TextDirection.ltr);
       textPainterScore.layout(
         minWidth: 0,
@@ -810,7 +788,7 @@ class Bg extends Component with Resizable {
 
   @override
   void render(Canvas c) {
-    c.drawRect(Rect.fromLTWH(0,0, tempWidth, 60), _paint);
+    c.drawRect(Rect.fromLTWH(0,0, tempWidth, 50), _paint);
 
   }
 
