@@ -44,16 +44,18 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
   fonts:
-    - family: pixelfont
+    - family: logo
       fonts:
-        - asset: assets/fonts/Minecraft.ttf
+          - asset: assets/fonts/SF Sports Night.ttf
+    - family: fontNum
+      fonts:
+        - asset: assets/fonts/Montserrat-Regular.ttf
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
   assets:
     - assets/images/heart.png
-    - assets/images/Nebula Red.png
     - assets/images/Stars Small_1.png
     - assets/images/Stars Small_2.png
     - assets/images/Stars-Big_1_1_PC.png

@@ -88,8 +88,9 @@ class myApp extends StatelessWidget {
       color: Colors.red,
       home: Scaffold(
         appBar: AppBar(
+            centerTitle: true,
+            title: Text('Primedart',style: TextStyle(fontFamily: 'logo', fontSize: 30, color: Color.fromRGBO(235, 219, 0, 1))),
 
-            title: Text("Prime Dart"),
             backgroundColor: Color(0xFF383838),
             leading: GestureDetector(
               onTap: () { print("see menu");},
@@ -658,9 +659,9 @@ class MyGame extends BaseGame {
       updateScore = false;
     }
     int genColourComp = rng.nextInt(8);
-    TextConfig comp = TextConfig(color: colours[genColourComp], fontSize: 26);
+    TextConfig comp = TextConfig(color: colours[genColourComp], fontSize: 28, fontFamily: "fontNum");
     int genColourPrime = rng.nextInt(5);
-    TextConfig primeC = TextConfig(color: colours[genColourPrime], fontSize: 26);
+    TextConfig primeC = TextConfig(color: colours[genColourPrime], fontSize: 28, fontFamily: "fontNum");
     if (lives > 0) {
       timerPrime -= t;
       timerComp -= t;
@@ -809,7 +810,7 @@ class Bg extends Component with Resizable {
 
   @override
   void render(Canvas c) {
-    c.drawRect(Rect.fromLTWH(size.width/4, 15, size.width/2, 40), _paint);
+    c.drawRect(Rect.fromLTWH(0,0, tempWidth, 60), _paint);
 
   }
 
