@@ -28,7 +28,7 @@ import "package:normal/normal.dart";
 import "package:flame/time.dart";
 import 'package:shared_preferences/shared_preferences.dart';
 
-const COLOR = const Color.fromRGBO(38, 38, 38, 0.8);
+const COLOR = const Color.fromRGBO(38, 38, 38, 0.7);
 const SIZE = 52.0;
 const GRAVITY = 700.0;
 const BOOST = -300;
@@ -58,7 +58,6 @@ void main() async {
   tempWidth = size.width;
 
   tempHeight = size.height;
-  print( size.height);
   game = MyGame(size);
 
   runApp(Test());
@@ -137,6 +136,7 @@ double heightPos = 0;
 int lives = 25;
 double orgPos = 0;
 class Prime extends TextComponent{
+  double height = AppBar().preferredSize.height;
 
   bool collectedItem = false;
   double speedX = 200.0;
@@ -257,8 +257,10 @@ bool frozen = true;
 double compx;
 double compy;
 bool paused = false;
-
+double heightApp = AppBar().preferredSize.height;
 class CharacterSprite extends AnimationComponent with Resizable {
+
+
   double speedY = 0.0;
   Rect catchGameTaps;
   double tempWid = 0;
@@ -274,11 +276,7 @@ class CharacterSprite extends AnimationComponent with Resizable {
   }
 
   Position get velocity => Position(300.0, speedY);
-  void  createTapRegion (){
 
-    print(tempHi);
-
-  }
   reset() {
     this.x = size.width / 4;
     this.y = size.height/2;
@@ -295,10 +293,8 @@ class CharacterSprite extends AnimationComponent with Resizable {
 
     super.resize(size);
     reset();
-    createTapRegion();
     double tempWid = size.width;
     double tempHi = size.height;
-    createTapRegion();
     frozen = true;
   }
 
@@ -316,7 +312,7 @@ class CharacterSprite extends AnimationComponent with Resizable {
         this.y += speedY * t; // - GRAVITY * t * t / 2
         this.speedY += GRAVITY * t;
         this.angle = velocity.angle();
-        if (y > size.height || y < 0) {
+        if (y > size.height || y < heightApp+10) {
           if (lives > 0) {
             lives--;
           }
@@ -336,7 +332,7 @@ class CharacterSprite extends AnimationComponent with Resizable {
     }}
 
   void tap() {
-    print("debug");
+
     paused = false;
 
     spikeDeath = false;
@@ -565,29 +561,28 @@ class MyGame extends BaseGame {
             size.height / 2 - textPainterNoMoreLives.height / 2);
 
     textPainterLives = TextPainter(text: TextSpan(
-        text: "Lives: " + lives.toString(),
+        text: "LIVES: " + lives.toString(),
         style: TextStyle(
-            color: Colors.white, fontSize: 24)),
+            color: Color.fromRGBO(255, 46, 46, 1), fontSize: 24, fontFamily: "bold")),
         textDirection: TextDirection.ltr);
     textPainterLives.layout(
       minWidth: 0,
       maxWidth: size.width,
     );
     positionLives = Offset(size.width *(1/3)- textPainterLives.width / 2,
-        size.height * 0.03 - textPainterLives.height / 2);
-
+        heightApp/2 - textPainterLives.height / 2);
 
     textPainterScore = TextPainter(text: TextSpan(
-        text: "Score: " + score.toString(),
+        text: "SCORE: " + score.toString(),
         style: TextStyle(
-            color: Colors.white, fontSize: 24)),
+            color: Colors.white, fontSize: 24, fontFamily: "bold")),
         textDirection: TextDirection.ltr);
     textPainterScore.layout(
       minWidth: 0,
       maxWidth: size.width,
     );
     positionScore = Offset(size.width *(2/3) - textPainterScore.width / 2,
-        size.height * 0.03 - textPainterScore.height / 2);
+        heightApp/2 - textPainterScore.height / 2);
   }
 
   static const COLOR = const Color(0xFF527A80);
@@ -604,7 +599,9 @@ class MyGame extends BaseGame {
     textPainterScore.paint(c, positionScore);
     textPainterLives.paint(c, positionLives);
     textPainterNoMoreLives.paint(c, positionNoMoreLives);
+    //debugTextconfig.render(c, "FPS: " + fps(120).toInt().toString() , debugPosition);
     debugTextconfig.render(c, "FPS: " + fps(120).toInt().toString() , debugPosition);
+
   }
 
   @override
@@ -612,9 +609,9 @@ class MyGame extends BaseGame {
 
     if (updateLives) {
       textPainterLives = TextPainter(text: TextSpan(
-          text: "Lives: " + lives.toString(),
+          text: "LIVES: " + lives.toString(),
           style: TextStyle(
-              color: Colors.white, fontSize: 24)),
+              color: Color.fromRGBO(255, 46, 46, 1), fontSize: 24, fontFamily: "bold")),
           textDirection: TextDirection.ltr);
       textPainterLives.layout(
         minWidth: 0,
@@ -625,9 +622,9 @@ class MyGame extends BaseGame {
     }
     if (updateScore) {
       textPainterScore = TextPainter(text: TextSpan(
-          text: "Score: " + score.toString(),
+          text: "SCORE: " + score.toString(),
           style: TextStyle(
-              color: Colors.white, fontSize: 24)),
+              color: Colors.white, fontSize: 24, fontFamily: "bold")),
           textDirection: TextDirection.ltr);
       textPainterScore.layout(
         minWidth: 0,
@@ -788,7 +785,7 @@ class Bg extends Component with Resizable {
 
   @override
   void render(Canvas c) {
-    c.drawRect(Rect.fromLTWH(0,0, tempWidth, 50), _paint);
+    c.drawRect(Rect.fromLTWH(0,0, tempWidth, heightApp), _paint);
 
   }
 
