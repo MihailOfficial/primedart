@@ -92,7 +92,7 @@ class myApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
             centerTitle: true,
-            title: Text('Primedart',style: TextStyle(fontFamily: 'logo', fontSize: 30, color: Color.fromRGBO(235, 219, 0, 1))),
+            title: Text('Primedash',style: TextStyle(fontFamily: 'logo', fontSize: 30, color: Color.fromRGBO(235, 219, 0, 1))),
 
             backgroundColor: Color(0xFF383838),
             leading: GestureDetector(
