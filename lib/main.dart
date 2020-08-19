@@ -28,7 +28,7 @@ import "package:normal/normal.dart";
 import "package:flame/time.dart";
 import 'package:shared_preferences/shared_preferences.dart';
 
-const COLOR = const Color.fromRGBO(38, 38, 38, 0.7);
+const COLOR = const Color.fromRGBO(22, 22, 22, 0.7);
 const SIZE = 52.0;
 const GRAVITY = 700.0;
 const BOOST = -300;
@@ -92,9 +92,9 @@ class myApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
             centerTitle: true,
-            title: Text('Primedash',style: TextStyle(fontFamily: 'logo', fontSize: 30, color: Color.fromRGBO(235, 219, 0, 1))),
+            title: Text('Primedash',style: TextStyle(fontFamily: 'logo', fontSize: 30, color: Color.fromRGBO(252,238,10, 1))),
 
-            backgroundColor: Color(0xFF383838),
+            backgroundColor: Color.fromRGBO(28, 28, 28, 1),
             leading: GestureDetector(
               onTap: () { print("see menu");},
               child: Icon(
