@@ -42,13 +42,17 @@ bool updateLives  =false;
 bool hasLives = true;
 CharacterSprite character;
 //Building APK --> flutter build apk --split-per-abi
+var count = new List(4);
 
 
 void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   //SharedPreferences storage = await SharedPreferences.getInstance();
-
+  count[0] = 0;
+  count[1] = 0;
+  count[2] = 0;
+  count[3] = 0;
 
   Util flameUtil = Util();
 
@@ -169,7 +173,13 @@ class Prime extends TextComponent{
       collectPrime = true;
       TextConfig collected = TextConfig(color: Color( 0xFFFFFF00), fontSize: 35);
       this.config = collected;
-      score += value1;
+      score ++;
+
+      count[0] = (score %10).toInt();
+      count[1] = ((score /10) % 10).toInt();
+      count[2] = ((score /100) % 10).toInt();
+      count[3] = ((score /1000) % 10).toInt();
+
       updateScore = true;
       collectedItem = true;
     }
@@ -224,6 +234,10 @@ class Composite extends TextComponent{
       if (score>0) {
         lives--;
         score --;
+        count[0] = (score %10).toInt();
+        count[1] = ((score /10) % 10).toInt();
+        count[2] = ((score /100) % 10).toInt();
+        count[3] = ((score /1000) % 10).toInt();
         updateLives  =true;
       }
       updateScore = true;
@@ -524,9 +538,14 @@ class MyGame extends BaseGame {
 
   TextPainter textPainterScore;
   TextPainter textPainterLives;
+  TextPainter textPainterScoreText;
+  TextPainter textPainterLivesText;
   TextPainter textPainterNoMoreLives;
+
   Offset positionScore;
   Offset positionLives;
+  Offset positionScoreText;
+  Offset positionLivesText;
   Offset positionNoMoreLives;
   static List<ParallaxImage> images = [
 
@@ -560,29 +579,58 @@ class MyGame extends BaseGame {
         Offset(size.width / 2 - textPainterNoMoreLives.width / 2,
             size.height / 2 - textPainterNoMoreLives.height / 2);
 
-    textPainterLives = TextPainter(text: TextSpan(
-        text: "LIVES: " + lives.toString(),
+    textPainterLivesText = TextPainter(text: TextSpan(
+        text: "LIVES: ",
         style: TextStyle(
-            color: Color.fromRGBO(255, 46, 46, 1), fontSize: 24, fontFamily: "bold")),
+            color: Color.fromRGBO(255, 46, 46, 1), fontSize: 18, fontFamily: "bold")),
+        textDirection: TextDirection.ltr);
+    textPainterLivesText.layout(
+      minWidth: 0,
+      maxWidth: size.width,
+    );
+    positionLivesText = Offset(size.width *(4/20) - textPainterLivesText.width / 2,
+        heightApp/2 - textPainterLivesText.height / 2);
+
+    textPainterLives = TextPainter(text: TextSpan(
+        text: lives.toString(),
+        style: TextStyle(
+            color: Colors.white, fontSize: 30, fontFamily: "bold")),
         textDirection: TextDirection.ltr);
     textPainterLives.layout(
       minWidth: 0,
       maxWidth: size.width,
     );
-    positionLives = Offset(size.width *(1/3)- textPainterLives.width / 2,
+    positionLives = Offset(size.width *(7/20)- textPainterLives.width / 2,
         heightApp/2 - textPainterLives.height / 2);
 
-    textPainterScore = TextPainter(text: TextSpan(
-        text: "SCORE: " + score.toString(),
+    textPainterScoreText = TextPainter(text: TextSpan(
+        text: "SCORE: " ,
         style: TextStyle(
-            color: Colors.white, fontSize: 24, fontFamily: "bold")),
+            color: Color.fromRGBO(255, 46, 46, 1), fontSize: 18, fontFamily: "bold")),
+        textDirection: TextDirection.ltr);
+    textPainterScoreText.layout(
+      minWidth: 0,
+      maxWidth: size.width,
+    );
+    positionScoreText = Offset(size.width *(11/20) - textPainterScoreText.width / 2,
+        heightApp/2 - textPainterScoreText.height / 2);
+
+    textPainterScore = TextPainter(text: TextSpan(
+        text: count[3].toString()+count[2].toString()+ count[1].toString()+ count[0].toString(),
+        style: TextStyle(
+            color: Colors.white, fontSize: 30, fontFamily: "bold")),
         textDirection: TextDirection.ltr);
     textPainterScore.layout(
       minWidth: 0,
       maxWidth: size.width,
     );
-    positionScore = Offset(size.width *(2/3) - textPainterScore.width / 2,
+    positionScore = Offset(size.width *(16/20) - textPainterScore.width / 2,
         heightApp/2 - textPainterScore.height / 2);
+
+
+
+
+
   }
 
   static const COLOR = const Color(0xFF527A80);
@@ -597,7 +645,9 @@ class MyGame extends BaseGame {
 
     super.render(c);
     textPainterScore.paint(c, positionScore);
+    textPainterScoreText.paint(c, positionScoreText);
     textPainterLives.paint(c, positionLives);
+    textPainterLivesText.paint(c, positionLivesText);
     textPainterNoMoreLives.paint(c, positionNoMoreLives);
     //debugTextconfig.render(c, "FPS: " + fps(120).toInt().toString() , debugPosition);
     debugTextconfig.render(c, "FPS: " + fps(120).toInt().toString() , debugPosition);
@@ -606,30 +656,47 @@ class MyGame extends BaseGame {
 
   @override
   void update(double t) {
-
+    textPainterLivesText = TextPainter(text: TextSpan(
+        text: "LIVES: ",
+        style: TextStyle(
+            color: Color.fromRGBO(255, 46, 46, 1), fontSize: 18, fontFamily: "bold")),
+        textDirection: TextDirection.ltr);
+    textPainterLivesText.layout(
+      minWidth: 0,
+      maxWidth: size.width,
+    );
+    textPainterScoreText = TextPainter(text: TextSpan(
+        text: "SCORE: " ,
+        style: TextStyle(
+            color: Color.fromRGBO(255, 46, 46, 1), fontSize: 18, fontFamily: "bold")),
+        textDirection: TextDirection.ltr);
+    textPainterScoreText.layout(
+      minWidth: 0,
+      maxWidth: size.width,
+    );
     if (updateLives) {
       textPainterLives = TextPainter(text: TextSpan(
-          text: "LIVES: " + lives.toString(),
+          text: lives.toString(),
           style: TextStyle(
-              color: Color.fromRGBO(255, 46, 46, 1), fontSize: 24, fontFamily: "bold")),
+              color: Colors.white, fontSize: 30, fontFamily: "bold")),
           textDirection: TextDirection.ltr);
       textPainterLives.layout(
         minWidth: 0,
-        maxWidth: tempWidth,
+        maxWidth: size.width,
       );
 
-      updateLives = false;
     }
     if (updateScore) {
       textPainterScore = TextPainter(text: TextSpan(
-          text: "SCORE: " + score.toString(),
+          text: count[3].toString()+count[2].toString()+ count[1].toString()+ count[0].toString(),
           style: TextStyle(
-              color: Colors.white, fontSize: 24, fontFamily: "bold")),
+              color: Colors.white, fontSize: 30, fontFamily: "bold")),
           textDirection: TextDirection.ltr);
       textPainterScore.layout(
         minWidth: 0,
-        maxWidth: tempWidth,
+        maxWidth: size.width,
       );
+
 
       updateScore = false;
     }
