@@ -19,7 +19,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter/services.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/services.dart';
@@ -27,12 +26,12 @@ import 'dart:math';
 import "package:normal/normal.dart";
 import "package:flame/time.dart";
 import 'package:shared_preferences/shared_preferences.dart';
-
 const COLOR = const Color.fromRGBO(22, 22, 22, 0.7);
 const SIZE = 52.0;
 const GRAVITY = 700.0;
 const BOOST = -300;
 var score = 0;
+
 bool updateScore = false;
 int highScore = 0;
 int gemCollected = -1;
@@ -56,16 +55,10 @@ void main() async {
   count[3] = 0;
 
   Util flameUtil = Util();
-
   final size = await Flame.util.initialDimensions();
-
-
-
   tempWidth = size.width;
-
   tempHeight = size.height;
   game = MyGame(size);
-
   runApp(Test());
   TapGestureRecognizer tapper = TapGestureRecognizer();
   flameUtil.addGestureRecognizer(tapper);
@@ -88,7 +81,6 @@ class myApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double statusBarHeight = MediaQuery.of(context).padding.top;
-
 
     return MaterialApp(
 
@@ -136,7 +128,6 @@ class myApp extends StatelessWidget {
 
     ),);
   }
-
 }
 
 double tempX = 0;
@@ -145,6 +136,7 @@ int lives = 25;
 double orgPos = 0;
 double distancePrime = 50;
 double distanceComp = 50;
+
 class Prime extends TextComponent{
   double height = AppBar().preferredSize.height;
 
@@ -202,7 +194,6 @@ class Prime extends TextComponent{
     else {
       accel++;
       this.y -= 2*accel;
-
     }
   }
 }
@@ -220,8 +211,8 @@ class Composite extends TextComponent{
     this.x = posX+30;
     this.y = posY;
     originalNumberPosition = this.y;
-
   }
+
   @override
   bool destroy() {
     return returned;
@@ -267,7 +258,6 @@ class Composite extends TextComponent{
   }
 }
 
-
 double tempWidth = 0;
 String message;
 bool specialMessage = false;
@@ -293,8 +283,6 @@ class CharacterSprite extends AnimationComponent with Resizable {
     this.anchor = Anchor.center;
     frozen = true;
     paused = true;
-
-
   }
 
   Position get velocity => Position(300.0, speedY);
@@ -302,7 +290,6 @@ class CharacterSprite extends AnimationComponent with Resizable {
   reset() {
     this.x = size.width / 4;
     this.y = size.height/2;
-
     heightPos = size.height;
     speedY = 0;
     angle = 0.0;
@@ -540,6 +527,7 @@ class MyGame extends BaseGame {
     Color.fromRGBO(93, 173, 226, 1),
     Color.fromRGBO(236, 112, 99, 1),
     Color.fromRGBO(255, 111, 0, 1)];
+
   var rng;
 
   TextPainter textPainterScore;
@@ -588,7 +576,7 @@ class MyGame extends BaseGame {
     textPainterLivesText = TextPainter(text: TextSpan(
         text: "LIVES: ",
         style: TextStyle(
-            color: Color.fromRGBO(255, 46, 46, 1), fontSize: 18, fontFamily: "bold")),
+            color: Color.fromRGBO(72, 212, 88, 1), fontSize: 18, fontFamily: "bold")),
         textDirection: TextDirection.ltr);
     textPainterLivesText.layout(
       minWidth: 0,
@@ -632,11 +620,6 @@ class MyGame extends BaseGame {
     );
     positionScore = Offset(size.width *(16/20) - textPainterScore.width / 2,
         heightApp/2 - textPainterScore.height / 2);
-
-
-
-
-
   }
 
   static const COLOR = const Color(0xFF527A80);
@@ -665,7 +648,7 @@ class MyGame extends BaseGame {
     textPainterLivesText = TextPainter(text: TextSpan(
         text: "LIVES: ",
         style: TextStyle(
-            color: Color.fromRGBO(255, 46, 46, 1), fontSize: 18, fontFamily: "bold")),
+            color: Color.fromRGBO(72, 212, 88, 1), fontSize: 18, fontFamily: "bold")),
         textDirection: TextDirection.ltr);
     textPainterLivesText.layout(
       minWidth: 0,
@@ -737,12 +720,14 @@ class MyGame extends BaseGame {
           if (selectType == 0) { //prime
 
             if (gen == 0) {
+              print("prime1");
               add(prime = Prime(
                   primes[rng.nextInt(35)].toString(), comp, tempWidth,
                   positionNumber,
                   2));
             }
             else if (gen == 1) {
+              print("prime2");
               int tempGenNum = subtrators[rng.nextInt(10)];
               int tempLoop = 0;
               int tempPrime;
@@ -763,6 +748,7 @@ class MyGame extends BaseGame {
             }
 
             else {
+              print("prime3");
               int tempGenNum = subtrators[rng.nextInt(10)];
               int tempLoop = 0;
               int tempPrime;
@@ -785,11 +771,13 @@ class MyGame extends BaseGame {
 
           else if (selectType == 1) { //composite
             if (gen == 0) {
+              print("comp1");
               add(composite = Composite(
                   composites[rng.nextInt(35)].toString(), comp, tempWidth,
                   positionNumber));
             }
             else if (gen == 1) {
+              print("comp2");
               int tempGenNum = subtrators[rng.nextInt(10)];
               int tempLoop = 0;
               int tempComp;
@@ -810,6 +798,7 @@ class MyGame extends BaseGame {
             }
 
             else {
+              print("comp3");
               int tempGenNum = subtrators[rng.nextInt(10)];
               int tempLoop = 0;
               int tempComp;
@@ -831,10 +820,8 @@ class MyGame extends BaseGame {
           }
         timerNumber = 1;
         }
-
       }
     }
-
 
     else {
       textPainterNoMoreLives = TextPainter(text: TextSpan(
@@ -853,8 +840,6 @@ class MyGame extends BaseGame {
 
     super.update(t);
   }
-
-
 
 }
 class Bg extends Component with Resizable {
