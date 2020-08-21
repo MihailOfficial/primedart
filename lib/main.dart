@@ -143,6 +143,8 @@ double tempX = 0;
 double heightPos = 0;
 int lives = 25;
 double orgPos = 0;
+double distancePrime = 50;
+double distanceComp = 50;
 class Prime extends TextComponent{
   double height = AppBar().preferredSize.height;
 
@@ -171,9 +173,9 @@ class Prime extends TextComponent{
     if (paused){
       this.x = -20000;
     }
-    double dist = sqrt((compy-y)*(compy-y) + (compx-x)*(compx-x));
+    distancePrime = sqrt((compy-this.y)*(compy-this.y) + (compx-this.x)*(compx-this.x));
 
-    if (dist<45 && !collectedItem){
+    if (distancePrime<45 && !collectedItem){
       collectPrime = true;
       TextConfig collected = TextConfig(color: Color( 0xFFFFFF00), fontSize: 35);
       this.config = collected;
@@ -229,9 +231,9 @@ class Composite extends TextComponent{
     if (paused){
       this.x = -20000;
     }
-    double dist = sqrt((compy-y)*(compy-y) + (compx-x)*(compx-x));
+    distanceComp = sqrt((compy-this.y)*(compy-this.y) + (compx-this.x)*(compx-this.x));
 
-    if (dist<45 && !collectedItem){
+    if (distanceComp<45 && !collectedItem){
       collectComp = true;
       TextConfig collected = TextConfig(color: Color( 0xFF808080), fontSize: 30);
       this.config = collected;
@@ -272,8 +274,8 @@ bool specialMessage = false;
 bool eliminateScoreFlash = false;
 bool spikeDeath = false;
 bool frozen = true;
-double compx;
-double compy;
+double compx = 0;
+double compy = 0;
 bool paused = false;
 double heightApp = AppBar().preferredSize.height;
 double positionNumber = 0;
@@ -716,7 +718,7 @@ class MyGame extends BaseGame {
           int selectType = rng.nextInt(2);
 
           int tempLoop = 0;
-          selectPos = rng.nextInt(8);
+          selectPos = rng.nextInt(7);
 
           while (tempLoop==0){
             if (pastSelection == selectPos){
