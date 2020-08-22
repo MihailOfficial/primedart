@@ -138,7 +138,7 @@ class myApp extends StatelessWidget {
 
 double tempX = 0;
 double heightPos = 0;
-int lives = 25;
+int lives = 99;
 double orgPos = 0;
 class Prime extends TextComponent{
   double height = AppBar().preferredSize.height;
@@ -671,7 +671,7 @@ class MyGame extends BaseGame {
         textDirection: TextDirection.ltr);
     textPainterLivesText.layout(
       minWidth: 0,
-      maxWidth: size.width,
+      maxWidth: tempWidth,
     );
     textPainterScoreText = TextPainter(text: TextSpan(
         text: "SCORE: " ,
@@ -680,7 +680,7 @@ class MyGame extends BaseGame {
         textDirection: TextDirection.ltr);
     textPainterScoreText.layout(
       minWidth: 0,
-      maxWidth: size.width,
+      maxWidth: tempWidth,
     );
     if (updateLives) {
       textPainterLives = TextPainter(text: TextSpan(
@@ -690,7 +690,7 @@ class MyGame extends BaseGame {
           textDirection: TextDirection.ltr);
       textPainterLives.layout(
         minWidth: 0,
-        maxWidth: size.width,
+        maxWidth: tempWidth,
       );
 
     }
@@ -702,7 +702,7 @@ class MyGame extends BaseGame {
           textDirection: TextDirection.ltr);
       textPainterScore.layout(
         minWidth: 0,
-        maxWidth: size.width,
+        maxWidth: tempWidth,
       );
 
 
