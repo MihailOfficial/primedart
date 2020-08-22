@@ -632,7 +632,7 @@ class MyGame extends BaseGame {
       minWidth: 0,
       maxWidth: size.width,
     );
-    positionScore = Offset(size.width *(16/20) - textPainterScore.width / 2,
+    positionScore = Offset(size.width *(15.5/20) - textPainterScore.width / 2,
         heightApp/2 - textPainterScore.height / 2);
 
 
@@ -667,7 +667,7 @@ class MyGame extends BaseGame {
     textPainterLivesText = TextPainter(text: TextSpan(
         text: "LIVES: ",
         style: TextStyle(
-            color: Color.fromRGBO(72, 212, 88, 1), fontSize: 22, fontFamily: "bold")),
+            color: Color.fromRGBO(72, 212, 88, 1), fontSize: 18, fontFamily: "bold")),
         textDirection: TextDirection.ltr);
     textPainterLivesText.layout(
       minWidth: 0,
@@ -676,7 +676,7 @@ class MyGame extends BaseGame {
     textPainterScoreText = TextPainter(text: TextSpan(
         text: "SCORE: " ,
         style: TextStyle(
-            color: Color.fromRGBO(255, 46, 46, 1), fontSize: 22, fontFamily: "bold")),
+            color: Color.fromRGBO(255, 46, 46, 1), fontSize: 18, fontFamily: "bold")),
         textDirection: TextDirection.ltr);
     textPainterScoreText.layout(
       minWidth: 0,
