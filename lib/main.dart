@@ -153,7 +153,7 @@ class Prime extends TextComponent{
   Prime(String text, TextConfig textConfig, double posX, double posY, int value) : super(text) {
     this.config = textConfig;
     this.anchor = Anchor.center;
-    this.x = posX+30;
+    this.x = posX+40;
     this.y = posY;
     orgPos = this.y;
     value1 = value;
@@ -212,7 +212,7 @@ class Composite extends TextComponent{
   Composite(String text, TextConfig textConfig, double posX, double posY) : super(text) {
     this.config = textConfig;
     this.anchor = Anchor.center;
-    this.x = posX+30;
+    this.x = posX+40;
     this.y = posY;
     orgPos = this.y;
 
@@ -569,7 +569,7 @@ class MyGame extends BaseGame {
 
     this.rng = new Random();
     int intTemp = 1;
-     for (int i = 0; i<9; i++){
+     for (int i = 0; i<10; i++){
        intTemp++;
        yPositions[i] = ((tempHeight-height)/12)*( intTemp);
      }
@@ -646,7 +646,7 @@ class MyGame extends BaseGame {
   @override
   bool recordFps() => true;
   final debugTextconfig = TextConfig(color: Color(0xFFFFFFFF));
-  final Position debugPosition = Position(0, 60);
+  final Position debugPosition = Position(0, tempHeight -100);
 
   @override
   void render(Canvas c) {
