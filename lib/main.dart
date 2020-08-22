@@ -144,7 +144,7 @@ class Prime extends TextComponent{
   double height = AppBar().preferredSize.height;
 
   bool collectedItem = false;
-  double speedX = 200.0;
+  double speedX = 150.0;
   double posX, posY;
   bool collectPrime = false;
   double accel = 0;
@@ -204,7 +204,7 @@ class Prime extends TextComponent{
 
 class Composite extends TextComponent{
   bool collectedItem = false;
-  double speedX = 200.0;
+  double speedX = 150.0;
   double posX, posY;
   bool collectComp = false;
   double accel = 0;
@@ -566,9 +566,12 @@ class MyGame extends BaseGame {
     add(parallaxComponent);
     add(Bg());
     add(character = CharacterSprite());
+
     this.rng = new Random();
-     for (int i = 0; i<10; i++){
-       yPositions[i] = ((tempHeight-height)/12)*(i+1);
+    int intTemp = 1;
+     for (int i = 0; i<9; i++){
+       intTemp++;
+       yPositions[i] = ((tempHeight-height)/12)*( intTemp);
      }
 
     textPainterNoMoreLives = TextPainter(text: TextSpan(
@@ -664,7 +667,7 @@ class MyGame extends BaseGame {
     textPainterLivesText = TextPainter(text: TextSpan(
         text: "LIVES: ",
         style: TextStyle(
-            color: Color.fromRGBO(72, 212, 88, 1), fontSize: 18, fontFamily: "bold")),
+            color: Color.fromRGBO(72, 212, 88, 1), fontSize: 22, fontFamily: "bold")),
         textDirection: TextDirection.ltr);
     textPainterLivesText.layout(
       minWidth: 0,
@@ -673,7 +676,7 @@ class MyGame extends BaseGame {
     textPainterScoreText = TextPainter(text: TextSpan(
         text: "SCORE: " ,
         style: TextStyle(
-            color: Color.fromRGBO(255, 46, 46, 1), fontSize: 18, fontFamily: "bold")),
+            color: Color.fromRGBO(255, 46, 46, 1), fontSize: 22, fontFamily: "bold")),
         textDirection: TextDirection.ltr);
     textPainterScoreText.layout(
       minWidth: 0,
@@ -706,9 +709,9 @@ class MyGame extends BaseGame {
       updateScore = false;
     }
     int genColourComp = rng.nextInt(8);
-    TextConfig comp = TextConfig(color: colours[genColourComp], fontSize: 28, fontFamily: "fontNum");
+    TextConfig comp = TextConfig(color: colours[genColourComp], fontSize: 32, fontFamily: "fontNum");
     int genColourPrime = rng.nextInt(5);
-    TextConfig primeC = TextConfig(color: colours[genColourPrime], fontSize: 28, fontFamily: "fontNum");
+    TextConfig primeC = TextConfig(color: colours[genColourPrime], fontSize: 32, fontFamily: "fontNum");
     if (lives > 0) {
       timerPrime -= t;
 
@@ -822,7 +825,7 @@ class MyGame extends BaseGame {
                   finalnum.toString() + "+" + tempGenNum.toString(), comp,
                   tempWidth, Pos));
             }
-          }timerPrime = 0.4;
+          }timerPrime = 0.6;
         }
 
       }
