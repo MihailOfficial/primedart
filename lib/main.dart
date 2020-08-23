@@ -558,7 +558,7 @@ class MyGame extends BaseGame {
 
   ];
   double previousPos = 0.0;
-  var yPositions = new List(10);
+  var yPositions = new List(11);
   final parallaxComponent = ParallaxComponent(images,
       baseSpeed: const Offset(20, 0), layerDelta: const Offset(30, 0));
   MyGame(Size size) {
@@ -569,7 +569,7 @@ class MyGame extends BaseGame {
 
     this.rng = new Random();
     int intTemp = 1;
-     for (int i = 0; i<10; i++){
+     for (int i = 0; i<11; i++){
        intTemp++;
        yPositions[i] = ((tempHeight-height)/12)*( intTemp);
      }
@@ -657,8 +657,7 @@ class MyGame extends BaseGame {
     textPainterLives.paint(c, positionLives);
     textPainterLivesText.paint(c, positionLivesText);
     textPainterNoMoreLives.paint(c, positionNoMoreLives);
-    //debugTextconfig.render(c, "FPS: " + fps(120).toInt().toString() , debugPosition);
-    debugTextconfig.render(c, "FPS: " + fps(120).toInt().toString() , debugPosition);
+
 
   }
 
@@ -720,7 +719,7 @@ class MyGame extends BaseGame {
 
         if (timerPrime < 0) {
           int typeNum = rng.nextInt(2);
-          double Pos = yPositions[rng.nextInt(9)].toDouble();
+          double Pos = yPositions[rng.nextInt(10)].toDouble();
           int temp = 0;
           while (temp == 0) {
             if (previousPos == Pos) {
