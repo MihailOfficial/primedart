@@ -717,19 +717,20 @@ class MyGame extends BaseGame {
 
 
       if (!paused) {
-        int typeNum = rng.nextInt(2);
-        double Pos = yPositions[rng.nextInt(9)].toDouble();
-        int temp = 0;
-        while (temp == 0) {
-          if (previousPos == Pos) {
-            Pos = yPositions[rng.nextInt(9)].toDouble();
-          }
-          else {
-            temp++;
-            previousPos = Pos;
-          }
-        }
+
         if (timerPrime < 0) {
+          int typeNum = rng.nextInt(2);
+          double Pos = yPositions[rng.nextInt(9)].toDouble();
+          int temp = 0;
+          while (temp == 0) {
+            if (previousPos == Pos) {
+              Pos = yPositions[rng.nextInt(9)].toDouble();
+            }
+            else {
+              temp++;
+              previousPos = Pos;
+            }
+          }
           if (typeNum == 0) {
             int gen = rng.nextInt(3);
             if (gen == 0) {
