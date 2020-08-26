@@ -21,20 +21,14 @@ class Header extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Logo(
-            color: kBlue,
-            size: 48.0,
-          ),
+
           const SizedBox(height: kSpaceM),
           FadeSlideTransition(
             animation: animation,
             additionalOffset: 0.0,
             child: Text(
-              'Welcome to Bubble',
-              style: Theme.of(context)
-                  .textTheme
-                  .headline5
-                  .copyWith(color: kBlack, fontWeight: FontWeight.bold),
+              'PrimeDash',
+              style: TextStyle(fontFamily: 'logo', fontSize: 30, color: Color.fromRGBO(252,238,10, 1)),
             ),
           ),
           const SizedBox(height: kSpaceS),
@@ -42,11 +36,11 @@ class Header extends StatelessWidget {
             animation: animation,
             additionalOffset: 16.0,
             child: Text(
-              'Est ad dolor aute ex commodo tempor exercitation proident.',
+              'Show off your prime knowledge.',
               style: Theme.of(context)
                   .textTheme
                   .subtitle1
-                  .copyWith(color: kBlack.withOpacity(0.5)),
+                  .copyWith(color: Color.fromRGBO(255,255,255, 0.8)),
             ),
           ),
         ],

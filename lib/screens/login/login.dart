@@ -103,13 +103,13 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: kWhite,
+      backgroundColor: Color.fromRGBO(252,238,10, 1),
       body: Stack(
         children: <Widget>[
           AnimatedBuilder(
             animation: _whiteTopClipperAnimation,
             child: Container(
-              color: kGrey,
+              color: Color.fromRGBO(202,188,0, 1),
             ),
             builder: (_, Widget child) {
               return ClipPath(
@@ -123,7 +123,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
           AnimatedBuilder(
             animation: _greyTopClipperAnimation,
             child: Container(
-              color: kBlue,
+              color: Color.fromRGBO(252,238,10, 1),
             ),
             builder: (_, Widget child) {
               return ClipPath(
@@ -137,7 +137,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
           AnimatedBuilder(
             animation: _blueTopClipperAnimation,
             child: Container(
-              color: kWhite,
+              color: Color.fromRGBO(28, 28, 28, 1),
             ),
             builder: (_, Widget child) {
               return ClipPath(

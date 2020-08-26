@@ -24,22 +24,22 @@ class CustomInputField extends StatelessWidget {
         contentPadding: const EdgeInsets.all(kPaddingM),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: Colors.black.withOpacity(0.12),
+            color: Colors.black.withOpacity(0.5),
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: Colors.black.withOpacity(0.12),
+            color: Colors.black.withOpacity(0.5),
           ),
         ),
         hintText: label,
         hintStyle: TextStyle(
-          color: kBlack.withOpacity(0.5),
+          color: kBlack.withOpacity(0.7),
           fontWeight: FontWeight.w500,
         ),
         prefixIcon: Icon(
           prefixIcon,
-          color: kBlack.withOpacity(0.5),
+          color: kBlack.withOpacity(0.7),
         ),
       ),
       obscureText: obscureText,
