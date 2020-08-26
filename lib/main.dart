@@ -1,3 +1,4 @@
+import 'package:bird/product.dart';
 import 'package:flutter/material.dart';
 import 'routes.dart';
 
@@ -62,9 +63,9 @@ void main() async {
    Widget build(BuildContext context) {
     return MaterialApp(
         routes: Routes.getRoutes(context),
-        initialRoute: myApp.routeName,
+        initialRoute: Product.routeName,
         theme: ThemeData(),
-        home: Home(),
+        home: Product(),
     );
   }
  }

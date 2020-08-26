@@ -39,11 +39,7 @@ class Product extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: AppDrawer(),
-      appBar: AppBar(centerTitle: true,
-        title: Text('Primedash',style: TextStyle(fontFamily: 'logo', fontSize: 30, color: Color.fromRGBO(252,238,10, 1))),
 
-        backgroundColor: Color.fromRGBO(28, 28, 28, 1),),
       body: Center(
         child: App(),
       ),

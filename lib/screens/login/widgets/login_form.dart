@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
+import '../../../home.dart';
+import '../../../routes.dart';
 import 'custom_button.dart';
 import 'custom_input_field.dart';
 import 'fade_slide_transition.dart';
@@ -52,24 +54,13 @@ class LoginForm extends StatelessWidget {
               color: kBlue,
               textColor: kWhite,
               text: 'Login to continue',
-              onPressed: () {},
+              onPressed: () {
+
+                runApp(MyApp());
+              },
             ),
           ),
-          SizedBox(height: 2 * space),
-          FadeSlideTransition(
-            animation: animation,
-            additionalOffset: 3 * space,
-            child: CustomButton(
-              color: kWhite,
-              textColor: kBlack.withOpacity(0.5),
-              text: 'Continue with Google',
-              image: Image(
-                image: AssetImage(kGoogleLogoPath),
-                height: 48.0,
-              ),
-              onPressed: () {},
-            ),
-          ),
+
           SizedBox(height: space),
           FadeSlideTransition(
             animation: animation,
@@ -78,11 +69,24 @@ class LoginForm extends StatelessWidget {
               color: kBlack,
               textColor: kWhite,
               text: 'Create a Bubble Account',
-              onPressed: () {},
+              onPressed: () {
+
+              },
             ),
           ),
         ],
       ),
+    );
+  }
+}
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      routes: Routes.getRoutes(context),
+      initialRoute: Home.routeName,
+      theme: ThemeData(),
+      home: Home(),
     );
   }
 }

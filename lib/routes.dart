@@ -9,8 +9,8 @@ class Routes{
   static const String topScores = TopScores.routeName;
     static getRoutes(BuildContext context){
       return {
+        product:  (context) => Product(),
         home:  (context) => Home(),
-       product:  (context) => Product(),
         topScores:  (context) => TopScores(),};
     }
 
