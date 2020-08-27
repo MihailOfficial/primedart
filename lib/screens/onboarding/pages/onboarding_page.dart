@@ -7,23 +7,19 @@ import '../../../constants.dart';
 
 class OnboardingPage extends StatelessWidget {
   final int number;
-  final Widget lightCardChild;
   final Widget darkCardChild;
-  final Animation<Offset> lightCardOffsetAnimation;
   final Animation<Offset> darkCardOffsetAnimation;
   final Widget textColumn;
 
   const OnboardingPage({
     @required this.number,
-    @required this.lightCardChild,
     @required this.darkCardChild,
-    @required this.lightCardOffsetAnimation,
     @required this.darkCardOffsetAnimation,
     @required this.textColumn,
   })  : assert(number != null),
-        assert(lightCardChild != null),
+
         assert(darkCardChild != null),
-        assert(lightCardOffsetAnimation != null),
+
         assert(darkCardOffsetAnimation != null),
         assert(textColumn != null);
 
@@ -33,9 +29,7 @@ class OnboardingPage extends StatelessWidget {
       children: <Widget>[
         CardsStack(
           pageNumber: number,
-          lightCardChild: lightCardChild,
           darkCardChild: darkCardChild,
-          lightCardOffsetAnimation: lightCardOffsetAnimation,
           darkCardOffsetAnimation: darkCardOffsetAnimation,
         ),
         SizedBox(

@@ -74,6 +74,7 @@ flutter:
     - assets/images/light-2.png
     - assets/images/clock.png
     - assets/images/test11.jpg
+    - assets/images/sample1.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

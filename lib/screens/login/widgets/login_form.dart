@@ -68,7 +68,7 @@ class LoginForm extends StatelessWidget {
             child: CustomButton(
               color: kBlack,
               textColor: kWhite,
-              text: 'Create a Bubble Account',
+              text: 'Create a PRIMEDASH Account',
               onPressed: () {
 
               },

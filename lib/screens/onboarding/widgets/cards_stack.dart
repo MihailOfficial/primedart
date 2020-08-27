@@ -7,21 +7,17 @@ import '../../../constants.dart';
 
 class CardsStack extends StatelessWidget {
   final int pageNumber;
-  final Widget lightCardChild;
   final Widget darkCardChild;
-  final Animation<Offset> lightCardOffsetAnimation;
   final Animation<Offset> darkCardOffsetAnimation;
 
   const CardsStack({
     @required this.pageNumber,
-    @required this.lightCardChild,
     @required this.darkCardChild,
-    @required this.lightCardOffsetAnimation,
     @required this.darkCardOffsetAnimation,
   })  : assert(pageNumber != null),
-        assert(lightCardChild != null),
+
         assert(darkCardChild != null),
-        assert(lightCardOffsetAnimation != null),
+
         assert(darkCardOffsetAnimation != null);
 
   bool get isOddPageNumber => pageNumber % 2 == 1;
@@ -59,27 +55,7 @@ class CardsStack extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-            top: !isOddPageNumber ? -25.0 : null,
-            bottom: isOddPageNumber ? -25.0 : null,
-            child: SlideTransition(
-              position: lightCardOffsetAnimation,
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
-                color: kLightBlue,
-                child: Container(
-                  width: darkCardWidth * 0.8,
-                  height: darkCardHeight * 0.5,
-                  padding: const EdgeInsets.symmetric(horizontal: kPaddingM),
-                  child: Center(
-                    child: lightCardChild,
-                  ),
-                ),
-              ),
-            ),
-          ),
+
         ],
       ),
     );

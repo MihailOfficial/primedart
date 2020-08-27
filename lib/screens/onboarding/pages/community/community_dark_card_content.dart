@@ -11,27 +11,10 @@ class CommunityDarkCardContent extends StatelessWidget {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.only(top: kPaddingL),
-          child: Icon(
-            Icons.brush,
-            color: kWhite,
-            size: 32.0,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(bottom: kPaddingL),
-          child: Icon(
-            Icons.camera_alt,
-            color: kWhite,
-            size: 32.0,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: kPaddingL),
-          child: Icon(
-            Icons.straighten,
-            color: kWhite,
-            size: 32.0,
-          ),
+          child: Container ( child: ClipRect(
+            //borderRadius: BorderRadius.circular(8.0),
+            child: Image(image: AssetImage('assets/images/sample1.png'),height: 600),
+          ),)
         ),
       ],
     );

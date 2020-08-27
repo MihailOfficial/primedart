@@ -3,14 +3,14 @@ import 'dart:math';
 import 'package:bird/screens/login/login.dart';
 import 'package:bird/screens/onboarding/widgets/header.dart';
 import 'package:bird/screens/onboarding/pages/community/community_dark_card_content.dart';
-import 'package:bird/screens/onboarding/pages/community/community_light_card_content.dart';
+
 import 'package:bird/screens/onboarding/pages/community/community_text_column.dart';
 import 'package:bird/screens/onboarding/pages/education/education_dark_card_content.dart';
-import 'package:bird/screens/onboarding/pages/education/education_light_card_content.dart';
+
 import 'package:bird/screens/onboarding/pages/education/education_text_column.dart';
 import 'package:bird/screens/onboarding/pages/onboarding_page.dart';
 import 'package:bird/screens/onboarding/pages/work/work_dark_card_content.dart';
-import 'package:bird/screens/onboarding/pages/work/work_light_card_content.dart';
+
 import 'package:bird/screens/onboarding/pages/work/work_text_column.dart';
 import 'package:bird/screens/onboarding/widgets/next_page_button.dart';
 import 'package:bird/screens/onboarding/widgets/onboarding_page_indicator.dart';
@@ -87,27 +87,21 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
       case 1:
         return OnboardingPage(
           number: 1,
-          lightCardChild: CommunityLightCardContent(),
           darkCardChild: CommunityDarkCardContent(),
-          lightCardOffsetAnimation: _slideAnimationLightCard,
           darkCardOffsetAnimation: _slideAnimationDarkCard,
           textColumn: CommunityTextColumn(),
         );
       case 2:
         return OnboardingPage(
           number: 2,
-          lightCardChild: EducationLightCardContent(),
           darkCardChild: EducationDarkCardContent(),
-          lightCardOffsetAnimation: _slideAnimationLightCard,
           darkCardOffsetAnimation: _slideAnimationDarkCard,
           textColumn: EducationTextColumn(),
         );
       case 3:
         return OnboardingPage(
           number: 3,
-          lightCardChild: WorkLightCardContent(),
           darkCardChild: WorkDarkCardContent(),
-          lightCardOffsetAnimation: _slideAnimationLightCard,
           darkCardOffsetAnimation: _slideAnimationDarkCard,
           textColumn: WorkTextColumn(),
         );
@@ -118,13 +112,7 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
 
   void _setCardsSlideInAnimation() {
     setState(() {
-      _slideAnimationLightCard = Tween<Offset>(
-        begin: Offset(3.0, 0.0),
-        end: Offset.zero,
-      ).animate(CurvedAnimation(
-        parent: _cardsAnimationController,
-        curve: Curves.easeOut,
-      ));
+
       _slideAnimationDarkCard = Tween<Offset>(
         begin: Offset(1.5, 0.0),
         end: Offset.zero,
@@ -138,13 +126,7 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
 
   void _setCardsSlideOutAnimation() {
     setState(() {
-      _slideAnimationLightCard = Tween<Offset>(
-        begin: Offset.zero,
-        end: Offset(-3.0, 0.0),
-      ).animate(CurvedAnimation(
-        parent: _cardsAnimationController,
-        curve: Curves.easeIn,
-      ));
+
       _slideAnimationDarkCard = Tween<Offset>(
         begin: Offset.zero,
         end: Offset(-1.5, 0.0),
