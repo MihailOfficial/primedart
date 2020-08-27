@@ -41,7 +41,7 @@ class CardsStack extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16.0),
               ),
-              color: kDarkBlue,
+              color: Color.fromRGBO(252,238,10, 1),
               child: Container(
                 width: darkCardWidth,
                 height: darkCardHeight,
@@ -61,3 +61,7 @@ class CardsStack extends StatelessWidget {
     );
   }
 }
+
+
+//Color.fromRGBO(28, 28, 28, 1)
+//Color.fromRGBO(252,238,10, 1)

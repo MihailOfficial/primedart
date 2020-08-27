@@ -205,7 +205,7 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kBlue,
+      backgroundColor: Color.fromRGBO(28, 28, 28, 1),
       body: Stack(
         children: <Widget>[
           SafeArea(
@@ -248,4 +248,5 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
       ),
     );
   }
-}
+}//Color.fromRGBO(28, 28, 28, 1)
+//Color.fromRGBO(252,238,10, 1)
