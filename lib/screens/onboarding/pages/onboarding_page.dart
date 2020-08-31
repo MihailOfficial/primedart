@@ -18,7 +18,6 @@ class OnboardingPage extends StatelessWidget {
     @required this.textColumn,
   })  : assert(number != null),
 
-        assert(darkCardChild != null),
 
         assert(darkCardOffsetAnimation != null),
         assert(textColumn != null);

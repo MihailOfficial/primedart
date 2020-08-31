@@ -8,7 +8,7 @@ class CommunityTextColumn extends StatelessWidget {
     return TextColumn(
       title: 'How to play',
       text:
-          'Eu sint do id aliqua qui tempor sint cillum commodo id voluptate qui.',
+          'Temp text, Touch primes and avoid composites, addition and subtraction yield...',
     );
   }
 }

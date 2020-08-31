@@ -6,17 +6,20 @@ import '../../../../constants.dart';
 class CommunityDarkCardContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(top: kPaddingL),
-          child: Container ( child: ClipRect(
-            //borderRadius: BorderRadius.circular(8.0),
-            child: Image(image: AssetImage('assets/images/sample1.png'),height: 600),
-          ),)
-        ),
-      ],
-    );
+
+    return Container(
+            margin: const EdgeInsets.all(10.0),
+            // padding: const EdgeInsets.all(3.0),
+            decoration: BoxDecoration(
+
+            ),child: ClipRRect(
+            borderRadius: BorderRadius.circular(10.0),
+            child: Image(image: AssetImage('assets/images/sample1.png'),
+
+             ),
+          ),
+        );
+
+
   }
 }

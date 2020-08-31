@@ -17,7 +17,6 @@ class CardsStack extends StatelessWidget {
   })  : assert(pageNumber != null),
 
         assert(darkCardChild != null),
-
         assert(darkCardOffsetAnimation != null);
 
   bool get isOddPageNumber => pageNumber % 2 == 1;
@@ -37,24 +36,13 @@ class CardsStack extends StatelessWidget {
         children: <Widget>[
           SlideTransition(
             position: darkCardOffsetAnimation,
-            child: Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16.0),
+
+
+                child: darkCardChild,
+
               ),
-              color: Color.fromRGBO(252,238,10, 1),
-              child: Container(
-                width: darkCardWidth,
-                height: darkCardHeight,
-                padding: EdgeInsets.only(
-                  top: !isOddPageNumber ? 100.0 : 0.0,
-                  bottom: isOddPageNumber ? 100.0 : 0.0,
-                ),
-                child: Center(
-                  child: darkCardChild,
-                ),
-              ),
-            ),
-          ),
+
+
 
         ],
       ),

@@ -17,10 +17,9 @@ class Header extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        Logo(
-          color: kWhite,
-          size: 32.0,
-        ),
+        Container(child: Text(
+    'PrimeDash',
+      style: TextStyle(fontFamily: 'logo', fontSize: 20, color: Color.fromRGBO(252,238,10, 1)),)),
         GestureDetector(
           onTap: onSkip,
           child: Text(
