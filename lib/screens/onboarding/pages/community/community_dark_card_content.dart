@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 import '../../../../constants.dart';
@@ -8,17 +9,17 @@ class CommunityDarkCardContent extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Container(
-            margin: const EdgeInsets.all(10.0),
-            // padding: const EdgeInsets.all(3.0),
-            decoration: BoxDecoration(
+      margin: const EdgeInsets.all(10.0),
 
-            ),child: ClipRRect(
-            borderRadius: BorderRadius.circular(10.0),
-            child: Image(image: AssetImage('assets/images/sample1.png'),
+      decoration: BoxDecoration(
 
-             ),
-          ),
-        );
+      ),child: ClipRRect(
+      borderRadius: BorderRadius.circular(10.0),
+      child: Image(image: AssetImage('assets/images/temp2.jpg'),
+
+      ),
+    ),
+    );
 
 
   }

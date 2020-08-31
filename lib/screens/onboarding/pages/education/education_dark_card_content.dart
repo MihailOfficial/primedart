@@ -14,7 +14,7 @@ class EducationDarkCardContent extends StatelessWidget {
 
       ),child: ClipRRect(
       borderRadius: BorderRadius.circular(10.0),
-      child: Image(image: AssetImage('assets/images/temp1.jpg'),
+      child: Image(image: AssetImage('assets/images/temp2.jpg'),
 
       ),
     ),

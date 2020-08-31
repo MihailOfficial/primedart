@@ -23,7 +23,7 @@ class Ripple extends StatelessWidget {
         height: 2 * radius,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: kWhite,
+          color: Color.fromRGBO(252,238,10, 1), //changed ripple colour
         ),
       ),
     );
