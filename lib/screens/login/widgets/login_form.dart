@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../constants.dart';
 import '../../../home.dart';
 import '../../../routes.dart';
+import '../../../topScores.dart';
 import 'custom_button.dart';
 import 'custom_input_field.dart';
 import 'fade_slide_transition.dart';
@@ -86,7 +87,7 @@ class MyApp extends StatelessWidget {
       routes: Routes.getRoutes(context),
       initialRoute: Home.routeName,
       theme: ThemeData(),
-      home: Home(),
+      home: TopScores(),
     );
   }
 }

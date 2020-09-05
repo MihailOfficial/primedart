@@ -58,6 +58,8 @@ class Home extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+
+    final double statusBarHeight = MediaQuery.of(context).padding.top;
     return Scaffold(
         drawer: AppDrawer(),
         appBar: AppBar(
@@ -68,48 +70,27 @@ class Home extends StatelessWidget{
 
           backgroundColor: Color.fromRGBO(28, 28, 28, 1),
         ),
-      body: Center(
-        child: myApp(),
+      body: SafeArea(
+        bottom: false,
+        child: Center(
+          child: Container(
+            child: GestureDetector(
+              // When the child is tapped, show a snackbar.
+              onTap: () {
+
+                character.tap();
+              },
+              child: game.widget,
+            ),
+          ),
+        ),
       ),
     );
 
     }
   }
 
-bool tapped = false;
-class myApp extends StatelessWidget {
-  static const String routeName = "/home";
-  @override
-  Widget build(BuildContext context) {
-    final double statusBarHeight = MediaQuery.of(context).padding.top;
 
-
-    return MaterialApp(
-    debugShowCheckedModeBanner: false,
-      color: Colors.red,
-      home: Scaffold(
-
-
-        body: SafeArea(
-          bottom: false,
-          child: Center(
-            child: Container(
-              child: GestureDetector(
-                // When the child is tapped, show a snackbar.
-                onTap: () {
-
-                  character.tap();
-                },
-                child: game.widget,
-              ),
-            ),
-          ),
-        ),
-
-      ),);
-  }
-
-}
 
 double tempX = 0;
 double heightPos = 0;

@@ -1,4 +1,5 @@
 import 'package:bird/product.dart';
+import 'package:bird/screens/onboarding/onboarding.dart';
 import 'package:flutter/material.dart';
 import 'routes.dart';
 
@@ -58,14 +59,22 @@ void main() async {
   Flame.util.fullScreen();
 }
 
- class MyApp extends StatelessWidget {
-   @override
-   Widget build(BuildContext context) {
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
     return MaterialApp(
-        routes: Routes.getRoutes(context),
-        initialRoute: Product.routeName,
-        theme: ThemeData(),
-        home: Product(),
+      debugShowCheckedModeBanner: false,
+      title: 'Onboarding Concept',
+      home: Builder(
+        builder: (BuildContext context) {
+          var screenHeight = MediaQuery.of(context).size.height;
+
+          return Onboarding(
+            screenHeight: screenHeight,
+          );
+        },
+      ),
     );
   }
- }
+}
