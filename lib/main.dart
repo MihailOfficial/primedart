@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Onboarding Concept',
-      home: Builder(
+      home: Product()/*Builder(
         builder: (BuildContext context) {
           var screenHeight = MediaQuery.of(context).size.height;
 
@@ -74,7 +74,7 @@ class MyApp extends StatelessWidget {
             screenHeight: screenHeight,
           );
         },
-      ),
+      ),*/
     );
   }
 }

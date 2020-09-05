@@ -33,6 +33,7 @@ import "package:normal/normal.dart";
 import "package:flame/time.dart";
 import 'package:shared_preferences/shared_preferences.dart';
 import 'screens/onboarding/onboarding.dart';
+ var names = ["Mihail", "Adam", "Aurko", "Devon", "Jill"];
 class Product extends StatelessWidget {
   static const String routeName = "/product";
 
@@ -52,18 +53,72 @@ class App extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Onboarding Concept',
-      home: Builder(
-        builder: (BuildContext context) {
-          var screenHeight = MediaQuery.of(context).size.height;
-
-          return Onboarding(
-            screenHeight: screenHeight,
-          );
-        },
-      ),
+      home: ScoreScreen()
     );
   }
 }
 
+class ScoreScreen extends StatelessWidget {
 
 
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        drawer: AppDrawer(),
+        appBar: AppBar(
+
+
+          centerTitle: true,
+          title: Text('Primedash', style: TextStyle(fontFamily: 'logo',
+              fontSize: 30,
+              color: Color.fromRGBO(252, 238, 10, 1))),
+
+          backgroundColor: Color.fromRGBO(28, 28, 28, 1),
+        ),
+        body: Center(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.all(30),
+                    child: Table(
+
+                      children: [
+                        TableRow(children: [
+                          Text(''),
+                          Text('Username:', textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
+                          Text('Score:', textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
+                        ]),
+                        TableRow(children: [
+                          Text('#1', textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
+                          Text(names[0], textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
+                          Text('11', textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
+                        ]),
+                        TableRow(children: [
+                          Text('#2', textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
+                          Text(names[1], textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
+                          Text('11', textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
+                        ]),
+                        TableRow(children: [
+                          Text('#3', textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
+                          Text(names[2], textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
+                          Text('11', textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
+                        ]),
+                        TableRow(children: [
+                          Text('#4', textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
+                          Text(names[3], textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
+                          Text('11', textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
+                        ]),
+                        TableRow(children: [
+                          Text('#5', textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
+                          Text(names[4], textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
+                          Text('11', textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
+                        ]),
+
+                      ],
+                    ),
+                  ),
+                ])));
+  }
+}
