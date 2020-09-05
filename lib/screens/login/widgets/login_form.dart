@@ -51,8 +51,8 @@ class LoginForm extends StatelessWidget {
             animation: animation,
             additionalOffset: 2 * space,
             child: CustomButton(
-              color: kBlue,
-              textColor: kWhite,
+              color: Colors.red,
+              textColor: Colors.white,
               text: 'Login to continue',
               onPressed: () {
 

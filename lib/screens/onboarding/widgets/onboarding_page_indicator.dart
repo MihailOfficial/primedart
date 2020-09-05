@@ -20,11 +20,10 @@ class OnboardingPageIndicator extends StatelessWidget {
         assert(child != null);
 
   Color _getPageIndicatorColor(int pageIndex) {
-    return currentPage > pageIndex ? kWhite : kWhite.withOpacity(0.25);
+    return currentPage > pageIndex ? Color.fromRGBO(252,238,10, 1) : Color.fromRGBO(80, 80, 80, 1);
   }
-
   double get indicatorGap => pi / 12;
-  double get indicatorLength => pi / 3;
+  double get indicatorLength => pi / 6;
 
   @override
   Widget build(BuildContext context) {
@@ -33,19 +32,19 @@ class OnboardingPageIndicator extends StatelessWidget {
         painter: _OnboardignPageIndicatorPainter(
           color: _getPageIndicatorColor(0),
           startAngle:
-              (4 * indicatorLength) - (indicatorLength + indicatorGap) + angle,
+              (8.5 * indicatorLength) - (indicatorLength + indicatorGap) + angle,
           indicatorLength: indicatorLength,
         ),
         child: CustomPaint(
           painter: _OnboardignPageIndicatorPainter(
             color: _getPageIndicatorColor(1),
-            startAngle: 4 * indicatorLength + angle,
+            startAngle: 8.5 * indicatorLength + angle,
             indicatorLength: indicatorLength,
           ),
           child: CustomPaint(
             painter: _OnboardignPageIndicatorPainter(
               color: _getPageIndicatorColor(2),
-              startAngle: (4 * indicatorLength) +
+              startAngle: (8.5 * indicatorLength) +
                   (indicatorLength + indicatorGap) +
                   angle,
               indicatorLength: indicatorLength,

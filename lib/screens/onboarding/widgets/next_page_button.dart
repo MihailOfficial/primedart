@@ -18,10 +18,10 @@ class NextPageButton extends StatelessWidget {
       padding: const EdgeInsets.all(kPaddingM),
       elevation: 0.0,
       shape: CircleBorder(),
-      fillColor: kWhite,
+      fillColor: Colors.red,
       child: Icon(
         Icons.arrow_forward,
-        color: Color.fromRGBO(252,238,10, 1),
+        color: Colors.white,
         size: 32.0,
       ),
       onPressed: onPressed,

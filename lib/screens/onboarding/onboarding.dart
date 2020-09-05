@@ -171,7 +171,7 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
           _setCardsSlideInAnimation();
           await _cardsAnimationController.forward();
           _setCardsSlideOutAnimation();
-          _setPageIndicatorAnimation(isClockwiseAnimation: false);
+          _setPageIndicatorAnimation(isClockwiseAnimation: true);
         }
         break;
       case 2:
