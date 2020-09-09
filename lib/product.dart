@@ -40,7 +40,15 @@ class Product extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: AppDrawer(),
+      appBar: AppBar(
 
+
+        centerTitle: true,
+        title: Text('Primedash',style: TextStyle(fontFamily: 'logo', fontSize: 30, color: Color.fromRGBO(252,238,10, 1))),
+
+        backgroundColor: Color.fromRGBO(28, 28, 28, 1),
+      ),
       body: Center(
         child: App(),
       ),
@@ -51,10 +59,10 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Onboarding Concept',
-      home: ScoreScreen()
-    );
+
+        home: ScoreScreen()
+
+      );
   }
 }
 
@@ -64,61 +72,443 @@ class ScoreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        drawer: AppDrawer(),
-        appBar: AppBar(
 
+    return Material(
+      child: Container(
+          decoration: new BoxDecoration(color: Color.fromRGBO(252,238,10, 1)),
+          child:  Container(
+        margin: EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0),
+        decoration: BoxDecoration(
 
-          centerTitle: true,
-          title: Text('Primedash', style: TextStyle(fontFamily: 'logo',
-              fontSize: 30,
-              color: Color.fromRGBO(252, 238, 10, 1))),
-
-          backgroundColor: Color.fromRGBO(28, 28, 28, 1),
+          color: Color.fromRGBO(28, 28, 28, 1),
+          border: Border.all(),
+          borderRadius: BorderRadius.all(Radius.circular(15)),
         ),
-        body: Center(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.all(30),
-                    child: Table(
 
-                      children: [
-                        TableRow(children: [
-                          Text(''),
-                          Text('Username:', textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
-                          Text('Score:', textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
-                        ]),
-                        TableRow(children: [
-                          Text('#1', textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
-                          Text(names[0], textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
-                          Text('11', textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
-                        ]),
-                        TableRow(children: [
-                          Text('#2', textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
-                          Text(names[1], textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
-                          Text('11', textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
-                        ]),
-                        TableRow(children: [
-                          Text('#3', textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
-                          Text(names[2], textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
-                          Text('11', textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
-                        ]),
-                        TableRow(children: [
-                          Text('#4', textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
-                          Text(names[3], textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
-                          Text('11', textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
-                        ]),
-                        TableRow(children: [
-                          Text('#5', textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
-                          Text(names[4], textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
-                          Text('11', textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
-                        ]),
+        // column of three rows
+        child: Column(
 
-                      ],
-                    ),
+          // this makes the column height hug its content
+          mainAxisSize: MainAxisSize.min,
+          children: [
+
+            // first row
+            Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(right: 8.0),
+                  child: Image(image: AssetImage('assets/images/high.png'), height: 30,
                   ),
-                ])));
-  }
+                ),
+                Text(
+                  'WORLD HIGH SCORES',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25,
+                  ),
+                ),
+              ],
+            ),
+
+            // second row (single item)
+            Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 16.0,
+                horizontal: 20,
+              ),
+              child: Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                ),
+              ),
+            ),
+
+            Row(
+
+              children: [
+                Container(
+                  padding: EdgeInsets.only(left: 20.0),
+                  child:Container(
+                    decoration: BoxDecoration(
+
+                      color: Color.fromRGBO(255, 215, 0, 1),
+                      border: Border.all(),
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                    ),
+
+                    padding: EdgeInsets.only(right: 8, top: 5, left: 8, bottom: 5),
+
+                    child:Text(
+                      '#1',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 25,
+                      ),
+                    ),
+
+                  ),),
+                Padding(
+                  padding: EdgeInsets.only(right: 10.0, left: 20),
+                  child:CircleAvatar(
+                    radius: 20,
+                    backgroundImage: AssetImage('assets/images/test.jpg'),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(right: 20.0),
+                  child:Text(
+                  'Mihail',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25,
+                  ),
+                ),),
+                Container(
+                  padding: EdgeInsets.only(right: 20.0),
+                  child:Container(
+                    decoration: BoxDecoration(
+
+                      color: Color.fromRGBO(80, 80, 80, 1),
+                      border: Border.all(),
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                    ),
+
+                    padding: EdgeInsets.only(right: 8, top: 5, left: 8, bottom: 5),
+
+                    child:Text(
+                      '2331',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 25,
+                      ),
+                    ),
+
+                  ),),
+              ],
+            ),
+            Row(
+              children: [
+                Container(
+                  padding: EdgeInsets.only(left: 20.0, top: 15),
+                  child:Container(
+                    decoration: BoxDecoration(
+
+                      color: Color.fromRGBO(192,192,192, 1),
+                      border: Border.all(),
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                    ),
+
+                    padding: EdgeInsets.only(right: 8, top: 5, left: 8, bottom: 5),
+
+                    child:Text(
+                      '#2',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 25,
+                      ),
+                    ),
+
+                  ),),
+                Padding(
+                  padding: EdgeInsets.only(right: 10.0, left: 20, top: 15),
+                  child:CircleAvatar(
+                    radius: 20,
+                    backgroundImage: AssetImage('assets/images/test.jpg'),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(right: 20.0, top: 15),
+                  child:Text(
+                    'Mihail',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                    ),
+                  ),),
+                Container(
+                  padding: EdgeInsets.only(right: 20.0, top: 15),
+                  child:Container(
+                    decoration: BoxDecoration(
+
+                      color: Color.fromRGBO(80, 80, 80, 1),
+                      border: Border.all(),
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                    ),
+
+                    padding: EdgeInsets.only(right: 8, top: 5, left: 8, bottom: 5),
+
+                    child:Text(
+                    '2331',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                    ),
+                    ),
+
+                  ),),
+              ],
+            ),
+            Row(
+              children: [
+                Container(
+                  padding: EdgeInsets.only(left: 20.0, top: 15),
+                  child:Container(
+                    decoration: BoxDecoration(
+
+                      color: Color.fromRGBO(205,127,50, 1),
+                      border: Border.all(),
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                    ),
+
+                    padding: EdgeInsets.only(right: 8, top: 5, left: 8, bottom: 5),
+
+                    child:Text(
+                      '#3',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 25,
+                      ),
+                    ),
+
+                  ),),
+                Padding(
+                  padding: EdgeInsets.only(right: 10.0, left: 20, top: 15),
+                  child:CircleAvatar(
+                    radius: 20,
+                    backgroundImage: AssetImage('assets/images/test.jpg'),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(right: 20.0, top: 15),
+                  child:Text(
+                    'Mihail',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                    ),
+                  ),),
+                Container(
+                  padding: EdgeInsets.only(right: 20.0, top: 15),
+                  child:Container(
+                    decoration: BoxDecoration(
+
+                      color: Color.fromRGBO(80, 80, 80, 1),
+                      border: Border.all(),
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                    ),
+
+                    padding: EdgeInsets.only(right: 8, top: 5, left: 8, bottom: 5),
+
+                    child:Text(
+                      '2331',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 25,
+                      ),
+                    ),
+
+                  ),),
+              ],
+            ),
+            Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 30.0, top: 15 ),
+                  child:Text(
+                    '#4',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                    ),
+                  ),),
+                Padding(
+                  padding: EdgeInsets.only(right: 10.0, left: 30, top: 15),
+                  child:CircleAvatar(
+                    radius: 20,
+                    backgroundImage: AssetImage('assets/images/test.jpg'),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(right: 20.0, top: 15),
+                  child:Text(
+                    'Mihail',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                    ),
+                  ),),
+                Padding(
+                  padding: EdgeInsets.only(right: 20.0, top: 15),
+                  child:Text(
+                    '2331',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                    ),
+                  ),),
+              ],
+            ),
+            Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 30.0, top: 15),
+                  child:Text(
+                    '#5',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                    ),
+                  ),),
+                Padding(
+                  padding: EdgeInsets.only(right: 10.0, left: 30, top: 15),
+                  child:CircleAvatar(
+                    radius: 20,
+                    backgroundImage: AssetImage('assets/images/test.jpg'),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(right: 20.0, top: 15),
+                  child:Text(
+                    'Mihail',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                    ),
+                  ),),
+                Padding(
+                  padding: EdgeInsets.only(right: 20.0, top: 15),
+                  child:Text(
+                    '2331',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                    ),
+                  ),),
+              ],
+            ),
+            Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 30.0, top: 15),
+                  child:Text(
+                    '#6',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                    ),
+                  ),),
+                Padding(
+                  padding: EdgeInsets.only(right: 10.0, left: 30, top: 15),
+                  child:CircleAvatar(
+                    radius: 20,
+                    backgroundImage: AssetImage('assets/images/test.jpg'),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(right: 20.0, top: 15),
+                  child:Text(
+                    'Mihail',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                    ),
+                  ),),
+                Padding(
+                  padding: EdgeInsets.only(right: 20.0, top: 15),
+                  child:Text(
+                    '2331',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                    ),
+                  ),),
+              ],
+            ),
+            Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 30.0, top: 15),
+                  child:Text(
+                    '#7',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                    ),
+                  ),),
+                Padding(
+                  padding: EdgeInsets.only(right: 10.0, left: 30, top: 15),
+                  child:CircleAvatar(
+                    radius: 20,
+                    backgroundImage: AssetImage('assets/images/test.jpg'),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(right: 20.0, top: 15),
+                  child:Text(
+                    'Mihail',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                    ),
+                  ),),
+                Padding(
+                  padding: EdgeInsets.only(right: 20.0, top: 15),
+                  child:Text(
+                    '2331',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                    ),
+                  ),),
+              ],
+            ),
+            Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 30.0, top: 15),
+                  child:Text(
+                    '#8',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                    ),
+                  ),),
+                Padding(
+                  padding: EdgeInsets.only(right: 10.0, left: 30, top: 15),
+                  child:CircleAvatar(
+                    radius: 20,
+                    backgroundImage: AssetImage('assets/images/test.jpg'),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(right: 20.0, top: 15),
+                  child:Text(
+                    'Mihail',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                    ),
+                  ),),
+                Padding(
+                  padding: EdgeInsets.only(right: 20.0, top: 15),
+                  child:Text(
+                    '2331',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                    ),
+                  ),),
+              ],
+            ),
+
+
+            // third row
+
+          ],
+        ),
+      )));
+    }
+
 }
