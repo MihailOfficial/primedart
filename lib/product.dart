@@ -34,11 +34,13 @@ import "package:flame/time.dart";
 import 'package:shared_preferences/shared_preferences.dart';
 import 'screens/onboarding/onboarding.dart';
  var names = ["Mihail", "Adam", "Aurko", "Devon", "Jill"];
+double statusBarHeight;
 class Product extends StatelessWidget {
   static const String routeName = "/product";
 
   @override
   Widget build(BuildContext context) {
+    statusBarHeight = AppBar().preferredSize.height;
     return Scaffold(
       drawer: AppDrawer(),
       appBar: AppBar(
@@ -69,22 +71,126 @@ class App extends StatelessWidget {
 class ScoreScreen extends StatelessWidget {
 
 
-
   @override
   Widget build(BuildContext context) {
-
+      print("status: " + statusBarHeight.toString());
     return Material(
-      child: Container(
-          decoration: new BoxDecoration(color: Color.fromRGBO(252,238,10, 1)),
-          child:  Container(
-        margin: EdgeInsets.all(16.0),
-        padding: EdgeInsets.all(16.0),
-        decoration: BoxDecoration(
+        child: Container(
 
-          color: Color.fromRGBO(28, 28, 28, 1),
-          border: Border.all(),
-          borderRadius: BorderRadius.all(Radius.circular(15)),
-        ),
+
+
+            // column of three rows
+            child: Column(
+
+
+            children: [
+
+                  // first row
+                 Container(
+
+                            child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: (MediaQuery.of(context).size.height-statusBarHeight)/4,
+                                decoration: BoxDecoration(
+
+                                  color: Color.fromRGBO(252, 238, 10, 1),
+
+                                ),
+                                child: Column(
+
+
+                                    children: [
+                                    Container(
+                                    height: 60,
+                                    padding: EdgeInsets.only(left: 40.0, right:40, top:10 ),
+                                    child:Container(
+                                      decoration: BoxDecoration(
+
+                                        color: Colors.orange,
+
+                                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                                      ),
+
+                                      padding: EdgeInsets.only(right: 8, top: 5, left: 8, bottom: 5),
+
+                                      child: Row(
+
+                                         children: [
+                                        Text(
+                                        '1',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 25,
+                                        ),
+                                      ),
+                                           Padding(
+                                             padding: EdgeInsets.only(right: 10.0, left: 20),
+                                             child:CircleAvatar(
+                                               radius: 20,
+                                               backgroundImage: AssetImage('assets/images/test.jpg'),
+                                             ),
+                                           ),
+                                      Padding(
+                                             padding: EdgeInsets.only(right: 10.0, left: 20),
+                                             child:Text(
+                                               'Mihail',
+
+                                               style: TextStyle(
+                                                 color: Colors.white,
+                                                 fontSize: 20,
+                                               ),
+                                             ),
+                                           ),
+                                     Padding(
+                                       padding: EdgeInsets.only(right: 10.0, left: 20),
+                                       child:Text(
+                                         '7123',
+
+                                         style: TextStyle(
+                                           color: Colors.white,
+                                           fontSize: 25,
+                                         ),
+                                       ),
+                                     ),
+
+
+                                    ]),
+
+                                       )),
+
+
+
+
+                            ])),
+                 ),
+
+
+                        Container(
+
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: ((MediaQuery.of(context).size.height-statusBarHeight)/4)*3,
+                              decoration: BoxDecoration(
+
+                                color: Colors.white,
+
+
+
+                              ),
+
+
+
+
+
+
+                            )),]
+
+        )));
+
+  }
+}
+/*Container(
+          decoration: new BoxDecoration(color: Color.fromRGBO(252,238,10, 1)),
 
         // column of three rows
         child: Column(
@@ -96,20 +202,49 @@ class ScoreScreen extends StatelessWidget {
             // first row
             Row(
               children: [
-                Padding(
+                  Container(
+                    padding: EdgeInsets.only(right: 10.0,left: 12),
+                    child:Container(
+                  decoration: BoxDecoration(
+
+                    color: Color.fromRGBO(80, 80, 80, 1),
+                    border: Border.all(),
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+
+                    ),
+
+
+                padding: EdgeInsets.only(right: 15, top: 5, left: 12, bottom: 5),
+
+                child:  Row(
+                    children: [
+
+                 Container(
+                child: Padding(
                   padding: EdgeInsets.only(right: 8.0),
                   child: Image(image: AssetImage('assets/images/high.png'), height: 30,
                   ),
                 ),
+
+                ),
+
+            Text(
+              'Global',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 25,
+              ),
+            )
+
+                    ]))),
                 Text(
-                  'WORLD HIGH SCORES',
+                  'Leaderboard',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 25,
                   ),
-                ),
-              ],
-            ),
+                )
+              ]),
 
             // second row (single item)
             Padding(
@@ -149,15 +284,9 @@ class ScoreScreen extends StatelessWidget {
                     ),
 
                   ),),
+
                 Padding(
-                  padding: EdgeInsets.only(right: 10.0, left: 20),
-                  child:CircleAvatar(
-                    radius: 20,
-                    backgroundImage: AssetImage('assets/images/test.jpg'),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(right: 20.0),
+                  padding: EdgeInsets.only(right: 20.0, left: 20),
                   child:Text(
                   'Mihail',
                   style: TextStyle(
@@ -172,7 +301,7 @@ class ScoreScreen extends StatelessWidget {
 
                       color: Color.fromRGBO(80, 80, 80, 1),
                       border: Border.all(),
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
+
                     ),
 
                     padding: EdgeInsets.only(right: 8, top: 5, left: 8, bottom: 5),
@@ -211,15 +340,9 @@ class ScoreScreen extends StatelessWidget {
                     ),
 
                   ),),
+
                 Padding(
-                  padding: EdgeInsets.only(right: 10.0, left: 20, top: 15),
-                  child:CircleAvatar(
-                    radius: 20,
-                    backgroundImage: AssetImage('assets/images/test.jpg'),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(right: 20.0, top: 15),
+                  padding: EdgeInsets.only(right: 20.0, top: 15, left: 20),
                   child:Text(
                     'Mihail',
                     style: TextStyle(
@@ -273,15 +396,9 @@ class ScoreScreen extends StatelessWidget {
                     ),
 
                   ),),
+
                 Padding(
-                  padding: EdgeInsets.only(right: 10.0, left: 20, top: 15),
-                  child:CircleAvatar(
-                    radius: 20,
-                    backgroundImage: AssetImage('assets/images/test.jpg'),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(right: 20.0, top: 15),
+                  padding: EdgeInsets.only(right: 20.0, top: 15, left: 20),
                   child:Text(
                     'Mihail',
                     style: TextStyle(
@@ -307,208 +424,5 @@ class ScoreScreen extends StatelessWidget {
                         color: Colors.white,
                         fontSize: 25,
                       ),
-                    ),
 
-                  ),),
-              ],
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 30.0, top: 15 ),
-                  child:Text(
-                    '#4',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                    ),
-                  ),),
-                Padding(
-                  padding: EdgeInsets.only(right: 10.0, left: 30, top: 15),
-                  child:CircleAvatar(
-                    radius: 20,
-                    backgroundImage: AssetImage('assets/images/test.jpg'),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(right: 20.0, top: 15),
-                  child:Text(
-                    'Mihail',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                    ),
-                  ),),
-                Padding(
-                  padding: EdgeInsets.only(right: 20.0, top: 15),
-                  child:Text(
-                    '2331',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                    ),
-                  ),),
-              ],
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 30.0, top: 15),
-                  child:Text(
-                    '#5',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                    ),
-                  ),),
-                Padding(
-                  padding: EdgeInsets.only(right: 10.0, left: 30, top: 15),
-                  child:CircleAvatar(
-                    radius: 20,
-                    backgroundImage: AssetImage('assets/images/test.jpg'),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(right: 20.0, top: 15),
-                  child:Text(
-                    'Mihail',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                    ),
-                  ),),
-                Padding(
-                  padding: EdgeInsets.only(right: 20.0, top: 15),
-                  child:Text(
-                    '2331',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                    ),
-                  ),),
-              ],
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 30.0, top: 15),
-                  child:Text(
-                    '#6',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                    ),
-                  ),),
-                Padding(
-                  padding: EdgeInsets.only(right: 10.0, left: 30, top: 15),
-                  child:CircleAvatar(
-                    radius: 20,
-                    backgroundImage: AssetImage('assets/images/test.jpg'),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(right: 20.0, top: 15),
-                  child:Text(
-                    'Mihail',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                    ),
-                  ),),
-                Padding(
-                  padding: EdgeInsets.only(right: 20.0, top: 15),
-                  child:Text(
-                    '2331',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                    ),
-                  ),),
-              ],
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 30.0, top: 15),
-                  child:Text(
-                    '#7',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                    ),
-                  ),),
-                Padding(
-                  padding: EdgeInsets.only(right: 10.0, left: 30, top: 15),
-                  child:CircleAvatar(
-                    radius: 20,
-                    backgroundImage: AssetImage('assets/images/test.jpg'),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(right: 20.0, top: 15),
-                  child:Text(
-                    'Mihail',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                    ),
-                  ),),
-                Padding(
-                  padding: EdgeInsets.only(right: 20.0, top: 15),
-                  child:Text(
-                    '2331',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                    ),
-                  ),),
-              ],
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 30.0, top: 15),
-                  child:Text(
-                    '#8',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                    ),
-                  ),),
-                Padding(
-                  padding: EdgeInsets.only(right: 10.0, left: 30, top: 15),
-                  child:CircleAvatar(
-                    radius: 20,
-                    backgroundImage: AssetImage('assets/images/test.jpg'),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(right: 20.0, top: 15),
-                  child:Text(
-                    'Mihail',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                    ),
-                  ),),
-                Padding(
-                  padding: EdgeInsets.only(right: 20.0, top: 15),
-                  child:Text(
-                    '2331',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                    ),
-                  ),),
-              ],
-            ),
-
-
-            // third row
-
-          ],
-        ),
-      )));
-    }
-
-}
+*/
