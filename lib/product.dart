@@ -511,26 +511,7 @@ class ScoreScreen extends StatelessWidget {
 
                  ),
 
-
-                        Container(
-
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: (MediaQuery.of(context).size.height-statusBarHeight)/3,
-                              decoration: BoxDecoration(
-
-                                color: Colors.white,
-
-
-
-                              ),
-
-
-
-
-
-
-                            )),]
+]
 
         )));
 
