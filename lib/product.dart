@@ -47,7 +47,7 @@ class Product extends StatelessWidget {
 
 
         centerTitle: true,
-        title: Text('Primedash',style: TextStyle(fontFamily: 'logo', fontSize: 30, color: Color.fromRGBO(252,238,10, 1))),
+        title: Text('LEADERBOARD',style: TextStyle(fontSize: 20, fontFamily: "fontNum", color: Color.fromRGBO(252,238,10, 1))),
 
         backgroundColor: Color.fromRGBO(28, 28, 28, 1),
       ),
