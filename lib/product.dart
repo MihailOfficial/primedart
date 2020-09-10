@@ -90,7 +90,7 @@ class ScoreScreen extends StatelessWidget {
 
                             child: Container(
                                 width: MediaQuery.of(context).size.width,
-                                height: (MediaQuery.of(context).size.height-statusBarHeight)/4,
+                                height: (MediaQuery.of(context).size.height-statusBarHeight)/3*2,
                                 decoration: BoxDecoration(
 
                                   color: Color.fromRGBO(252, 238, 10, 1),
@@ -101,12 +101,12 @@ class ScoreScreen extends StatelessWidget {
 
                                     children: [
                                     Container(
-                                    height: 60,
-                                    padding: EdgeInsets.only(left: 40.0, right:40, top:10 ),
+                                    height: 120,
+                                    padding: EdgeInsets.only(left: 30.0, right:30, top:10 ),
                                     child:Container(
                                       decoration: BoxDecoration(
 
-                                        color: Colors.orange,
+                                        color: Colors.deepOrange,
 
                                         borderRadius: BorderRadius.all(Radius.circular(20)),
                                       ),
@@ -116,52 +116,399 @@ class ScoreScreen extends StatelessWidget {
                                       child: Row(
 
                                          children: [
-                                        Text(
-                                        '1',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 25,
-                                        ),
-                                      ),
                                            Padding(
-                                             padding: EdgeInsets.only(right: 10.0, left: 20),
+                                             padding: EdgeInsets.only(left: 8),
+                                             child:Text(
+                                               '1',
+
+                                               style: TextStyle(
+                                                 color: Colors.white,
+                                                 fontSize: 40,
+                                               ),
+                                             ),
+                                           ),
+                                           Padding(
+                                             padding: EdgeInsets.only(right: 10.0, left: 10),
                                              child:CircleAvatar(
-                                               radius: 20,
+                                               radius: 35,
                                                backgroundImage: AssetImage('assets/images/test.jpg'),
                                              ),
                                            ),
                                       Padding(
-                                             padding: EdgeInsets.only(right: 10.0, left: 20),
-                                             child:Text(
-                                               'Mihail',
+                                             padding: EdgeInsets.only(right: 10.0, left: 8),
+                                             child: Column(
+                                               crossAxisAlignment: CrossAxisAlignment.start,
+                                               textDirection: TextDirection.ltr,
+                                               children: [
+                                             Padding(
+                                             padding: EdgeInsets.only(right: 10.0, top: 12),
+                                                 child:
+                                                 Text(
+                                                   'PLAYER',
+                                                   style: TextStyle(
+                                                       color: Colors.white70,
+                                                       fontWeight: FontWeight.bold,
+                                                       fontSize: 10.0
+                                                   ),
+                                                 ),),
+                                                 Padding(
+                                                   padding: EdgeInsets.only(right: 10.0),
+                                                   child:
+                                                   Text(
+                                                     'Adam Jones',
+                                                     style: TextStyle(
+                                                         color: Colors.white,
+                                                         fontWeight: FontWeight.bold,
+                                                         fontSize: 20.0
+                                                     ),
+                                                   ),),
 
-                                               style: TextStyle(
-                                                 color: Colors.white,
-                                                 fontSize: 20,
-                                               ),
-                                             ),
+                                                Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Padding(
+                                                      padding: EdgeInsets.only(right: 0, top: 6),
+                                                      child:Text(
+                                                        'PTS',
+                                                        style: TextStyle(
+                                                            color: Colors.white70,
+                                                            fontWeight: FontWeight.bold,
+                                                            fontSize: 10.0
+                                                        ),
+                                                      ),),
+                                                  SizedBox(width: 50),
+                                                  Padding(
+                                                    padding: EdgeInsets.only(right: 0, top: 6),
+                                                      child:Text(
+                                                        'DATE',
+                                                        style: TextStyle(
+                                                            color: Colors.white70,
+                                                            fontWeight: FontWeight.bold,
+                                                            fontSize: 10.0
+                                                        ),
+                                                      ),
+                                                  ),
+                                                ]),
+                                                  Container(
+                                                    width: 140,
+
+                                                    child: Row(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                     children: [
+                                                       Expanded(
+                                                         flex: 2, child:
+                                                        Padding(
+                                                         padding: EdgeInsets.only(right: 0, top: 0),
+                                                         child:Text(
+                                                           '7142',
+                                                           style: TextStyle(
+                                                               color: Colors.white,
+                                                               fontWeight: FontWeight.bold,
+                                                               fontSize: 20.0
+                                                           ),
+                                                         ),),
+                                                       ),
+                                                       Expanded(
+                                                         flex: 2, child:
+                                                       Padding(
+                                                         padding: EdgeInsets.only(right: 0, top: 0),
+                                                         child:Text(
+                                                           'Jan 22',
+                                                           style: TextStyle(
+                                                               color: Colors.white,
+                                                               fontWeight: FontWeight.bold,
+                                                               fontSize: 20.0
+                                                           ),
+                                                         ),),
+                                                       ),
+                                                     ]),
+                                                  )],
+
+                                              ))
+
+                                          ]
                                            ),
-                                     Padding(
-                                       padding: EdgeInsets.only(right: 10.0, left: 20),
-                                       child:Text(
-                                         '7123',
-
-                                         style: TextStyle(
-                                           color: Colors.white,
-                                           fontSize: 25,
-                                         ),
-                                       ),
-                                     ),
 
 
-                                    ]),
+
 
                                        )),
+                                      Container(
+                                          height: 120,
+                                          padding: EdgeInsets.only(left: 30.0, right:30, top:10 ),
+                                          child:Container(
+                                            decoration: BoxDecoration(
+
+                                              color: Colors.blueAccent,
+
+                                              borderRadius: BorderRadius.all(Radius.circular(20)),
+                                            ),
+
+                                            padding: EdgeInsets.only(right: 8, top: 5, left: 8, bottom: 5),
+
+                                            child: Row(
+
+                                                children: [
+                                                  Padding(
+                                                    padding: EdgeInsets.only(left: 8),
+                                                    child:Text(
+                                                      '2',
+
+                                                      style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 40,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding: EdgeInsets.only(right: 10.0, left: 10),
+                                                    child:CircleAvatar(
+                                                      radius: 35,
+                                                      backgroundImage: AssetImage('assets/images/download.jpg'),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                      padding: EdgeInsets.only(right: 10.0, left: 8),
+                                                      child: Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        textDirection: TextDirection.ltr,
+                                                        children: [
+                                                          Padding(
+                                                            padding: EdgeInsets.only(right: 10.0, top: 12),
+                                                            child:
+                                                            Text(
+                                                              'PLAYER',
+                                                              style: TextStyle(
+                                                                  color: Colors.white70,
+                                                                  fontWeight: FontWeight.bold,
+                                                                  fontSize: 10.0
+                                                              ),
+                                                            ),),
+                                                          Padding(
+                                                            padding: EdgeInsets.only(right: 10.0),
+                                                            child:
+                                                            Text(
+                                                              'John Jacobs',
+                                                              style: TextStyle(
+                                                                  color: Colors.white,
+                                                                  fontWeight: FontWeight.bold,
+                                                                  fontSize: 20.0
+                                                              ),
+                                                            ),),
+
+                                                          Row(
+                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                              children: [
+                                                                Padding(
+                                                                  padding: EdgeInsets.only(right: 0, top: 6),
+                                                                  child:Text(
+                                                                    'PTS',
+                                                                    style: TextStyle(
+                                                                        color: Colors.white70,
+                                                                        fontWeight: FontWeight.bold,
+                                                                        fontSize: 10.0
+                                                                    ),
+                                                                  ),),
+                                                                SizedBox(width: 50),
+                                                                Padding(
+                                                                  padding: EdgeInsets.only(right: 0, top: 6),
+                                                                  child:Text(
+                                                                    'DATE',
+                                                                    style: TextStyle(
+                                                                        color: Colors.white70,
+                                                                        fontWeight: FontWeight.bold,
+                                                                        fontSize: 10.0
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ]),
+                                                          Container(
+                                                            width: 140,
+
+                                                            child: Row(
+                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                children: [
+                                                                  Expanded(
+                                                                    flex: 2, child:
+                                                                  Padding(
+                                                                    padding: EdgeInsets.only(right: 0, top: 0),
+                                                                    child:Text(
+                                                                      '3142',
+                                                                      style: TextStyle(
+                                                                          color: Colors.white,
+                                                                          fontWeight: FontWeight.bold,
+                                                                          fontSize: 20.0
+                                                                      ),
+                                                                    ),),
+                                                                  ),
+                                                                  Expanded(
+                                                                    flex: 2, child:
+                                                                  Padding(
+                                                                    padding: EdgeInsets.only(right: 0, top: 0),
+                                                                    child:Text(
+                                                                      'May 12',
+                                                                      style: TextStyle(
+                                                                          color: Colors.white,
+                                                                          fontWeight: FontWeight.bold,
+                                                                          fontSize: 20.0
+                                                                      ),
+                                                                    ),),
+                                                                  ),
+                                                                ]),
+                                                          )],
+
+                                                      )),
+
+
+                                                ]
+                                            ),
 
 
 
 
-                            ])),
+                                          )),
+
+                                      Container(
+                                          height: 120,
+                                          padding: EdgeInsets.only(left: 30.0, right:30, top:10 ),
+                                          child:Container(
+                                            decoration: BoxDecoration(
+
+                                              color: Colors.deepPurple,
+
+                                              borderRadius: BorderRadius.all(Radius.circular(20)),
+                                            ),
+
+                                            padding: EdgeInsets.only(right: 8, top: 5, left: 8, bottom: 5),
+
+                                            child: Row(
+
+                                                children: [
+                                                  Padding(
+                                                    padding: EdgeInsets.only(left: 8),
+                                                    child:Text(
+                                                      '3',
+
+                                                      style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 40,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding: EdgeInsets.only(right: 10.0, left: 10),
+                                                    child:CircleAvatar(
+                                                      radius: 35,
+                                                      backgroundImage: AssetImage('assets/images/images.jpg'),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                      padding: EdgeInsets.only(right: 10.0, left: 8),
+                                                      child: Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        textDirection: TextDirection.ltr,
+                                                        children: [
+                                                          Padding(
+                                                            padding: EdgeInsets.only(right: 10.0, top: 12),
+                                                            child:
+                                                            Text(
+                                                              'PLAYER',
+                                                              style: TextStyle(
+                                                                  color: Colors.white70,
+                                                                  fontWeight: FontWeight.bold,
+                                                                  fontSize: 10.0
+                                                              ),
+                                                            ),),
+                                                          Padding(
+                                                            padding: EdgeInsets.only(right: 10.0),
+                                                            child:
+                                                            Text(
+                                                              'Carlita Levins',
+                                                              style: TextStyle(
+                                                                  color: Colors.white,
+                                                                  fontWeight: FontWeight.bold,
+                                                                  fontSize: 20.0
+                                                              ),
+                                                            ),),
+
+                                                          Row(
+                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                              children: [
+                                                                Padding(
+                                                                  padding: EdgeInsets.only(right: 0, top: 6),
+                                                                  child:Text(
+                                                                    'PTS',
+                                                                    style: TextStyle(
+                                                                        color: Colors.white70,
+                                                                        fontWeight: FontWeight.bold,
+                                                                        fontSize: 10.0
+                                                                    ),
+                                                                  ),),
+                                                                SizedBox(width: 50),
+                                                                Padding(
+                                                                  padding: EdgeInsets.only(right: 0, top: 6),
+                                                                  child:Text(
+                                                                    'DATE',
+                                                                    style: TextStyle(
+                                                                        color: Colors.white70,
+                                                                        fontWeight: FontWeight.bold,
+                                                                        fontSize: 10.0
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ]),
+                                                          Container(
+                                                            width: 140,
+
+                                                            child: Row(
+                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                children: [
+                                                                  Expanded(
+                                                                    flex: 2, child:
+                                                                  Padding(
+                                                                    padding: EdgeInsets.only(right: 0, top: 0),
+                                                                    child:Text(
+                                                                      '714',
+                                                                      style: TextStyle(
+                                                                          color: Colors.white,
+                                                                          fontWeight: FontWeight.bold,
+                                                                          fontSize: 20.0
+                                                                      ),
+                                                                    ),),
+                                                                  ),
+                                                                  Expanded(
+                                                                    flex: 2, child:
+                                                                  Padding(
+                                                                    padding: EdgeInsets.only(right: 0, top: 0),
+                                                                    child:Text(
+                                                                      'Mar 11',
+                                                                      style: TextStyle(
+                                                                          color: Colors.white,
+                                                                          fontWeight: FontWeight.bold,
+                                                                          fontSize: 20.0
+                                                                      ),
+                                                                    ),),
+                                                                  ),
+                                                                ]),
+                                                          )],
+
+                                                      ))
+
+                                                ]
+                                            ),
+
+
+
+
+                                          )),
+
+
+
+                            ]),
+
+
+                            ),
+
                  ),
 
 
@@ -169,7 +516,7 @@ class ScoreScreen extends StatelessWidget {
 
                             child: Container(
                               width: MediaQuery.of(context).size.width,
-                              height: ((MediaQuery.of(context).size.height-statusBarHeight)/4)*3,
+                              height: (MediaQuery.of(context).size.height-statusBarHeight)/3,
                               decoration: BoxDecoration(
 
                                 color: Colors.white,
@@ -424,5 +771,6 @@ class ScoreScreen extends StatelessWidget {
                         color: Colors.white,
                         fontSize: 25,
                       ),
-
+download.jpg
+images.jpg
 */
