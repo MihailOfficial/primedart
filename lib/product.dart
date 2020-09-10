@@ -163,76 +163,83 @@ class ScoreScreen extends StatelessWidget {
                                                      ),
                                                    ),),
 
-                                                Row(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Padding(
-                                                      padding: EdgeInsets.only(right: 0, top: 6),
-                                                      child:Text(
-                                                        'PTS',
-                                                        style: TextStyle(
-                                                            color: Colors.white70,
-                                                            fontWeight: FontWeight.bold,
-                                                            fontSize: 10.0
-                                                        ),
-                                                      ),),
-                                                  SizedBox(width: 50),
-                                                  Padding(
-                                                    padding: EdgeInsets.only(right: 0, top: 6),
-                                                      child:Text(
-                                                        'DATE',
-                                                        style: TextStyle(
-                                                            color: Colors.white70,
-                                                            fontWeight: FontWeight.bold,
-                                                            fontSize: 10.0
-                                                        ),
-                                                      ),
-                                                  ),
-                                                ]),
-                                                  Container(
-                                                    width: 140,
+                                                 Container(
+                                                   width: 150,
 
-                                                    child: Row(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                     children: [
-                                                       Expanded(
-                                                         flex: 2, child:
-                                                        Padding(
-                                                         padding: EdgeInsets.only(right: 0, top: 0),
-                                                         child:Text(
-                                                           '7142',
-                                                           style: TextStyle(
-                                                               color: Colors.white,
-                                                               fontWeight: FontWeight.bold,
-                                                               fontSize: 20.0
+                                                   child:Row(
+
+                                                       children: [
+                                                         Expanded(
+                                                           flex: 2, child:
+                                                         Padding(
+                                                           padding: EdgeInsets.only(right: 0, top: 6),
+                                                           child:Text(
+                                                             'PTS',
+                                                             style: TextStyle(
+                                                                 color: Colors.white70,
+                                                                 fontWeight: FontWeight.bold,
+                                                                 fontSize: 10.0
+                                                             ),
+                                                           ),),),
+                                                         Expanded(
+                                                           flex: 2, child:
+                                                         Padding(
+                                                           padding: EdgeInsets.only(right: 0, top: 6),
+                                                           child:Text(
+                                                             'DATE',
+                                                             style: TextStyle(
+                                                                 color: Colors.white70,
+                                                                 fontWeight: FontWeight.bold,
+                                                                 fontSize: 10.0
+                                                             ),
                                                            ),
-                                                         ),),
-                                                       ),
-                                                       Expanded(
-                                                         flex: 2, child:
-                                                       Padding(
-                                                         padding: EdgeInsets.only(right: 0, top: 0),
-                                                         child:Text(
-                                                           'Jan 22',
-                                                           style: TextStyle(
-                                                               color: Colors.white,
-                                                               fontWeight: FontWeight.bold,
-                                                               fontSize: 20.0
-                                                           ),
-                                                         ),),
-                                                       ),
-                                                     ]),
-                                                  )],
+                                                         ),
+                                                         ),
+                                                       ]),),
+                                                 Container(
+                                                   width: 150,
 
-                                              ))
+                                                   child: Row(
+                                                       crossAxisAlignment: CrossAxisAlignment.start,
+                                                       children: [
+                                                         Expanded(
+                                                           flex: 2, child:
+                                                         Padding(
+                                                           padding: EdgeInsets.only(right: 0, top: 0),
+                                                           child:Text(
+                                                             '9225',
+                                                             style: TextStyle(
+                                                                 color: Colors.white,
+                                                                 fontWeight: FontWeight.bold,
+                                                                 fontSize: 20.0
+                                                             ),
+                                                           ),),
+                                                         ),
+                                                         Expanded(
+                                                           flex: 2, child:
+                                                         Padding(
+                                                           padding: EdgeInsets.only(right: 0, top: 0),
+                                                           child:Text(
+                                                             'May 12',
+                                                             style: TextStyle(
+                                                                 color: Colors.white,
+                                                                 fontWeight: FontWeight.bold,
+                                                                 fontSize: 20.0
+                                                             ),
+                                                           ),),
+                                                         ),
+                                                       ]),
+                                                 )],
 
-                                          ]
-                                           ),
+                                             ))
+
+                                         ]
+                                      ),
 
 
 
 
-                                       )),
+                                    )),
                                       Container(
                                           height: 120,
                                           padding: EdgeInsets.only(left: 30.0, right:30, top:10 ),
@@ -295,35 +302,41 @@ class ScoreScreen extends StatelessWidget {
                                                                   fontSize: 20.0
                                                               ),
                                                             ),),
+                                                          Container(
+                                                            width: 150,
 
-                                                          Row(
-                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                              children: [
-                                                                Padding(
-                                                                  padding: EdgeInsets.only(right: 0, top: 6),
-                                                                  child:Text(
-                                                                    'PTS',
-                                                                    style: TextStyle(
-                                                                        color: Colors.white70,
-                                                                        fontWeight: FontWeight.bold,
-                                                                        fontSize: 10.0
-                                                                    ),
-                                                                  ),),
-                                                                SizedBox(width: 50),
-                                                                Padding(
-                                                                  padding: EdgeInsets.only(right: 0, top: 6),
-                                                                  child:Text(
-                                                                    'DATE',
-                                                                    style: TextStyle(
-                                                                        color: Colors.white70,
-                                                                        fontWeight: FontWeight.bold,
-                                                                        fontSize: 10.0
+                                                            child:Row(
+
+                                                                children: [
+                                                                  Expanded(
+                                                                    flex: 2, child:
+                                                                  Padding(
+                                                                    padding: EdgeInsets.only(right: 0, top: 6),
+                                                                    child:Text(
+                                                                      'PTS',
+                                                                      style: TextStyle(
+                                                                          color: Colors.white70,
+                                                                          fontWeight: FontWeight.bold,
+                                                                          fontSize: 10.0
+                                                                      ),
+                                                                    ),),),
+                                                                  Expanded(
+                                                                    flex: 2, child:
+                                                                  Padding(
+                                                                    padding: EdgeInsets.only(right: 0, top: 6),
+                                                                    child:Text(
+                                                                      'DATE',
+                                                                      style: TextStyle(
+                                                                          color: Colors.white70,
+                                                                          fontWeight: FontWeight.bold,
+                                                                          fontSize: 10.0
+                                                                      ),
                                                                     ),
                                                                   ),
-                                                                ),
-                                                              ]),
+                                                                  ),
+                                                                ]),),
                                                           Container(
-                                                            width: 140,
+                                                            width: 150,
 
                                                             child: Row(
                                                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -333,7 +346,7 @@ class ScoreScreen extends StatelessWidget {
                                                                   Padding(
                                                                     padding: EdgeInsets.only(right: 0, top: 0),
                                                                     child:Text(
-                                                                      '3142',
+                                                                      '6225',
                                                                       style: TextStyle(
                                                                           color: Colors.white,
                                                                           fontWeight: FontWeight.bold,
@@ -346,7 +359,7 @@ class ScoreScreen extends StatelessWidget {
                                                                   Padding(
                                                                     padding: EdgeInsets.only(right: 0, top: 0),
                                                                     child:Text(
-                                                                      'May 12',
+                                                                      'Apr 11',
                                                                       style: TextStyle(
                                                                           color: Colors.white,
                                                                           fontWeight: FontWeight.bold,
@@ -357,8 +370,7 @@ class ScoreScreen extends StatelessWidget {
                                                                 ]),
                                                           )],
 
-                                                      )),
-
+                                                      ))
 
                                                 ]
                                             ),
@@ -431,9 +443,14 @@ class ScoreScreen extends StatelessWidget {
                                                               ),
                                                             ),),
 
-                                                          Row(
-                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                            Container(
+                                                              width: 150,
+
+                                                              child:Row(
+
                                                               children: [
+                                                                Expanded(
+                                                                    flex: 2, child:
                                                                 Padding(
                                                                   padding: EdgeInsets.only(right: 0, top: 6),
                                                                   child:Text(
@@ -443,8 +460,9 @@ class ScoreScreen extends StatelessWidget {
                                                                         fontWeight: FontWeight.bold,
                                                                         fontSize: 10.0
                                                                     ),
-                                                                  ),),
-                                                                SizedBox(width: 50),
+                                                                  ),),),
+                                                                Expanded(
+                                                                    flex: 2, child:
                                                                 Padding(
                                                                   padding: EdgeInsets.only(right: 0, top: 6),
                                                                   child:Text(
@@ -456,9 +474,10 @@ class ScoreScreen extends StatelessWidget {
                                                                     ),
                                                                   ),
                                                                 ),
-                                                              ]),
+                                                                ),
+                                                              ]),),
                                                           Container(
-                                                            width: 140,
+                                                            width: 150,
 
                                                             child: Row(
                                                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -468,7 +487,7 @@ class ScoreScreen extends StatelessWidget {
                                                                   Padding(
                                                                     padding: EdgeInsets.only(right: 0, top: 0),
                                                                     child:Text(
-                                                                      '714',
+                                                                      '4225',
                                                                       style: TextStyle(
                                                                           color: Colors.white,
                                                                           fontWeight: FontWeight.bold,
