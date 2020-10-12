@@ -66,7 +66,7 @@ class Home extends StatelessWidget{
 
 
           centerTitle: true,
-          title: Text('Primedash',style: TextStyle(fontFamily: 'logo', fontSize: 30, color: Color.fromRGBO(252,238,10, 1))),
+          title: Text('numdash',style: TextStyle(fontFamily: 'logo', fontSize: 30, color: Color.fromRGBO(252,238,10, 1))),
 
           backgroundColor: Color.fromRGBO(28, 28, 28, 1),
         ),
@@ -498,12 +498,13 @@ class MyGame extends BaseGame {
   TextPainter textPainterScoreText;
   TextPainter textPainterLivesText;
   TextPainter textPainterNoMoreLives;
-
+  TextPainter textPainterNumTypeText;
   Offset positionScore;
   Offset positionLives;
   Offset positionScoreText;
   Offset positionLivesText;
   Offset positionNoMoreLives;
+  Offset positionNumType;
   static List<ParallaxImage> images = [
 
     ParallaxImage("Nebula Blue.png"),
@@ -521,6 +522,7 @@ class MyGame extends BaseGame {
 
     add(parallaxComponent);
     add(Bg());
+    add(Bottom());
     add(character = CharacterSprite());
 
     this.rng = new Random();
@@ -552,6 +554,26 @@ class MyGame extends BaseGame {
       minWidth: 0,
       maxWidth: size.width,
     );
+    var te1;
+    textPainterNumTypeText = TextPainter(
+
+      text: TextSpan(
+        text: "Multiples of 12",
+
+        style: TextStyle(
+            color: Color.fromRGBO(72, 212, 88, 1), fontSize: 18, fontFamily: "bold")),
+        textDirection: TextDirection.ltr,textAlign: TextAlign.center,
+          );
+
+    textPainterNumTypeText.layout(
+      minWidth: 0,
+      maxWidth: tempWidth,
+
+    );
+    print(textPainterNumTypeText.width);
+    positionNumType = Offset((tempWidth - textPainterNumTypeText.width) * 0.5,
+        tempHeight-heightApp-(heightApp/2)-textPainterNumTypeText.height/2);
+
     positionLivesText = Offset(size.width *(4/20) - textPainterLivesText.width / 2,
         heightApp/2 - textPainterLivesText.height / 2);
 
@@ -613,7 +635,7 @@ class MyGame extends BaseGame {
     textPainterLives.paint(c, positionLives);
     textPainterLivesText.paint(c, positionLivesText);
     textPainterNoMoreLives.paint(c, positionNoMoreLives);
-
+    textPainterNumTypeText.paint(c, positionNumType);
 
   }
 
@@ -634,6 +656,15 @@ class MyGame extends BaseGame {
             color: Color.fromRGBO(255, 46, 46, 1), fontSize: 18, fontFamily: "bold")),
         textDirection: TextDirection.ltr);
     textPainterScoreText.layout(
+      minWidth: 0,
+      maxWidth: tempWidth,
+    );
+    textPainterNumTypeText = TextPainter(text: TextSpan(
+        text: "Multiples of 12",
+        style: TextStyle(
+            color: Color.fromRGBO(72, 212, 88, 1), fontSize: 18, fontFamily: "bold")),
+        textDirection: TextDirection.ltr);
+    textPainterNumTypeText.layout(
       minWidth: 0,
       maxWidth: tempWidth,
     );
@@ -813,6 +844,21 @@ class Bg extends Component with Resizable {
   @override
   void render(Canvas c) {
     c.drawRect(Rect.fromLTWH(0,0, tempWidth, heightApp), _paint);
+
+  }
+
+  @override
+  void update(double t) {
+    // TODO: implement update
+  }
+}
+class Bottom extends Component with Resizable {
+  static final Paint _paint = Paint()
+    ..color = Color.fromRGBO(22, 22, 22, 0.7);
+
+  @override
+  void render(Canvas c) {
+    c.drawRect(Rect.fromLTWH(0, (tempHeight-2*heightApp), tempWidth,heightApp), _paint);
 
   }
 

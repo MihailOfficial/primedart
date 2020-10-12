@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Onboarding Concept',
-      home: Product()/*Builder(
+      home: Home()/*Builder(
         builder: (BuildContext context) {
           var screenHeight = MediaQuery.of(context).size.height;
 

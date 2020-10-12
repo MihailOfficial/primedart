@@ -90,7 +90,7 @@ class ScoreScreen extends StatelessWidget {
 
                             child: Container(
                                 width: MediaQuery.of(context).size.width,
-                                height: (MediaQuery.of(context).size.height-statusBarHeight)/3*2,
+                                height: MediaQuery.of(context).size.height-statusBarHeight,
                                 decoration: BoxDecoration(
 
                                   color: Color.fromRGBO(252, 238, 10, 1),
@@ -521,8 +521,258 @@ class ScoreScreen extends StatelessWidget {
 
                                           )),
 
+                              Container(
+
+                                  padding: EdgeInsets.only(left: 30.0, right:30, top:10 ),
+                                  child:Container(
+                                    decoration: BoxDecoration(
+
+                                      color: Color.fromRGBO(204, 193, 6, 1),
+
+                                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                                    ),
+
+                                    padding: EdgeInsets.only(right: 5, top: 5, left: 8, bottom: 5),
+                                      child: DataTable(
+                                        columns: [
+                                          DataColumn(label:
+                                            Padding(
+
+                                             padding: EdgeInsets.only(left: 0), child:Text(
+                                              'RANK',
+                                              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, fontFamily: "fontNum",)
+                                          )),),
+                                          DataColumn(label:
+                                          Padding(
+
+                                              padding: EdgeInsets.only(left: 0), child:Text(
+                                              'PLAYER',
+                                              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, fontFamily: "fontNum",)
+                                          )),),
+                                          DataColumn(label:
+                                          Padding(
+
+                                              padding: EdgeInsets.only(right: 60), child:Text(
+                                              'SCORE',
+                                              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, fontFamily: "fontNum",)
+                                          )),),
+                                        ],
+                                        rows: [
+                                          DataRow(cells: [
+                                            DataCell(
+                                              Container(
+                                                child: Padding(
+
+                                                  padding: EdgeInsets.only(left: 20),
+                                                  //SET width
+                                                  child: Text(
+                                                      '4',
+                                                      style: TextStyle(fontSize: 15, fontFamily: "fontNum",)
+                                                  ),
+                                                ),
+                                              ),),
+                                            DataCell(
+                                              Container(
+                                                 width: 80,
+                                                child: Padding(
+
+                                                  padding: EdgeInsets.only(left: 0),
+
+                                                  child: Text(
+                                                      'Mihail Jones',
+                                                      style: TextStyle(fontSize: 14)
+                                                  ),
+                                                ),
+                                              ),),
+                                            DataCell(
+                                              Container(
+                                                child: Padding(
+
+                                                  padding: EdgeInsets.only(right: 40),
+                                                  //SET width
+                                                  child: Text(
+                                                      '7777',
+                                                      style: TextStyle(fontSize: 15, fontFamily: "fontNum",)
+                                                  ),
+                                                ),
+                                              ),),
 
 
+
+                                          ]),
+
+                                          DataRow(cells: [
+                                            DataCell(
+                                              Container(
+                                                child: Padding(
+
+                                                  padding: EdgeInsets.only(left: 20),
+                                                  //SET width
+                                                  child: Text(
+                                                      '5',
+                                                      style: TextStyle(fontSize: 15, fontFamily: "fontNum",)
+                                                  ),
+                                                ),
+                                              ),),
+                                            DataCell(
+                                              Container(
+                                                width: 80,
+                                                child: Padding(
+
+                                                  padding: EdgeInsets.only(left: 0),
+
+                                                  child: Text(
+                                                      'Mihail Jones',
+                                                      style: TextStyle(fontSize: 14)
+                                                  ),
+                                                ),
+                                              ),),
+                                            DataCell(
+                                              Container(
+                                                child: Padding(
+
+                                                  padding: EdgeInsets.only(left: 5),
+                                                  //SET width
+                                                  child: Text(
+                                                      '7777',
+                                                      style: TextStyle(fontSize: 15, fontFamily: "fontNum",)
+                                                  ),
+                                                ),
+                                              ),),
+
+
+
+                                          ]),
+                                          DataRow(cells: [
+                                            DataCell(
+                                              Container(
+                                                child: Padding(
+
+                                                  padding: EdgeInsets.only(left: 20),
+                                                  //SET width
+                                                  child: Text(
+                                                      '6',
+                                                      style: TextStyle(fontSize: 15, fontFamily: "fontNum",)
+                                                  ),
+                                                ),
+                                              ),),
+                                            DataCell(
+                                              Container(
+                                                width: 80,
+                                                child: Padding(
+
+                                                  padding: EdgeInsets.only(left: 0),
+
+                                                  child: Text(
+                                                      'Mihail Jones',
+                                                      style: TextStyle(fontSize: 14)
+                                                  ),
+                                                ),
+                                              ),),
+                                            DataCell(
+                                              Container(
+                                                child: Padding(
+
+                                                  padding: EdgeInsets.only(left: 5),
+                                                  //SET width
+                                                  child: Text(
+                                                      '7777',
+                                                      style: TextStyle(fontSize: 15, fontFamily: "fontNum",)
+                                                  ),
+                                                ),
+                                              ),),
+
+
+
+                                          ]),
+                                          DataRow(cells: [
+                                            DataCell(
+                                              Container(
+                                                child: Padding(
+
+                                                  padding: EdgeInsets.only(left: 20),
+                                                  //SET width
+                                                  child: Text(
+                                                      '7',
+                                                      style: TextStyle(fontSize: 15, fontFamily: "fontNum",)
+                                                  ),
+                                                ),
+                                              ),),
+                                            DataCell(
+                                              Container(
+                                                width: 80,
+                                                child: Padding(
+
+                                                  padding: EdgeInsets.only(left: 0),
+
+                                                  child: Text(
+                                                      'Mihail Jones',
+                                                      style: TextStyle(fontSize: 14)
+                                                  ),
+                                                ),
+                                              ),),
+                                            DataCell(
+                                              Container(
+                                                child: Padding(
+
+                                                  padding: EdgeInsets.only(left: 5),
+                                                  //SET width
+                                                  child: Text(
+                                                      '7777',
+                                                      style: TextStyle(fontSize: 15, fontFamily: "fontNum",)
+                                                  ),
+                                                ),
+                                              ),),
+
+
+
+                                          ]),
+                                          DataRow(cells: [
+                                            DataCell(
+                                              Container(
+                                                child: Padding(
+
+                                                  padding: EdgeInsets.only(left: 20),
+                                                  //SET width
+                                                  child: Text(
+                                                      '8',
+                                                      style: TextStyle(fontSize: 15, fontFamily: "fontNum",)
+                                                  ),
+                                                ),
+                                              ),),
+                                            DataCell(
+                                              Container(
+                                                width: 80,
+                                                child: Padding(
+
+                                                  padding: EdgeInsets.only(left: 0),
+
+                                                  child: Text(
+                                                      'Mihail Jones',
+                                                      style: TextStyle(fontSize: 14)
+                                                  ),
+                                                ),
+                                              ),),
+                                            DataCell(
+                                              Container(
+                                                child: Padding(
+
+                                                  padding: EdgeInsets.only(left: 5),
+                                                  //SET width
+                                                  child: Text(
+                                                      '7777',
+                                                      style: TextStyle(fontSize: 15, fontFamily: "fontNum",)
+                                                  ),
+                                                ),
+                                              ),),
+
+
+
+                                          ]),
+                                        ],
+                                      ),
+                              ),
+                              ),
                             ]),
 
 
@@ -530,9 +780,9 @@ class ScoreScreen extends StatelessWidget {
 
                  ),
 
-]
 
-        )));
+              ])
+            ));
 
   }
 }
