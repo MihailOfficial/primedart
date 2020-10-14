@@ -13,8 +13,10 @@ import 'fade_slide_transition.dart';
 
 class LoginForm extends StatelessWidget {
   final Animation<double> animation;
+  final usernameUser = TextEditingController();
+  final passwordUser = TextEditingController();
 
-  const LoginForm({
+   LoginForm({
     @required this.animation,
   }) : assert(animation != null);
 
@@ -28,23 +30,24 @@ class LoginForm extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: kPaddingL),
       child: Column(
         children: <Widget>[
-          FadeSlideTransition(
-            animation: animation,
-            additionalOffset: 0.0,
-            child: CustomInputField(
-              label: 'Username or Email',
-              prefixIcon: Icons.person,
-              obscureText: true,
+          TextField(
+            obscureText: true,
+            controller: usernameUser,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Username',
+
+              prefixIcon: Icon(Icons.person),
             ),
           ),
           SizedBox(height: space),
-          FadeSlideTransition(
-            animation: animation,
-            additionalOffset: space,
-            child: CustomInputField(
-              label: 'Password',
-              prefixIcon: Icons.lock,
-              obscureText: true,
+          TextField(
+            obscureText: true,
+            controller: passwordUser,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Password',
+              prefixIcon: Icon(Icons.lock),
             ),
           ),
           SizedBox(height: space),
@@ -56,8 +59,8 @@ class LoginForm extends StatelessWidget {
               textColor: Colors.white,
               text: 'Login to continue',
               onPressed: () {
-
-                runApp(MyApp());
+                //authenticate(Text(usernameUser.text),Text(passwordUser.text));
+                //runApp(MyApp());
               },
             ),
           ),
