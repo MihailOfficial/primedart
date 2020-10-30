@@ -43,7 +43,7 @@ const BOOST = -300;
 var score = 0;
 bool updateScore = false;
 int highScore = 0;
-int gemCollected = -1;
+int changedMultiple = -1;
 MyGame game;
 double tempHeight = 0;
 bool updateLives  =false;
@@ -96,7 +96,7 @@ double tempX = 0;
 double heightPos = 0;
 int lives = 99;
 double orgPos = 0;
-class Prime extends TextComponent{
+class Multiple extends TextComponent{
   double height = AppBar().preferredSize.height;
 
   bool collectedItem = false;
@@ -106,13 +106,14 @@ class Prime extends TextComponent{
   double accel = 0;
   int value1 = 0;
   bool returned = false;
-  Prime(String text, TextConfig textConfig, double posX, double posY, int value) : super(text) {
+  Multiple(String text, TextConfig textConfig, double posX, double posY) : super(text) {
+
     this.config = textConfig;
     this.anchor = Anchor.center;
     this.x = posX+40;
     this.y = posY;
     orgPos = this.y;
-    value1 = value;
+
 
   }
   @override
@@ -147,7 +148,14 @@ class Prime extends TextComponent{
     }
     super.update(tt);
 
-    if(!collectPrime) {
+    if (changedMultiple == 1){
+
+      destroy();
+     returned = true;
+     game.add(new FastMultiple(this.text, this.x, this.y));
+
+    }
+    else if (!collectPrime) {
       this.x -= speedX * tt;
     }
     else {
@@ -157,15 +165,53 @@ class Prime extends TextComponent{
     }
   }
 }
+class FastMultiple extends TextComponent{
+  double height = AppBar().preferredSize.height;
 
-class Composite extends TextComponent{
+  bool collectedItem = false;
+  double speedX = 150.0;
+  double posX, posY;
+  bool collectPrime = false;
+  double accel = 0;
+  int value1 = 0;
+  bool returned = false;
+  TextConfig notValid = TextConfig(color: Color( 0xFFFFFF00), fontSize: 30);
+  FastMultiple(String text, double posX, double posY) : super(text) {
+   this.config = notValid;
+    this.anchor = Anchor.center;
+    this.x = posX;
+    this.y = posY;
+
+
+  }
+  @override
+  bool destroy() {
+    return returned;
+  }
+  @override
+  void update(double tt){
+    if (paused){
+      this.x = -20000;
+    }
+
+    if (this.x <-30 ){
+      returned = true;
+      destroy();
+    }
+    accel++;
+    super.update(tt);
+    this.x -= 4*accel;
+
+  }
+}
+class NotMultiple extends TextComponent{
   bool collectedItem = false;
   double speedX = 150.0;
   double posX, posY;
   bool collectComp = false;
   double accel = 0;
   bool returned = false;
-  Composite(String text, TextConfig textConfig, double posX, double posY) : super(text) {
+  NotMultiple(String text, TextConfig textConfig, double posX, double posY) : super(text) {
     this.config = textConfig;
     this.anchor = Anchor.center;
     this.x = posX+40;
@@ -323,164 +369,11 @@ class MyGame extends BaseGame {
 
   double timerPrime = 0;
   double timerComp = 0;
+  int currentMultiple = 0;
+  Multiple multiple;
 
-  Prime prime;
-
-  Composite composite;
-  var primes = [
-    2,
-    3,
-    5,
-    7,
-    11,
-    13,
-    17,
-    19,
-    23,
-    29,
-    31,
-    37,
-    41,
-    43,
-    47,
-    53,
-    59,
-    61,
-    67,
-    71,
-    73,
-    79,
-    83,
-    89,
-    97,
-    101,
-    103,
-    107,
-    109,
-    113,
-    127,
-    131,
-    137,
-    139,
-    149
-  ];
-  var composites = [
-    4,
-    6,
-    8,
-    9,
-    10,
-    12,
-    14,
-    15,
-    16,
-    18,
-    20,
-    21,
-    22,
-    24,
-    25,
-    26,
-    27,
-    28,
-    30,
-    32,
-    33,
-    34,
-    35,
-    36,
-    38,
-    39,
-    40,
-    42,
-    44,
-    45,
-    46,
-    48,
-    49,
-    50,
-    51,
-    52,
-    54,
-    55,
-    56,
-    57,
-    58,
-    60,
-    62,
-    63,
-    64,
-    65,
-    66,
-    68,
-    69,
-    70,
-    72,
-    74,
-    75,
-    76,
-    77,
-    78,
-    80,
-    81,
-    82,
-    84,
-    85,
-    86,
-    87,
-    88,
-    90,
-    91,
-    92,
-    93,
-    94,
-    95,
-    96,
-    98,
-    99,
-    100,
-    102,
-    104,
-    105,
-    106,
-    108,
-    110,
-    111,
-    112,
-    114,
-    115,
-    116,
-    117,
-    118,
-    119,
-    120,
-    121,
-    122,
-    123,
-    124,
-    125,
-    126,
-    128,
-    129,
-    130,
-    132,
-    133,
-    134,
-    135,
-    136,
-    138,
-    140,
-    141,
-    142,
-    143,
-    144,
-    145,
-    146,
-    147,
-    148,
-    150
-  ];
-
+  NotMultiple notMultiple;
+  var multiples = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   var subtrators = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   var colours = [
     Color.fromRGBO(247, 220, 111, 1),
@@ -492,7 +385,7 @@ class MyGame extends BaseGame {
     Color.fromRGBO(236, 112, 99, 1),
     Color.fromRGBO(255, 111, 0, 1)];
   var rng;
-
+  var counter = 0;
   TextPainter textPainterScore;
   TextPainter textPainterLives;
   TextPainter textPainterScoreText;
@@ -533,7 +426,7 @@ class MyGame extends BaseGame {
     }
 
     textPainterNoMoreLives = TextPainter(text: TextSpan(
-        text: "",
+        text: "" ,
         style: TextStyle(
             color: Color(0xFFFF0000), fontSize: 32)),
         textDirection: TextDirection.ltr);
@@ -558,7 +451,7 @@ class MyGame extends BaseGame {
     textPainterNumTypeText = TextPainter(
 
       text: TextSpan(
-        text: "Multiples of 12",
+        text: "",
 
         style: TextStyle(
             color: Color.fromRGBO(72, 212, 88, 1), fontSize: 18, fontFamily: "bold")),
@@ -641,6 +534,16 @@ class MyGame extends BaseGame {
 
   @override
   void update(double t) {
+    if (changedMultiple >= 0) {
+      changedMultiple--;
+    }
+    counter++;
+    if (counter%300 == 0){
+      var rng = new Random();
+      currentMultiple = rng.nextInt(5)+2;
+      changedMultiple = 1;
+    }
+
     textPainterLivesText = TextPainter(text: TextSpan(
         text: "LIVES: ",
         style: TextStyle(
@@ -660,14 +563,16 @@ class MyGame extends BaseGame {
       maxWidth: tempWidth,
     );
     textPainterNumTypeText = TextPainter(text: TextSpan(
-        text: "Multiples of 12",
+        text: "Multiples of " + currentMultiple.toString(),
         style: TextStyle(
-            color: Color.fromRGBO(72, 212, 88, 1), fontSize: 18, fontFamily: "bold")),
-        textDirection: TextDirection.ltr);
+            color: Color.fromRGBO(252,238,10, 1), fontSize: 22, fontFamily: "bold")),
+      textDirection: TextDirection.ltr,textAlign: TextAlign.center,);
     textPainterNumTypeText.layout(
       minWidth: 0,
       maxWidth: tempWidth,
     );
+    positionNumType = Offset((tempWidth - textPainterNumTypeText.width) * 0.5,
+        tempHeight-heightApp-(heightApp/2)-textPainterNumTypeText.height/2);
     if (updateLives) {
       textPainterLives = TextPainter(text: TextSpan(
           text: lives.toString(),
@@ -699,12 +604,12 @@ class MyGame extends BaseGame {
     int genColourPrime = rng.nextInt(5);
     TextConfig primeC = TextConfig(color: colours[genColourPrime], fontSize: 32, fontFamily: "fontNum");
     if (lives > 0) {
-      timerPrime -= t;
+      timerPrime += t;
 
 
-      if (!paused) {
-
-        if (timerPrime < 0) {
+        if (timerPrime > 0.4) {
+          timerPrime = 0;
+          print('printed');
           int typeNum = rng.nextInt(2);
           double Pos = yPositions[rng.nextInt(10)].toDouble();
           int temp = 0;
@@ -717,105 +622,69 @@ class MyGame extends BaseGame {
               previousPos = Pos;
             }
           }
+
           if (typeNum == 0) {
-            int gen = rng.nextInt(3);
-            if (gen == 0) {
-              add(prime = Prime(
-                  primes[rng.nextInt(35)].toString(), comp, tempWidth, Pos,
-                  2));
-            }
-            else if (gen == 1) {
-              int tempGenNum = subtrators[rng.nextInt(10)];
-              int tempLoop = 0;
-              int tempPrime;
-              while (tempLoop == 0) {
-                tempPrime = primes[rng.nextInt(35)];
-                if (tempPrime > tempGenNum) {
-                  tempLoop++;
+            int gen = rng.nextInt(2);
+            int scalar = rng.nextInt(10)+1;
+
+              if (gen == 0) {
+                add(multiple = Multiple(
+                    (currentMultiple*scalar).toString(), comp, tempWidth, Pos,
+                    ));
+              }
+              else if (gen == 1) {
+                int tempFirst = 10+rng.nextInt(10)+1;
+                int tempSecond = rng.nextInt(10)+1;
+                int finalFirst;
+
+                int tempLoop = 0;
+                int  tempNum = tempFirst*(rng.nextInt(4)+1);
+                finalFirst = tempNum - tempSecond;
+
+                while (tempNum < tempSecond) {
+                  tempNum = tempFirst * (rng.nextInt(4) + 1);
+                  finalFirst = tempNum - tempSecond;
                 }
-                else {
-                  tempPrime = primes[rng.nextInt(35)];
-                }
+
+
+
+
+                add(multiple = Multiple(
+                    tempNum.toString() + "+" + tempSecond.toString(), comp,
+                    tempWidth, Pos));
               }
 
-              int finalnum = tempPrime + tempGenNum;
-              add(prime = Prime(
-                  finalnum.toString() + "-" + tempGenNum.toString(), comp,
-                  tempWidth, Pos, 2));
-            }
+              else {
+                int tempFirst = rng.nextInt(10)+1;
+                int tempSecond = rng.nextInt(10)+1;
+                int finalFirst;
 
-            else {
-              int tempGenNum = subtrators[rng.nextInt(10)];
-              int tempLoop = 0;
-              int tempPrime;
-              while (tempLoop == 0) {
-                tempPrime = primes[rng.nextInt(35)];
-                if (tempPrime > tempGenNum) {
-                  tempLoop++;
-                }
-                else {
-                  tempPrime = primes[rng.nextInt(35)];
-                }
-              }
+                int tempLoop = 0;
+                int tempNum;
 
-              int finalnum = tempPrime - tempGenNum;
-              add(prime = Prime(
-                  finalnum.toString() + "+" + tempGenNum.toString(), comp,
-                  tempWidth, Pos, 2));
+
+                  tempNum = tempFirst*(rng.nextInt(4)+1)+tempSecond;
+                  finalFirst = tempNum + tempSecond;
+
+
+                while (tempNum > tempSecond) {
+                  tempNum = tempFirst * (rng.nextInt(4) + 1);
+                  finalFirst = tempNum + tempSecond;
+                }
+
+              add(multiple = Multiple(
+                  tempFirst.toString() + "-" + tempSecond.toString(), comp,
+                  tempWidth, Pos));
             }
           }
 
 
-          if (typeNum == 1) {
-            int gen = rng.nextInt(3);
-            if (gen == 0) {
-              add(composite = Composite(
-                  composites[rng.nextInt(35)].toString(), comp, tempWidth,
-                  Pos));
-            }
-            else if (gen == 1) {
-              int tempGenNum = subtrators[rng.nextInt(10)];
-              int tempLoop = 0;
-              int tempComp;
-              while (tempLoop == 0) {
-                tempComp = composites[rng.nextInt(35)];
-                if (tempComp > tempGenNum) {
-                  tempLoop++;
-                }
-                else {
-                  tempComp = composites[rng.nextInt(35)];
-                }
-              }
 
-              int finalnum = tempComp + tempGenNum;
-              add(composite = Composite(
-                  finalnum.toString() + "-" + tempGenNum.toString(), comp,
-                  tempWidth, Pos));
-            }
+          }
 
-            else {
-              int tempGenNum = subtrators[rng.nextInt(10)];
-              int tempLoop = 0;
-              int tempComp;
-              while (tempLoop == 0) {
-                tempComp = composites[rng.nextInt(35)];
-                if (tempComp > tempGenNum) {
-                  tempLoop++;
-                }
-                else {
-                  tempComp = composites[rng.nextInt(35)];
-                }
-              }
 
-              int finalnum = tempComp - tempGenNum;
-              add(composite = Composite(
-                  finalnum.toString() + "+" + tempGenNum.toString(), comp,
-                  tempWidth, Pos));
-            }
-          }timerPrime = 0.6;
-        }
 
-      }
+
     }
 
     else {
