@@ -60,7 +60,7 @@ class LoginForm extends StatelessWidget {
               text: 'Login to continue',
               onPressed: () {
                 //authenticate(Text(usernameUser.text),Text(passwordUser.text));
-                runApp(MyApp());
+                //runApp(MyApp());
               },
             ),
           ),

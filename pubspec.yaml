@@ -27,6 +27,7 @@ dependencies:
   normal: ^0.5.1
   shared_preferences: ^0.5.1+2
   simple_animations: ^2.2.1
+  oauth2: ^1.6.1
 
 
   # The following adds the Cupertino Icons font to your application.
