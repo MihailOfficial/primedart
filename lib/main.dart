@@ -49,14 +49,17 @@ void main() async {
   Util flameUtil = Util();
 
   final size = await Flame.util.initialDimensions();
+  Flame.util.setLandscape();
+  Flame.util.fullScreen();
 
   tempWidth = size.width;
   tempHeight = size.height;
+
   game = MyGame(size);
   runApp(MyApp());
   TapGestureRecognizer tapper = TapGestureRecognizer();
   flameUtil.addGestureRecognizer(tapper);
-  Flame.util.fullScreen();
+
 }
 
 

@@ -36,10 +36,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app_drawer.dart';
 
-const COLOR = const Color.fromRGBO(22, 22, 22, 0.7);
+const COLOR = const Color.fromRGBO(3, 165, 252, 0.5);
 const SIZE = 52.0;
-const GRAVITY = 700.0;
-const BOOST = -300;
+const GRAVITY = 200.0;
+const BOOST = -150;
 var score = 0;
 bool updateScore = false;
 int highScore = 0;
@@ -62,14 +62,7 @@ class Home extends StatelessWidget{
     final double statusBarHeight = MediaQuery.of(context).padding.top;
     return Scaffold(
         drawer: AppDrawer(),
-        appBar: AppBar(
 
-
-          centerTitle: true,
-          title: Text('numdash',style: TextStyle(fontFamily: 'logo', fontSize: 30, color: Color.fromRGBO(252,238,10, 1))),
-
-          backgroundColor: Color.fromRGBO(28, 28, 28, 1),
-        ),
       body: SafeArea(
         bottom: false,
         child: Center(
@@ -94,7 +87,7 @@ class Home extends StatelessWidget{
 
 double tempX = 0;
 double heightPos = 0;
-int lives = 99;
+int lives = 98;
 double orgPos = 0;
 class Multiple extends TextComponent{
   double height = AppBar().preferredSize.height;
@@ -175,7 +168,7 @@ class FastMultiple extends TextComponent{
   double accel = 0;
   int value1 = 0;
   bool returned = false;
-  TextConfig notValid = TextConfig(color: Color( 0xFFFFFF00), fontSize: 30);
+  TextConfig notValid = TextConfig(color: Color.fromRGBO(180, 180, 180 , 1), fontSize: 30);
   FastMultiple(String text, double posX, double posY) : super(text) {
    this.config = notValid;
     this.anchor = Anchor.center;
@@ -252,8 +245,14 @@ class NotMultiple extends TextComponent{
 
     }
     super.update(tt);
+    if (changedMultiple == 1){
 
-    if(!collectComp) {
+      destroy();
+      returned = true;
+      game.add(new FastMultiple(this.text, this.x, this.y));
+
+    }
+    else if(!collectComp) {
       this.x -= speedX * tt;
     }
     else {
@@ -369,7 +368,7 @@ class MyGame extends BaseGame {
 
   double timerPrime = 0;
   double timerComp = 0;
-  int currentMultiple = 0;
+  int currentMultiple = 2;
   Multiple multiple;
 
   NotMultiple notMultiple;
@@ -392,12 +391,14 @@ class MyGame extends BaseGame {
   TextPainter textPainterLivesText;
   TextPainter textPainterNoMoreLives;
   TextPainter textPainterNumTypeText;
+  TextPainter textPainterNumType;
   Offset positionScore;
   Offset positionLives;
   Offset positionScoreText;
   Offset positionLivesText;
   Offset positionNoMoreLives;
   Offset positionNumType;
+  Offset positionNumTypeText;
   static List<ParallaxImage> images = [
 
     ParallaxImage("Nebula Blue.png"),
@@ -419,7 +420,7 @@ class MyGame extends BaseGame {
     add(character = CharacterSprite());
 
     this.rng = new Random();
-    int intTemp = 1;
+    int intTemp = 2;
     for (int i = 0; i<11; i++){
       intTemp++;
       yPositions[i] = ((tempHeight-height)/12)*( intTemp);
@@ -439,9 +440,9 @@ class MyGame extends BaseGame {
             size.height / 2 - textPainterNoMoreLives.height / 2);
 
     textPainterLivesText = TextPainter(text: TextSpan(
-        text: "LIVES: ",
+        text: "L:",
         style: TextStyle(
-            color: Color.fromRGBO(72, 212, 88, 1), fontSize: 18, fontFamily: "bold")),
+            color: Color.fromRGBO(72, 212, 88, 1), fontSize: 22, fontFamily: "bold")),
         textDirection: TextDirection.ltr);
     textPainterLivesText.layout(
       minWidth: 0,
@@ -451,10 +452,10 @@ class MyGame extends BaseGame {
     textPainterNumTypeText = TextPainter(
 
       text: TextSpan(
-        text: "",
+        text: "MULTIPLES:",
 
         style: TextStyle(
-            color: Color.fromRGBO(72, 212, 88, 1), fontSize: 18, fontFamily: "bold")),
+            color: Color.fromRGBO(252,238,10, 1), fontSize: 18, fontFamily: "bold")),
         textDirection: TextDirection.ltr,textAlign: TextAlign.center,
           );
 
@@ -463,52 +464,69 @@ class MyGame extends BaseGame {
       maxWidth: tempWidth,
 
     );
-    print(textPainterNumTypeText.width);
-    positionNumType = Offset((tempWidth - textPainterNumTypeText.width) * 0.5,
-        tempHeight-heightApp-(heightApp/2)-textPainterNumTypeText.height/2);
 
-    positionLivesText = Offset(size.width *(4/20) - textPainterLivesText.width / 2,
+    positionNumTypeText = Offset(size.width *(9.1/20) - textPainterNumTypeText.width / 2,
+        heightApp/2 - textPainterNumTypeText.height / 2);
+
+    textPainterNumType = TextPainter(
+
+      text: TextSpan(
+          text: "",
+
+          style: TextStyle(
+              color: Color(0xFFFF0000), fontSize: 36, fontFamily: "bold")),
+      textDirection: TextDirection.ltr,textAlign: TextAlign.center,
+    );
+
+    textPainterNumType.layout(
+      minWidth: 0,
+      maxWidth: tempWidth,
+
+    );
+
+    positionNumType = Offset(size.width *(10.8/20) - textPainterNumType.width / 2,
+        heightApp/2 - textPainterNumType.height / 2);
+
+    positionLivesText = Offset(size.width *(1.3/20) - textPainterLivesText.width / 2,
         heightApp/2 - textPainterLivesText.height / 2);
 
     textPainterLives = TextPainter(text: TextSpan(
         text: lives.toString(),
         style: TextStyle(
-            color: Colors.white, fontSize: 30, fontFamily: "bold")),
+            color: Colors.white, fontSize: 22, fontFamily: "bold")),
         textDirection: TextDirection.ltr);
     textPainterLives.layout(
       minWidth: 0,
       maxWidth: size.width,
     );
-    positionLives = Offset(size.width *(7/20)- textPainterLives.width / 2,
+    positionLives = Offset(size.width *(2.3/20)- textPainterLives.width / 2,
         heightApp/2 - textPainterLives.height / 2);
 
     textPainterScoreText = TextPainter(text: TextSpan(
-        text: "SCORE: " ,
+        text: "S: " ,
         style: TextStyle(
-            color: Color.fromRGBO(255, 46, 46, 1), fontSize: 18, fontFamily: "bold")),
+            color: Color.fromRGBO(255, 46, 46, 1), fontSize: 22, fontFamily: "bold")),
         textDirection: TextDirection.ltr);
     textPainterScoreText.layout(
       minWidth: 0,
       maxWidth: size.width,
     );
-    positionScoreText = Offset(size.width *(11/20) - textPainterScoreText.width / 2,
+    positionScoreText = Offset(size.width *(3.5/20) - textPainterScoreText.width / 2,
         heightApp/2 - textPainterScoreText.height / 2);
+
+
 
     textPainterScore = TextPainter(text: TextSpan(
         text: count[3].toString()+count[2].toString()+ count[1].toString()+ count[0].toString(),
         style: TextStyle(
-            color: Colors.white, fontSize: 30, fontFamily: "bold")),
+            color: Colors.white, fontSize: 22, fontFamily: "bold")),
         textDirection: TextDirection.ltr);
     textPainterScore.layout(
       minWidth: 0,
       maxWidth: size.width,
     );
-    positionScore = Offset(size.width *(15.5/20) - textPainterScore.width / 2,
+    positionScore = Offset(size.width *(4.8/20) - textPainterScore.width / 2,
         heightApp/2 - textPainterScore.height / 2);
-
-
-
-
 
   }
 
@@ -528,56 +546,39 @@ class MyGame extends BaseGame {
     textPainterLives.paint(c, positionLives);
     textPainterLivesText.paint(c, positionLivesText);
     textPainterNoMoreLives.paint(c, positionNoMoreLives);
-    textPainterNumTypeText.paint(c, positionNumType);
+    textPainterNumTypeText.paint(c, positionNumTypeText);
+    textPainterNumType.paint(c, positionNumType);
 
   }
 
   @override
   void update(double t) {
+    if (!paused){
     if (changedMultiple >= 0) {
       changedMultiple--;
     }
     counter++;
-    if (counter%300 == 0){
+    if (counter%900 == 0){
       var rng = new Random();
       currentMultiple = rng.nextInt(5)+2;
       changedMultiple = 1;
     }
 
-    textPainterLivesText = TextPainter(text: TextSpan(
-        text: "LIVES: ",
+    textPainterNumType = TextPainter(text: TextSpan(
+        text: currentMultiple.toString(),
         style: TextStyle(
-            color: Color.fromRGBO(72, 212, 88, 1), fontSize: 18, fontFamily: "bold")),
-        textDirection: TextDirection.ltr);
-    textPainterLivesText.layout(
-      minWidth: 0,
-      maxWidth: tempWidth,
-    );
-    textPainterScoreText = TextPainter(text: TextSpan(
-        text: "SCORE: " ,
-        style: TextStyle(
-            color: Color.fromRGBO(255, 46, 46, 1), fontSize: 18, fontFamily: "bold")),
-        textDirection: TextDirection.ltr);
-    textPainterScoreText.layout(
-      minWidth: 0,
-      maxWidth: tempWidth,
-    );
-    textPainterNumTypeText = TextPainter(text: TextSpan(
-        text: "Multiples of " + currentMultiple.toString(),
-        style: TextStyle(
-            color: Color.fromRGBO(252,238,10, 1), fontSize: 22, fontFamily: "bold")),
+            color: Colors.white, fontSize: 36, fontFamily: "bold")),
       textDirection: TextDirection.ltr,textAlign: TextAlign.center,);
-    textPainterNumTypeText.layout(
+    textPainterNumType.layout(
       minWidth: 0,
       maxWidth: tempWidth,
     );
-    positionNumType = Offset((tempWidth - textPainterNumTypeText.width) * 0.5,
-        tempHeight-heightApp-(heightApp/2)-textPainterNumTypeText.height/2);
+
     if (updateLives) {
       textPainterLives = TextPainter(text: TextSpan(
           text: lives.toString(),
           style: TextStyle(
-              color: Colors.white, fontSize: 30, fontFamily: "bold")),
+              color: Colors.white, fontSize: 22, fontFamily: "bold")),
           textDirection: TextDirection.ltr);
       textPainterLives.layout(
         minWidth: 0,
@@ -589,7 +590,7 @@ class MyGame extends BaseGame {
       textPainterScore = TextPainter(text: TextSpan(
           text: count[3].toString()+count[2].toString()+ count[1].toString()+ count[0].toString(),
           style: TextStyle(
-              color: Colors.white, fontSize: 30, fontFamily: "bold")),
+              color: Colors.white, fontSize: 22, fontFamily: "bold")),
           textDirection: TextDirection.ltr);
       textPainterScore.layout(
         minWidth: 0,
@@ -607,13 +608,17 @@ class MyGame extends BaseGame {
       timerPrime += t;
 
 
-        if (timerPrime > 0.4) {
+        if (timerPrime > 0.7) {
           timerPrime = 0;
-          print('printed');
+
           int typeNum = rng.nextInt(2);
           double Pos = yPositions[rng.nextInt(10)].toDouble();
           int temp = 0;
+          int gen = rng.nextInt(3);
+
+
           while (temp == 0) {
+            print("stuck1");
             if (previousPos == Pos) {
               Pos = yPositions[rng.nextInt(9)].toDouble();
             }
@@ -624,66 +629,75 @@ class MyGame extends BaseGame {
           }
 
           if (typeNum == 0) {
-            int gen = rng.nextInt(2);
-            int scalar = rng.nextInt(10)+1;
+            int scalar = rng.nextInt(8)+1;
+            int finalScaled = scalar*currentMultiple;
 
+            int secondNum = rng.nextInt(10)+2;
+
+            while (secondNum >= finalScaled) {
+              print("stuck2");
+              scalar = rng.nextInt(8)+1;
+              finalScaled = scalar*currentMultiple;
+              secondNum = rng.nextInt(10)+2;
+           }
               if (gen == 0) {
                 add(multiple = Multiple(
                     (currentMultiple*scalar).toString(), comp, tempWidth, Pos,
                     ));
               }
               else if (gen == 1) {
-                int tempFirst = 10+rng.nextInt(10)+1;
-                int tempSecond = rng.nextInt(10)+1;
-                int finalFirst;
-
-                int tempLoop = 0;
-                int  tempNum = tempFirst*(rng.nextInt(4)+1);
-                finalFirst = tempNum - tempSecond;
-
-                while (tempNum < tempSecond) {
-                  tempNum = tempFirst * (rng.nextInt(4) + 1);
-                  finalFirst = tempNum - tempSecond;
-                }
-
-
-
-
                 add(multiple = Multiple(
-                    tempNum.toString() + "+" + tempSecond.toString(), comp,
+                    (finalScaled-secondNum).toString() + "+" + secondNum.toString(), comp,
                     tempWidth, Pos));
               }
 
               else {
-                int tempFirst = rng.nextInt(10)+1;
-                int tempSecond = rng.nextInt(10)+1;
-                int finalFirst;
-
-                int tempLoop = 0;
-                int tempNum;
-
-
-                  tempNum = tempFirst*(rng.nextInt(4)+1)+tempSecond;
-                  finalFirst = tempNum + tempSecond;
-
-
-                while (tempNum > tempSecond) {
-                  tempNum = tempFirst * (rng.nextInt(4) + 1);
-                  finalFirst = tempNum + tempSecond;
-                }
-
               add(multiple = Multiple(
-                  tempFirst.toString() + "-" + tempSecond.toString(), comp,
+                  (finalScaled+secondNum).toString() + "-" + secondNum.toString(), comp,
                   tempWidth, Pos));
             }
           }
 
+          if (typeNum == 1) {
 
+            int num = rng.nextInt(40)+2;
 
+            int tempSecond = 0;
+
+            while (num%currentMultiple == 0){
+              num= rng.nextInt(40)+2;
+              print("stuck3");
+            }
+
+            tempSecond = rng.nextInt(10)+2;
+
+            while (tempSecond >= num){
+              print("stuck4");
+              num = rng.nextInt(40)+2;
+             tempSecond = rng.nextInt(10)+2;
+           }
+
+            if (gen == 0) {
+              add(notMultiple = NotMultiple(
+                num.toString(), comp, tempWidth, Pos,
+              ));
+            }
+            else if (gen == 1) {
+
+              add(notMultiple = NotMultiple(
+                  (num-tempSecond).toString() + "+" + tempSecond.toString(), comp,
+                  tempWidth, Pos));
+            }
+
+            else {
+
+              add(notMultiple = NotMultiple(
+                  (num+tempSecond).toString() + "-" + tempSecond.toString(), comp,
+                  tempWidth, Pos));
+            }
           }
 
-
-
+          }
 
     }
 
@@ -700,7 +714,9 @@ class MyGame extends BaseGame {
       positionNoMoreLives =
           Offset(size.width / 2 - textPainterScore.width / 2,
               size.height / 2 - textPainterScore.height / 2);
-    } super.update(t);
+    }
+    }
+    super.update(t);
   }
 
 
@@ -712,8 +728,8 @@ class Bg extends Component with Resizable {
 
   @override
   void render(Canvas c) {
-    c.drawRect(Rect.fromLTWH(0,0, tempWidth, heightApp), _paint);
-
+  //  c.drawRect(Rect.fromLTWH(tempWidth*0.375,0, tempWidth*0.22, heightApp), _paint);
+    c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth*0.375,0,tempWidth*0.22,heightApp),Radius.circular(600.0)),_paint);
   }
 
   @override
@@ -727,7 +743,7 @@ class Bottom extends Component with Resizable {
 
   @override
   void render(Canvas c) {
-    c.drawRect(Rect.fromLTWH(0, (tempHeight-2*heightApp), tempWidth,heightApp), _paint);
+
 
   }
 

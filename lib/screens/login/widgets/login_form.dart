@@ -5,6 +5,7 @@ import '../../../constants.dart';
 import '../../../home.dart';
 import '../../../routes.dart';
 import '../../../topScores.dart';
+import '../login.dart';
 import 'custom_button.dart';
 import 'custom_input_field.dart';
 import 'fade_slide_transition.dart';
@@ -60,7 +61,7 @@ class LoginForm extends StatelessWidget {
               text: 'Login to continue',
               onPressed: () {
                 //authenticate(Text(usernameUser.text),Text(passwordUser.text));
-                //runApp(MyApp());
+                runApp(MyApp());
               },
             ),
           ),
@@ -88,7 +89,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: Routes.getRoutes(context),
-      initialRoute: Home.routeName,
       theme: ThemeData(),
       home: TopScores(),
     );
