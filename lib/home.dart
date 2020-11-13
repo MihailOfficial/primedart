@@ -1,3 +1,5 @@
+import 'package:flame/components/mixins/tapable.dart';
+import 'package:flame/gestures.dart';
 import 'package:flutter/material.dart';
 import 'routes.dart';
 
@@ -48,7 +50,9 @@ MyGame game;
 double tempHeight = 0;
 bool updateLives  =false;
 bool hasLives = true;
-CharacterSprite character;
+var x;
+var y;
+TapDownDetails d;
 //Building APK --> flutter build apk --split-per-abi
 double height = AppBar().preferredSize.height;
 var count = new List(4);
@@ -67,20 +71,17 @@ class Home extends StatelessWidget{
         bottom: false,
         child: Center(
           child: Container(
-            child: GestureDetector(
-              // When the child is tapped, show a snackbar.
-              onTap: () {
 
-                character.tap();
-              },
+
               child: game.widget,
-            ),
+
           ),
         ),
       ),
     );
 
     }
+
   }
 
 
@@ -91,6 +92,7 @@ int lives = 98;
 double orgPos = 0;
 class Multiple extends TextComponent{
   double height = AppBar().preferredSize.height;
+  Rect pauseRect;
 
   bool collectedItem = false;
   double speedX = 150.0;
@@ -99,8 +101,9 @@ class Multiple extends TextComponent{
   double accel = 0;
   int value1 = 0;
   bool returned = false;
-  Multiple(String text, TextConfig textConfig, double posX, double posY) : super(text) {
 
+  Multiple(String text, TextConfig textConfig, double posX, double posY) : super(text) {
+    pauseRect = Rect.fromLTWH(0,0,0,0);
     this.config = textConfig;
     this.anchor = Anchor.center;
     this.x = posX+40;
@@ -113,14 +116,23 @@ class Multiple extends TextComponent{
   bool destroy() {
     return returned;
   }
+
+
   @override
   void update(double tt){
+    if (d != null){
+      if (pauseRect.contains(d.globalPosition)){
+        print("touched");
+        collectedItem = true;
+      }}
+
     if (paused){
       this.x = -20000;
     }
-    double dist = sqrt((compy-y)*(compy-y) + (compx-x)*(compx-x));
+    double dist = 50;
+    pauseRect = Rect.fromLTWH(this.x,this.y,this.width,this.height);
 
-    if (dist<45 && !collectedItem){
+    if (collectedItem){
       collectPrime = true;
       TextConfig collected = TextConfig(color: Color( 0xFFFFFF00), fontSize: 35);
       this.config = collected;
@@ -132,7 +144,7 @@ class Multiple extends TextComponent{
       count[3] = ((score /1000) % 10).toInt();
 
       updateScore = true;
-      collectedItem = true;
+      collectedItem = false;
     }
     if (this.x <-30 || this.y<0){
       returned = true;
@@ -204,7 +216,9 @@ class NotMultiple extends TextComponent{
   bool collectComp = false;
   double accel = 0;
   bool returned = false;
+  Rect pauseRect;
   NotMultiple(String text, TextConfig textConfig, double posX, double posY) : super(text) {
+    pauseRect = Rect.fromLTWH(0,0,0,0);
     this.config = textConfig;
     this.anchor = Anchor.center;
     this.x = posX+40;
@@ -218,12 +232,17 @@ class NotMultiple extends TextComponent{
   }
   @override
   void update(double tt){
+    pauseRect = Rect.fromLTWH(this.x,this.y,this.width,this.height);
     if (paused){
       this.x = -20000;
     }
-    double dist = sqrt((compy-y)*(compy-y) + (compx-x)*(compx-x));
+    if (d != null){
+      if (pauseRect.contains(d.globalPosition)){
+        print("touched");
+        collectedItem = true;
+      }}
 
-    if (dist<45 && !collectedItem){
+    if (collectedItem){
       collectComp = true;
       TextConfig collected = TextConfig(color: Color( 0xFF808080), fontSize: 30);
       this.config = collected;
@@ -237,7 +256,7 @@ class NotMultiple extends TextComponent{
         updateLives  =true;
       }
       updateScore = true;
-      collectedItem = true;
+      collectedItem = false;
     }
     if (this.x <-30 || this.y>tempHeight){
       returned = true;
@@ -270,101 +289,16 @@ bool specialMessage = false;
 bool eliminateScoreFlash = false;
 bool spikeDeath = false;
 bool frozen = true;
-double compx;
-double compy;
+
 bool paused = false;
 double heightApp = AppBar().preferredSize.height;
-class CharacterSprite extends AnimationComponent with Resizable {
 
 
-  double speedY = 0.0;
-  Rect catchGameTaps;
-  double tempWid = 0;
-  double tempHi = 0;
-  CharacterSprite()
-      : super.sequenced(SIZE/1.5 , SIZE/1.5, 'circle.png', 1,
-      textureWidth: 256.0, textureHeight: 256.0) {
-    this.anchor = Anchor.center;
-    frozen = true;
-    paused = true;
 
-
+class MyGame extends BaseGame with TapDetector {
+  void onTapDown(TapDownDetails details) {
+   d= details;
   }
-
-  Position get velocity => Position(300.0, speedY);
-
-  reset() {
-    this.x = size.width / 4;
-    this.y = size.height/2;
-
-    heightPos = size.height;
-    speedY = 0;
-    angle = 0.0;
-    frozen = true;
-
-  }
-
-  @override
-  void resize(Size size) {
-
-    super.resize(size);
-    reset();
-    double tempWid = size.width;
-    double tempHi = size.height;
-    frozen = true;
-  }
-
-
-  @override
-  void update(double t) {
-    if (lives<=0){
-      this.x = -20000;
-    }
-    else {
-      super.update(t);
-      compx = this.x;
-      compy = this.y;
-      if (!frozen) {
-        this.y += speedY * t; // - GRAVITY * t * t / 2
-        this.speedY += GRAVITY * t;
-        this.angle = velocity.angle();
-        if (y > size.height || y < heightApp+10) {
-          if (lives > 0) {
-            lives--;
-          }
-          score = 0;
-          updateLives  =true;
-          updateScore = true;
-          paused = true;
-
-          reset();
-        }
-        if (spikeDeath){
-
-          reset();
-        }
-
-      }
-    }}
-
-  void tap() {
-
-    paused = false;
-
-    spikeDeath = false;
-    if (frozen) {
-      frozen = false;
-      return;
-    }
-
-    speedY = BOOST.toDouble();
-
-  }
-}
-
-
-class MyGame extends BaseGame {
-
 
   double timerPrime = 0;
   double timerComp = 0;
@@ -417,7 +351,7 @@ class MyGame extends BaseGame {
     add(parallaxComponent);
     add(Bg());
     add(Bottom());
-    add(character = CharacterSprite());
+
 
     this.rng = new Random();
     int intTemp = 2;
@@ -618,7 +552,7 @@ class MyGame extends BaseGame {
 
 
           while (temp == 0) {
-            print("stuck1");
+
             if (previousPos == Pos) {
               Pos = yPositions[rng.nextInt(9)].toDouble();
             }
@@ -635,7 +569,7 @@ class MyGame extends BaseGame {
             int secondNum = rng.nextInt(10)+2;
 
             while (secondNum >= finalScaled) {
-              print("stuck2");
+
               scalar = rng.nextInt(8)+1;
               finalScaled = scalar*currentMultiple;
               secondNum = rng.nextInt(10)+2;
@@ -666,13 +600,13 @@ class MyGame extends BaseGame {
 
             while (num%currentMultiple == 0){
               num= rng.nextInt(40)+2;
-              print("stuck3");
+
             }
 
             tempSecond = rng.nextInt(10)+2;
 
             while (tempSecond >= num){
-              print("stuck4");
+
               num = rng.nextInt(40)+2;
              tempSecond = rng.nextInt(10)+2;
            }
@@ -723,8 +657,10 @@ class MyGame extends BaseGame {
 
 }
 class Bg extends Component with Resizable {
+
   static final Paint _paint = Paint()
     ..color = COLOR;
+  @override
 
   @override
   void render(Canvas c) {
@@ -736,7 +672,14 @@ class Bg extends Component with Resizable {
   void update(double t) {
     // TODO: implement update
   }
+
+
 }
+
+
+
+
+
 class Bottom extends Component with Resizable {
   static final Paint _paint = Paint()
     ..color = Color.fromRGBO(22, 22, 22, 0.7);
