@@ -124,13 +124,14 @@ class Multiple extends TextComponent{
       if (pauseRect.contains(d.globalPosition)){
         print("touched");
         collectedItem = true;
+        d=null;
       }}
 
     if (paused){
       this.x = -20000;
     }
     double dist = 50;
-    pauseRect = Rect.fromLTWH(this.x,this.y,this.width,this.height);
+    pauseRect = Rect.fromLTWH(this.x-10,this.y-10,this.width+10,this.height+10);
 
     if (collectedItem){
       collectPrime = true;
@@ -240,6 +241,7 @@ class NotMultiple extends TextComponent{
       if (pauseRect.contains(d.globalPosition)){
         print("touched");
         collectedItem = true;
+        d = null;
       }}
 
     if (collectedItem){
