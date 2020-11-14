@@ -90,12 +90,14 @@ double tempX = 0;
 double heightPos = 0;
 int lives = 98;
 double orgPos = 0;
+Rect pauseRect1;
 class Multiple extends TextComponent{
   double height = AppBar().preferredSize.height;
-  Rect pauseRect;
 
+  static final Paint _paint = Paint()
+    ..color = COLOR;
   bool collectedItem = false;
-  double speedX = 150.0;
+  double speedX = 200.0;
   double posX, posY;
   bool collectPrime = false;
   double accel = 0;
@@ -103,10 +105,10 @@ class Multiple extends TextComponent{
   bool returned = false;
 
   Multiple(String text, TextConfig textConfig, double posX, double posY) : super(text) {
-    pauseRect = Rect.fromLTWH(0,0,0,0);
+    pauseRect1 = Rect.fromLTWH(0,0,0,0);
     this.config = textConfig;
     this.anchor = Anchor.center;
-    this.x = posX+40;
+    this.x = posX+45;
     this.y = posY;
     orgPos = this.y;
 
@@ -121,7 +123,7 @@ class Multiple extends TextComponent{
   @override
   void update(double tt){
     if (d != null){
-      if (pauseRect.contains(d.globalPosition)){
+      if (pauseRect1.contains(d.globalPosition)){
         print("touched");
         collectedItem = true;
         d=null;
@@ -131,7 +133,7 @@ class Multiple extends TextComponent{
       this.x = -20000;
     }
     double dist = 50;
-    pauseRect = Rect.fromLTWH(this.x-10,this.y-10,this.width+10,this.height+10);
+    pauseRect1 = Rect.fromLTWH(this.x-(this.width/2)-7,this.y-(this.height/2),this.width+10,this.height);
 
     if (collectedItem){
       collectPrime = true;
@@ -210,19 +212,20 @@ class FastMultiple extends TextComponent{
 
   }
 }
+Rect pauseRect2;
 class NotMultiple extends TextComponent{
   bool collectedItem = false;
-  double speedX = 150.0;
+  double speedX = 200.0;
   double posX, posY;
   bool collectComp = false;
   double accel = 0;
   bool returned = false;
-  Rect pauseRect;
+
   NotMultiple(String text, TextConfig textConfig, double posX, double posY) : super(text) {
-    pauseRect = Rect.fromLTWH(0,0,0,0);
+    pauseRect2 = Rect.fromLTWH(0,0,0,0);
     this.config = textConfig;
     this.anchor = Anchor.center;
-    this.x = posX+40;
+    this.x = posX+45;
     this.y = posY;
     orgPos = this.y;
 
@@ -233,15 +236,15 @@ class NotMultiple extends TextComponent{
   }
   @override
   void update(double tt){
-    pauseRect = Rect.fromLTWH(this.x,this.y,this.width,this.height);
+    pauseRect2 = Rect.fromLTWH(this.x-(this.width/2)-7,this.y-(this.height/2),this.width+10,this.height);
     if (paused){
       this.x = -20000;
     }
     if (d != null){
-      if (pauseRect.contains(d.globalPosition)){
+      if (pauseRect2.contains(d.globalPosition)){
         print("touched");
         collectedItem = true;
-        d = null;
+        d=null;
       }}
 
     if (collectedItem){
@@ -353,6 +356,8 @@ class MyGame extends BaseGame with TapDetector {
     add(parallaxComponent);
     add(Bg());
     add(Bottom());
+
+
 
 
     this.rng = new Random();
@@ -489,6 +494,8 @@ class MyGame extends BaseGame with TapDetector {
 
   @override
   void update(double t) {
+
+
     if (!paused){
     if (changedMultiple >= 0) {
       changedMultiple--;
@@ -537,16 +544,16 @@ class MyGame extends BaseGame with TapDetector {
       updateScore = false;
     }
     int genColourComp = rng.nextInt(8);
-    TextConfig comp = TextConfig(color: colours[genColourComp], fontSize: 32, fontFamily: "fontNum");
+    TextConfig comp = TextConfig(color: colours[genColourComp], fontSize: 36, fontFamily: "fontNum");
     int genColourPrime = rng.nextInt(5);
-    TextConfig primeC = TextConfig(color: colours[genColourPrime], fontSize: 32, fontFamily: "fontNum");
+    TextConfig primeC = TextConfig(color: colours[genColourPrime], fontSize: 36, fontFamily: "fontNum");
     if (lives > 0) {
       timerPrime += t;
 
 
-        if (timerPrime > 0.7) {
+        if (timerPrime > 1) {
           timerPrime = 0;
-
+          d=null;
           int typeNum = rng.nextInt(2);
           double Pos = yPositions[rng.nextInt(10)].toDouble();
           int temp = 0;
@@ -565,6 +572,8 @@ class MyGame extends BaseGame with TapDetector {
           }
 
           if (typeNum == 0) {
+
+
             int scalar = rng.nextInt(8)+1;
             int finalScaled = scalar*currentMultiple;
 
@@ -652,6 +661,7 @@ class MyGame extends BaseGame with TapDetector {
               size.height / 2 - textPainterScore.height / 2);
     }
     }
+
     super.update(t);
   }
 
@@ -668,6 +678,7 @@ class Bg extends Component with Resizable {
   void render(Canvas c) {
   //  c.drawRect(Rect.fromLTWH(tempWidth*0.375,0, tempWidth*0.22, heightApp), _paint);
     c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth*0.375,0,tempWidth*0.22,heightApp),Radius.circular(600.0)),_paint);
+
   }
 
   @override
@@ -677,7 +688,40 @@ class Bg extends Component with Resizable {
 
 
 }
+class Bx1 extends Component with Resizable {
 
+  static final Paint _paint = Paint()
+    ..color = COLOR;
+  @override
+  @override
+  void render(Canvas c) {
+    //  c.drawRect(Rect.fromLTWH(tempWidth*0.375,0, tempWidth*0.22, heightApp), _paint);
+    c.drawRect(pauseRect1,_paint);
+
+  }
+  @override
+  void update(double t) {
+    // TODO: implement update
+  }
+
+}
+class Bx2 extends Component with Resizable {
+
+  static final Paint _paint = Paint()
+    ..color = COLOR;
+  @override
+  @override
+  void render(Canvas c) {
+    //  c.drawRect(Rect.fromLTWH(tempWidth*0.375,0, tempWidth*0.22, heightApp), _paint);
+    c.drawRect(pauseRect2,_paint);
+
+  }
+  @override
+  void update(double t) {
+    // TODO: implement update
+  }
+
+}
 
 
 
