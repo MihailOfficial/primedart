@@ -50,6 +50,7 @@ MyGame game;
 double tempHeight = 0;
 bool updateLives  =false;
 bool hasLives = true;
+double statusWidth = 200;
 var x;
 var y;
 TapDownDetails d;
@@ -62,7 +63,7 @@ class Home extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-
+    SystemChrome.setEnabledSystemUIOverlays([]);
     final double statusBarHeight = MediaQuery.of(context).padding.top;
     return Scaffold(
         drawer: AppDrawer(),
@@ -174,6 +175,7 @@ class Multiple extends TextComponent{
     }
   }
 }
+double updateStatus = 0;
 class FastMultiple extends TextComponent{
   double height = AppBar().preferredSize.height;
 
@@ -302,7 +304,7 @@ bool paused = false;
 double heightApp = AppBar().preferredSize.height;
 
 int tempUpdate = 0;
-
+double statusBox = 0;
 class MyGame extends BaseGame with TapDetector {
   void onTapDown(TapDownDetails details) {
    d= details;
@@ -358,10 +360,6 @@ class MyGame extends BaseGame with TapDetector {
 
     add(parallaxComponent);
     add(Bg());
-    add(Bottom());
-
-
-
 
     this.rng = new Random();
     int intTemp = 2;
@@ -471,7 +469,8 @@ class MyGame extends BaseGame with TapDetector {
     );
     positionScore = Offset(size.width *(4.8/20) - textPainterScore.width / 2,
         heightApp/2 - textPainterScore.height / 2);
-
+    statusBox = tempWidth*0.22;
+   updateStatus = tempWidth*0.22/1660;
   }
 
   static const COLOR = const Color(0xFF527A80);
@@ -497,6 +496,8 @@ class MyGame extends BaseGame with TapDetector {
 
   @override
   void update(double t) {
+
+    statusBox -= updateStatus;
     if (d != null) {
     tempUpdate++;
     }
@@ -513,6 +514,7 @@ class MyGame extends BaseGame with TapDetector {
       var rng = new Random();
       currentMultiple = rng.nextInt(5)+2;
       changedMultiple = 1;
+      statusBox = tempWidth*0.22;
     }
 
     textPainterNumType = TextPainter(text: TextSpan(
@@ -677,7 +679,8 @@ class Bg extends Component with Resizable {
   @override
   void render(Canvas c) {
   //  c.drawRect(Rect.fromLTWH(tempWidth*0.375,0, tempWidth*0.22, heightApp), _paint);
-    c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth*0.375,0,tempWidth*0.22,heightApp),Radius.circular(600.0)),_paint);
+    // c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth*0.375,0,statusBox,heightApp),Radius.circular(600.0)),_paint);
+    c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth*0.375,heightApp/8,statusBox,heightApp*6/8),Radius.circular(10.0)),_paint);
 
   }
 
@@ -692,19 +695,4 @@ class Bg extends Component with Resizable {
 
 
 
-class Bottom extends Component with Resizable {
-  static final Paint _paint = Paint()
-    ..color = Color.fromRGBO(22, 22, 22, 0.7);
-
-  @override
-  void render(Canvas c) {
-
-
-  }
-
-  @override
-  void update(double t) {
-
-  }
-}
 
