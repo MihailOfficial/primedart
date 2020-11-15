@@ -90,8 +90,9 @@ double tempX = 0;
 double heightPos = 0;
 int lives = 98;
 double orgPos = 0;
-Rect pauseRect1;
+
 class Multiple extends TextComponent{
+  Rect pauseRect1;
   double height = AppBar().preferredSize.height;
 
   static final Paint _paint = Paint()
@@ -126,7 +127,7 @@ class Multiple extends TextComponent{
       if (pauseRect1.contains(d.globalPosition)){
         print("touched");
         collectedItem = true;
-        d=null;
+
       }}
 
     if (paused){
@@ -202,7 +203,7 @@ class FastMultiple extends TextComponent{
       this.x = -20000;
     }
 
-    if (this.x <-30 ){
+    if (this.x <-50 ){
       returned = true;
       destroy();
     }
@@ -212,8 +213,9 @@ class FastMultiple extends TextComponent{
 
   }
 }
-Rect pauseRect2;
+
 class NotMultiple extends TextComponent{
+  Rect pauseRect2;
   bool collectedItem = false;
   double speedX = 200.0;
   double posX, posY;
@@ -244,7 +246,7 @@ class NotMultiple extends TextComponent{
       if (pauseRect2.contains(d.globalPosition)){
         print("touched");
         collectedItem = true;
-        d=null;
+
       }}
 
     if (collectedItem){
@@ -263,12 +265,12 @@ class NotMultiple extends TextComponent{
       updateScore = true;
       collectedItem = false;
     }
-    if (this.x <-30 || this.y>tempHeight){
+    if (this.x <-50 || this.y>tempHeight){
       returned = true;
       destroy();
 
     }
-    super.update(tt);
+
     if (changedMultiple == 1){
 
       destroy();
@@ -284,6 +286,7 @@ class NotMultiple extends TextComponent{
       this.y += 2*accel;
 
     }
+    super.update(tt);
   }
 }
 
@@ -298,7 +301,7 @@ bool frozen = true;
 bool paused = false;
 double heightApp = AppBar().preferredSize.height;
 
-
+int tempUpdate = 0;
 
 class MyGame extends BaseGame with TapDetector {
   void onTapDown(TapDownDetails details) {
@@ -494,14 +497,19 @@ class MyGame extends BaseGame with TapDetector {
 
   @override
   void update(double t) {
-
-
+    if (d != null) {
+    tempUpdate++;
+    }
+    if (tempUpdate == 3){
+      d=null;
+      tempUpdate = 0;
+    }
     if (!paused){
     if (changedMultiple >= 0) {
       changedMultiple--;
     }
     counter++;
-    if (counter%900 == 0){
+    if (counter%1600 == 0){
       var rng = new Random();
       currentMultiple = rng.nextInt(5)+2;
       changedMultiple = 1;
@@ -543,21 +551,21 @@ class MyGame extends BaseGame with TapDetector {
 
       updateScore = false;
     }
-    int genColourComp = rng.nextInt(8);
-    TextConfig comp = TextConfig(color: colours[genColourComp], fontSize: 36, fontFamily: "fontNum");
-    int genColourPrime = rng.nextInt(5);
-    TextConfig primeC = TextConfig(color: colours[genColourPrime], fontSize: 36, fontFamily: "fontNum");
+   // int genColourComp = rng.nextInt(8);
+    TextConfig comp = TextConfig(color: colours[0], fontSize: 40, fontFamily: "fontNum");
+   // int genColourPrime = rng.nextInt(5);
+    TextConfig primeC = TextConfig(color: colours[1], fontSize: 40, fontFamily: "fontNum");
     if (lives > 0) {
       timerPrime += t;
 
 
-        if (timerPrime > 1) {
+        if (timerPrime > 0.8) {
           timerPrime = 0;
           d=null;
           int typeNum = rng.nextInt(2);
           double Pos = yPositions[rng.nextInt(10)].toDouble();
           int temp = 0;
-          int gen = rng.nextInt(3);
+          int gen = rng.nextInt(2);
 
 
           while (temp == 0) {
@@ -585,20 +593,16 @@ class MyGame extends BaseGame with TapDetector {
               finalScaled = scalar*currentMultiple;
               secondNum = rng.nextInt(10)+2;
            }
+
               if (gen == 0) {
                 add(multiple = Multiple(
-                    (currentMultiple*scalar).toString(), comp, tempWidth, Pos,
-                    ));
-              }
-              else if (gen == 1) {
-                add(multiple = Multiple(
-                    (finalScaled-secondNum).toString() + "+" + secondNum.toString(), comp,
+                    (finalScaled-secondNum).toString() + "+" + secondNum.toString(), primeC,
                     tempWidth, Pos));
               }
 
               else {
               add(multiple = Multiple(
-                  (finalScaled+secondNum).toString() + "-" + secondNum.toString(), comp,
+                  (finalScaled+secondNum).toString() + "-" + secondNum.toString(), primeC,
                   tempWidth, Pos));
             }
           }
@@ -622,12 +626,8 @@ class MyGame extends BaseGame with TapDetector {
              tempSecond = rng.nextInt(10)+2;
            }
 
+
             if (gen == 0) {
-              add(notMultiple = NotMultiple(
-                num.toString(), comp, tempWidth, Pos,
-              ));
-            }
-            else if (gen == 1) {
 
               add(notMultiple = NotMultiple(
                   (num-tempSecond).toString() + "+" + tempSecond.toString(), comp,
@@ -688,40 +688,6 @@ class Bg extends Component with Resizable {
 
 
 }
-class Bx1 extends Component with Resizable {
-
-  static final Paint _paint = Paint()
-    ..color = COLOR;
-  @override
-  @override
-  void render(Canvas c) {
-    //  c.drawRect(Rect.fromLTWH(tempWidth*0.375,0, tempWidth*0.22, heightApp), _paint);
-    c.drawRect(pauseRect1,_paint);
-
-  }
-  @override
-  void update(double t) {
-    // TODO: implement update
-  }
-
-}
-class Bx2 extends Component with Resizable {
-
-  static final Paint _paint = Paint()
-    ..color = COLOR;
-  @override
-  @override
-  void render(Canvas c) {
-    //  c.drawRect(Rect.fromLTWH(tempWidth*0.375,0, tempWidth*0.22, heightApp), _paint);
-    c.drawRect(pauseRect2,_paint);
-
-  }
-  @override
-  void update(double t) {
-    // TODO: implement update
-  }
-
-}
 
 
 
@@ -738,7 +704,7 @@ class Bottom extends Component with Resizable {
 
   @override
   void update(double t) {
-    // TODO: implement update
+
   }
 }
 
