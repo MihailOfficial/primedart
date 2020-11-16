@@ -51,6 +51,7 @@ double tempHeight = 0;
 bool updateLives  =false;
 bool hasLives = true;
 double statusWidth = 200;
+bool style = false;
 var x;
 var y;
 TapDownDetails d;
@@ -99,7 +100,7 @@ class Multiple extends TextComponent{
   static final Paint _paint = Paint()
     ..color = COLOR;
   bool collectedItem = false;
-  double speedX = 200.0;
+  double speedX = 100.0;
   double posX, posY;
   bool collectPrime = false;
   double accel = 0;
@@ -219,7 +220,7 @@ class FastMultiple extends TextComponent{
 class NotMultiple extends TextComponent{
   Rect pauseRect2;
   bool collectedItem = false;
-  double speedX = 200.0;
+  double speedX = 100.0;
   double posX, posY;
   bool collectComp = false;
   double accel = 0;
@@ -352,20 +353,30 @@ class MyGame extends BaseGame with TapDetector {
     ParallaxImage("Stars-Big_1_2_PC.png"),
 
   ];
+  var count1 = new List(4);
+
+  var count2 = new List(6);
+
   double previousPos = 0.0;
-  var yPositions = new List(11);
+  var yPositions = new List(8);
   final parallaxComponent = ParallaxComponent(images,
       baseSpeed: const Offset(20, 0), layerDelta: const Offset(30, 0));
   MyGame(Size size) {
+
+    count2[0] = 0;
+    count2[1] = 2;
+    count2[2] = 4;
+
+
 
     add(parallaxComponent);
     add(Bg());
 
     this.rng = new Random();
     int intTemp = 2;
-    for (int i = 0; i<11; i++){
+    for (int i = 0; i<8; i++){
       intTemp++;
-      yPositions[i] = ((tempHeight-height)/12)*( intTemp);
+      yPositions[i] = ((tempHeight-height)/8)*( intTemp);
     }
 
     textPainterNoMoreLives = TextPainter(text: TextSpan(
@@ -553,94 +564,84 @@ class MyGame extends BaseGame with TapDetector {
 
       updateScore = false;
     }
-   // int genColourComp = rng.nextInt(8);
-    TextConfig comp = TextConfig(color: colours[0], fontSize: 40, fontFamily: "fontNum");
-   // int genColourPrime = rng.nextInt(5);
-    TextConfig primeC = TextConfig(color: colours[1], fontSize: 40, fontFamily: "fontNum");
+    int genColourComp = rng.nextInt(8);
+    TextConfig comp = TextConfig(color: colours[genColourComp], fontSize: 40, fontFamily: "fontNum");
+    int genColourPrime = rng.nextInt(5);
+    TextConfig primeC = TextConfig(color: colours[genColourPrime], fontSize: 40, fontFamily: "fontNum");
+
+    double Pos = 0;
     if (lives > 0) {
       timerPrime += t;
 
 
-        if (timerPrime > 0.8) {
-          timerPrime = 0;
-          d=null;
-          int typeNum = rng.nextInt(2);
-          double Pos = yPositions[rng.nextInt(10)].toDouble();
-          int temp = 0;
-          int gen = rng.nextInt(2);
+        if (timerPrime > 1.5) {
+          for (int i =0; i<3; i++) {
+            timerPrime = 0;
+            d = null;
+            int typeNum = rng.nextInt(2);
 
+            Pos = yPositions[count2[i]].toDouble();
 
-          while (temp == 0) {
+            int temp = 0;
+            int gen = rng.nextInt(2);
 
-            if (previousPos == Pos) {
-              Pos = yPositions[rng.nextInt(9)].toDouble();
-            }
-            else {
-              temp++;
-              previousPos = Pos;
-            }
-          }
+            if (typeNum == 0) {
+              int scalar = rng.nextInt(8) + 1;
+              int finalScaled = scalar * currentMultiple;
 
-          if (typeNum == 0) {
+              int secondNum = rng.nextInt(10) + 2;
 
-
-            int scalar = rng.nextInt(8)+1;
-            int finalScaled = scalar*currentMultiple;
-
-            int secondNum = rng.nextInt(10)+2;
-
-            while (secondNum >= finalScaled) {
-
-              scalar = rng.nextInt(8)+1;
-              finalScaled = scalar*currentMultiple;
-              secondNum = rng.nextInt(10)+2;
-           }
+              while (secondNum >= finalScaled) {
+                scalar = rng.nextInt(8) + 1;
+                finalScaled = scalar * currentMultiple;
+                secondNum = rng.nextInt(10) + 2;
+              }
 
               if (gen == 0) {
                 add(multiple = Multiple(
-                    (finalScaled-secondNum).toString() + "+" + secondNum.toString(), primeC,
+                    (finalScaled - secondNum).toString() + "+" +
+                        secondNum.toString(), primeC,
                     tempWidth, Pos));
               }
 
               else {
-              add(multiple = Multiple(
-                  (finalScaled+secondNum).toString() + "-" + secondNum.toString(), primeC,
-                  tempWidth, Pos));
-            }
-          }
-
-          if (typeNum == 1) {
-
-            int num = rng.nextInt(40)+2;
-
-            int tempSecond = 0;
-
-            while (num%currentMultiple == 0){
-              num= rng.nextInt(40)+2;
-
+                add(multiple = Multiple(
+                    (finalScaled + secondNum).toString() + "-" +
+                        secondNum.toString(), primeC,
+                    tempWidth, Pos));
+              }
             }
 
-            tempSecond = rng.nextInt(10)+2;
+            if (typeNum == 1) {
+              int num = rng.nextInt(40) + 2;
 
-            while (tempSecond >= num){
+              int tempSecond = 0;
 
-              num = rng.nextInt(40)+2;
-             tempSecond = rng.nextInt(10)+2;
-           }
+              while (num % currentMultiple == 0) {
+                num = rng.nextInt(40) + 2;
+              }
+
+              tempSecond = rng.nextInt(10) + 2;
+
+              while (tempSecond >= num) {
+                num = rng.nextInt(40) + 2;
+                tempSecond = rng.nextInt(10) + 2;
+              }
 
 
-            if (gen == 0) {
+              if (gen == 0) {
+                add(notMultiple = NotMultiple(
+                    (num - tempSecond).toString() + "+" + tempSecond.toString(),
+                    comp,
+                    tempWidth, Pos));
+              }
 
-              add(notMultiple = NotMultiple(
-                  (num-tempSecond).toString() + "+" + tempSecond.toString(), comp,
-                  tempWidth, Pos));
-            }
-
-            else {
-
-              add(notMultiple = NotMultiple(
-                  (num+tempSecond).toString() + "-" + tempSecond.toString(), comp,
-                  tempWidth, Pos));
+              else {
+                add(notMultiple = NotMultiple(
+                    (num + tempSecond).toString() + "-" + tempSecond.toString(),
+                    comp,
+                    tempWidth, Pos));
+              }
             }
           }
 
