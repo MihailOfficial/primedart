@@ -81,9 +81,7 @@ flutter:
     - assets/images/high.png
     - assets/images/download.jpg
     - assets/images/images.jpg
-    - assets/images/back-buildings.png
-    - assets/images/far-buildings.png
-    - assets/images/foreground.png
+
 
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -54,7 +54,7 @@ double statusWidth = 200;
 bool style = false;
 var x;
 var y;
-TapDownDetails d;
+
 //Building APK --> flutter build apk --split-per-abi
 double height = AppBar().preferredSize.height;
 var count = new List(4);
@@ -93,10 +93,13 @@ double heightPos = 0;
 int lives = 98;
 double orgPos = 0;
 
-class Multiple extends TextComponent{
+class Multiple extends TextComponent with Tapable{
   Rect pauseRect1;
+  TapDownDetails m;
   double height = AppBar().preferredSize.height;
-
+  void onTapDown(TapDownDetails details) {
+    m= details;
+  }
   static final Paint _paint = Paint()
     ..color = COLOR;
   bool collectedItem = false;
@@ -122,16 +125,15 @@ class Multiple extends TextComponent{
     return returned;
   }
 
-
   @override
   void update(double tt){
-    if (d != null){
-      if (pauseRect1.contains(d.globalPosition)){
+
+    if (m != null){
+      if (pauseRect1.contains(m.globalPosition)){
         print("touched");
         collectedItem = true;
 
       }}
-
     if (paused){
       this.x = -20000;
     }
@@ -217,7 +219,7 @@ class FastMultiple extends TextComponent{
   }
 }
 
-class NotMultiple extends TextComponent{
+class NotMultiple extends TextComponent with Tapable{
   Rect pauseRect2;
   bool collectedItem = false;
   double speedX = 100.0;
@@ -225,7 +227,10 @@ class NotMultiple extends TextComponent{
   bool collectComp = false;
   double accel = 0;
   bool returned = false;
-
+  TapDownDetails n;
+  void onTapDown(TapDownDetails details) {
+    n= details;
+  }
   NotMultiple(String text, TextConfig textConfig, double posX, double posY) : super(text) {
     pauseRect2 = Rect.fromLTWH(0,0,0,0);
     this.config = textConfig;
@@ -245,8 +250,8 @@ class NotMultiple extends TextComponent{
     if (paused){
       this.x = -20000;
     }
-    if (d != null){
-      if (pauseRect2.contains(d.globalPosition)){
+    if (n != null){
+      if (pauseRect2.contains(n.globalPosition)){
         print("touched");
         collectedItem = true;
 
@@ -306,10 +311,8 @@ double heightApp = AppBar().preferredSize.height;
 
 int tempUpdate = 0;
 double statusBox = 0;
-class MyGame extends BaseGame with TapDetector {
-  void onTapDown(TapDownDetails details) {
-   d= details;
-  }
+class MyGame extends BaseGame with HasTapableComponents {
+
 
   double timerPrime = 0;
   double timerComp = 0;
@@ -372,6 +375,7 @@ class MyGame extends BaseGame with TapDetector {
     add(parallaxComponent);
     add(Bg());
 
+    this.rng = new Random();
     this.rng = new Random();
     int intTemp = 2;
     for (int i = 0; i<8; i++){
@@ -509,13 +513,7 @@ class MyGame extends BaseGame with TapDetector {
   void update(double t) {
 
     statusBox -= updateStatus;
-    if (d != null) {
-    tempUpdate++;
-    }
-    if (tempUpdate == 3){
-      d=null;
-      tempUpdate = 0;
-    }
+
     if (!paused){
     if (changedMultiple >= 0) {
       changedMultiple--;
@@ -577,7 +575,7 @@ class MyGame extends BaseGame with TapDetector {
         if (timerPrime > 1.5) {
           for (int i =0; i<3; i++) {
             timerPrime = 0;
-            d = null;
+
             int typeNum = rng.nextInt(2);
 
             Pos = yPositions[count2[i]].toDouble();
@@ -679,8 +677,7 @@ class Bg extends Component with Resizable {
 
   @override
   void render(Canvas c) {
-  //  c.drawRect(Rect.fromLTWH(tempWidth*0.375,0, tempWidth*0.22, heightApp), _paint);
-    // c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth*0.375,0,statusBox,heightApp),Radius.circular(600.0)),_paint);
+
     c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth*0.375,heightApp/8,statusBox,heightApp*6/8),Radius.circular(10.0)),_paint);
 
   }
