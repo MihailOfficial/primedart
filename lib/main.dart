@@ -57,6 +57,7 @@ void main() async {
 
   game = MyGame(size);
   runApp(MyApp());
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown,DeviceOrientation.portraitUp]);
   TapGestureRecognizer tapper = TapGestureRecognizer();
   flameUtil.addGestureRecognizer(tapper);
 
@@ -64,6 +65,7 @@ void main() async {
 
 
 class MyApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
