@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "576478506203",
+    "project_id": "numdash",
+    "storage_bucket": "numdash.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:576478506203:android:f44e5409ace21726dc30fe",
+        "android_client_info": {
+          "package_name": "com.example.primedart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "576478506203-aadlfmrkvjidud9nu3kv112cfg89a7ri.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBn6Z5g0JO-ejnRJPmDmOdCnSITcMFqzM8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "576478506203-aadlfmrkvjidud9nu3kv112cfg89a7ri.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
