@@ -30,9 +30,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState(){
     super.initState();
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-    ]);
+
   }
   @override
   void didChangeDependencies() {
@@ -116,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
         body: Container (
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage("assets/images/vogue.jpg"),
+                  image: AssetImage("assets/images/tempback.jpg"),
                   fit: BoxFit.cover
               )
           ),
@@ -125,14 +123,16 @@ class _LoginPageState extends State<LoginPage> {
                 child: Form(
                   key: formKey,
                   child: Container(
-                    padding: EdgeInsets.all(20),
+                    padding:
+                        EdgeInsets.only(left: tempWidth/4, right: tempWidth/4, top: 5),
+
                     child: Column(
                       children: buildInputs(_formType) +
                           [
                             Padding(
                                 padding:
-                                EdgeInsets.only(left: 20, right: 20, top: 30),
-                                child: Column(children: buildButtons(context)))
+                                EdgeInsets.only(left: 0, right: 0, top: 0),
+                                child: Row(children: buildButtons(context)))
                           ],
                     ),
                   ),
@@ -141,31 +141,28 @@ class _LoginPageState extends State<LoginPage> {
               inAsyncCall: _loading),
         ));
   }
-
+//Color.fromRGBO(28, 28, 28, 1)
+//Color.fromRGBO(252,238,10, 1)
   List<Widget> buildInputs(FormType formType) {
 
     var base = <Widget>[
       Padding(
-        padding: const EdgeInsets.fromLTRB(10, 100, 10, 0),),
+        padding: const EdgeInsets.fromLTRB(300, 0, 300, 0),),
       ClipRRect(
           borderRadius: BorderRadius.circular(10.0),
           child: Container (
-              color: Color.fromRGBO(237, 230, 223, 1),
+              color: Color.fromRGBO(28, 28, 28, 0.8),
               child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+                  padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
                   child: Column(
                       children: <Widget>[
-                        Text(
-                          'MEMBERS PLEASE SIGN IN',
-                          textAlign: TextAlign.center,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
+                      Text('numdash',
+                      style: TextStyle(fontFamily: 'logo', fontSize: 20, color: Color.fromRGBO(252,238,10, 1))),
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),),
+                          padding: const EdgeInsets.fromLTRB(10, 5, 5, 10),),
                         Container(
                             child: Padding(
-                                padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                                padding: const EdgeInsets.fromLTRB(30, 0, 30, 10),
 
                                 child: TextFormField(
                                   onSaved: (value) => _email = value,
@@ -189,7 +186,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ))),
                         Container(
                             child: Padding(
-                                padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                                padding: const EdgeInsets.fromLTRB(30, 10, 30, 20),
 
                                 child:
                                 TextFormField(
@@ -214,7 +211,13 @@ class _LoginPageState extends State<LoginPage> {
                                       hintText: 'Password'),
                                 ))),
 
-                      ]))))];
+                      ])))),
+
+
+
+
+
+    ];
 
     if (formType == FormType.REGISTER) {
       return base;
@@ -226,18 +229,18 @@ class _LoginPageState extends State<LoginPage> {
   List<Widget> buildButtons(BuildContext context) {
     if (_formType == FormType.LOGIN) {
       return [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),),
+
         ClipRRect(
             borderRadius: BorderRadius.circular(10.0),
             child: Container (
-                color: Color.fromRGBO(252, 226, 194, 1),
+                color: Color.fromRGBO(252,238,10, 0.8),
                 child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
-                    child: Column(
+                    padding: const EdgeInsets.fromLTRB(8, 5, 8, 5),
+                    child: Row(
                         children: <Widget>[
+
                           ButtonTheme(
-                            padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 0), //adds padding inside the button
+                            padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 114), //adds padding inside the button
                             //limits the touch area to the button area
                             minWidth: 0, //wraps child's width
                             height: 0, //wraps child's height
@@ -249,16 +252,16 @@ class _LoginPageState extends State<LoginPage> {
                               onPressed: () => submit(context),
                             ),),
                           Padding(
-                              padding: const EdgeInsets.fromLTRB(30, 0, 30, 10)),
+                              padding: const EdgeInsets.fromLTRB(10, 0, 10, 10)),
                           ButtonTheme(
-                            padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 8.0), //adds padding inside the button
+                            padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 15.0), //adds padding inside the button
                             //limits the touch area to the button area
                             minWidth: 0, //wraps child's width
                             height: 0, //wraps child's height
                             child: RaisedButton(
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                               key: new Key('goto-register'),
-                              color: Color.fromRGBO(225, 225, 225, 1),
+                              color: Color.fromRGBO(205, 205, 205, 1),
                               child: Align(
                                   alignment: Alignment.center, child: Text('REGISTER')),
                               onPressed: () {

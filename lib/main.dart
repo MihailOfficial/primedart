@@ -54,12 +54,13 @@ void main() async {
 
   tempWidth = size.width;
   tempHeight = size.height;
+  TapGestureRecognizer tapper = TapGestureRecognizer();
+  flameUtil.addGestureRecognizer(tapper);
 
   game = MyGame(size);
   runApp(MyApp());
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown,DeviceOrientation.portraitUp]);
-  TapGestureRecognizer tapper = TapGestureRecognizer();
-  flameUtil.addGestureRecognizer(tapper);
+
+
 
 }
 

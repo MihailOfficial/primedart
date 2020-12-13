@@ -79,25 +79,7 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - assets/images/heart.png
-    - assets/images/Stars Small_1.png
-    - assets/images/Stars Small_2.png
-    - assets/images/Stars-Big_1_1_PC.png
-    - assets/images/Stars-Big_1_2_PC.png
-    - assets/images/Nebula Blue.png
-    - assets/images/circle.png
-    - assets/images/test.jpg
-    - assets/images/light-1.png
-    - assets/images/background.png
-    - assets/images/light-2.png
-    - assets/images/clock.png
-    - assets/images/test11.jpg
-    - assets/images/sample1.png
-    - assets/images/temp1.jpg
-    - assets/images/temp2.jpg
-    - assets/images/high.png
-    - assets/images/download.jpg
-    - assets/images/images.jpg
+    - assets/images/
 
 
   # To add assets to your application, add an assets section, like this:
