@@ -76,9 +76,10 @@ class MyApp extends StatelessWidget {
         builder: (BuildContext context) {
           var screenHeight = MediaQuery.of(context).size.height;
 
-          return Onboarding(
-            screenHeight: screenHeight,
-          );
+          return Home();
+            //Onboarding(
+          // screenHeight: screenHeight,
+         // );
         },
       ),
     );

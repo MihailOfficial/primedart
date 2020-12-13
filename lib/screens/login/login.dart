@@ -271,18 +271,17 @@ class _LoginPageState extends State<LoginPage> {
                         ]))))];
     } else {
       return [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),),
+
         ClipRRect(
             borderRadius: BorderRadius.circular(10.0),
             child: Container (
                 color: Color.fromRGBO(211, 238, 255, 1),
                 child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
-                    child: Column(
+                    padding: const EdgeInsets.fromLTRB(8, 5, 8, 5),
+                    child: Row(
                         children: <Widget>[
                           ButtonTheme(
-                            padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 0), //adds padding inside the button
+                            padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 87), //adds padding inside the button
                             //limits the touch area to the button area
                             minWidth: 0, //wraps child's width
                             height: 0, //wraps child's height
@@ -296,10 +295,10 @@ class _LoginPageState extends State<LoginPage> {
                               onPressed: () => submit(context),
                             ),),
                           Padding(
-                              padding: const EdgeInsets.fromLTRB(30, 0, 30, 10)),
+                              padding: const EdgeInsets.fromLTRB(10, 0, 10, 10)),
 
                           ButtonTheme(
-                              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 8.0), //adds padding inside the button
+                              padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 31.0), //adds padding inside the button
                               //limits the touch area to the button area
                               minWidth: 0, //wraps child's width
                               height: 0, //wraps child's height

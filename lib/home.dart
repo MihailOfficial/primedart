@@ -367,8 +367,8 @@ class MyGame extends BaseGame with HasTapableComponents {
   MyGame(Size size) {
 
     count2[0] = 0;
-    count2[1] = 2;
-    count2[2] = 4;
+    count2[1] = 1;
+    count2[2] = 2;
 
 
 
@@ -377,10 +377,9 @@ class MyGame extends BaseGame with HasTapableComponents {
 
     this.rng = new Random();
     this.rng = new Random();
-    int intTemp = 2;
-    for (int i = 0; i<8; i++){
-      intTemp++;
-      yPositions[i] = ((tempHeight-height)/8)*( intTemp);
+
+    for (int i = 0; i<3; i++){
+      yPositions[i] = ((tempHeight-height)/3)*(i+1);
     }
 
     textPainterNoMoreLives = TextPainter(text: TextSpan(
@@ -563,16 +562,16 @@ class MyGame extends BaseGame with HasTapableComponents {
       updateScore = false;
     }
     int genColourComp = rng.nextInt(8);
-    TextConfig comp = TextConfig(color: colours[genColourComp], fontSize: 40, fontFamily: "fontNum");
+    TextConfig comp = TextConfig(color: colours[genColourComp], fontSize: 60, fontFamily: "fontNum");
     int genColourPrime = rng.nextInt(5);
-    TextConfig primeC = TextConfig(color: colours[genColourPrime], fontSize: 40, fontFamily: "fontNum");
+    TextConfig primeC = TextConfig(color: colours[genColourPrime], fontSize: 60, fontFamily: "fontNum");
 
     double Pos = 0;
     if (lives > 0) {
       timerPrime += t;
 
 
-        if (timerPrime > 1.5) {
+        if (timerPrime > 2) {
           for (int i =0; i<3; i++) {
             timerPrime = 0;
 
