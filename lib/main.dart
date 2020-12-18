@@ -38,7 +38,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 void main() async {
-
+  Flame.util.setLandscape();
   WidgetsFlutterBinding.ensureInitialized();
   //SharedPreferences storage = await SharedPreferences.getInstance();
   count[0] = 0;
@@ -49,9 +49,9 @@ void main() async {
   Util flameUtil = Util();
 
   final size = await Flame.util.initialDimensions();
-  Flame.util.setLandscape();
-  Flame.util.fullScreen();
 
+  Flame.util.fullScreen();
+  Flame.util.setLandscape();
   tempWidth = size.width;
   tempHeight = size.height;
   TapGestureRecognizer tapper = TapGestureRecognizer();

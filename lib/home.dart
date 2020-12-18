@@ -52,6 +52,7 @@ bool updateLives  =false;
 bool hasLives = true;
 double statusWidth = 200;
 bool style = false;
+bool newDeck = true;
 var x;
 var y;
 
@@ -91,13 +92,18 @@ class Home extends StatelessWidget{
 double tempX = 0;
 double heightPos = 0;
 int lives = 98;
-double orgPos = 0;
+var table = List.generate(4, (i) => List(4), growable: false);
+
+
+
 
 class Multiple extends TextComponent with Tapable{
+
   Rect pauseRect1;
   TapDownDetails m;
   double height = AppBar().preferredSize.height;
   void onTapDown(TapDownDetails details) {
+
     m= details;
   }
   static final Paint _paint = Paint()
@@ -106,34 +112,77 @@ class Multiple extends TextComponent with Tapable{
   double speedX = 100.0;
   double posX, posY;
   bool collectPrime = false;
-  double accel = 0;
+  double accel = 1;
   int value1 = 0;
   bool returned = false;
-
-  Multiple(String text, TextConfig textConfig, double posX, double posY) : super(text) {
+  double column;
+  double row;
+  bool topV;
+  bool rand = false;
+  bool fall = true;
+  Multiple(String text, TextConfig textConfig, double Column, double Row, bool top) : super(text) {
     pauseRect1 = Rect.fromLTWH(0,0,0,0);
     this.config = textConfig;
     this.anchor = Anchor.center;
-    this.x = posX+45;
-    this.y = posY;
-    orgPos = this.y;
-
-
+    this.x = (tempWidth/5)*Column;
+    this.y = 0;
+    column = Column;
+    row = Row;
+    topV = top;
+    if (top == true){
+    table[0][(Column-1).toInt()] = false;}
   }
   @override
   bool destroy() {
     return returned;
   }
-
+bool bottomFall = false;
   @override
   void update(double tt){
+    if (fall){
+      this.y += 2*accel;
+      accel++;
+
+      if (this.y > positionArray[row.toInt()]){
+          fall = false;
+          accel = 1;
+        }
+    }
+
+    if (topV == true){
+
+    }
+
+  if (rand == true){
+    this.y += 2*accel;
+    accel++;
+    if (this.y >  positionArray[(row).toInt()]){
+      rand = false;
+      accel = 1;
+    }
+  }
+
+    if (row != 3){
+      if (table[(row+1).toInt()][(column-1).toInt()] == false){
+        table[(row).toInt()][(column-1).toInt()] = false;
+        table[(row+1).toInt()][(column-1).toInt()] == true;
+
+        rand = true;
+        row++;
+
+      }
+    }
 
     if (m != null){
       if (pauseRect1.contains(m.globalPosition)){
         print("touched");
-        collectedItem = true;
+        table[(row).toInt()][(column-1).toInt()] = false;
+
+        returned = true;
+        destroy();
 
       }}
+
     if (paused){
       this.x = -20000;
     }
@@ -154,11 +203,11 @@ class Multiple extends TextComponent with Tapable{
       updateScore = true;
       collectedItem = false;
     }
-    if (this.x <-30 || this.y<0){
-      returned = true;
-      destroy();
+    //if (this.x <-30 || this.y<0){
+     // returned = true;
+     // destroy();
 
-    }
+    //}
     super.update(tt);
 
     if (changedMultiple == 1){
@@ -168,14 +217,8 @@ class Multiple extends TextComponent with Tapable{
      game.add(new FastMultiple(this.text, this.x, this.y));
 
     }
-    else if (!collectPrime) {
-      this.x -= speedX * tt;
-    }
-    else {
-      accel++;
-      this.y -= 2*accel;
 
-    }
+
   }
 }
 double updateStatus = 0;
@@ -231,13 +274,13 @@ class NotMultiple extends TextComponent with Tapable{
   void onTapDown(TapDownDetails details) {
     n= details;
   }
-  NotMultiple(String text, TextConfig textConfig, double posX, double posY) : super(text) {
+  NotMultiple(String text, TextConfig textConfig, double posX) : super(text) {
     pauseRect2 = Rect.fromLTWH(0,0,0,0);
     this.config = textConfig;
     this.anchor = Anchor.center;
-    this.x = posX+45;
-    this.y = posY;
-    orgPos = this.y;
+    this.x = posX;
+    this.y = 0;
+
 
   }
   @override
@@ -246,6 +289,7 @@ class NotMultiple extends TextComponent with Tapable{
   }
   @override
   void update(double tt){
+    this.y += 2;
     pauseRect2 = Rect.fromLTWH(this.x-(this.width/2)-7,this.y-(this.height/2),this.width+10,this.height);
     if (paused){
       this.x = -20000;
@@ -273,11 +317,11 @@ class NotMultiple extends TextComponent with Tapable{
       updateScore = true;
       collectedItem = false;
     }
-    if (this.x <-50 || this.y>tempHeight){
-      returned = true;
-      destroy();
+    //if (this.x <-50 || this.y>tempHeight){
+    //  returned = true;
+    //  destroy();
 
-    }
+    //}
 
     if (changedMultiple == 1){
 
@@ -286,14 +330,7 @@ class NotMultiple extends TextComponent with Tapable{
       game.add(new FastMultiple(this.text, this.x, this.y));
 
     }
-    else if(!collectComp) {
-      this.x -= speedX * tt;
-    }
-    else {
-      accel++;
-      this.y += 2*accel;
 
-    }
     super.update(tt);
   }
 }
@@ -311,12 +348,14 @@ double heightApp = AppBar().preferredSize.height;
 
 int tempUpdate = 0;
 double statusBox = 0;
+int currentMultiple = 2;
+var positionArray = new List(4);
 class MyGame extends BaseGame with HasTapableComponents {
 
 
   double timerPrime = 0;
   double timerComp = 0;
-  int currentMultiple = 2;
+
   Multiple multiple;
 
   NotMultiple notMultiple;
@@ -331,7 +370,7 @@ class MyGame extends BaseGame with HasTapableComponents {
     Color.fromRGBO(93, 173, 226, 1),
     Color.fromRGBO(236, 112, 99, 1),
     Color.fromRGBO(255, 111, 0, 1)];
-  var rng;
+
   var counter = 0;
   TextPainter textPainterScore;
   TextPainter textPainterLives;
@@ -347,39 +386,49 @@ class MyGame extends BaseGame with HasTapableComponents {
   Offset positionNoMoreLives;
   Offset positionNumType;
   Offset positionNumTypeText;
-  static List<ParallaxImage> images = [
 
-    ParallaxImage("Nebula Blue.png"),
-    ParallaxImage("Stars Small_1.png"),
-    ParallaxImage("Stars Small_2.png"),
-    ParallaxImage("Stars-Big_1_1_PC.png"),
-    ParallaxImage("Stars-Big_1_2_PC.png"),
-
-  ];
   var count1 = new List(4);
 
   var count2 = new List(6);
 
   double previousPos = 0.0;
   var yPositions = new List(8);
-  final parallaxComponent = ParallaxComponent(images,
-      baseSpeed: const Offset(20, 0), layerDelta: const Offset(30, 0));
+
+
+
   MyGame(Size size) {
+    table[0][0] = false;
+    table[0][1] = false;
+    table[0][2] = false;
+    table[0][3] = false;
 
-    count2[0] = 0;
-    count2[1] = 1;
-    count2[2] = 2;
+    table[1][0] = false;
+    table[1][1] = false;
+    table[1][2] = false;
+    table[1][3] = false;
+
+    table[2][0] = false;
+    table[2][1] = false;
+    table[2][2] = false;
+    table[2][3] = false;
+
+    table[3][0] = false;
+    table[3][1] = false;
+    table[3][2] = false;
+    table[3][3] = false;
 
 
+    positionArray[0] = 80;
+    positionArray[1] = 160;
+    positionArray[2] = 240;
+    positionArray[3] = 320;
 
-    add(parallaxComponent);
     add(Bg());
 
-    this.rng = new Random();
-    this.rng = new Random();
+
 
     for (int i = 0; i<3; i++){
-      yPositions[i] = ((tempHeight-height)/3)*(i+1);
+      yPositions[i] = ((tempWidth)/3)*(i+1);
     }
 
     textPainterNoMoreLives = TextPainter(text: TextSpan(
@@ -508,6 +557,62 @@ class MyGame extends BaseGame with HasTapableComponents {
 
   }
 
+  var rng = new Random();
+  String generateMultiple (){
+
+    int gen = rng.nextInt(2);
+    String text;
+
+    int scalar = rng.nextInt(8) + 1;
+    int finalScaled = scalar * currentMultiple;
+    int secondNum = rng.nextInt(10) + 2;
+
+    while (secondNum >= finalScaled) {
+      scalar = rng.nextInt(8) + 1;
+      finalScaled = scalar * currentMultiple;
+      secondNum = rng.nextInt(10) + 2;
+    }
+
+    if (gen == 0) {
+      text = (finalScaled - secondNum).toString() + "+" + secondNum.toString();
+    }
+
+    else {
+      text = (finalScaled + secondNum).toString() + "-" + secondNum.toString();
+
+    }
+    return text;
+  }
+
+  String generateNotMultiple (){
+
+    String text;
+
+    int gen = rng.nextInt(2);
+    int num = rng.nextInt(40) + 2;
+    int tempSecond = 0;
+
+    while (num % currentMultiple == 0) {
+      num = rng.nextInt(40) + 2;
+    }
+
+    tempSecond = rng.nextInt(10) + 2;
+
+    while (tempSecond >= num) {
+      num = rng.nextInt(40) + 2;
+      tempSecond = rng.nextInt(10) + 2;
+    }
+
+
+    if (gen == 0) {
+      text = (num - tempSecond).toString() + "+" + tempSecond.toString();
+    }
+    else {
+      text = (num + tempSecond).toString() + "-" + tempSecond.toString();
+    }
+    return text;
+  }
+double testInc = 3;
   @override
   void update(double t) {
 
@@ -518,10 +623,11 @@ class MyGame extends BaseGame with HasTapableComponents {
       changedMultiple--;
     }
     counter++;
-    if (counter%1600 == 0){
+    if (counter%2000 == 0){
       var rng = new Random();
       currentMultiple = rng.nextInt(5)+2;
       changedMultiple = 1;
+      newDeck = true;
       statusBox = tempWidth*0.22;
     }
 
@@ -562,90 +668,65 @@ class MyGame extends BaseGame with HasTapableComponents {
       updateScore = false;
     }
     int genColourComp = rng.nextInt(8);
-    TextConfig comp = TextConfig(color: colours[genColourComp], fontSize: 60, fontFamily: "fontNum");
+    TextConfig comp = TextConfig(color: colours[genColourComp], fontSize: 45, fontFamily: "fontNum");
     int genColourPrime = rng.nextInt(5);
-    TextConfig primeC = TextConfig(color: colours[genColourPrime], fontSize: 60, fontFamily: "fontNum");
+    TextConfig primeC = TextConfig(color: colours[genColourPrime], fontSize: 45, fontFamily: "fontNum");
 
     double Pos = 0;
+    timerPrime += t;
     if (lives > 0) {
-      timerPrime += t;
+      if (newDeck){
+        if (timerPrime > 0.5 ) {
+          timerPrime = 0;
+          add(multiple = Multiple((generateMultiple()), primeC, 1,testInc, false));
+          table[testInc.toInt()][0] = true;
+          add(multiple = Multiple((generateMultiple()), primeC, 2,testInc, false));
+          table[testInc.toInt()][1] = true;
+          add(multiple = Multiple((generateMultiple()), primeC, 3, testInc, false));
+          table[testInc.toInt()][2] = true;
+          add(multiple = Multiple((generateMultiple()), primeC, 4, testInc, false));
+          table[testInc.toInt()][3] = true;
+          testInc --;
+        }
 
+        if (testInc < 0){
+          newDeck = false;
+          testInc = 3;
+        }
+      }
 
-        if (timerPrime > 2) {
-          for (int i =0; i<3; i++) {
-            timerPrime = 0;
+      else if (table[0][0] == false) {
 
-            int typeNum = rng.nextInt(2);
+          add(multiple = Multiple((generateMultiple()), primeC, 1, 0, true));
+          table[0][0] = true;
+          table[1][0] = true;
+          table[2][0] = true;
+          table[3][0] = true;
+        }
+        else if (table[0][1] == false) {
 
-            Pos = yPositions[count2[i]].toDouble();
+          add(multiple = Multiple((generateMultiple()), primeC, 2, 0, true));
+          table[0][1] = true;
+          table[1][1] = true;
+          table[2][1] = true;
+          table[3][1] = true;
+        }
+        else if (table[0][2] == false) {
 
-            int temp = 0;
-            int gen = rng.nextInt(2);
+          add(multiple = Multiple((generateMultiple()), primeC, 3, 0, true));
+          table[0][2] = true;
+          table[1][2] = true;
+          table[2][2] = true;
+          table[3][2] = true;
 
-            if (typeNum == 0) {
-              int scalar = rng.nextInt(8) + 1;
-              int finalScaled = scalar * currentMultiple;
-
-              int secondNum = rng.nextInt(10) + 2;
-
-              while (secondNum >= finalScaled) {
-                scalar = rng.nextInt(8) + 1;
-                finalScaled = scalar * currentMultiple;
-                secondNum = rng.nextInt(10) + 2;
-              }
-
-              if (gen == 0) {
-                add(multiple = Multiple(
-                    (finalScaled - secondNum).toString() + "+" +
-                        secondNum.toString(), primeC,
-                    tempWidth, Pos));
-              }
-
-              else {
-                add(multiple = Multiple(
-                    (finalScaled + secondNum).toString() + "-" +
-                        secondNum.toString(), primeC,
-                    tempWidth, Pos));
-              }
-            }
-
-            if (typeNum == 1) {
-              int num = rng.nextInt(40) + 2;
-
-              int tempSecond = 0;
-
-              while (num % currentMultiple == 0) {
-                num = rng.nextInt(40) + 2;
-              }
-
-              tempSecond = rng.nextInt(10) + 2;
-
-              while (tempSecond >= num) {
-                num = rng.nextInt(40) + 2;
-                tempSecond = rng.nextInt(10) + 2;
-              }
-
-
-              if (gen == 0) {
-                add(notMultiple = NotMultiple(
-                    (num - tempSecond).toString() + "+" + tempSecond.toString(),
-                    comp,
-                    tempWidth, Pos));
-              }
-
-              else {
-                add(notMultiple = NotMultiple(
-                    (num + tempSecond).toString() + "-" + tempSecond.toString(),
-                    comp,
-                    tempWidth, Pos));
-              }
-            }
+        } else if (table[0][3] == false) {
+        add(multiple = Multiple((generateMultiple()), primeC, 4, 0, true));
+        table[0][3] = true;
+        table[1][3] = true;
+        table[2][3] = true;
+        table[3][3] = true;
           }
-
-          }
-
     }
-
     else {
       textPainterNoMoreLives = TextPainter(text: TextSpan(
           text: "Out of lives",
@@ -660,14 +741,12 @@ class MyGame extends BaseGame with HasTapableComponents {
           Offset(size.width / 2 - textPainterScore.width / 2,
               size.height / 2 - textPainterScore.height / 2);
     }
-    }
 
     super.update(t);
   }
-
-
-
+  }
 }
+
 class Bg extends Component with Resizable {
 
   static final Paint _paint = Paint()
@@ -686,10 +765,4 @@ class Bg extends Component with Resizable {
     // TODO: implement update
   }
 
-
 }
-
-
-
-
-
