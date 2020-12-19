@@ -67,22 +67,21 @@ class Home extends StatelessWidget{
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     final double statusBarHeight = MediaQuery.of(context).padding.top;
-    return Scaffold(
-        drawer: AppDrawer(),
+    return Stack(
+        children: <Widget>[
+    Container(
+    child: Image.network(
+    "https://mir-s3-cdn-cf.behance.net/project_modules/fs/f2770d62286713.5a8b91f64dc7f.gif"),
 
-      body: SafeArea(
+    ),
+          Container(child: game.widget,)
 
-
-     child: Container(
-      decoration: BoxDecoration(
-    image: DecorationImage(
-    image: AssetImage("7111scenery.gif"), fit: BoxFit.cover)),
-    child: game.widget),
-
+    ]);
 
 
-      ),
-    );
+
+
+
 
     }
 
@@ -406,6 +405,8 @@ int currentMultiple = 2;
 var positionArray = new List(4);
 class MyGame extends BaseGame with HasTapableComponents {
 
+  @override
+  Color backgroundColor() => const Color(0x00FFFFFF);
 
   double timerPrime = 0;
   double timerComp = 0;
@@ -448,21 +449,14 @@ class MyGame extends BaseGame with HasTapableComponents {
   double previousPos = 0.0;
   var yPositions = new List(8);
 
-  static List<ParallaxImage> images = [
 
-    ParallaxImage("test.gif"),
-
-
-
-  ];
-  final parallaxComponent = ParallaxComponent(images,
-      baseSpeed: const Offset(0, 0), layerDelta: const Offset(0, 0));
 
 
 
 
   MyGame(Size size) {
-    add(parallaxComponent);
+
+
 
     table[0][0] = false;
     table[0][1] = false;
@@ -739,8 +733,8 @@ double testInc = 3;
     //TextConfig comp = TextConfig(color: colours[genColourComp], fontSize: 40, fontFamily: "fontNum");
     int genColourPrime = rng.nextInt(5);
     //TextConfig primeC = TextConfig(color: colours[genColourPrime], fontSize: 40, fontFamily: "fontNum");
-    TextConfig mult = TextConfig(color: Colors.green, fontSize: 40, fontFamily: "fontNum");
-    TextConfig nmult = TextConfig(color: Colors.amberAccent, fontSize: 40, fontFamily: "fontNum");
+    TextConfig mult = TextConfig(color: Colors.white, fontSize: 40, fontFamily: "fontNum");
+    TextConfig nmult = TextConfig(color: Colors.white, fontSize: 40, fontFamily: "fontNum");
     double Pos = 0;
 
     if (lives > 0) {
