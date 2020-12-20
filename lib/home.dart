@@ -67,16 +67,23 @@ class Home extends StatelessWidget{
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     final double statusBarHeight = MediaQuery.of(context).padding.top;
-    return Stack(
-        children: <Widget>[
-    Container(
-    child: Image.network(
-    "https://mir-s3-cdn-cf.behance.net/project_modules/fs/f2770d62286713.5a8b91f64dc7f.gif"),
+    return
+      Container(
+          constraints: BoxConstraints.expand(),
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: NetworkImage("https://i0.wp.com/68.media.tumblr.com/eb9d83900abde73d3d323019a45f3f8e/tumblr_om91agCwBL1rnbw6mo1_1280.gif?zoom=2"),
+                  fit: BoxFit.cover)
+          ),
+          child: game.widget,
+      );
 
-    ),
-          Container(child: game.widget,)
 
-    ]);
+
+
+
+
+
 
 
 
@@ -92,7 +99,7 @@ class Home extends StatelessWidget{
 double tempX = 0;
 double heightPos = 0;
 int lives = 98;
-var table = List.generate(4, (i) => List(4), growable: false);
+var table = List.generate(5, (i) => List(5), growable: false);
 
 
 
@@ -124,7 +131,7 @@ class Multiple extends TextComponent with Tapable{
     pauseRect1 = Rect.fromLTWH(0,0,0,0);
     this.config = textConfig;
     this.anchor = Anchor.center;
-    this.x = (tempWidth/5)*Column;
+    this.x = (tempWidth/6)*Column;
     this.y = 0;
     column = Column;
     row = Row;
@@ -162,7 +169,7 @@ bool bottomFall = false;
     }
   }
 
-    if (row != 3){
+    if (row != 4){
       if (table[(row+1).toInt()][(column-1).toInt()] == false){
         table[(row).toInt()][(column-1).toInt()] = false;
         table[(row+1).toInt()][(column-1).toInt()] == true;
@@ -250,7 +257,7 @@ class NotMultiple extends TextComponent with Tapable{
     pauseRect1 = Rect.fromLTWH(0,0,0,0);
     this.config = textConfig;
     this.anchor = Anchor.center;
-    this.x = (tempWidth/5)*Column;
+    this.x = (tempWidth/6)*Column;
     this.y = 0;
     column = Column;
     row = Row;
@@ -288,7 +295,7 @@ class NotMultiple extends TextComponent with Tapable{
       }
     }
 
-    if (row != 3){
+    if (row != 4){
       if (table[(row+1).toInt()][(column-1).toInt()] == false){
         table[(row).toInt()][(column-1).toInt()] = false;
         table[(row+1).toInt()][(column-1).toInt()] == true;
@@ -402,11 +409,11 @@ double heightApp = AppBar().preferredSize.height;
 int tempUpdate = 0;
 double statusBox = 0;
 int currentMultiple = 2;
-var positionArray = new List(4);
+var positionArray = new List(5);
 class MyGame extends BaseGame with HasTapableComponents {
 
   @override
-  Color backgroundColor() => const Color(0x00FFFFFF);
+  Color backgroundColor() => const Color.fromRGBO(0, 0, 0, 0.6);
 
   double timerPrime = 0;
   double timerComp = 0;
@@ -462,27 +469,37 @@ class MyGame extends BaseGame with HasTapableComponents {
     table[0][1] = false;
     table[0][2] = false;
     table[0][3] = false;
+    table[0][4] = false;
 
     table[1][0] = false;
     table[1][1] = false;
     table[1][2] = false;
     table[1][3] = false;
+    table[1][4] = false;
 
     table[2][0] = false;
     table[2][1] = false;
     table[2][2] = false;
     table[2][3] = false;
+    table[2][4] = false;
 
     table[3][0] = false;
     table[3][1] = false;
     table[3][2] = false;
     table[3][3] = false;
+    table[3][4] = false;
 
+    table[4][0] = false;
+    table[4][1] = false;
+    table[4][2] = false;
+    table[4][3] = false;
+    table[4][4] = false;
 
-    positionArray[0] = 80;
-    positionArray[1] = 160;
-    positionArray[2] = 240;
-    positionArray[3] = 320;
+    positionArray[0] = (tempHeight/6)*1;
+    positionArray[1] = (tempHeight/6)*2;
+    positionArray[2] = (tempHeight/6)*3;
+    positionArray[3] = (tempHeight/6)*4;
+    positionArray[4] = (tempHeight/6)*5;
 
     add(Bg());
 
@@ -674,7 +691,7 @@ class MyGame extends BaseGame with HasTapableComponents {
     }
     return text;
   }
-double testInc = 3;
+double testInc = 4;
   @override
   void update(double t) {
 
@@ -733,8 +750,8 @@ double testInc = 3;
     //TextConfig comp = TextConfig(color: colours[genColourComp], fontSize: 40, fontFamily: "fontNum");
     int genColourPrime = rng.nextInt(5);
     //TextConfig primeC = TextConfig(color: colours[genColourPrime], fontSize: 40, fontFamily: "fontNum");
-    TextConfig mult = TextConfig(color: Colors.white, fontSize: 40, fontFamily: "fontNum");
-    TextConfig nmult = TextConfig(color: Colors.white, fontSize: 40, fontFamily: "fontNum");
+    TextConfig mult = TextConfig(color: Colors.white, fontSize: 35, fontFamily: "fontNum");
+    TextConfig nmult = TextConfig(color: Colors.white, fontSize: 35, fontFamily: "fontNum");
     double Pos = 0;
 
     if (lives > 0) {
@@ -784,6 +801,16 @@ double testInc = 3;
             table[testInc.toInt()][3] = true;
           }
 
+          int genTemp5 = rng.nextInt(2);
+          if (genTemp5 == 0) {
+            add(multiple = Multiple((generateMultiple()), mult, 5, testInc, false));
+            table[testInc.toInt()][4] = true;
+          }
+          else {
+            add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 5, testInc, false));
+            table[testInc.toInt()][4] = true;
+          }
+
 
 
           testInc --;
@@ -792,7 +819,7 @@ double testInc = 3;
         if (testInc < 0){
           newDeck = false;
           timerPrime = 0;
-          testInc = 3;
+          testInc = 4;
         }
       }
 
@@ -810,6 +837,7 @@ double testInc = 3;
           table[1][0] = true;
           table[2][0] = true;
           table[3][0] = true;
+         table[4][0] = true;
         }
         else if (table[0][1] == false) {
 
@@ -825,6 +853,7 @@ double testInc = 3;
           table[1][1] = true;
           table[2][1] = true;
           table[3][1] = true;
+          table[4][1] = true;
         }
         else if (table[0][2] == false) {
 
@@ -841,6 +870,7 @@ double testInc = 3;
           table[1][2] = true;
           table[2][2] = true;
           table[3][2] = true;
+        table[4][2] = true;
 
         } else if (table[0][3] == false) {
         int genTemp5 = rng.nextInt(2);
@@ -855,7 +885,24 @@ double testInc = 3;
         table[1][3] = true;
         table[2][3] = true;
         table[3][3] = true;
+        table[4][3] = true;
           }
+
+      else if (table[0][4] == false) {
+        int genTemp5 = rng.nextInt(2);
+        if (genTemp5 == 0) {
+          add(multiple = Multiple((generateMultiple()), mult, 5, 0, false));
+        }
+        else {
+          add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 5, 0, false));
+        }
+
+        table[0][4] = true;
+        table[1][4] = true;
+        table[2][4] = true;
+        table[3][4] = true;
+        table[4][4] = true;
+      }
     }
     else {
       textPainterNoMoreLives = TextPainter(text: TextSpan(
