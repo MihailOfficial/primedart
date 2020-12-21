@@ -38,7 +38,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app_drawer.dart';
 
-const COLOR = const Color.fromRGBO(3, 165, 252, 0.5);
+const COLOR = const Color.fromRGBO(0, 0, 0, 0.3);
+const COLOR2 = const Color.fromRGBO(175, 58, 52, 1);
+const COLOR3 = const Color.fromRGBO(255, 255, 255, 1);
 const SIZE = 52.0;
 const GRAVITY = 200.0;
 const BOOST = -150;
@@ -68,6 +70,8 @@ class Home extends StatelessWidget{
     SystemChrome.setEnabledSystemUIOverlays([]);
     final double statusBarHeight = MediaQuery.of(context).padding.top;
     return
+      Stack(
+          children: <Widget>[
       Container(
           constraints: BoxConstraints.expand(),
           decoration: BoxDecoration(
@@ -76,25 +80,23 @@ class Home extends StatelessWidget{
                   fit: BoxFit.cover)
           ),
           child: game.widget,
-      );
+      ),
+    Padding(
+    padding: EdgeInsets.fromLTRB(tempWidth/2.4, heightApp*(6),0, 0),
+    child: FlatButton(
 
+              color: Colors.blue,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              textColor: Colors.white,
+    onPressed: () {changedMultiple = 2;
+    newDeck = true;},
+    child: Text('Spin new', style: TextStyle(fontSize: 20)),
+    ),
 
-
-
-
-
-
-
-
-
-
-
-
+    ),
+    ]);
     }
-
   }
-
-
 
 double tempX = 0;
 double heightPos = 0;
@@ -147,7 +149,7 @@ bool bottomFall = false;
   @override
   void update(double tt){
     if (fall){
-      this.y += 2*accel;
+      this.y += 10;
       accel++;
 
       if (this.y > positionArray[row.toInt()]){
@@ -161,7 +163,7 @@ bool bottomFall = false;
     }
 
   if (rand == true){
-    this.y += 2*accel;
+    this.y += 5;
     accel++;
     if (this.y >  positionArray[(row).toInt()]){
       rand = false;
@@ -219,7 +221,7 @@ bool bottomFall = false;
 
     if (changedMultiple == 1){
 
-      destroy();
+     destroy();
      returned = true;
      game.add(new FastMultiple(this.text, this.x, this.y));
 
@@ -273,7 +275,7 @@ class NotMultiple extends TextComponent with Tapable{
   @override
   void update(double tt){
     if (fall){
-      this.y += 2*accel;
+      this.y += 10;
       accel++;
 
       if (this.y > positionArray[row.toInt()]){
@@ -287,7 +289,7 @@ class NotMultiple extends TextComponent with Tapable{
     }
 
     if (rand == true){
-      this.y += 2*accel;
+      this.y += 5;
       accel++;
       if (this.y >  positionArray[(row).toInt()]){
         rand = false;
@@ -495,11 +497,11 @@ class MyGame extends BaseGame with HasTapableComponents {
     table[4][3] = false;
     table[4][4] = false;
 
-    positionArray[0] = (tempHeight/6)*1;
-    positionArray[1] = (tempHeight/6)*2;
-    positionArray[2] = (tempHeight/6)*3;
-    positionArray[3] = (tempHeight/6)*4;
-    positionArray[4] = (tempHeight/6)*5;
+    positionArray[0] = 90;
+    positionArray[1] = 140;
+    positionArray[2] = 190;
+    positionArray[3] = 240;
+    positionArray[4] = 290;
 
     add(Bg());
 
@@ -570,7 +572,7 @@ class MyGame extends BaseGame with HasTapableComponents {
     positionNumType = Offset(size.width *(10.8/20) - textPainterNumType.width / 2,
         heightApp/2 - textPainterNumType.height / 2);
 
-    positionLivesText = Offset(size.width *(1.3/20) - textPainterLivesText.width / 2,
+    positionLivesText = Offset(size.width *(5.7/20) - textPainterLivesText.width / 2,
         heightApp/2 - textPainterLivesText.height / 2);
 
     textPainterLives = TextPainter(text: TextSpan(
@@ -582,7 +584,7 @@ class MyGame extends BaseGame with HasTapableComponents {
       minWidth: 0,
       maxWidth: size.width,
     );
-    positionLives = Offset(size.width *(2.3/20)- textPainterLives.width / 2,
+    positionLives = Offset(size.width *(6.4/20)- textPainterLives.width / 2,
         heightApp/2 - textPainterLives.height / 2);
 
     textPainterScoreText = TextPainter(text: TextSpan(
@@ -594,7 +596,7 @@ class MyGame extends BaseGame with HasTapableComponents {
       minWidth: 0,
       maxWidth: size.width,
     );
-    positionScoreText = Offset(size.width *(3.5/20) - textPainterScoreText.width / 2,
+    positionScoreText = Offset(size.width *(13/20) - textPainterScoreText.width / 2,
         heightApp/2 - textPainterScoreText.height / 2);
 
 
@@ -608,7 +610,7 @@ class MyGame extends BaseGame with HasTapableComponents {
       minWidth: 0,
       maxWidth: size.width,
     );
-    positionScore = Offset(size.width *(4.8/20) - textPainterScore.width / 2,
+    positionScore = Offset(size.width *(14/20) - textPainterScore.width / 2,
         heightApp/2 - textPainterScore.height / 2);
     statusBox = tempWidth*0.22;
    updateStatus = tempWidth*0.22/1660;
@@ -928,12 +930,19 @@ class Bg extends Component with Resizable {
 
   static final Paint _paint = Paint()
     ..color = COLOR;
+  static final Paint _paint2 = Paint()
+    ..color = COLOR2;
+  @override
+
+  static final Paint _paint3 = Paint()
+    ..color = COLOR3;
   @override
 
   @override
   void render(Canvas c) {
 
-    c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth*0.375,heightApp/8,statusBox,heightApp*6/8),Radius.circular(10.0)),_paint);
+    c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth/4, heightApp/8, tempWidth/2, heightApp*6/8),Radius.circular(10.0)),_paint2);
+    c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth*0.375,heightApp/8,statusBox,heightApp*6/8),Radius.circular(5.0)),_paint);
 
   }
 
