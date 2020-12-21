@@ -613,7 +613,7 @@ class MyGame extends BaseGame with HasTapableComponents {
     positionScore = Offset(size.width *(14/20) - textPainterScore.width / 2,
         heightApp/2 - textPainterScore.height / 2);
     statusBox = tempWidth*0.22;
-   updateStatus = tempWidth*0.22/1660;
+   updateStatus = tempWidth*0.22/2000;
   }
 
   static const COLOR = const Color(0xFF527A80);
