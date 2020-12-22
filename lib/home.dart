@@ -76,7 +76,7 @@ class Home extends StatelessWidget{
           constraints: BoxConstraints.expand(),
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: NetworkImage("https://i0.wp.com/68.media.tumblr.com/eb9d83900abde73d3d323019a45f3f8e/tumblr_om91agCwBL1rnbw6mo1_1280.gif?zoom=2"),
+                  image: AssetImage("assets/images/flowertown.gif"),
                   fit: BoxFit.cover)
           ),
           child: game.widget,
