@@ -129,6 +129,8 @@ class Multiple extends TextComponent with Tapable{
   bool topV;
   bool rand = false;
   bool fall = true;
+  bool shrink = false;
+  double sizeF = 35;
   Multiple(String text, TextConfig textConfig, double Column, double Row, bool top) : super(text) {
     pauseRect1 = Rect.fromLTWH(0,0,0,0);
     this.config = textConfig;
@@ -148,7 +150,7 @@ class Multiple extends TextComponent with Tapable{
 bool bottomFall = false;
   @override
   void update(double tt){
-    if (fall){
+    if (fall && !shrink){
       this.y += 10;
       accel++;
 
@@ -158,11 +160,8 @@ bool bottomFall = false;
         }
     }
 
-    if (topV == true){
 
-    }
-
-  if (rand == true){
+  if (rand == true && !shrink){
 
     if (this.y <=  positionArray[(row).toInt()]){
       this.y += 5;
@@ -177,7 +176,7 @@ bool bottomFall = false;
 
   }
 
-    if (row != 4){
+    if (row != 4 && !shrink){
       if (table[(row+1).toInt()][(column-1).toInt()] == false){
         table[(row).toInt()][(column-1).toInt()] = false;
         table[(row+1).toInt()][(column-1).toInt()] == true;
@@ -188,13 +187,25 @@ bool bottomFall = false;
       }
     }
 
-    if (m != null){
+    if (shrink){
+      if (sizeF < 0){
+        destroy();
+        shrink = false;
+        returned = true;}
+
+      else{
+        TextConfig comp = TextConfig(color: Colors.red, fontSize: sizeF, fontFamily: "fontNum");
+        this.config =comp;
+        sizeF -= 4;
+      }
+
+    }
+
+    if (m != null && !shrink){
       if (pauseRect1.contains(m.globalPosition)){
         print("touched");
         table[(row).toInt()][(column-1).toInt()] = false;
-
-        returned = true;
-        destroy();
+        shrink = true;
 
       }}
 
@@ -204,7 +215,7 @@ bool bottomFall = false;
     double dist = 50;
     pauseRect1 = Rect.fromLTWH(this.x-(this.width/2)-7,this.y-(this.height/2),this.width+10,this.height);
 
-    if (collectedItem){
+    if (collectedItem && !shrink){
       collectPrime = true;
       TextConfig collected = TextConfig(color: Color( 0xFFFFFF00), fontSize: 35);
       this.config = collected;
