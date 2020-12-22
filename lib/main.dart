@@ -38,9 +38,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 void main() async {
+  SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
   Flame.util.setLandscape();
   Flame.util.fullScreen();
   WidgetsFlutterBinding.ensureInitialized();
+
   //SharedPreferences storage = await SharedPreferences.getInstance();
   count[0] = 0;
   count[1] = 0;
@@ -70,9 +72,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+
       title: 'Onboarding Concept',
       home: Builder(
         builder: (BuildContext context) {
+          SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
           var screenHeight = MediaQuery.of(context).size.height;
 
           return Home();

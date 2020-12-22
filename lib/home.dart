@@ -151,7 +151,7 @@ bool bottomFall = false;
   @override
   void update(double tt){
     if (fall && !shrink){
-      this.y += 10;
+      this.y += 8;
       accel++;
 
       if (this.y > positionArray[row.toInt()]){
@@ -194,9 +194,9 @@ bool bottomFall = false;
         returned = true;}
 
       else{
-        TextConfig comp = TextConfig(color: Colors.red, fontSize: sizeF, fontFamily: "fontNum");
+        TextConfig comp = TextConfig(color: Colors.white, fontSize: sizeF, fontFamily: "fontNum");
         this.config =comp;
-        sizeF -= 4;
+        sizeF -= 3;
       }
 
     }
@@ -292,7 +292,7 @@ class NotMultiple extends TextComponent with Tapable{
   @override
   void update(double tt){
     if (fall){
-      this.y += 10;
+      this.y += 8;
       accel++;
 
       if (this.y > positionArray[row.toInt()]){
@@ -779,7 +779,7 @@ double testInc = 4;
     if (lives > 0) {
       if (newDeck){
         timerPrime += t;
-        if (timerPrime > 0.5 ) {
+        if (timerPrime > 0.3 ) {
 
 
 
@@ -833,7 +833,7 @@ double testInc = 4;
             table[testInc.toInt()][4] = true;
           }
 
-
+          timerPrime = 0;
 
           testInc --;
         }
@@ -847,6 +847,12 @@ double testInc = 4;
 
       else if (table[0][0] == false) {
 
+        table[0][0] = true;
+        table[1][0] = true;
+        table[2][0] = true;
+        table[3][0] = true;
+        table[4][0] = true;
+
         int genTemp5 = rng.nextInt(2);
           if (genTemp5 == 0) {
             add(multiple = Multiple((generateMultiple()), mult, 1, 0, false));
@@ -855,13 +861,15 @@ double testInc = 4;
             add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 1, 0, false));
           }
 
-          table[0][0] = true;
-          table[1][0] = true;
-          table[2][0] = true;
-          table[3][0] = true;
-         table[4][0] = true;
+
         }
         else if (table[0][1] == false) {
+
+        table[0][1] = true;
+        table[1][1] = true;
+        table[2][1] = true;
+        table[3][1] = true;
+        table[4][1] = true;
 
         int genTemp5 = rng.nextInt(2);
         if (genTemp5 == 0) {
@@ -871,14 +879,15 @@ double testInc = 4;
           add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 2, 0, false));
         }
 
-          table[0][1] = true;
-          table[1][1] = true;
-          table[2][1] = true;
-          table[3][1] = true;
-          table[4][1] = true;
+
         }
         else if (table[0][2] == false) {
 
+        table[0][2] = true;
+        table[1][2] = true;
+        table[2][2] = true;
+        table[3][2] = true;
+        table[4][2] = true;
 
         int genTemp5 = rng.nextInt(2);
         if (genTemp5 == 0) {
@@ -888,13 +897,14 @@ double testInc = 4;
           add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 3, 0, false));
         }
 
-          table[0][2] = true;
-          table[1][2] = true;
-          table[2][2] = true;
-          table[3][2] = true;
-        table[4][2] = true;
+
 
         } else if (table[0][3] == false) {
+        table[0][3] = true;
+        table[1][3] = true;
+        table[2][3] = true;
+        table[3][3] = true;
+        table[4][3] = true;
         int genTemp5 = rng.nextInt(2);
         if (genTemp5 == 0) {
           add(multiple = Multiple((generateMultiple()), mult, 4, 0, false));
@@ -903,14 +913,15 @@ double testInc = 4;
           add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 4, 0, false));
         }
 
-        table[0][3] = true;
-        table[1][3] = true;
-        table[2][3] = true;
-        table[3][3] = true;
-        table[4][3] = true;
+
           }
 
       else if (table[0][4] == false) {
+        table[0][4] = true;
+        table[1][4] = true;
+        table[2][4] = true;
+        table[3][4] = true;
+        table[4][4] = true;
         int genTemp5 = rng.nextInt(2);
         if (genTemp5 == 0) {
           add(multiple = Multiple((generateMultiple()), mult, 5, 0, false));
