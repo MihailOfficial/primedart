@@ -85,12 +85,12 @@ class Home extends StatelessWidget{
     padding: EdgeInsets.fromLTRB(tempWidth/2.4, heightApp*(6),0, 0),
     child: FlatButton(
 
-              color: Colors.blue,
+              color: Color.fromRGBO(175, 58, 52, 1),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
               textColor: Colors.white,
     onPressed: () {changedMultiple = 2;
     newDeck = true;},
-    child: Text('Spin new', style: TextStyle(fontSize: 20)),
+    child: Text('Spin new', style: TextStyle(fontSize: 25)),
     ),
 
     ),
@@ -163,12 +163,18 @@ bool bottomFall = false;
     }
 
   if (rand == true){
-    this.y += 5;
-    accel++;
-    if (this.y >  positionArray[(row).toInt()]){
+
+    if (this.y <=  positionArray[(row).toInt()]){
+      this.y += 5;
+      accel++;
+    }
+    else {
       rand = false;
       accel = 1;
+      this.y += 5;
     }
+
+
   }
 
     if (row != 4){
@@ -289,11 +295,14 @@ class NotMultiple extends TextComponent with Tapable{
     }
 
     if (rand == true){
-      this.y += 5;
-      accel++;
-      if (this.y >  positionArray[(row).toInt()]){
+      if (this.y <=  positionArray[(row).toInt()]){
+        this.y += 5;
+        accel++;
+      }
+      else {
         rand = false;
         accel = 1;
+        this.y += 5;
       }
     }
 
@@ -312,7 +321,7 @@ class NotMultiple extends TextComponent with Tapable{
       if (pauseRect1.contains(m.globalPosition)){
         print("touched");
 
-        TextConfig comp = TextConfig(color: Colors.red, fontSize: 40, fontFamily: "fontNum");
+        TextConfig comp = TextConfig(color: Colors.red, fontSize: 35, fontFamily: "fontNum");
         this.config =comp;
 
 
@@ -590,13 +599,13 @@ class MyGame extends BaseGame with HasTapableComponents {
     textPainterScoreText = TextPainter(text: TextSpan(
         text: "S: " ,
         style: TextStyle(
-            color: Color.fromRGBO(255, 46, 46, 1), fontSize: 22, fontFamily: "bold")),
+            color: Color.fromRGBO(255, 120, 120,1), fontSize: 22, fontFamily: "bold")),
         textDirection: TextDirection.ltr);
     textPainterScoreText.layout(
       minWidth: 0,
       maxWidth: size.width,
     );
-    positionScoreText = Offset(size.width *(13/20) - textPainterScoreText.width / 2,
+    positionScoreText = Offset(size.width *(12.8/20) - textPainterScoreText.width / 2,
         heightApp/2 - textPainterScoreText.height / 2);
 
 
@@ -610,7 +619,7 @@ class MyGame extends BaseGame with HasTapableComponents {
       minWidth: 0,
       maxWidth: size.width,
     );
-    positionScore = Offset(size.width *(14/20) - textPainterScore.width / 2,
+    positionScore = Offset(size.width *(13.8/20) - textPainterScore.width / 2,
         heightApp/2 - textPainterScore.height / 2);
     statusBox = tempWidth*0.22;
    updateStatus = tempWidth*0.22/2000;
@@ -941,8 +950,8 @@ class Bg extends Component with Resizable {
   @override
   void render(Canvas c) {
 
-    c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth/4, heightApp/8, tempWidth/2, heightApp*6/8),Radius.circular(10.0)),_paint2);
-    c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth*0.375,heightApp/8,statusBox,heightApp*6/8),Radius.circular(5.0)),_paint);
+    c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth/4, heightApp/8, tempWidth/2, heightApp*6/8),Radius.circular(8.0)),_paint2);
+    c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth*0.375,heightApp/8,statusBox,heightApp*6/8),Radius.circular(0.0)),_paint);
 
   }
 
