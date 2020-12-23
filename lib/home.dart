@@ -87,10 +87,10 @@ class Home extends StatelessWidget{
 
               color: Color.fromRGBO(175, 58, 52, 1),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-              textColor: Colors.white,
+              textColor: Color.fromRGBO(252,238,10, 1),
     onPressed: () {changedMultiple = 2;
     newDeck = true;},
-    child: Text('Spin new', style: TextStyle(fontSize: 25)),
+    child: Text(' SPIN NEW ', style: TextStyle( fontSize: 18, fontFamily: "bold")),
     ),
 
     ),

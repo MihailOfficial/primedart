@@ -53,14 +53,13 @@ void main() async {
 
   final size = await Flame.util.initialDimensions();
 
-  tempWidth = size.width;
-  tempHeight = size.height;
+
   TapGestureRecognizer tapper = TapGestureRecognizer();
   flameUtil.addGestureRecognizer(tapper);
-
+  tempWidth = size.width;
+  tempHeight = size.height;
   game = MyGame(size);
   runApp(MyApp());
-
 
 
 }
