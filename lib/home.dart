@@ -209,29 +209,22 @@ bool bottomFall = false;
         print("touched");
         table[(row).toInt()][(column-1).toInt()] = false;
         shrink = true;
-
+        collectPrime = true;
       }}
 
+    if (collectPrime){
+      score ++;
+
+      updateScore = true;
+      collectPrime = false;
+    }
     if (paused){
       this.x = -20000;
     }
     double dist = 50;
     pauseRect1 = Rect.fromLTWH(this.x-(this.width/2)-7,this.y-(this.height/2),this.width+10,this.height);
 
-    if (collectedItem && !shrink){
-      collectPrime = true;
-      TextConfig collected = TextConfig(color: Color( 0xFFFFFF00), fontSize: 35);
-      this.config = collected;
-      score ++;
 
-      count[0] = (score %10).toInt();
-      count[1] = ((score /10) % 10).toInt();
-      count[2] = ((score /100) % 10).toInt();
-      count[3] = ((score /1000) % 10).toInt();
-
-      updateScore = true;
-      collectedItem = false;
-    }
     //if (this.x <-30 || this.y<0){
      // returned = true;
      // destroy();
@@ -266,9 +259,10 @@ class NotMultiple extends TextComponent with Tapable{
   bool collectedItem = false;
   double speedX = 100.0;
   double posX, posY;
-  bool collectPrime = false;
+  bool collectNot = false;
   double accel = 1;
   int value1 = 0;
+  int inc = 0;
   bool returned = false;
   double column;
   double row;
@@ -304,9 +298,7 @@ class NotMultiple extends TextComponent with Tapable{
       }
     }
 
-    if (topV == true){
 
-    }
 
     if (rand == true){
       if (this.y <=  positionArray[(row).toInt()]){
@@ -331,37 +323,29 @@ class NotMultiple extends TextComponent with Tapable{
       }
     }
 
-    if (m != null){
+    if (m != null && !collectNot){
       if (pauseRect1.contains(m.globalPosition)){
         print("touched");
-
+        inc++;
         TextConfig comp = TextConfig(color: Colors.red, fontSize: 35, fontFamily: "fontNum");
         this.config =comp;
 
-
-
       }}
+    if (inc == 1){
+      if (score>0) {
+        score --;
 
+      }
+      updateScore = true;
+
+    }
     if (paused){
       this.x = -20000;
     }
     double dist = 50;
     pauseRect1 = Rect.fromLTWH(this.x-(this.width/2)-7,this.y-(this.height/2),this.width+10,this.height);
 
-    if (collectedItem){
-      collectPrime = true;
-      TextConfig collected = TextConfig(color: Color( 0xFFFFFF00), fontSize: 35);
-      this.config = collected;
-      score ++;
 
-      count[0] = (score %10).toInt();
-      count[1] = ((score /10) % 10).toInt();
-      count[2] = ((score /100) % 10).toInt();
-      count[3] = ((score /1000) % 10).toInt();
-
-      updateScore = true;
-      collectedItem = false;
-    }
     //if (this.x <-30 || this.y<0){
     // returned = true;
     // destroy();
@@ -380,6 +364,8 @@ class NotMultiple extends TextComponent with Tapable{
 
   }
 }
+
+
 double updateStatus = 0;
 class FastMultiple extends TextComponent{
   double height = AppBar().preferredSize.height;
@@ -758,6 +744,12 @@ double testInc = 4;
 
     }
     if (updateScore) {
+
+      count[0] = (score %10).toInt();
+      count[1] = ((score /10) % 10).toInt();
+      count[2] = ((score /100) % 10).toInt();
+      count[3] = ((score /1000) % 10).toInt();
+
       textPainterScore = TextPainter(text: TextSpan(
           text: count[3].toString()+count[2].toString()+ count[1].toString()+ count[0].toString(),
           style: TextStyle(
