@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 import '../../home.dart';
+import '../../product.dart';
 
 
 enum FormType { LOGIN, REGISTER }
@@ -114,7 +115,7 @@ class _LoginPageState extends State<LoginPage> {
         body: Container (
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage("assets/images/tempback.jpg"),
+                  image: AssetImage("assets/images/flowertown.gif"),
                   fit: BoxFit.cover
               )
           ),
@@ -146,6 +147,7 @@ class _LoginPageState extends State<LoginPage> {
   List<Widget> buildInputs(FormType formType) {
 
     var base = <Widget>[
+
       Padding(
         padding: const EdgeInsets.fromLTRB(300, 0, 300, 0),),
       ClipRRect(
@@ -210,7 +212,23 @@ class _LoginPageState extends State<LoginPage> {
 
                                       hintText: 'Password'),
                                 ))),
+                        FlatButton(
 
+                          color: Color.fromRGBO(175, 58, 52, 1),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                          textColor: Color.fromRGBO(252,238,10, 1),
+                          onPressed: () {runApp(MaterialApp(
+                            debugShowCheckedModeBanner: false,
+
+                            title: 'Onboarding Concept',
+                            home: Builder(
+                            builder: (BuildContext context) {
+                            SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
+                            var screenHeight = MediaQuery.of(context).size.height;
+
+                            return Home();})));},
+                          child: Text(' DEVELOPING BUTTON ', style: TextStyle( fontSize: 18, fontFamily: "bold")),
+                        ),
                       ])))),
 
 

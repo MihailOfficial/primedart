@@ -1,4 +1,7 @@
+import 'package:bird/product.dart';
+import 'package:bird/topScores.dart';
 import 'package:flutter/material.dart';
+import 'home.dart';
 import 'routes.dart';
 
 class AppDrawer extends StatelessWidget{
@@ -10,29 +13,28 @@ class AppDrawer extends StatelessWidget{
             UserAccountsDrawerHeader (
                 accountEmail: Text("mihaildev@gmail.com"),
                 accountName: Text("Mihail Ghandi"),
-                currentAccountPicture: CircleAvatar(
-                  radius: 55,
 
-                  child: CircleAvatar(
-                    radius: 55,
-                    backgroundImage: AssetImage('assets/images/test.jpg'),
-                  ),
-                ),
                 ),
             ListTile(
-              leading: Icon(Icons.home),
+              leading: Icon(Icons.videogame_asset),
               title: Text("Game"),
-              onTap: () => Navigator.pushReplacementNamed(context, Routes.home),
+              onTap: () =>  Navigator.push(context, new MaterialPageRoute(
+                  builder: (context) => Home())
+              ),
             ),
             ListTile(
-              leading: Icon(Icons.home),
-              title: Text("Home"),
-              onTap: () => Navigator.pushReplacementNamed(context, Routes.product),
+              leading: Icon(Icons.group),
+              title: Text("High Scores"),
+              onTap: () =>  Navigator.push(context, new MaterialPageRoute(
+                  builder: (context) => new Product())
+              ),
             ),
             ListTile(
-              leading: Icon(Icons.home),
-              title: Text("Test"),
-              onTap: () => Navigator.pushReplacementNamed(context, Routes.topScores),
+              leading: Icon(Icons.assignment),
+              title: Text("About"),
+              onTap: () =>  Navigator.push(context, new MaterialPageRoute(
+                  builder: (context) => new TopScores())
+              ),
             )
 
 

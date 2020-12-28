@@ -70,6 +70,9 @@ class Home extends StatelessWidget{
     SystemChrome.setEnabledSystemUIOverlays([]);
     final double statusBarHeight = MediaQuery.of(context).padding.top;
     return
+      Scaffold(
+        drawer: AppDrawer(),
+    body:
       Stack(
           children: <Widget>[
       Container(
@@ -94,7 +97,7 @@ class Home extends StatelessWidget{
     ),
 
     ),
-    ]);
+    ]));
     }
   }
 

@@ -78,10 +78,10 @@ class MyApp extends StatelessWidget {
           SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
           var screenHeight = MediaQuery.of(context).size.height;
 
-          return Home();
-            //Onboarding(
-          // screenHeight: screenHeight,
-         // );
+          return
+            Onboarding(
+          screenHeight: screenHeight,
+          );
         },
       ),
     );
