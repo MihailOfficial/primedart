@@ -158,7 +158,7 @@ class _LoginPageState extends State<LoginPage> {
                   padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
                   child: Column(
                       children: <Widget>[
-                      Text('numdash',
+                      Text('MULTIPLES',
                       style: TextStyle(fontFamily: 'logo', fontSize: 20, color: Color.fromRGBO(252,238,10, 1))),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(10, 5, 5, 10),),

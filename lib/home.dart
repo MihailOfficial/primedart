@@ -55,6 +55,7 @@ bool hasLives = true;
 double statusWidth = 200;
 bool style = false;
 bool newDeck = true;
+bool spinNew = false;
 var x;
 var y;
 
@@ -91,8 +92,8 @@ class Home extends StatelessWidget{
               color: Color.fromRGBO(175, 58, 52, 1),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
               textColor: Color.fromRGBO(252,238,10, 1),
-    onPressed: () {changedMultiple = 2;
-    newDeck = true;},
+    onPressed: () {if (!spinNew){changedMultiple = 2;
+    newDeck = true;}},
     child: Text(' SPIN NEW ', style: TextStyle( fontSize: 18, fontFamily: "bold")),
     ),
 
@@ -377,7 +378,7 @@ class FastMultiple extends TextComponent{
   double accel = 0;
   int value1 = 0;
   bool returned = false;
-  TextConfig notValid = TextConfig(color: Color.fromRGBO(180, 180, 180 , 1), fontSize: 30);
+  TextConfig notValid = TextConfig(color: Colors.grey, fontSize: 35, fontFamily: "fontNum");
   FastMultiple(String text, double posX, double posY) : super(text) {
    this.config = notValid;
     this.anchor = Anchor.center;
@@ -402,7 +403,7 @@ class FastMultiple extends TextComponent{
     }
     accel++;
     super.update(tt);
-    this.x -= 4*accel;
+    this.x -= 2*accel;
 
   }
 }
@@ -764,15 +765,16 @@ double testInc = 4;
       updateScore = false;
     }
     int genColourComp = rng.nextInt(8);
-    //TextConfig comp = TextConfig(color: colours[genColourComp], fontSize: 40, fontFamily: "fontNum");
+    TextConfig comp = TextConfig(color: colours[genColourComp], fontSize: 40, fontFamily: "fontNum");
     int genColourPrime = rng.nextInt(5);
-    //TextConfig primeC = TextConfig(color: colours[genColourPrime], fontSize: 40, fontFamily: "fontNum");
+    TextConfig primeC = TextConfig(color: colours[genColourPrime], fontSize: 40, fontFamily: "fontNum");
     TextConfig mult = TextConfig(color: Colors.white, fontSize: 35, fontFamily: "fontNum");
     TextConfig nmult = TextConfig(color: Colors.white, fontSize: 35, fontFamily: "fontNum");
     double Pos = 0;
 
     if (lives > 0) {
       if (newDeck){
+        spinNew = true;
         timerPrime += t;
         if (timerPrime > 0.3 ) {
 
@@ -835,6 +837,7 @@ double testInc = 4;
 
         if (testInc < 0){
           newDeck = false;
+          spinNew = false;
           timerPrime = 0;
           testInc = 4;
         }

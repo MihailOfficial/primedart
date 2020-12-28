@@ -10,7 +10,7 @@ class IconContainer extends StatelessWidget {
     return Container(
 
       child: Text(
-        'PrimeDash',
+        'MULTIPLES',
         style: TextStyle(fontFamily: 'logo', fontSize: 20, color: Color.fromRGBO(252,238,10, 1)),
       ),
     );
