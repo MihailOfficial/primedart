@@ -90,7 +90,14 @@ class Home extends StatelessWidget{
                   image: AssetImage("assets/images/flowertown.gif"),
                   fit: BoxFit.cover)
           ),
-          child: game.widget,
+          child: SafeArea(
+            bottom: false,
+            child: Center(
+              child: Container(
+                child: game.widget,
+              ),
+            ),
+          ),
       ),
     Padding(
     padding: EdgeInsets.fromLTRB(tempWidth/2.4, heightApp*(6),0, 0),
