@@ -41,6 +41,13 @@ import 'app_drawer.dart';
 const COLOR = const Color.fromRGBO(0, 0, 0, 0.3);
 const COLOR2 = const Color.fromRGBO(175, 58, 52, 1);
 const COLOR3 = const Color.fromRGBO(255, 255, 255, 1);
+
+var colours = [
+  Colors.green,
+  Colors.indigo,
+  Colors.red,
+ ];
+
 const SIZE = 52.0;
 const GRAVITY = 200.0;
 const BOOST = -150;
@@ -105,7 +112,7 @@ class Home extends StatelessWidget{
 double tempX = 0;
 double heightPos = 0;
 int lives = 98;
-var table = List.generate(5, (i) => List(5), growable: false);
+var table = List.generate(5, (i) => List(6), growable: false);
 
 
 
@@ -135,17 +142,27 @@ class Multiple extends TextComponent with Tapable{
   bool fall = true;
   bool shrink = false;
   double sizeF = 35;
+  int genColourComp;
+  Paint _paint12;
   Multiple(String text, TextConfig textConfig, double Column, double Row, bool top) : super(text) {
     pauseRect1 = Rect.fromLTWH(0,0,0,0);
     this.config = textConfig;
     this.anchor = Anchor.center;
-    this.x = (tempWidth/6)*Column;
+    this.x = (tempWidth/7)*Column;
     this.y = 0;
     column = Column;
     row = Row;
     topV = top;
+    var rng1 = new Random();
+    genColourComp = rng1.nextInt(3);
+    _paint12 = Paint()
+      ..color = colours[genColourComp];
+
     if (top == true){
-    table[0][(Column-1).toInt()] = false;}
+    table[0][(Column-1).toInt()] = false;
+
+
+    }
   }
   @override
   bool destroy() {
@@ -155,7 +172,7 @@ bool bottomFall = false;
   @override
   void update(double tt){
     if (fall && !shrink){
-      this.y += 8;
+      this.y += 10;
       accel++;
 
       if (this.y > positionArray[row.toInt()]){
@@ -223,7 +240,7 @@ bool bottomFall = false;
       this.x = -20000;
     }
     double dist = 50;
-    pauseRect1 = Rect.fromLTWH(this.x-(this.width/2)-7,this.y-(this.height/2),this.width+10,this.height);
+    pauseRect1 = Rect.fromLTWH((tempWidth/7)*column-50,this.y-(this.height/2),100,this.height);
 
 
     //if (this.x <-30 || this.y<0){
@@ -241,6 +258,14 @@ bool bottomFall = false;
 
     }
 
+
+  }
+
+  @override
+  void render(Canvas c) {
+
+    c.drawRRect(RRect.fromRectAndRadius((pauseRect1),Radius.circular(8.0)),_paint12);
+    super.render(c);
 
   }
 }
@@ -270,15 +295,21 @@ class NotMultiple extends TextComponent with Tapable{
   bool topV;
   bool rand = false;
   bool fall = true;
+  Paint _paint12;
+  int genColourComp;
   NotMultiple(String text, TextConfig textConfig, double Column, double Row, bool top) : super(text) {
     pauseRect1 = Rect.fromLTWH(0,0,0,0);
     this.config = textConfig;
     this.anchor = Anchor.center;
-    this.x = (tempWidth/6)*Column;
+    this.x = (tempWidth/7)*Column;
     this.y = 0;
     column = Column;
     row = Row;
     topV = top;
+    var rng2 = new Random();
+    genColourComp = rng2.nextInt(3);
+    _paint12 = Paint()
+      ..color = colours[genColourComp];
     if (top == true){
       table[0][(Column-1).toInt()] = false;}
   }
@@ -290,7 +321,7 @@ class NotMultiple extends TextComponent with Tapable{
   @override
   void update(double tt){
     if (fall){
-      this.y += 8;
+      this.y += 10;
       accel++;
 
       if (this.y > positionArray[row.toInt()]){
@@ -326,10 +357,9 @@ class NotMultiple extends TextComponent with Tapable{
 
     if (m != null && !collectNot){
       if (pauseRect1.contains(m.globalPosition)){
-        print("touched");
+
         inc++;
-        TextConfig comp = TextConfig(color: Colors.red, fontSize: 35, fontFamily: "fontNum");
-        this.config =comp;
+        text = 'X';
 
       }}
     if (inc == 1){
@@ -344,7 +374,7 @@ class NotMultiple extends TextComponent with Tapable{
       this.x = -20000;
     }
     double dist = 50;
-    pauseRect1 = Rect.fromLTWH(this.x-(this.width/2)-7,this.y-(this.height/2),this.width+10,this.height);
+    pauseRect1 = Rect.fromLTWH((tempWidth/7)*column-50,this.y-(this.height/2),100,this.height);
 
 
     //if (this.x <-30 || this.y<0){
@@ -364,7 +394,14 @@ class NotMultiple extends TextComponent with Tapable{
 
 
   }
-}
+
+  @override
+  void render(Canvas c) {
+
+    c.drawRRect(RRect.fromRectAndRadius((pauseRect1),Radius.circular(8.0)),_paint12);
+    super.render(c);
+
+  }}
 
 
 double updateStatus = 0;
@@ -435,15 +472,7 @@ class MyGame extends BaseGame with HasTapableComponents {
   NotMultiple notMultiple;
   var multiples = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   var subtrators = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  var colours = [
-    Color.fromRGBO(247, 220, 111, 1),
-    Color.fromRGBO(215, 219, 221, 1),
-    Color.fromRGBO(245, 176, 65, 1),
-    Color.fromRGBO(88, 214, 141, 1),
-    Color.fromRGBO(72, 201, 176, 1),
-    Color.fromRGBO(93, 173, 226, 1),
-    Color.fromRGBO(236, 112, 99, 1),
-    Color.fromRGBO(255, 111, 0, 1)];
+
 
   var counter = 0;
   TextPainter textPainterScore;
@@ -482,30 +511,35 @@ class MyGame extends BaseGame with HasTapableComponents {
     table[0][2] = false;
     table[0][3] = false;
     table[0][4] = false;
+    table[0][5] = false;
 
     table[1][0] = false;
     table[1][1] = false;
     table[1][2] = false;
     table[1][3] = false;
     table[1][4] = false;
+    table[1][5] = false;
 
     table[2][0] = false;
     table[2][1] = false;
     table[2][2] = false;
     table[2][3] = false;
     table[2][4] = false;
+    table[2][5] = false;
 
     table[3][0] = false;
     table[3][1] = false;
     table[3][2] = false;
     table[3][3] = false;
     table[3][4] = false;
+    table[3][5] = false;
 
     table[4][0] = false;
     table[4][1] = false;
     table[4][2] = false;
     table[4][3] = false;
     table[4][4] = false;
+    table[4][5] = false;
 
     positionArray[0] = 90;
     positionArray[1] = 140;
@@ -764,10 +798,11 @@ double testInc = 4;
 
       updateScore = false;
     }
-    int genColourComp = rng.nextInt(8);
-    TextConfig comp = TextConfig(color: colours[genColourComp], fontSize: 40, fontFamily: "fontNum");
-    int genColourPrime = rng.nextInt(5);
-    TextConfig primeC = TextConfig(color: colours[genColourPrime], fontSize: 40, fontFamily: "fontNum");
+    //int genColourComp = rng.nextInt(8);
+  //  TextConfig comp = TextConfig(color: colours[genColourComp], fontSize: 40, fontFamily: "fontNum");
+   // int genColourPrime = rng.nextInt(5);
+
+  //  TextConfig primeC = TextConfig(color: colours[genColourPrime], fontSize: 40, fontFamily: "fontNum");
     TextConfig mult = TextConfig(color: Colors.white, fontSize: 35, fontFamily: "fontNum");
     TextConfig nmult = TextConfig(color: Colors.white, fontSize: 35, fontFamily: "fontNum");
     double Pos = 0;
@@ -828,6 +863,16 @@ double testInc = 4;
           else {
             add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 5, testInc, false));
             table[testInc.toInt()][4] = true;
+          }
+
+          int genTemp6 = rng.nextInt(2);
+          if (genTemp6 == 0) {
+            add(multiple = Multiple((generateMultiple()), mult, 6, testInc, false));
+            table[testInc.toInt()][5] = true;
+          }
+          else {
+            add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 6, testInc, false));
+            table[testInc.toInt()][5] = true;
           }
 
           timerPrime = 0;
@@ -933,6 +978,22 @@ double testInc = 4;
         table[2][4] = true;
         table[3][4] = true;
         table[4][4] = true;
+      }
+      else if (table[0][5] == false) {
+        table[0][5] = true;
+        table[1][5] = true;
+        table[2][5] = true;
+        table[3][5] = true;
+        table[4][5] = true;
+        int genTemp6 = rng.nextInt(2);
+        if (genTemp6 == 0) {
+          add(multiple = Multiple((generateMultiple()), mult, 6, 0, false));
+        }
+        else {
+          add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 6, 0, false));
+        }
+
+
       }
     }
     else {
