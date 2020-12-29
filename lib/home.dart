@@ -43,9 +43,9 @@ const COLOR2 = const Color.fromRGBO(175, 58, 52, 1);
 const COLOR3 = const Color.fromRGBO(255, 255, 255, 1);
 
 var colours = [
-  Colors.green,
-  Colors.indigo,
-  Colors.red,
+  Color.fromRGBO(230, 0, 0, 1),
+  Color.fromRGBO(0, 51, 204, 1),
+  Color.fromRGBO(0, 153, 51, 1)
  ];
 
 const SIZE = 52.0;
