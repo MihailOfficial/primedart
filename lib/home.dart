@@ -43,9 +43,9 @@ const COLOR2 = const Color.fromRGBO(175, 58, 52, 1);
 const COLOR3 = const Color.fromRGBO(255, 255, 255, 1);
 
 var colours = [
-  Color.fromRGBO(230, 0, 0, 1),
-  Color.fromRGBO(0, 51, 204, 1),
-  Color.fromRGBO(0, 153, 51, 1)
+  Color.fromRGBO(230, 0, 0, 0.8),
+  Color.fromRGBO(0, 51, 204, 0.8),
+  Color.fromRGBO(0, 153, 51, 0.8)
  ];
 
 const SIZE = 52.0;
@@ -194,6 +194,8 @@ bool bottomFall = false;
       rand = false;
       accel = 1;
       this.y += 5;
+
+      table[(row).toInt()][(column-1).toInt()] == true;
     }
 
 
@@ -202,7 +204,7 @@ bool bottomFall = false;
     if (row != 4 && !shrink){
       if (table[(row+1).toInt()][(column-1).toInt()] == false){
         table[(row).toInt()][(column-1).toInt()] = false;
-        table[(row+1).toInt()][(column-1).toInt()] == true;
+
 
         rand = true;
         row++;
@@ -214,7 +216,9 @@ bool bottomFall = false;
       if (sizeF < 0){
         destroy();
         shrink = false;
-        returned = true;}
+        returned = true;
+        table[(row).toInt()][(column-1).toInt()] = false;
+      }
 
       else{
         TextConfig comp = TextConfig(color: Colors.white, fontSize: sizeF, fontFamily: "fontNum");
@@ -227,9 +231,9 @@ bool bottomFall = false;
     if (m != null && !shrink){
       if (pauseRect1.contains(m.globalPosition)){
         print("touched");
-        table[(row).toInt()][(column-1).toInt()] = false;
         shrink = true;
         collectPrime = true;
+
       }}
 
     if (collectPrime){
@@ -359,8 +363,10 @@ class NotMultiple extends TextComponent with Tapable{
 
     if (m != null && !collectNot){
       if (pauseRect1.contains(m.globalPosition)){
-
+        _paint12 = Paint()
+          ..color = Color.fromRGBO(80, 80, 80, 0.9);
         inc++;
+        this.config = TextConfig(color: Colors.grey, fontSize: 35, fontFamily: "fontNum");;
         text = 'X';
 
       }}
