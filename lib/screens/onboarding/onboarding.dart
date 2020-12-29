@@ -17,6 +17,7 @@ import 'package:bird/screens/onboarding/widgets/onboarding_page_indicator.dart';
 import 'package:bird/screens/onboarding/widgets/ripple.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../constants.dart';
 
@@ -202,6 +203,7 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
     return Scaffold(
       backgroundColor: Color.fromRGBO(28, 28, 28, 1),
       body: Stack(

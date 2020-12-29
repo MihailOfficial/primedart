@@ -38,7 +38,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 void main() async {
-  SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
+  SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeRight]);
   Flame.util.setLandscape();
   Flame.util.fullScreen();
   WidgetsFlutterBinding.ensureInitialized();
