@@ -221,7 +221,8 @@ bool bottomFall = false;
 
     if (dtable[(row).toInt()][(column-1).toInt()] == true && !fall && !newDeck) {
       dtable[row.toInt()][(column-1).toInt()] = false;
-
+      _paint12 = Paint()
+        ..color = Color.fromRGBO(255,215,0, 0.8);
 
       shrink = true;
     }
@@ -410,7 +411,8 @@ class NotMultiple extends TextComponent with Tapable{
 
     if (dtable[(row).toInt()][(column-1).toInt()] == true && !fall && !newDeck) {
       dtable[row.toInt()][(column-1).toInt()] = false;
-
+      _paint12 = Paint()
+        ..color = Color.fromRGBO(255,215,0, 0.8);
 
       shrink = true;
     }
