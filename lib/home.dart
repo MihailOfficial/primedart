@@ -43,9 +43,9 @@ const COLOR2 = const Color.fromRGBO(175, 58, 52, 1);
 const COLOR3 = const Color.fromRGBO(255, 255, 255, 1);
 
 var colours = [
-  Color.fromRGBO(230, 0, 0, 0.8),
-  Color.fromRGBO(0, 51, 204, 0.8),
-  Color.fromRGBO(0, 153, 51, 0.8)
+  Color.fromRGBO(230, 0, 0, 0.5),
+  Color.fromRGBO(0, 51, 204, 0.5),
+  Color.fromRGBO(0, 153, 51, 0.5)
  ];
 
 const SIZE = 52.0;
@@ -53,6 +53,7 @@ const GRAVITY = 200.0;
 const BOOST = -150;
 var score = 0;
 bool updateScore = false;
+bool start = false;
 int highScore = 0;
 int changedMultiple = -1;
 MyGame game;
@@ -63,6 +64,7 @@ double statusWidth = 200;
 bool style = false;
 bool newDeck = true;
 bool spinNew = false;
+bool debug = false;
 var x;
 var y;
 
@@ -96,17 +98,35 @@ class Home extends StatelessWidget{
       ),
     Padding(
     padding: EdgeInsets.fromLTRB(tempWidth/2.4, heightApp*(6),0, 0),
+
     child: FlatButton(
 
               color: Color.fromRGBO(175, 58, 52, 1),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
               textColor: Color.fromRGBO(252,238,10, 1),
     onPressed: () {if (!spinNew){changedMultiple = 2;
-    newDeck = true;}},
+    newDeck = true;
+    }
+
+    },
     child: Text(' SPIN NEW ', style: TextStyle( fontSize: 18, fontFamily: "bold")),
     ),
 
     ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(tempWidth/1.8, heightApp*(6),0, 0),
+
+              child: FlatButton(
+
+                color: Color.fromRGBO(175, 58, 52, 1),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                textColor: Color.fromRGBO(252,238,10, 1),
+                onPressed: () {
+                debug = true; start = true;},
+                child: Text(' DEBUG1 ', style: TextStyle( fontSize: 18, fontFamily: "bold")),
+              ),
+
+            ),
     ]));
     }
   }
@@ -115,6 +135,9 @@ double tempX = 0;
 double heightPos = 0;
 int lives = 98;
 var table = List.generate(5, (i) => List(6), growable: false);
+var ctable = List.generate(5, (i) => List(6), growable: false);
+var dtable = List.generate(5, (i) => List(6), growable: false);
+
 
 
 
@@ -139,14 +162,15 @@ class Multiple extends TextComponent with Tapable{
   bool returned = false;
   double column;
   double row;
-  bool topV;
+
   bool rand = false;
   bool fall = true;
   bool shrink = false;
+
   double sizeF = 35;
   int genColourComp;
   Paint _paint12;
-  Multiple(String text, TextConfig textConfig, double Column, double Row, bool top) : super(text) {
+  Multiple(String text, TextConfig textConfig, double Column, double Row, double top) : super(text) {
     pauseRect1 = Rect.fromLTWH(0,0,0,0);
     this.config = textConfig;
     this.anchor = Anchor.center;
@@ -154,17 +178,12 @@ class Multiple extends TextComponent with Tapable{
     this.y = 0;
     column = Column;
     row = Row;
-    topV = top;
+
     var rng1 = new Random();
     genColourComp = rng1.nextInt(3);
     _paint12 = Paint()
       ..color = colours[genColourComp];
-
-    if (top == true){
-    table[0][(Column-1).toInt()] = false;
-
-
-    }
+    ctable[row.toInt()][(column-1).toInt()] = genColourComp+1;
   }
   @override
   bool destroy() {
@@ -173,42 +192,51 @@ class Multiple extends TextComponent with Tapable{
 bool bottomFall = false;
   @override
   void update(double tt){
+
+
+
     if (fall && !shrink){
       this.y += 10;
       accel++;
 
       if (this.y > positionArray[row.toInt()]){
           fall = false;
+          ctable[row.toInt()][(column-1).toInt()] = genColourComp+1;
+          table[(row).toInt()][(column-1).toInt()] = true;
           accel = 1;
         }
     }
 
 
-  if (rand == true && !shrink){
-
-    if (this.y <=  positionArray[(row).toInt()]){
-      this.y += 5;
-      accel++;
-    }
-    else {
-      rand = false;
-      accel = 1;
-      this.y += 5;
-
-      table[(row).toInt()][(column-1).toInt()] == true;
-    }
-
-
-  }
-
-    if (row != 4 && !shrink){
+    if (row != 4){
       if (table[(row+1).toInt()][(column-1).toInt()] == false){
         table[(row).toInt()][(column-1).toInt()] = false;
-
-
+        table[(row+1).toInt()][(column-1).toInt()] = true;
+        ctable[(row+1).toInt()][(column-1).toInt()] = genColourComp+1;
         rand = true;
         row++;
 
+      }
+    }
+
+    if (dtable[(row).toInt()][(column-1).toInt()] == true && !fall && !newDeck) {
+      dtable[row.toInt()][(column-1).toInt()] = false;
+
+
+      shrink = true;
+    }
+
+    if (rand == true){
+      if (this.y <=  positionArray[(row).toInt()]){
+        this.y += 5;
+        accel++;
+      }
+      else {
+        rand = false;
+        accel = 1;
+        this.y += 5;
+
+        table[(row).toInt()][(column-1).toInt()] = true;
       }
     }
 
@@ -218,6 +246,9 @@ bool bottomFall = false;
         shrink = false;
         returned = true;
         table[(row).toInt()][(column-1).toInt()] = false;
+        ctable[row.toInt()][(column-1).toInt()] = 0;
+
+
       }
 
       else{
@@ -230,7 +261,7 @@ bool bottomFall = false;
 
     if (m != null && !shrink){
       if (pauseRect1.contains(m.globalPosition)){
-        print("touched");
+
         shrink = true;
         collectPrime = true;
 
@@ -254,6 +285,8 @@ bool bottomFall = false;
      // destroy();
 
     //}
+
+
     super.update(tt);
 
     if (changedMultiple == 1){
@@ -263,6 +296,8 @@ bool bottomFall = false;
      game.add(new FastMultiple(this.text, this.x, this.y));
 
     }
+
+
 
 
   }
@@ -299,11 +334,13 @@ class NotMultiple extends TextComponent with Tapable{
   double column;
   double row;
   bool topV;
+  bool shrink = false;
   bool rand = false;
   bool fall = true;
   Paint _paint12;
+  double sizeF = 35;
   int genColourComp;
-  NotMultiple(String text, TextConfig textConfig, double Column, double Row, bool top) : super(text) {
+  NotMultiple(String text, TextConfig textConfig, double Column, double Row, double top) : super(text) {
     pauseRect1 = Rect.fromLTWH(0,0,0,0);
     this.config = textConfig;
     this.anchor = Anchor.center;
@@ -311,13 +348,12 @@ class NotMultiple extends TextComponent with Tapable{
     this.y = 0;
     column = Column;
     row = Row;
-    topV = top;
+
     var rng2 = new Random();
     genColourComp = rng2.nextInt(3);
     _paint12 = Paint()
       ..color = colours[genColourComp];
-    if (top == true){
-      table[0][(Column-1).toInt()] = false;}
+    ctable[row.toInt()][(column-1).toInt()] = genColourComp+1;
   }
   @override
   bool destroy() {
@@ -326,8 +362,10 @@ class NotMultiple extends TextComponent with Tapable{
   bool bottomFall = false;
   @override
   void update(double tt){
+
     if (fall){
       this.y += 10;
+
       accel++;
 
       if (this.y > positionArray[row.toInt()]){
@@ -338,6 +376,44 @@ class NotMultiple extends TextComponent with Tapable{
 
 
 
+
+
+
+    if (shrink){
+      if (sizeF < 0){
+        destroy();
+        shrink = false;
+        returned = true;
+        table[(row).toInt()][(column-1).toInt()] = false;
+        dtable[(row).toInt()][(column-1).toInt()] = false;
+        ctable[row.toInt()][(column-1).toInt()] = 0;
+      }
+
+      else{
+        TextConfig comp = TextConfig(color: Colors.white, fontSize: sizeF, fontFamily: "fontNum");
+        this.config =comp;
+        sizeF -= 3;
+      }
+
+    }
+    if (row != 4){
+      if (table[(row+1).toInt()][(column-1).toInt()] == false){
+        table[(row).toInt()][(column-1).toInt()] = false;
+        table[(row+1).toInt()][(column-1).toInt()] = true;
+        ctable[(row+1).toInt()][(column-1).toInt()] = genColourComp+1;
+        rand = true;
+        row++;
+
+      }
+    }
+
+
+    if (dtable[(row).toInt()][(column-1).toInt()] == true && !fall && !newDeck) {
+      dtable[row.toInt()][(column-1).toInt()] = false;
+
+
+      shrink = true;
+    }
     if (rand == true){
       if (this.y <=  positionArray[(row).toInt()]){
         this.y += 5;
@@ -347,26 +423,22 @@ class NotMultiple extends TextComponent with Tapable{
         rand = false;
         accel = 1;
         this.y += 5;
+
+        table[(row).toInt()][(column-1).toInt()] = true;
       }
     }
 
-    if (row != 4){
-      if (table[(row+1).toInt()][(column-1).toInt()] == false){
-        table[(row).toInt()][(column-1).toInt()] = false;
-        table[(row+1).toInt()][(column-1).toInt()] == true;
 
-        rand = true;
-        row++;
 
-      }
-    }
 
     if (m != null && !collectNot){
       if (pauseRect1.contains(m.globalPosition)){
         _paint12 = Paint()
           ..color = Color.fromRGBO(80, 80, 80, 0.9);
         inc++;
-        this.config = TextConfig(color: Colors.grey, fontSize: 35, fontFamily: "fontNum");;
+        this.config = TextConfig(color: Colors.grey, fontSize: 35, fontFamily: "fontNum");
+        ctable[row.toInt()][(column-1).toInt()] = 0;
+
         text = 'X';
 
       }}
@@ -399,6 +471,8 @@ class NotMultiple extends TextComponent with Tapable{
       game.add(new FastMultiple(this.text, this.x, this.y));
 
     }
+
+
 
 
   }
@@ -506,48 +580,16 @@ class MyGame extends BaseGame with HasTapableComponents {
   var yPositions = new List(8);
 
 
-
-
-
-
   MyGame(Size size) {
 
 
-
-    table[0][0] = false;
-    table[0][1] = false;
-    table[0][2] = false;
-    table[0][3] = false;
-    table[0][4] = false;
-    table[0][5] = false;
-
-    table[1][0] = false;
-    table[1][1] = false;
-    table[1][2] = false;
-    table[1][3] = false;
-    table[1][4] = false;
-    table[1][5] = false;
-
-    table[2][0] = false;
-    table[2][1] = false;
-    table[2][2] = false;
-    table[2][3] = false;
-    table[2][4] = false;
-    table[2][5] = false;
-
-    table[3][0] = false;
-    table[3][1] = false;
-    table[3][2] = false;
-    table[3][3] = false;
-    table[3][4] = false;
-    table[3][5] = false;
-
-    table[4][0] = false;
-    table[4][1] = false;
-    table[4][2] = false;
-    table[4][3] = false;
-    table[4][4] = false;
-    table[4][5] = false;
+    for (int a = 0; a<5; a++){
+      for (int b = 0; b<6; b++){
+        table[a][b] = false;
+        ctable[a][b] = 0;
+        dtable[a][b] = false;
+      }
+    }
 
     positionArray[0] = 90;
     positionArray[1] = 140;
@@ -746,9 +788,55 @@ class MyGame extends BaseGame with HasTapableComponents {
     return text;
   }
 double testInc = 4;
+
   @override
   void update(double t) {
 
+
+
+
+    for (int c = 0; c<5; c++) {
+      for (int d = 0; d < 3; d++) {
+        if (ctable[c][d] == ctable[c][d+1] && ctable[c][d] == ctable[c][d+2] && ctable[c][d] == ctable[c][d+3] && ctable[c][d] != 0 && dtable[c][d] == false && dtable[c][d+1] == false && dtable[c][d+2] == false && dtable[c][d+3] == false){
+
+
+          dtable[c][d] = true;
+          dtable[c][d+1] = true;
+          dtable[c][d+2] = true;
+          dtable[c][d+3] = true;
+
+          ctable[c][d] = 0;
+          ctable[c][d+1] = 0;
+          ctable[c][d+2] = 0;
+          ctable[c][d+3] = 0;
+
+        }
+      }
+    }
+
+
+    if (debug){
+      print("____________________________");
+      for (int a = 0; a<5; a++){
+        for (int b = 0; b<6; b++){
+          /*if (ctable[a][b] == 0){
+            print(" N ");
+          } else if (ctable[a][b] == 1){
+            print(" R ");
+          } else if (ctable[a][b] == 2){
+            print(" B ");
+          } else if (ctable[a][b] == 3){
+            print(" G ");
+          }*/
+          print(table[a][b]);
+        }
+        print("___");
+
+      }
+      print("____________________________");
+      debug = false;
+
+    }
     statusBox -= updateStatus;
 
     if (!paused){
@@ -756,11 +844,12 @@ double testInc = 4;
       changedMultiple--;
     }
     counter++;
-    if (counter%2000 == 0){
+    if (counter%4000 == 0){
       var rng = new Random();
       currentMultiple = rng.nextInt(5)+2;
       changedMultiple = 1;
       newDeck = true;
+
       statusBox = tempWidth*0.22;
     }
 
@@ -825,61 +914,61 @@ double testInc = 4;
 
           int genTemp1 = rng.nextInt(2);
           if (genTemp1 == 0) {
-            add(multiple = Multiple((generateMultiple()), mult, 1, testInc, false));
+            add(multiple = Multiple((generateMultiple()), mult, 1, testInc, 0));
             table[testInc.toInt()][0] = true;
           }
           else {
-            add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 1, testInc, false));
+            add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 1, testInc, 0));
             table[testInc.toInt()][0] = true;
           }
 
           int genTemp2 = rng.nextInt(2);
           if (genTemp2 == 0) {
-            add(multiple = Multiple((generateMultiple()), mult, 2, testInc, false));
+            add(multiple = Multiple((generateMultiple()), mult, 2, testInc, 0));
             table[testInc.toInt()][1] = true;
           }
           else {
-            add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 2, testInc, false));
+            add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 2, testInc, 0));
             table[testInc.toInt()][1] = true;
           }
 
           int genTemp3 = rng.nextInt(2);
           if (genTemp3 == 0) {
-            add(multiple = Multiple((generateMultiple()), mult, 3, testInc, false));
+            add(multiple = Multiple((generateMultiple()), mult, 3, testInc, 0));
             table[testInc.toInt()][2] = true;
           }
           else {
-            add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 3, testInc, false));
+            add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 3, testInc, 0));
             table[testInc.toInt()][2] = true;
           }
 
           int genTemp4 = rng.nextInt(2);
           if (genTemp4 == 0) {
-            add(multiple = Multiple((generateMultiple()), mult, 4, testInc, false));
+            add(multiple = Multiple((generateMultiple()), mult, 4, testInc, 0));
             table[testInc.toInt()][3] = true;
           }
           else {
-            add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 4, testInc, false));
+            add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 4, testInc, 0));
             table[testInc.toInt()][3] = true;
           }
 
           int genTemp5 = rng.nextInt(2);
           if (genTemp5 == 0) {
-            add(multiple = Multiple((generateMultiple()), mult, 5, testInc, false));
+            add(multiple = Multiple((generateMultiple()), mult, 5, testInc, 0));
             table[testInc.toInt()][4] = true;
           }
           else {
-            add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 5, testInc, false));
+            add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 5, testInc, 0));
             table[testInc.toInt()][4] = true;
           }
 
           int genTemp6 = rng.nextInt(2);
           if (genTemp6 == 0) {
-            add(multiple = Multiple((generateMultiple()), mult, 6, testInc, false));
+            add(multiple = Multiple((generateMultiple()), mult, 6, testInc, 0));
             table[testInc.toInt()][5] = true;
           }
           else {
-            add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 6, testInc, false));
+            add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 6, testInc, 0));
             table[testInc.toInt()][5] = true;
           }
 
@@ -906,10 +995,10 @@ double testInc = 4;
 
         int genTemp5 = rng.nextInt(2);
           if (genTemp5 == 0) {
-            add(multiple = Multiple((generateMultiple()), mult, 1, 0, false));
+            add(multiple = Multiple((generateMultiple()), mult, 1, 0, 0));
           }
           else {
-            add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 1, 0, false));
+            add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 1, 0, 0));
           }
 
 
@@ -924,10 +1013,10 @@ double testInc = 4;
 
         int genTemp5 = rng.nextInt(2);
         if (genTemp5 == 0) {
-          add(multiple = Multiple((generateMultiple()), mult, 2, 0, false));
+          add(multiple = Multiple((generateMultiple()), mult, 2, 0, 0));
         }
         else {
-          add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 2, 0, false));
+          add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 2, 0, 0));
         }
 
 
@@ -942,10 +1031,10 @@ double testInc = 4;
 
         int genTemp5 = rng.nextInt(2);
         if (genTemp5 == 0) {
-          add(multiple = Multiple((generateMultiple()), mult,3, 0, false));
+          add(multiple = Multiple((generateMultiple()), mult,3, 0, 0));
         }
         else {
-          add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 3, 0, false));
+          add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 3, 0, 0));
         }
 
 
@@ -958,10 +1047,10 @@ double testInc = 4;
         table[4][3] = true;
         int genTemp5 = rng.nextInt(2);
         if (genTemp5 == 0) {
-          add(multiple = Multiple((generateMultiple()), mult, 4, 0, false));
+          add(multiple = Multiple((generateMultiple()), mult, 4, 0, 0));
         }
         else {
-          add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 4, 0, false));
+          add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 4, 0, 0));
         }
 
 
@@ -975,10 +1064,10 @@ double testInc = 4;
         table[4][4] = true;
         int genTemp5 = rng.nextInt(2);
         if (genTemp5 == 0) {
-          add(multiple = Multiple((generateMultiple()), mult, 5, 0, false));
+          add(multiple = Multiple((generateMultiple()), mult, 5, 0, 0));
         }
         else {
-          add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 5, 0, false));
+          add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 5, 0, 0));
         }
 
         table[0][4] = true;
@@ -995,10 +1084,10 @@ double testInc = 4;
         table[4][5] = true;
         int genTemp6 = rng.nextInt(2);
         if (genTemp6 == 0) {
-          add(multiple = Multiple((generateMultiple()), mult, 6, 0, false));
+          add(multiple = Multiple((generateMultiple()), mult, 6, 0, 0));
         }
         else {
-          add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 6, 0, false));
+          add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 6, 0, 0));
         }
 
 
