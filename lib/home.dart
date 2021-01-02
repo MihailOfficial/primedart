@@ -43,9 +43,9 @@ const COLOR2 = const Color.fromRGBO(175, 58, 52, 1);
 const COLOR3 = const Color.fromRGBO(255, 255, 255, 1);
 
 var colours = [
-  Color.fromRGBO(230, 0, 0, 0.5),
-  Color.fromRGBO(0, 51, 204, 0.5),
-  Color.fromRGBO(0, 153, 51, 0.5)
+  Color.fromRGBO(230, 0, 0, 0.6),
+  Color.fromRGBO(0, 51, 204, 0.6),
+  Color.fromRGBO(0, 153, 51, 0.6)
  ];
 
 const SIZE = 52.0;
@@ -198,7 +198,7 @@ bool bottomFall = false;
     if (fall && !shrink){
       this.y += 10;
       accel++;
-
+      ctable[row.toInt()][(column-1).toInt()] = 0;
       if (this.y > positionArray[row.toInt()]){
           fall = false;
           ctable[row.toInt()][(column-1).toInt()] = genColourComp+1;
@@ -208,11 +208,11 @@ bool bottomFall = false;
     }
 
 
-    if (row != 4){
+    if (row != 4 && !fall){
       if (table[(row+1).toInt()][(column-1).toInt()] == false){
         table[(row).toInt()][(column-1).toInt()] = false;
         table[(row+1).toInt()][(column-1).toInt()] = true;
-        ctable[(row+1).toInt()][(column-1).toInt()] = genColourComp+1;
+        ctable[(row).toInt()][(column-1).toInt()] = 0;
         rand = true;
         row++;
 
@@ -230,13 +230,14 @@ bool bottomFall = false;
     if (rand == true){
       if (this.y <=  positionArray[(row).toInt()]){
         this.y += 5;
+        ctable[(row).toInt()][(column-1).toInt()] = 0;
         accel++;
       }
       else {
         rand = false;
         accel = 1;
         this.y += 5;
-
+        ctable[(row).toInt()][(column-1).toInt()] = genColourComp+1;
         table[(row).toInt()][(column-1).toInt()] = true;
       }
     }
@@ -255,7 +256,8 @@ bool bottomFall = false;
       else{
         TextConfig comp = TextConfig(color: Colors.white, fontSize: sizeF, fontFamily: "fontNum");
         this.config =comp;
-        sizeF -= 3;
+        sizeF -= 2.5;
+        ctable[row.toInt()][(column-1).toInt()] = 0;
       }
 
     }
@@ -366,11 +368,12 @@ class NotMultiple extends TextComponent with Tapable{
 
     if (fall){
       this.y += 10;
-
+      ctable[row.toInt()][(column-1).toInt()] = 0;
       accel++;
 
       if (this.y > positionArray[row.toInt()]){
         fall = false;
+        ctable[row.toInt()][(column-1).toInt()] = genColourComp+1;
         accel = 1;
       }
     }
@@ -378,7 +381,39 @@ class NotMultiple extends TextComponent with Tapable{
 
 
 
+    if (row != 4 && !fall){
+      if (table[(row+1).toInt()][(column-1).toInt()] == false){
+        table[(row).toInt()][(column-1).toInt()] = false;
+        table[(row+1).toInt()][(column-1).toInt()] = true;
+        ctable[(row+1).toInt()][(column-1).toInt()] = 0;
+        rand = true;
+        row++;
 
+      }
+    }
+
+    if (dtable[(row).toInt()][(column-1).toInt()] == true && !fall && !newDeck) {
+      dtable[row.toInt()][(column-1).toInt()] = false;
+       _paint12 = Paint()
+         ..color = Color.fromRGBO(255,215,0, 0.8);
+
+      shrink = true;
+    }
+
+    if (rand == true){
+      if (this.y <=  positionArray[(row).toInt()]){
+        this.y += 5;
+        ctable[(row).toInt()][(column-1).toInt()] = 0;
+        accel++;
+      }
+      else {
+        rand = false;
+        accel = 1;
+        this.y += 5;
+        ctable[(row).toInt()][(column-1).toInt()] = genColourComp+1;
+        table[(row).toInt()][(column-1).toInt()] = true;
+      }
+    }
 
     if (shrink){
       if (sizeF < 0){
@@ -386,51 +421,19 @@ class NotMultiple extends TextComponent with Tapable{
         shrink = false;
         returned = true;
         table[(row).toInt()][(column-1).toInt()] = false;
-        dtable[(row).toInt()][(column-1).toInt()] = false;
         ctable[row.toInt()][(column-1).toInt()] = 0;
+
+
       }
 
       else{
         TextConfig comp = TextConfig(color: Colors.white, fontSize: sizeF, fontFamily: "fontNum");
         this.config =comp;
-        sizeF -= 3;
+        sizeF -= 2.5;
+        ctable[row.toInt()][(column-1).toInt()] = 0;
       }
 
     }
-    if (row != 4){
-      if (table[(row+1).toInt()][(column-1).toInt()] == false){
-        table[(row).toInt()][(column-1).toInt()] = false;
-        table[(row+1).toInt()][(column-1).toInt()] = true;
-        ctable[(row+1).toInt()][(column-1).toInt()] = genColourComp+1;
-        rand = true;
-        row++;
-
-      }
-    }
-
-
-    if (dtable[(row).toInt()][(column-1).toInt()] == true && !fall && !newDeck) {
-      dtable[row.toInt()][(column-1).toInt()] = false;
-      _paint12 = Paint()
-        ..color = Color.fromRGBO(255,215,0, 0.8);
-
-      shrink = true;
-    }
-    if (rand == true){
-      if (this.y <=  positionArray[(row).toInt()]){
-        this.y += 5;
-        accel++;
-      }
-      else {
-        rand = false;
-        accel = 1;
-        this.y += 5;
-
-        table[(row).toInt()][(column-1).toInt()] = true;
-      }
-    }
-
-
 
 
     if (m != null && !collectNot){
@@ -797,20 +800,40 @@ double testInc = 4;
 
 
 
-    for (int c = 0; c<5; c++) {
-      for (int d = 0; d < 3; d++) {
-        if (ctable[c][d] == ctable[c][d+1] && ctable[c][d] == ctable[c][d+2] && ctable[c][d] == ctable[c][d+3] && ctable[c][d] != 0 && dtable[c][d] == false && dtable[c][d+1] == false && dtable[c][d+2] == false && dtable[c][d+3] == false){
+    for (int c = 4; c >= 0; c--) {
+      for (int d = 0; d < 4; d++) {
+        if (ctable[c][d] == ctable[c][d+1] && ctable[c][d] == ctable[c][d+2] && ctable[c][d] != 0 && dtable[c][d] == false && dtable[c][d+1] == false && dtable[c][d+2] == false && table[c][d] == true && table[c][d+1] == true && table[c][d+2] == true){
 
 
           dtable[c][d] = true;
           dtable[c][d+1] = true;
           dtable[c][d+2] = true;
-          dtable[c][d+3] = true;
+
 
           ctable[c][d] = 0;
           ctable[c][d+1] = 0;
           ctable[c][d+2] = 0;
-          ctable[c][d+3] = 0;
+
+
+        }
+      }
+    }
+
+
+      for (int d = 0; d < 6; d++) {
+        for (int c = 0; c < 3; c++) {
+        if (ctable[c][d] == ctable[c+1][d] && ctable[c][d] == ctable[c+2][d] && ctable[c][d] != 0 && dtable[c][d] == false && dtable[c+1][d] == false && dtable[c+2][d] == false && table[c][d] == true && table[c+1][d] == true && table[c+2][d] == true){
+
+
+          dtable[c][d] = true;
+          dtable[c+1][d] = true;
+          dtable[c+2][d] = true;
+
+
+          ctable[c][d] = 0;
+          ctable[c+1][d] = 0;
+          ctable[c+2][d] = 0;
+
 
         }
       }
@@ -821,7 +844,7 @@ double testInc = 4;
       print("____________________________");
       for (int a = 0; a<5; a++){
         for (int b = 0; b<6; b++){
-          /*if (ctable[a][b] == 0){
+          if (ctable[a][b] == 0){
             print(" N ");
           } else if (ctable[a][b] == 1){
             print(" R ");
@@ -829,8 +852,8 @@ double testInc = 4;
             print(" B ");
           } else if (ctable[a][b] == 3){
             print(" G ");
-          }*/
-          print(table[a][b]);
+          }
+
         }
         print("___");
 
@@ -990,10 +1013,7 @@ double testInc = 4;
       else if (table[0][0] == false) {
 
         table[0][0] = true;
-        table[1][0] = true;
-        table[2][0] = true;
-        table[3][0] = true;
-        table[4][0] = true;
+
 
         int genTemp5 = rng.nextInt(2);
           if (genTemp5 == 0) {
@@ -1008,10 +1028,7 @@ double testInc = 4;
         else if (table[0][1] == false) {
 
         table[0][1] = true;
-        table[1][1] = true;
-        table[2][1] = true;
-        table[3][1] = true;
-        table[4][1] = true;
+
 
         int genTemp5 = rng.nextInt(2);
         if (genTemp5 == 0) {
@@ -1026,10 +1043,7 @@ double testInc = 4;
         else if (table[0][2] == false) {
 
         table[0][2] = true;
-        table[1][2] = true;
-        table[2][2] = true;
-        table[3][2] = true;
-        table[4][2] = true;
+
 
         int genTemp5 = rng.nextInt(2);
         if (genTemp5 == 0) {
@@ -1043,10 +1057,7 @@ double testInc = 4;
 
         } else if (table[0][3] == false) {
         table[0][3] = true;
-        table[1][3] = true;
-        table[2][3] = true;
-        table[3][3] = true;
-        table[4][3] = true;
+
         int genTemp5 = rng.nextInt(2);
         if (genTemp5 == 0) {
           add(multiple = Multiple((generateMultiple()), mult, 4, 0, 0));
@@ -1060,10 +1071,7 @@ double testInc = 4;
 
       else if (table[0][4] == false) {
         table[0][4] = true;
-        table[1][4] = true;
-        table[2][4] = true;
-        table[3][4] = true;
-        table[4][4] = true;
+
         int genTemp5 = rng.nextInt(2);
         if (genTemp5 == 0) {
           add(multiple = Multiple((generateMultiple()), mult, 5, 0, 0));
@@ -1073,17 +1081,11 @@ double testInc = 4;
         }
 
         table[0][4] = true;
-        table[1][4] = true;
-        table[2][4] = true;
-        table[3][4] = true;
-        table[4][4] = true;
+
       }
       else if (table[0][5] == false) {
         table[0][5] = true;
-        table[1][5] = true;
-        table[2][5] = true;
-        table[3][5] = true;
-        table[4][5] = true;
+
         int genTemp6 = rng.nextInt(2);
         if (genTemp6 == 0) {
           add(multiple = Multiple((generateMultiple()), mult, 6, 0, 0));
