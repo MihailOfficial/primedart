@@ -225,7 +225,7 @@ bool bottomFall = false;
       dtable[row.toInt()][(column-1).toInt()] = false;
       _paint12 = Paint()
         ..color = Color.fromRGBO(255,215,0, 0.8);
-
+      collectPrime = true;
       shrink = true;
     }
 
@@ -343,6 +343,7 @@ class NotMultiple extends TextComponent with Tapable{
   bool rand = false;
   bool fall = true;
   Paint _paint12;
+  bool collectPrime = false;
   double sizeF = 35;
   int genColourComp;
   NotMultiple(String text, TextConfig textConfig, double Column, double Row, double top) : super(text) {
@@ -398,7 +399,7 @@ class NotMultiple extends TextComponent with Tapable{
       dtable[row.toInt()][(column-1).toInt()] = false;
        _paint12 = Paint()
          ..color = Color.fromRGBO(255,215,0, 0.8);
-
+      collectPrime = true;
       shrink = true;
     }
 
@@ -463,7 +464,12 @@ class NotMultiple extends TextComponent with Tapable{
     double dist = 50;
     pauseRect1 = Rect.fromLTWH((tempWidth/7)*column-50,this.y-(this.height/2),100,this.height);
 
+    if (collectPrime){
+      score ++;
 
+      updateScore = true;
+      collectPrime = false;
+    }
     //if (this.x <-30 || this.y<0){
     // returned = true;
     // destroy();
@@ -714,7 +720,7 @@ class MyGame extends BaseGame with HasTapableComponents {
     positionScore = Offset(size.width *(13.8/20) - textPainterScore.width / 2,
         heightApp/2 - textPainterScore.height / 2);
     statusBox = tempWidth*0.22;
-   updateStatus = tempWidth*0.22/2000;
+   updateStatus = tempWidth*0.22/4000;
   }
 
   static const COLOR = const Color(0xFF527A80);
