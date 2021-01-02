@@ -79,11 +79,7 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - assets/images/7111scenery.gif
-    - assets/images/flowertown.gif
-    - assets/images/tempback.jpg
-    - assets/images/blank.png
-    - assets/images/tree.png
+    - assets/images/
 
 
 

@@ -43,9 +43,11 @@ const COLOR2 = const Color.fromRGBO(175, 58, 52, 1);
 const COLOR3 = const Color.fromRGBO(255, 255, 255, 1);
 
 var colours = [
-  Color.fromRGBO(230, 0, 0, 0.6),
-  Color.fromRGBO(0, 51, 204, 0.6),
-  Color.fromRGBO(0, 153, 51, 0.6)
+  Color.fromRGBO(230, 0, 0, 0.7),
+  Color.fromRGBO(0, 51, 204, 0.7),
+  Color.fromRGBO(0, 153, 51, 0.7),
+  Color.fromRGBO(148,0,211, 0.7),
+  Color.fromRGBO(255, 153, 51, 0.7)
  ];
 
 const SIZE = 52.0;
@@ -89,7 +91,7 @@ class Home extends StatelessWidget{
           constraints: BoxConstraints.expand(),
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage("assets/images/flowertown.gif"),
+                  image: AssetImage("assets/images/297278.png"),
                   fit: BoxFit.cover)
           ),
            child: game.widget,
@@ -114,7 +116,7 @@ class Home extends StatelessWidget{
 
     ),
             Padding(
-              padding: EdgeInsets.fromLTRB(tempWidth/1.8, heightApp*(6),0, 0),
+              padding: EdgeInsets.fromLTRB(tempWidth/1.4, heightApp*(6),0, 0),
 
               child: FlatButton(
 
@@ -123,7 +125,7 @@ class Home extends StatelessWidget{
                 textColor: Color.fromRGBO(252,238,10, 1),
                 onPressed: () {
                 debug = true; start = true;},
-                child: Text(' DEBUG1 ', style: TextStyle( fontSize: 18, fontFamily: "bold")),
+                child: Text(' DEBUG ', style: TextStyle( fontSize: 18, fontFamily: "bold")),
               ),
 
             ),
@@ -180,7 +182,7 @@ class Multiple extends TextComponent with Tapable{
     row = Row;
 
     var rng1 = new Random();
-    genColourComp = rng1.nextInt(3);
+    genColourComp = rng1.nextInt(5);
     _paint12 = Paint()
       ..color = colours[genColourComp];
     ctable[row.toInt()][(column-1).toInt()] = genColourComp+1;
@@ -353,7 +355,7 @@ class NotMultiple extends TextComponent with Tapable{
     row = Row;
 
     var rng2 = new Random();
-    genColourComp = rng2.nextInt(3);
+    genColourComp = rng2.nextInt(5);
     _paint12 = Paint()
       ..color = colours[genColourComp];
     ctable[row.toInt()][(column-1).toInt()] = genColourComp+1;
@@ -549,7 +551,7 @@ var positionArray = new List(5);
 class MyGame extends BaseGame with HasTapableComponents {
 
   @override
-  Color backgroundColor() => const Color.fromRGBO(0, 0, 0, 0.6);
+  Color backgroundColor() => const Color.fromRGBO(0, 0, 0, 0.4);
 
   double timerPrime = 0;
   double timerComp = 0;
