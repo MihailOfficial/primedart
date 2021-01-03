@@ -38,9 +38,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app_drawer.dart';
 
-const COLOR = const Color.fromRGBO(0, 0, 0, 0.3);
-const COLOR2 = const Color.fromRGBO(175, 58, 52, 1);
-const COLOR3 = const Color.fromRGBO(255, 255, 255, 1);
+const COLOR = const Color.fromRGBO(0,0,0, 0.5);
+const COLOR2 = const Color.fromRGBO(26, 22, 92, 1);
+const COLOR3 = const Color.fromRGBO(252,238,10, 1);
+const COLOR4 = const Color.fromRGBO(0,0,0, 0.3);
 
 var colours = [
   Color.fromRGBO(210, 0, 0, 1),
@@ -89,21 +90,27 @@ class Home extends StatelessWidget{
           children: <Widget>[
       Container(
           constraints: BoxConstraints.expand(),
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("assets/images/297278.png"),
-                  fit: BoxFit.cover)
+          decoration: new BoxDecoration(
+            gradient: new LinearGradient(
+                colors: [
+                  const Color(0xFF3366FF),
+                  const Color(0xFF00CCFF),
+                ],
+                begin: const FractionalOffset(0.0, 0.0),
+                end: const FractionalOffset(1.0, 0.0),
+                stops: [0.0, 1.0],
+                tileMode: TileMode.clamp),
           ),
            child: game.widget,
 
 
       ),
     Padding(
-    padding: EdgeInsets.fromLTRB(tempWidth/2.4, heightApp*(6),0, 0),
+    padding: EdgeInsets.fromLTRB(tempWidth/2.4, tempHeight*(10/12),0, 0),
 
     child: FlatButton(
 
-              color: Color.fromRGBO(175, 58, 52, 1),
+              color: Color.fromRGBO(26, 22, 92, 1),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
               textColor: Color.fromRGBO(252,238,10, 1),
     onPressed: () {if (!spinNew){changedMultiple = 2;
@@ -115,7 +122,7 @@ class Home extends StatelessWidget{
     ),
 
     ),
-            Padding(
+            /*Padding(
               padding: EdgeInsets.fromLTRB(tempWidth/1.4, heightApp*(6),0, 0),
 
               child: FlatButton(
@@ -125,10 +132,10 @@ class Home extends StatelessWidget{
                 textColor: Color.fromRGBO(252,238,10, 1),
                 onPressed: () {
                 debug = true; start = true;},
-                child: Text(' DEBUG ', style: TextStyle( fontSize: 18, fontFamily: "bold")),
-              ),
+                child: Text('', style: TextStyle( fontSize: 18, fontFamily: "bold")),
+              ),*/
 
-            ),
+
     ]));
     }
   }
@@ -198,16 +205,21 @@ bool bottomFall = false;
 
 
     if (fall && !shrink){
-      this.y += 5;
-      accel++;
+
       ctable[row.toInt()][(column-1).toInt()] = 0;
-      if (this.y > positionArray[row.toInt()]){
+      if ((this.y + 10) >= positionArray[row.toInt()]){
           fall = false;
           ctable[row.toInt()][(column-1).toInt()] = genColourComp+1;
           table[(row).toInt()][(column-1).toInt()] = true;
           accel = 1;
+          this.y =  positionArray[row.toInt()];
         }
-    }
+      else {
+        this.y += 10;
+        ctable[row.toInt()][(column-1).toInt()] = 0;
+      }}
+
+
 
     if (row != 4 && !fall){
       if (table[(row+1).toInt()][(column-1).toInt()] == false){
@@ -223,13 +235,13 @@ bool bottomFall = false;
     if (dtable[(row).toInt()][(column-1).toInt()] == true && !fall && !newDeck) {
       dtable[row.toInt()][(column-1).toInt()] = false;
       _paint12 = Paint()
-        ..color = Color.fromRGBO(255,215,0, 0.8);
+        ..color = Color.fromRGBO(255,215,0, 1);
       collectPrime = true;
       shrink = true;
     }
 
     if (rand == true){
-      if (this.y <=  positionArray[(row).toInt()]){
+      if ((this.y+5) <=  positionArray[(row).toInt()]){
         this.y += 5;
         ctable[(row).toInt()][(column-1).toInt()] = 0;
         accel++;
@@ -237,7 +249,7 @@ bool bottomFall = false;
       else {
         rand = false;
         accel = 1;
-
+        this.y =  positionArray[row.toInt()];
         ctable[(row).toInt()][(column-1).toInt()] = genColourComp+1;
         table[(row).toInt()][(column-1).toInt()] = true;
       }
@@ -368,17 +380,20 @@ class NotMultiple extends TextComponent with Tapable{
   @override
   void update(double tt){
 
-    if (fall){
-      this.y += 5;
-      ctable[row.toInt()][(column-1).toInt()] = 0;
-      accel++;
+    if (fall && !shrink){
 
-      if (this.y > positionArray[row.toInt()]){
+      ctable[row.toInt()][(column-1).toInt()] = 0;
+      if ((this.y + 10) >= positionArray[row.toInt()]){
         fall = false;
         ctable[row.toInt()][(column-1).toInt()] = genColourComp+1;
+        table[(row).toInt()][(column-1).toInt()] = true;
         accel = 1;
+        this.y =  positionArray[row.toInt()];
       }
-    }
+      else {
+        this.y += 10;
+        ctable[row.toInt()][(column-1).toInt()] = 0;
+      }}
 
 
 
@@ -397,13 +412,13 @@ class NotMultiple extends TextComponent with Tapable{
     if (dtable[(row).toInt()][(column-1).toInt()] == true && !fall && !newDeck) {
       dtable[row.toInt()][(column-1).toInt()] = false;
        _paint12 = Paint()
-         ..color = Color.fromRGBO(255,215,0, 0.8);
+         ..color = Color.fromRGBO(255,215,0, 1);
       collectPrime = true;
       shrink = true;
     }
 
     if (rand == true){
-      if (this.y <=  positionArray[(row).toInt()]){
+      if ((this.y+5) <=  positionArray[(row).toInt()]){
         this.y += 5;
         ctable[(row).toInt()][(column-1).toInt()] = 0;
         accel++;
@@ -411,7 +426,7 @@ class NotMultiple extends TextComponent with Tapable{
       else {
         rand = false;
         accel = 1;
-
+        this.y =  positionArray[row.toInt()];
         ctable[(row).toInt()][(column-1).toInt()] = genColourComp+1;
         table[(row).toInt()][(column-1).toInt()] = true;
       }
@@ -603,11 +618,11 @@ class MyGame extends BaseGame with HasTapableComponents {
       }
     }
 
-    positionArray[0] = 80;
-    positionArray[1] = 135;
-    positionArray[2] = 190;
-    positionArray[3] = 245;
-    positionArray[4] = 300;
+    positionArray[0] = 2*(tempHeight/8);
+    positionArray[1] = 3*(tempHeight/8);
+    positionArray[2] = 4*(tempHeight/8);
+    positionArray[3] = 5*(tempHeight/8);
+    positionArray[4] = 6*(tempHeight/8);
 
     add(Bg());
 
@@ -646,7 +661,7 @@ class MyGame extends BaseGame with HasTapableComponents {
         text: "MULTIPLES:",
 
         style: TextStyle(
-            color: Color.fromRGBO(252,238,10, 1), fontSize: 18, fontFamily: "bold")),
+            color: Color.fromRGBO(0,0,0, 1), fontSize: 18, fontFamily: "bold")),
         textDirection: TextDirection.ltr,textAlign: TextAlign.center,
           );
 
@@ -718,8 +733,8 @@ class MyGame extends BaseGame with HasTapableComponents {
     );
     positionScore = Offset(size.width *(13.7/20) - textPainterScore.width / 2,
         heightApp/2 - textPainterScore.height / 2);
-    statusBox = tempWidth*0.22;
-   updateStatus = tempWidth*0.22/4000;
+    statusBox = tempWidth*0.14;
+   updateStatus = tempWidth*0.14/4000;
   }
 
   static const COLOR = const Color(0xFF527A80);
@@ -882,13 +897,13 @@ double testInc = 4;
       changedMultiple = 1;
       newDeck = true;
 
-      statusBox = tempWidth*0.22;
+      statusBox = tempWidth*0.14;
     }
 
     textPainterNumType = TextPainter(text: TextSpan(
         text: currentMultiple.toString(),
         style: TextStyle(
-            color: Colors.white, fontSize: 36, fontFamily: "bold")),
+            color: Color.fromRGBO(26, 22, 92, 1), fontSize: 38, fontFamily: "bold")),
       textDirection: TextDirection.ltr,textAlign: TextAlign.center,);
     textPainterNumType.layout(
       minWidth: 0,
@@ -1152,17 +1167,21 @@ class Bg extends Component with Resizable {
     ..color = COLOR;
   static final Paint _paint2 = Paint()
     ..color = COLOR2;
-  @override
 
   static final Paint _paint3 = Paint()
     ..color = COLOR3;
+  static final Paint _paint4 = Paint()
+    ..color = COLOR4;
   @override
 
   @override
   void render(Canvas c) {
 
     c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth/4, heightApp/8, tempWidth/2, heightApp*6/8),Radius.circular(8.0)),_paint2);
-    c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth*0.375,heightApp/8,statusBox,heightApp*6/8),Radius.circular(0.0)),_paint);
+    c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth*0.375,heightApp/8,tempWidth*0.205,heightApp*6/8),Radius.circular(0.0)),_paint3);
+    c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth*0.388,heightApp/1.45,tempWidth*0.14,heightApp*1/8),Radius.circular(3)),_paint4);
+    c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth*0.388,heightApp/1.45,statusBox,heightApp*1/8),Radius.circular(3)),_paint);
+
 
   }
 
