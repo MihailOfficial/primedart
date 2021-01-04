@@ -1,6 +1,7 @@
 import 'package:bird/product.dart';
 import 'package:bird/screens/onboarding/onboarding.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer_util.dart';
 import 'routes.dart';
 
 import 'home.dart';
@@ -69,7 +70,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return LayoutBuilder(                           //return LayoutBuilder
+        builder: (context, constraints) {
+      return OrientationBuilder(                  //return OrientationBuilder
+          builder: (context, orientation) {
+        //initialize SizerUtil()
+        SizerUtil().init(constraints, orientation);
+        return MaterialApp(
       debugShowCheckedModeBanner: false,
 
       title: 'Onboarding Concept',
@@ -85,5 +92,7 @@ class MyApp extends StatelessWidget {
         },
       ),
     );
+  });
+    });
   }
 }

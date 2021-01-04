@@ -37,7 +37,7 @@ dependencies:
   cloud_firestore: 0.11.0+2
   firebase_analytics: 3.0.1
   flutter_icons: 0.1.4
-
+  sizer: ^1.1.8
   line_icons: ^0.2.0
   provider: 2.0.1
   modal_progress_hud: 0.1.3

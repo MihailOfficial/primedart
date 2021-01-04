@@ -35,7 +35,7 @@ import 'dart:math';
 import "package:normal/normal.dart";
 import "package:flame/time.dart";
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:sizer/sizer.dart';
 import 'app_drawer.dart';
 
 const COLOR = const Color.fromRGBO(0,0,0, 0.5);
@@ -176,7 +176,7 @@ class Multiple extends TextComponent with Tapable{
   bool fall = true;
   bool shrink = false;
 
-  double sizeF = 35;
+  double sizeF = 21.0.sp;
   int genColourComp;
   Paint _paint12;
   Multiple(String text, TextConfig textConfig, double Column, double Row, double top) : super(text) {
@@ -293,7 +293,7 @@ bool bottomFall = false;
       this.x = -20000;
     }
     double dist = 50;
-    pauseRect1 = Rect.fromLTWH((tempWidth/8)*column-45,(this.y-5)-(this.height/2),90,this.height+10);
+    pauseRect1 = Rect.fromLTWH((tempWidth/8)*column-(tempWidth/18),(this.y-5)-(this.height/2),(tempWidth/18)*2,this.height+10);
 
 
     //if (this.x <-30 || this.y<0){
@@ -355,7 +355,7 @@ class NotMultiple extends TextComponent with Tapable{
   bool fall = true;
   Paint _paint12;
   bool collectPrime = false;
-  double sizeF = 35;
+  double sizeF = 21.0.sp;
   int genColourComp;
   NotMultiple(String text, TextConfig textConfig, double Column, double Row, double top) : super(text) {
     pauseRect1 = Rect.fromLTWH(0,0,0,0);
@@ -458,7 +458,7 @@ class NotMultiple extends TextComponent with Tapable{
         _paint12 = Paint()
           ..color = Color.fromRGBO(80, 80, 80, 0.9);
         inc++;
-        this.config = TextConfig(color: Colors.grey, fontSize: 30, fontFamily: "fontNum");
+        this.config = TextConfig(color: Colors.grey, fontSize: 21.0.sp, fontFamily: "fontNum");
         ctable[row.toInt()][(column-1).toInt()] = 0;
 
         text = 'X';
@@ -476,7 +476,7 @@ class NotMultiple extends TextComponent with Tapable{
       this.x = -20000;
     }
     double dist = 50;
-    pauseRect1 = Rect.fromLTWH((tempWidth/8)*column-45,(this.y-5)-(this.height/2),90,this.height+10);
+    pauseRect1 = Rect.fromLTWH((tempWidth/8)*column-(tempWidth/18),(this.y-5)-(this.height/2),(tempWidth/18)*2,this.height+10);
 
     if (collectPrime){
       score ++;
@@ -618,11 +618,11 @@ class MyGame extends BaseGame with HasTapableComponents {
       }
     }
 
-    positionArray[0] = 2*(tempHeight/8);
-    positionArray[1] = 3*(tempHeight/8);
-    positionArray[2] = 4*(tempHeight/8);
-    positionArray[3] = 5*(tempHeight/8);
-    positionArray[4] = 6*(tempHeight/8);
+    positionArray[0] = 2* (tempHeight/8);
+    positionArray[1] = 3* (tempHeight/8);
+    positionArray[2] = 4* (tempHeight/8);
+    positionArray[3] = 5* (tempHeight/8);
+    positionArray[4] = 6* (tempHeight/8);
 
     add(Bg());
 
@@ -646,7 +646,7 @@ class MyGame extends BaseGame with HasTapableComponents {
             size.height / 2 - textPainterNoMoreLives.height / 2);
 
     textPainterLivesText = TextPainter(text: TextSpan(
-        text: "L:",
+        text: "M:",
         style: TextStyle(
             color: Color.fromRGBO(252,238,10, 1), fontSize: 22, fontFamily: "bold")),
         textDirection: TextDirection.ltr);
@@ -690,10 +690,10 @@ class MyGame extends BaseGame with HasTapableComponents {
 
     );
 
-    positionNumType = Offset(size.width *(10.8/20) - textPainterNumType.width / 2,
+    positionNumType = Offset(size.width *(10.9/20) - textPainterNumType.width / 2,
         heightApp/2 - textPainterNumType.height / 2);
 
-    positionLivesText = Offset(size.width *(5.8/20) - textPainterLivesText.width / 2,
+    positionLivesText = Offset(size.width *(4.9/20) - textPainterLivesText.width / 2,
         heightApp/2 - textPainterLivesText.height / 2);
 
     textPainterLives = TextPainter(text: TextSpan(
@@ -705,7 +705,7 @@ class MyGame extends BaseGame with HasTapableComponents {
       minWidth: 0,
       maxWidth: size.width,
     );
-    positionLives = Offset(size.width *(6.5/20)- textPainterLives.width / 2,
+    positionLives = Offset(size.width *(5.9/20)- textPainterLives.width / 2,
         heightApp/2 - textPainterLives.height / 2);
 
     textPainterScoreText = TextPainter(text: TextSpan(
@@ -717,7 +717,7 @@ class MyGame extends BaseGame with HasTapableComponents {
       minWidth: 0,
       maxWidth: size.width,
     );
-    positionScoreText = Offset(size.width *(12.6/20) - textPainterScoreText.width / 2,
+    positionScoreText = Offset(size.width *(12.9/20) - textPainterScoreText.width / 2,
         heightApp/2 - textPainterScoreText.height / 2);
 
 
@@ -731,7 +731,7 @@ class MyGame extends BaseGame with HasTapableComponents {
       minWidth: 0,
       maxWidth: size.width,
     );
-    positionScore = Offset(size.width *(13.7/20) - textPainterScore.width / 2,
+    positionScore = Offset(size.width *(14.3/20) - textPainterScore.width / 2,
         heightApp/2 - textPainterScore.height / 2);
     statusBox = tempWidth*0.14;
    updateStatus = tempWidth*0.14/4000;
@@ -947,8 +947,8 @@ double testInc = 4;
    // int genColourPrime = rng.nextInt(5);
 
   //  TextConfig primeC = TextConfig(color: colours[genColourPrime], fontSize: 40, fontFamily: "fontNum");
-    TextConfig mult = TextConfig(color: Colors.white, fontSize: 30, fontFamily: "fontNum");
-    TextConfig nmult = TextConfig(color: Colors.white, fontSize: 30, fontFamily: "fontNum");
+    TextConfig mult = TextConfig(color: Colors.white, fontSize: 21.0.sp, fontFamily: "fontNum");
+    TextConfig nmult = TextConfig(color: Colors.white, fontSize: 21.0.sp, fontFamily: "fontNum");
     double Pos = 0;
 
     if (lives > 0) {
@@ -1177,8 +1177,8 @@ class Bg extends Component with Resizable {
   @override
   void render(Canvas c) {
 
-    c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth/4, heightApp/8, tempWidth/2, heightApp*6/8),Radius.circular(8.0)),_paint2);
-    c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth*0.375,heightApp/8,tempWidth*0.205,heightApp*6/8),Radius.circular(0.0)),_paint3);
+    c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth/5, heightApp/8, tempWidth*(3/5), heightApp*6/8),Radius.circular(8.0)),_paint2);
+    c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth*0.360,heightApp/8,tempWidth*0.235,heightApp*6/8),Radius.circular(0.0)),_paint3);
     c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth*0.388,heightApp/1.45,tempWidth*0.14,heightApp*1/8),Radius.circular(3)),_paint4);
     c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth*0.388,heightApp/1.45,statusBox,heightApp*1/8),Radius.circular(3)),_paint);
 
