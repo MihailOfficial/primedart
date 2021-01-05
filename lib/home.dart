@@ -554,6 +554,49 @@ class FastMultiple extends TextComponent{
   }
 }
 
+class Collected extends TextComponent{
+  double height = AppBar().preferredSize.height;
+
+  bool collectedItem = false;
+  double speedX = 150.0;
+  double posX, posY;
+  bool collectPrime = false;
+  double accel = 0;
+  int value1 = 0;
+  bool returned = false;
+  TextConfig notValid = TextConfig(color: Colors.white, fontSize: 30.0.sp, fontFamily: "fontNum");
+  Collected(String text,  double Column, double Row) : super(text) {
+    this.config = notValid;
+    this.anchor = Anchor.center;
+    this.x = posX;
+    this.y = posY;
+    this.x = (tempWidth/8)*(Column+1);
+    this.y =  positionArray[Row.toInt()];
+
+  }
+  @override
+  bool destroy() {
+    return returned;
+  }
+  @override
+  void update(double tt){
+    accel += 3;
+
+    if (paused){
+      this.y = -5;
+    }
+
+    if (this.y <-10 ){
+      returned = true;
+      destroy();
+    }
+
+    super.update(tt);
+    this.y -= accel*0.05;
+
+  }
+}
+
 double tempWidth = 0;
 String message;
 bool specialMessage = false;
@@ -836,7 +879,7 @@ double testInc = 4;
           ctable[c][d+1] = 0;
           ctable[c][d+2] = 0;
 
-
+          game.add(Collected(" +3 ",  (d+1).toDouble(), (c).toDouble()));
         }
       }
     }
@@ -855,6 +898,8 @@ double testInc = 4;
           ctable[c][d] = 0;
           ctable[c+1][d] = 0;
           ctable[c+2][d] = 0;
+
+        game.add(Collected(" +3 ",  (d).toDouble(), (c+1).toDouble()));
 
 
         }
