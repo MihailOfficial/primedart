@@ -68,6 +68,7 @@ bool style = false;
 bool newDeck = true;
 bool spinNew = false;
 bool debug = false;
+bool globalShrink = false;
 var x;
 var y;
 
@@ -175,10 +176,11 @@ class Multiple extends TextComponent with Tapable{
   bool rand = false;
   bool fall = true;
   bool shrink = false;
-
+  bool shrinkCollect = false;
   double sizeF = 21.0.sp;
   int genColourComp;
   Paint _paint12;
+  int counter = 0;
   Multiple(String text, TextConfig textConfig, double Column, double Row, double top) : super(text) {
     pauseRect1 = Rect.fromLTWH(0,0,0,0);
     this.config = textConfig;
@@ -233,11 +235,15 @@ bool bottomFall = false;
     }
 
     if (dtable[(row).toInt()][(column-1).toInt()] == true && !fall && !newDeck) {
+
       dtable[row.toInt()][(column-1).toInt()] = false;
+      this.config = TextConfig(color: Colors.black);
+      text = '+1';
       _paint12 = Paint()
         ..color = Color.fromRGBO(255,215,0, 1);
+
       collectPrime = true;
-      shrink = true;
+      shrinkCollect = true;
     }
 
     if (rand == true){
@@ -256,6 +262,7 @@ bool bottomFall = false;
     }
 
     if (shrink){
+
       if (sizeF < 0){
         destroy();
         shrink = false;
@@ -275,7 +282,37 @@ bool bottomFall = false;
 
     }
 
-    if (m != null && !shrink){
+    if (shrinkCollect){
+      counter ++;
+      if (counter < 50){
+        globalShrink = true;
+      }
+
+      if (sizeF < 0){
+        globalShrink = false;
+        destroy();
+        shrinkCollect = false;
+        returned = true;
+        table[(row).toInt()][(column-1).toInt()] = false;
+        ctable[row.toInt()][(column-1).toInt()] = 0;
+
+
+      }
+
+      else{
+        if (counter > 50) {
+
+          TextConfig comp = TextConfig(
+              color: Colors.black, fontSize: sizeF, fontFamily: "fontNum");
+          this.config = comp;
+          sizeF -= 2.5;
+          ctable[row.toInt()][(column - 1).toInt()] = 0;
+        }
+      }
+
+    }
+
+    if (m != null && !shrink && !globalShrink){
       if (pauseRect1.contains(m.globalPosition)){
 
         shrink = true;
@@ -357,6 +394,8 @@ class NotMultiple extends TextComponent with Tapable{
   bool collectPrime = false;
   double sizeF = 21.0.sp;
   int genColourComp;
+  int counter = 0;
+  bool shrinkCollect = false;
   NotMultiple(String text, TextConfig textConfig, double Column, double Row, double top) : super(text) {
     pauseRect1 = Rect.fromLTWH(0,0,0,0);
     this.config = textConfig;
@@ -410,11 +449,14 @@ class NotMultiple extends TextComponent with Tapable{
     }
 
     if (dtable[(row).toInt()][(column-1).toInt()] == true && !fall && !newDeck) {
+
+      this.config = TextConfig(color: Colors.black);
+      text = '+1';
       dtable[row.toInt()][(column-1).toInt()] = false;
        _paint12 = Paint()
          ..color = Color.fromRGBO(255,215,0, 1);
       collectPrime = true;
-      shrink = true;
+      shrinkCollect = true;
     }
 
     if (rand == true){
@@ -434,6 +476,7 @@ class NotMultiple extends TextComponent with Tapable{
 
     if (shrink){
       if (sizeF < 0){
+
         destroy();
         shrink = false;
         returned = true;
@@ -445,6 +488,7 @@ class NotMultiple extends TextComponent with Tapable{
 
       else{
         TextConfig comp = TextConfig(color: Colors.white, fontSize: sizeF, fontFamily: "fontNum");
+
         this.config =comp;
         sizeF -= 2.5;
         ctable[row.toInt()][(column-1).toInt()] = 0;
@@ -452,8 +496,38 @@ class NotMultiple extends TextComponent with Tapable{
 
     }
 
+    if (shrinkCollect){
+      counter ++;
 
-    if (m != null && !collectNot){
+      if (counter < 50){
+        globalShrink = true;
+      }
+
+      if (sizeF < 0){
+        globalShrink = false;
+        destroy();
+        shrinkCollect = false;
+        returned = true;
+        table[(row).toInt()][(column-1).toInt()] = false;
+        ctable[row.toInt()][(column-1).toInt()] = 0;
+
+
+      }
+
+      else{
+        if (counter > 50) {
+
+          TextConfig comp = TextConfig(
+              color: Colors.black, fontSize: sizeF, fontFamily: "fontNum");
+          this.config = comp;
+          sizeF -= 2.5;
+          ctable[row.toInt()][(column - 1).toInt()] = 0;
+        }
+      }
+
+    }
+
+    if (m != null && !collectNot && !globalShrink){
       if (pauseRect1.contains(m.globalPosition)){
         _paint12 = Paint()
           ..color = Color.fromRGBO(80, 80, 80, 0.9);
@@ -550,49 +624,6 @@ class FastMultiple extends TextComponent{
     accel++;
     super.update(tt);
     this.x -= 2*accel;
-
-  }
-}
-
-class Collected extends TextComponent{
-  double height = AppBar().preferredSize.height;
-
-  bool collectedItem = false;
-  double speedX = 150.0;
-  double posX, posY;
-  bool collectPrime = false;
-  double accel = 0;
-  int value1 = 0;
-  bool returned = false;
-  TextConfig notValid = TextConfig(color: Colors.white, fontSize: 30.0.sp, fontFamily: "fontNum");
-  Collected(String text,  double Column, double Row) : super(text) {
-    this.config = notValid;
-    this.anchor = Anchor.center;
-    this.x = posX;
-    this.y = posY;
-    this.x = (tempWidth/8)*(Column+1);
-    this.y =  positionArray[Row.toInt()];
-
-  }
-  @override
-  bool destroy() {
-    return returned;
-  }
-  @override
-  void update(double tt){
-    accel += 3;
-
-    if (paused){
-      this.y = -5;
-    }
-
-    if (this.y <-10 ){
-      returned = true;
-      destroy();
-    }
-
-    super.update(tt);
-    this.y -= accel*0.05;
 
   }
 }
@@ -879,7 +910,7 @@ double testInc = 4;
           ctable[c][d+1] = 0;
           ctable[c][d+2] = 0;
 
-          game.add(Collected(" +3 ",  (d+1).toDouble(), (c).toDouble()));
+      //    game.add(Collected(" +3 ",  (d+1).toDouble(), (c).toDouble()));
         }
       }
     }
@@ -899,7 +930,7 @@ double testInc = 4;
           ctable[c+1][d] = 0;
           ctable[c+2][d] = 0;
 
-        game.add(Collected(" +3 ",  (d).toDouble(), (c+1).toDouble()));
+       // game.add(Collected(" +3 ",  (d).toDouble(), (c+1).toDouble()));
 
 
         }
