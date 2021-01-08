@@ -284,8 +284,10 @@ bool bottomFall = false;
 
     if (shrinkCollect){
       counter ++;
-      if (counter < 50){
+      if (counter < 40){
         globalShrink = true;
+      } else {
+        globalShrink = false;
       }
 
       if (sizeF < 0){
@@ -300,7 +302,7 @@ bool bottomFall = false;
       }
 
       else{
-        if (counter > 50) {
+        if (counter > 40) {
 
           TextConfig comp = TextConfig(
               color: Colors.black, fontSize: sizeF, fontFamily: "fontNum");
@@ -499,8 +501,10 @@ class NotMultiple extends TextComponent with Tapable{
     if (shrinkCollect){
       counter ++;
 
-      if (counter < 50){
+      if (counter < 40){
         globalShrink = true;
+      } else {
+        globalShrink = false;
       }
 
       if (sizeF < 0){
@@ -515,7 +519,7 @@ class NotMultiple extends TextComponent with Tapable{
       }
 
       else{
-        if (counter > 50) {
+        if (counter > 40) {
 
           TextConfig comp = TextConfig(
               color: Colors.black, fontSize: sizeF, fontFamily: "fontNum");
@@ -868,13 +872,9 @@ class MyGame extends BaseGame with HasTapableComponents {
     int num = rng.nextInt(40) + 2;
     int tempSecond = 0;
 
-    while (num % currentMultiple == 0) {
-      num = rng.nextInt(40) + 2;
-    }
-
     tempSecond = rng.nextInt(8) + 2;
 
-    while (tempSecond >= num) {
+    while (num % currentMultiple == 0 || tempSecond >= num) {
       num = rng.nextInt(40) + 2;
       tempSecond = rng.nextInt(8) + 2;
     }
@@ -969,7 +969,7 @@ double testInc = 4;
     counter++;
     if (counter%4000 == 0){
       var rng = new Random();
-      currentMultiple = rng.nextInt(5)+2;
+      //currentMultiple = rng.nextInt(5)+2;
       changedMultiple = 1;
       newDeck = true;
 
