@@ -106,23 +106,7 @@ class Home extends StatelessWidget{
 
 
       ),
-    Padding(
-    padding: EdgeInsets.fromLTRB(tempWidth/2.4, tempHeight*(10/12),0, 0),
 
-    child: FlatButton(
-
-              color: Color.fromRGBO(26, 22, 92, 1),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-              textColor: Color.fromRGBO(252,238,10, 1),
-    onPressed: () {if (!spinNew){changedMultiple = 2;
-    newDeck = true;
-    }
-
-    },
-    child: Text(' SPIN NEW ', style: TextStyle( fontSize: 18, fontFamily: "bold")),
-    ),
-
-    ),
             /*Padding(
               padding: EdgeInsets.fromLTRB(tempWidth/1.4, heightApp*(6),0, 0),
 
@@ -144,9 +128,9 @@ class Home extends StatelessWidget{
 double tempX = 0;
 double heightPos = 0;
 int lives = 98;
-var table = List.generate(5, (i) => List(7), growable: false);
-var ctable = List.generate(5, (i) => List(7), growable: false);
-var dtable = List.generate(5, (i) => List(7), growable: false);
+var table = List.generate(6, (i) => List(7), growable: false);
+var ctable = List.generate(6, (i) => List(7), growable: false);
+var dtable = List.generate(6, (i) => List(7), growable: false);
 
 
 
@@ -223,7 +207,7 @@ bool bottomFall = false;
 
 
 
-    if (row != 4 && !fall){
+    if (row != 5 && !fall){
       if (table[(row+1).toInt()][(column-1).toInt()] == false){
         table[(row).toInt()][(column-1).toInt()] = false;
         table[(row+1).toInt()][(column-1).toInt()] = true;
@@ -439,7 +423,7 @@ class NotMultiple extends TextComponent with Tapable{
 
 
 
-    if (row != 4 && !fall){
+    if (row != 5 && !fall){
       if (table[(row+1).toInt()][(column-1).toInt()] == false){
         table[(row).toInt()][(column-1).toInt()] = false;
         table[(row+1).toInt()][(column-1).toInt()] = true;
@@ -645,7 +629,7 @@ double heightApp = AppBar().preferredSize.height;
 int tempUpdate = 0;
 double statusBox = 0;
 int currentMultiple = 2;
-var positionArray = new List(5);
+var positionArray = new List(6);
 class MyGame extends BaseGame with HasTapableComponents {
 
   @override
@@ -688,7 +672,7 @@ class MyGame extends BaseGame with HasTapableComponents {
   MyGame(Size size) {
 
 
-    for (int a = 0; a<5; a++){
+    for (int a = 0; a<6; a++){
       for (int b = 0; b<7; b++){
         table[a][b] = false;
         ctable[a][b] = 0;
@@ -701,6 +685,7 @@ class MyGame extends BaseGame with HasTapableComponents {
     positionArray[2] = 4* (tempHeight/8);
     positionArray[3] = 5* (tempHeight/8);
     positionArray[4] = 6* (tempHeight/8);
+    positionArray[5] = 7* (tempHeight/8);
 
     add(Bg());
 
@@ -888,7 +873,7 @@ class MyGame extends BaseGame with HasTapableComponents {
     }
     return text;
   }
-double testInc = 4;
+double testInc = 5;
 
   @override
   void update(double t) {
@@ -896,7 +881,7 @@ double testInc = 4;
 
 
 
-    for (int c = 4; c >= 0; c--) {
+    for (int c = 5; c >= 0; c--) {
       for (int d = 0; d < 5; d++) {
         if (ctable[c][d] == ctable[c][d+1] && ctable[c][d] == ctable[c][d+2] && ctable[c][d] != 0 && dtable[c][d] == false && dtable[c][d+1] == false && dtable[c][d+2] == false && table[c][d] == true && table[c][d+1] == true && table[c][d+2] == true){
 
@@ -917,7 +902,7 @@ double testInc = 4;
 
 
       for (int d = 0; d < 7; d++) {
-        for (int c = 0; c < 3; c++) {
+        for (int c = 0; c < 4; c++) {
         if (ctable[c][d] == ctable[c+1][d] && ctable[c][d] == ctable[c+2][d] && ctable[c][d] != 0 && dtable[c][d] == false && dtable[c+1][d] == false && dtable[c+2][d] == false && table[c][d] == true && table[c+1][d] == true && table[c+2][d] == true){
 
 
@@ -1113,7 +1098,7 @@ double testInc = 4;
           newDeck = false;
           spinNew = false;
           timerPrime = 0;
-          testInc = 4;
+          testInc = 5;
         }
       }
 
