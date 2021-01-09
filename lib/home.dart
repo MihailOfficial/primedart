@@ -2,7 +2,7 @@ import 'package:flame/components/mixins/tapable.dart';
 import 'package:flame/gestures.dart';
 import 'package:flutter/material.dart';
 import 'routes.dart';
-
+import 'package:vibration/vibration.dart';
 import 'home.dart';
 import 'dart:io';
 import 'dart:ui';
@@ -219,7 +219,7 @@ bool bottomFall = false;
     }
 
     if (dtable[(row).toInt()][(column-1).toInt()] == true && !fall && !newDeck) {
-
+      Vibration.vibrate();
       dtable[row.toInt()][(column-1).toInt()] = false;
       this.config = TextConfig(color: Colors.black);
       text = '+1';
@@ -300,6 +300,8 @@ bool bottomFall = false;
 
     if (m != null && !shrink && !globalShrink){
       if (pauseRect1.contains(m.globalPosition)){
+
+    Vibration.vibrate();
 
         shrink = true;
         collectPrime = true;
@@ -435,7 +437,7 @@ class NotMultiple extends TextComponent with Tapable{
     }
 
     if (dtable[(row).toInt()][(column-1).toInt()] == true && !fall && !newDeck) {
-
+      Vibration.vibrate();
       this.config = TextConfig(color: Colors.black);
       text = '+1';
       dtable[row.toInt()][(column-1).toInt()] = false;
@@ -517,6 +519,7 @@ class NotMultiple extends TextComponent with Tapable{
 
     if (m != null && !collectNot && !globalShrink){
       if (pauseRect1.contains(m.globalPosition)){
+        Vibration.vibrate();
         _paint12 = Paint()
           ..color = Color.fromRGBO(80, 80, 80, 0.9);
         inc++;
