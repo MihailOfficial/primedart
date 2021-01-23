@@ -34,6 +34,7 @@ class Onboarding extends StatefulWidget {
 }
 
 class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
+
   AnimationController _cardsAnimationController;
   AnimationController _pageIndicatorAnimationController;
   AnimationController _rippleAnimationController;
@@ -47,6 +48,7 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
 
   @override
   void initState() {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeRight,DeviceOrientation.landscapeLeft ]);
     super.initState();
     _cardsAnimationController = AnimationController(
       vsync: this,

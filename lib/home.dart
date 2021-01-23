@@ -1,6 +1,10 @@
+import 'package:bird/startButton.dart';
+import 'package:bird/lost-view.dart';
 import 'package:flame/components/mixins/tapable.dart';
 import 'package:flame/gestures.dart';
 import 'package:flutter/material.dart';
+import 'homeView.dart';
+import 'lost.dart';
 import 'routes.dart';
 import 'package:vibration/vibration.dart';
 import 'home.dart';
@@ -43,6 +47,7 @@ const COLOR2 = const Color.fromRGBO(26, 22, 92, 1);
 const COLOR3 = const Color.fromRGBO(252,238,10, 1);
 const COLOR4 = const Color.fromRGBO(0,0,0, 0.3);
 
+
 var colours = [
   Color.fromRGBO(210, 0, 0, 1),
   Color.fromRGBO(0, 51, 204, 1),
@@ -56,6 +61,7 @@ const GRAVITY = 200.0;
 const BOOST = -150;
 var score = 0;
 bool updateScore = false;
+bool stopAttempts = false;
 bool start = false;
 int highScore = 0;
 int changedMultiple = -1;
@@ -65,10 +71,12 @@ bool updateLives  =false;
 bool hasLives = true;
 double statusWidth = 200;
 bool style = false;
+bool masterGameStart = false;
 bool newDeck = true;
 bool spinNew = false;
 bool debug = false;
 bool globalShrink = false;
+bool visible = false;
 var x;
 var y;
 
@@ -76,7 +84,7 @@ var y;
 double height = AppBar().preferredSize.height;
 var count = new List(4);
 
-class Home extends StatelessWidget{
+class Home extends StatelessWidget {
   static const String routeName = "/home";
 
   @override
@@ -94,8 +102,8 @@ class Home extends StatelessWidget{
           decoration: new BoxDecoration(
             gradient: new LinearGradient(
                 colors: [
-                  const Color(0xFF3366FF),
-                  const Color(0xFF00CCFF),
+                  Colors.black87,
+                  Colors.black87,
                 ],
                 begin: const FractionalOffset(0.0, 0.0),
                 end: const FractionalOffset(1.0, 0.0),
@@ -107,18 +115,7 @@ class Home extends StatelessWidget{
 
       ),
 
-            /*Padding(
-              padding: EdgeInsets.fromLTRB(tempWidth/1.4, heightApp*(6),0, 0),
 
-              child: FlatButton(
-
-                color: Color.fromRGBO(175, 58, 52, 1),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                textColor: Color.fromRGBO(252,238,10, 1),
-                onPressed: () {
-                debug = true; start = true;},
-                child: Text('', style: TextStyle( fontSize: 18, fontFamily: "bold")),
-              ),*/
 
 
     ]));
@@ -127,11 +124,11 @@ class Home extends StatelessWidget{
 
 double tempX = 0;
 double heightPos = 0;
-int lives = 98;
+int lives = 3;
 var table = List.generate(6, (i) => List(7), growable: false);
 var ctable = List.generate(6, (i) => List(7), growable: false);
 var dtable = List.generate(6, (i) => List(7), growable: false);
-
+double stopInc =0;
 
 
 
@@ -187,7 +184,6 @@ class Multiple extends TextComponent with Tapable{
 bool bottomFall = false;
   @override
   void update(double tt){
-
 
 
     if (fall && !shrink){
@@ -296,6 +292,7 @@ bool bottomFall = false;
         }
       }
 
+
     }
 
     if (m != null && !shrink && !globalShrink){
@@ -353,7 +350,7 @@ bool bottomFall = false;
 }
 
 
-class NotMultiple extends TextComponent with Tapable{
+class NotMultiple extends TextComponent  with Tapable{
 
   Rect pauseRect1;
   TapDownDetails m;
@@ -619,6 +616,123 @@ class FastMultiple extends TextComponent{
   }
 }
 
+class StartMenu extends TextComponent with Tapable {
+  double height = AppBar().preferredSize.height;
+
+  bool collectedItem = false;
+  double speedX = 150.0;
+
+  bool collectPrime = false;
+  double accel = 0;
+  int value1 = 0;
+  bool returned = false;
+  Paint _paint12 = Paint()
+  ..color = Colors.yellow;
+  TextConfig notValid = TextConfig(color: Colors.grey, fontSize: 35, fontFamily: "fontNum");
+  TapDownDetails m;
+  Rect startRect = Rect.fromLTWH(0, 0, 100, 100);
+  void onTapDown(TapDownDetails details) {
+
+    m = details;
+  }
+  StartMenu (String text) : super(text) {
+    //masterGameStart = true;
+    this.config = notValid;
+    this.anchor = Anchor.center;
+    this.x = 50;
+    this.y = 50;
+
+
+  }
+  @override
+  bool destroy() {
+    return returned;
+  }
+  @override
+  void update(double tt){
+    if (m != null){
+    if (startRect.contains(m.globalPosition)){
+      _paint12 = Paint()
+        ..color = Colors.blue;
+      print("touched");
+      masterGameStart = true;
+      returned = true;
+      destroy();
+    }}
+
+    super.update(tt);
+
+
+  }
+  @override
+  void render(Canvas c) {
+
+    c.drawRRect(RRect.fromRectAndRadius((startRect),Radius.circular(8.0)),_paint12);
+    super.render(c);
+
+  }
+}
+
+class EndMenu extends TextComponent with Tapable {
+  double height = AppBar().preferredSize.height;
+
+  bool collectedItem = false;
+  double speedX = 150.0;
+
+  bool collectPrime = false;
+  double accel = 0;
+  int value1 = 0;
+  bool returned = false;
+  Paint _paint12 = Paint()
+    ..color = Colors.yellow;
+  TextConfig notValid = TextConfig(color: Colors.grey, fontSize: 35, fontFamily: "fontNum");
+  TapDownDetails m;
+  Rect startRect = Rect.fromLTWH(0, 0, 100, 100);
+  void onTapDown(TapDownDetails details) {
+
+    m = details;
+  }
+  EndMenu  (String text) : super(text) {
+    //masterGameStart = true;
+    this.config = notValid;
+    this.anchor = Anchor.center;
+    this.x = 50;
+    this.y = 50;
+
+
+  }
+  @override
+  bool destroy() {
+    return returned;
+  }
+  @override
+  void update(double tt){
+    if (m != null){
+      if (startRect.contains(m.globalPosition)){
+        _paint12 = Paint()
+          ..color = Colors.blue;
+        updateScore = true;
+        print("touched");
+        newDeck = true;
+        masterGameStart = true;
+        stopInc == 0;
+        stopAttempts = false;
+        returned = true;
+        destroy();
+      }}
+
+    super.update(tt);
+
+
+  }
+  @override
+  void render(Canvas c) {
+
+    c.drawRRect(RRect.fromRectAndRadius((startRect),Radius.circular(8.0)),_paint12);
+    super.render(c);
+
+  }
+}
 double tempWidth = 0;
 String message;
 bool specialMessage = false;
@@ -633,7 +747,7 @@ int tempUpdate = 0;
 double statusBox = 0;
 int currentMultiple = 2;
 var positionArray = new List(6);
-class MyGame extends BaseGame with HasTapableComponents {
+class MyGame extends BaseGame  with HasTapableComponents{
 
   @override
   Color backgroundColor() => const Color.fromRGBO(0, 0, 0, 0.4);
@@ -642,7 +756,8 @@ class MyGame extends BaseGame with HasTapableComponents {
   double timerComp = 0;
 
   Multiple multiple;
-
+  StartMenu startMenu;
+  EndMenu endMenu;
   NotMultiple notMultiple;
   var multiples = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   var subtrators = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -675,6 +790,8 @@ class MyGame extends BaseGame with HasTapableComponents {
   MyGame(Size size) {
 
 
+
+
     for (int a = 0; a<6; a++){
       for (int b = 0; b<7; b++){
         table[a][b] = false;
@@ -690,6 +807,7 @@ class MyGame extends BaseGame with HasTapableComponents {
     positionArray[4] = 6* (tempHeight/8);
     positionArray[5] = 7* (tempHeight/8);
 
+    add(startMenu = StartMenu("Start"));
     add(Bg());
 
 
@@ -743,10 +861,10 @@ class MyGame extends BaseGame with HasTapableComponents {
     textPainterNumType = TextPainter(
 
       text: TextSpan(
-          text: "",
+          text: " X",
 
           style: TextStyle(
-              color: Color(0xFFFF0000), fontSize: 36, fontFamily: "bold")),
+              color: Color.fromRGBO(26, 22, 92, 1), fontSize: 36, fontFamily: "bold")),
       textDirection: TextDirection.ltr,textAlign: TextAlign.center,
     );
 
@@ -800,8 +918,9 @@ class MyGame extends BaseGame with HasTapableComponents {
     positionScore = Offset(size.width *(14.3/20) - textPainterScore.width / 2,
         heightApp/2 - textPainterScore.height / 2);
     statusBox = tempWidth*0.14;
-   updateStatus = tempWidth*0.14/4000;
+   updateStatus = tempWidth*0.14/400;
   }
+
 
   static const COLOR = const Color(0xFF527A80);
 
@@ -810,6 +929,10 @@ class MyGame extends BaseGame with HasTapableComponents {
   bool recordFps() => true;
   final debugTextconfig = TextConfig(color: Color(0xFFFFFFFF));
   final Position debugPosition = Position(0, tempHeight -100);
+  bool isHandled = false;
+
+
+
 
   @override
   void render(Canvas c) {
@@ -881,18 +1004,80 @@ double testInc = 5;
   @override
   void update(double t) {
 
+    if (stopAttempts) {
 
+    if (stopInc == 0){
+      add(endMenu = EndMenu("Again"));
+      print("Called");
+
+    }
+      stopInc++;
+      score = 0;
+      lives = 3;
+
+      positionLivesText =
+          Offset(size.width * (4.9 / 20) - textPainterLivesText.width / 2,
+              heightApp / 2 - textPainterLivesText.height / 2);
+
+      textPainterLives = TextPainter(text: TextSpan(
+          text: "0",
+          style: TextStyle(
+              color: Colors.white, fontSize: 24, fontFamily: "bold")),
+          textDirection: TextDirection.ltr);
+      textPainterLives.layout(
+        minWidth: 0,
+        maxWidth: size.width,
+      );
+
+      textPainterNumTypeText = TextPainter(
+
+        text: TextSpan(
+            text: "GAME OVER:",
+
+            style: TextStyle(
+                color: Color.fromRGBO(0,0,0, 1), fontSize: 18, fontFamily: "bold")),
+        textDirection: TextDirection.ltr,textAlign: TextAlign.center,
+      );
+
+      textPainterNumTypeText.layout(
+        minWidth: 0,
+        maxWidth: tempWidth,
+
+      );
+
+      positionNumTypeText = Offset(size.width *(9.1/20) - textPainterNumTypeText.width / 2,
+          heightApp/2 - textPainterNumTypeText.height / 2);
+
+      textPainterNumType = TextPainter(
+
+        text: TextSpan(
+            text: " !",
+
+            style: TextStyle(
+                color: Color(0xFFFF0000), fontSize: 36, fontFamily: "bold")),
+        textDirection: TextDirection.ltr,textAlign: TextAlign.center,
+      );
+
+      textPainterNumType.layout(
+        minWidth: 0,
+        maxWidth: tempWidth,
+
+      );
+
+      positionNumType = Offset(size.width *(10.9/20) - textPainterNumType.width / 2,
+          heightApp/2 - textPainterNumType.height / 2);
+    }
+
+    if (!stopAttempts & masterGameStart){
 
 
     for (int c = 5; c >= 0; c--) {
       for (int d = 0; d < 5; d++) {
         if (ctable[c][d] == ctable[c][d+1] && ctable[c][d] == ctable[c][d+2] && ctable[c][d] != 0 && dtable[c][d] == false && dtable[c][d+1] == false && dtable[c][d+2] == false && table[c][d] == true && table[c][d+1] == true && table[c][d+2] == true){
 
-
           dtable[c][d] = true;
           dtable[c][d+1] = true;
           dtable[c][d+2] = true;
-
 
           ctable[c][d] = 0;
           ctable[c][d+1] = 0;
@@ -926,28 +1111,6 @@ double testInc = 5;
     }
 
 
-   /* if (debug){
-      print("____________________________");
-      for (int a = 0; a<5; a++){
-        for (int b = 0; b<6; b++){
-          if (ctable[a][b] == 0){
-            print(" N ");
-          } else if (ctable[a][b] == 1){
-            print(" R ");
-          } else if (ctable[a][b] == 2){
-            print(" B ");
-          } else if (ctable[a][b] == 3){
-            print(" G ");
-          }
-
-        }
-        print("___");
-
-      }
-      print("____________________________");
-      debug = false;
-
-    }*/
     statusBox -= updateStatus;
 
     if (!paused){
@@ -955,17 +1118,28 @@ double testInc = 5;
       changedMultiple--;
     }
     counter++;
-    if (counter%4000 == 0){
+    if (counter%400 == 0){
       var rng = new Random();
       //currentMultiple = rng.nextInt(5)+2;
       changedMultiple = 1;
       newDeck = true;
 
+      if (lives > 1){
+        lives --;
+        updateLives = true;
+      } else {
+        stopInc = 0;
+        stopAttempts = true;
+      }
+
+
+
+
       statusBox = tempWidth*0.14;
     }
 
     textPainterNumType = TextPainter(text: TextSpan(
-        text: currentMultiple.toString(),
+        text: " " + currentMultiple.toString(),
         style: TextStyle(
             color: Color.fromRGBO(26, 22, 92, 1), fontSize: 38, fontFamily: "bold")),
       textDirection: TextDirection.ltr,textAlign: TextAlign.center,);
@@ -1205,24 +1379,12 @@ double testInc = 5;
 
       }
     }
-    else {
-      textPainterNoMoreLives = TextPainter(text: TextSpan(
-          text: "Out of lives",
-          style: TextStyle(
-              color: Color(0xFFFF0000), fontSize: 32)),
-          textDirection: TextDirection.ltr);
-      textPainterNoMoreLives.layout(
-        minWidth: 0,
-        maxWidth: size.width,
-      );
-      positionNoMoreLives =
-          Offset(size.width / 2 - textPainterScore.width / 2,
-              size.height / 2 - textPainterScore.height / 2);
-    }
 
-    super.update(t);
+
+
   }
   }
+    super.update(t);}
 }
 
 class Bg extends Component with Resizable {
@@ -1236,11 +1398,13 @@ class Bg extends Component with Resizable {
     ..color = COLOR3;
   static final Paint _paint4 = Paint()
     ..color = COLOR4;
+
+
   @override
 
   @override
   void render(Canvas c) {
-
+    c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth/5, heightApp/8, tempWidth*(3/5), heightApp*6/8),Radius.circular(8.0)),_paint2);
     c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth/5, heightApp/8, tempWidth*(3/5), heightApp*6/8),Radius.circular(8.0)),_paint2);
     c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth*0.360,heightApp/8,tempWidth*0.235,heightApp*6/8),Radius.circular(0.0)),_paint3);
     c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth*0.388,heightApp/1.45,tempWidth*0.14,heightApp*1/8),Radius.circular(3)),_paint4);
