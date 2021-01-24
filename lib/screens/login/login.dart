@@ -113,12 +113,12 @@ class _LoginPageState extends State<LoginPage> {
         key: _scaffoldKey,
         resizeToAvoidBottomPadding: false,
         body: Container (
-          decoration: BoxDecoration(
+         /* decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage("assets/images/flowertown.gif"),
+                  image: AssetImage(""),
                   fit: BoxFit.cover
               )
-          ),
+          ),*/
           child:ModalProgressHUD(
               child: Center(
                 child: Form(
@@ -153,13 +153,13 @@ class _LoginPageState extends State<LoginPage> {
       ClipRRect(
           borderRadius: BorderRadius.circular(10.0),
           child: Container (
-              color: Color.fromRGBO(28, 28, 28, 0.8),
+              color: Color.fromRGBO(80, 80, 80, 1),
               child: Padding(
                   padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
                   child: Column(
                       children: <Widget>[
                       Text('MULTIPLES',
-                      style: TextStyle(fontFamily: 'logo', fontSize: 20, color: Color.fromRGBO(252,238,10, 1))),
+                      style: TextStyle(fontFamily: 'logo', fontSize: 20, color: Color.fromRGBO(255, 204, 0, 1))),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(10, 5, 5, 10),),
                         Container(
@@ -212,23 +212,7 @@ class _LoginPageState extends State<LoginPage> {
 
                                       hintText: 'Password'),
                                 ))),
-                        FlatButton(
 
-                          color: Color.fromRGBO(175, 58, 52, 1),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                          textColor: Color.fromRGBO(252,238,10, 1),
-                          onPressed: () {runApp(MaterialApp(
-                            debugShowCheckedModeBanner: false,
-
-                            title: 'Onboarding Concept',
-                            home: Builder(
-                            builder: (BuildContext context) {
-                            SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
-                            var screenHeight = MediaQuery.of(context).size.height;
-
-                            return Home();})));},
-                          child: Text(' DEVELOPING BUTTON ', style: TextStyle( fontSize: 18, fontFamily: "bold")),
-                        ),
                       ])))),
 
 
@@ -251,14 +235,14 @@ class _LoginPageState extends State<LoginPage> {
         ClipRRect(
             borderRadius: BorderRadius.circular(10.0),
             child: Container (
-                color: Color.fromRGBO(252,238,10, 0.8),
+                color: Color.fromRGBO(255, 204, 0, 1),
                 child: Padding(
                     padding: const EdgeInsets.fromLTRB(8, 5, 8, 5),
                     child: Row(
                         children: <Widget>[
 
                           ButtonTheme(
-                            padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 114), //adds padding inside the button
+                            padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 112), //adds padding inside the button
                             //limits the touch area to the button area
                             minWidth: 0, //wraps child's width
                             height: 0, //wraps child's height

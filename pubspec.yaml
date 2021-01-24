@@ -74,6 +74,9 @@ flutter:
     - family: test
       fonts:
         - asset: assets/fonts/Mollen-Regular.otf
+    - family: ken
+      fonts:
+          - asset: assets/fonts/kenvector_future.ttf
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -81,6 +84,11 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/images/grey.png
+    - assets/images/yellow_button00.png
+    - assets/images/yellow_button01.png
+    - assets/images/blue_button00.png
+    - assets/images/blue_button01.png
 
 
 

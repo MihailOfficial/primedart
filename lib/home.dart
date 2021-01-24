@@ -1,3 +1,4 @@
+import 'package:bird/screens/login/login.dart';
 import 'package:bird/startButton.dart';
 import 'package:bird/lost-view.dart';
 import 'package:flame/components/mixins/tapable.dart';
@@ -44,7 +45,7 @@ import 'app_drawer.dart';
 
 const COLOR = const Color.fromRGBO(0,0,0, 0.5);
 const COLOR2 = const Color.fromRGBO(26, 22, 92, 1);
-const COLOR3 = const Color.fromRGBO(252,238,10, 1);
+const COLOR3 = const Color.fromRGBO(255, 204, 0, 1);
 const COLOR4 = const Color.fromRGBO(0,0,0, 0.3);
 
 
@@ -77,6 +78,9 @@ bool spinNew = false;
 bool debug = false;
 bool globalShrink = false;
 bool visible = false;
+bool updateMenu = false;
+bool hideMenu = false;
+BuildContext contexts;
 var x;
 var y;
 
@@ -89,6 +93,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    contexts = context;
     SystemChrome.setEnabledSystemUIOverlays([]);
     final double statusBarHeight = MediaQuery.of(context).padding.top;
     return
@@ -122,6 +127,43 @@ class Home extends StatelessWidget {
     }
   }
 
+class Test extends StatelessWidget {
+  static const String routeName = "/home";
+
+  @override
+  Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIOverlays([]);
+    final double statusBarHeight = MediaQuery.of(context).padding.top;
+    return
+      Scaffold(
+          drawer: AppDrawer(),
+          body:
+          Stack(
+              children: <Widget>[
+                Container(
+                  constraints: BoxConstraints.expand(),
+                  decoration: new BoxDecoration(
+                    gradient: new LinearGradient(
+                        colors: [
+                          Colors.black87,
+                          Colors.black87,
+                        ],
+                        begin: const FractionalOffset(0.0, 0.0),
+                        end: const FractionalOffset(1.0, 0.0),
+                        stops: [0.0, 1.0],
+                        tileMode: TileMode.clamp),
+                  ),
+                  child: LoginPage(),
+
+
+                ),
+
+
+
+
+              ]));
+  }
+}
 double tempX = 0;
 double heightPos = 0;
 int lives = 3;
@@ -621,6 +663,7 @@ class StartMenu extends TextComponent with Tapable {
 
   bool collectedItem = false;
   double speedX = 150.0;
+  bool stop = false;
 
   bool collectPrime = false;
   double accel = 0;
@@ -628,20 +671,47 @@ class StartMenu extends TextComponent with Tapable {
   bool returned = false;
   Paint _paint12 = Paint()
   ..color = Colors.yellow;
-  TextConfig notValid = TextConfig(color: Colors.grey, fontSize: 35, fontFamily: "fontNum");
-  TapDownDetails m;
-  Rect startRect = Rect.fromLTWH(0, 0, 100, 100);
-  void onTapDown(TapDownDetails details) {
+  Paint _outer = Paint()
+    ..color = Color.fromRGBO(238, 238, 238, 1);
+  Rect titleRect;
+  Sprite titleSprite;
 
-    m = details;
+  TextConfig notValid = TextConfig(color: Color.fromRGBO(90, 90, 90, 0.8), fontSize: 15, fontFamily: "ken");
+  TapUpDetails m;
+
+  Rect startRect = Rect.fromLTWH(tempWidth/2-((heightApp*3.5)/2), tempHeight*(2/5)-heightApp/2, heightApp*3.5,heightApp );
+  Rect outer = Rect.fromLTWH(tempWidth*1/3, tempHeight/4, tempWidth*1/3, tempHeight/2);
+  @override
+  void onTapUp(TapUpDetails details) {
+
+    hideMenu = false;
+    returned = true;
+    destroy();
+    updateMenu = true;
+    _paint12 = Paint()
+      ..color = Colors.blue;
+    print("touched");
+    masterGameStart = true;
+  }
+
+  @override
+  void onTapDown(TapDownDetails details) {
+    titleSprite = Sprite('yellow_button01.png');
+  }
+
+  @override
+  void onTapCancel() {
+    titleSprite = Sprite('yellow_button00.png');
   }
   StartMenu (String text) : super(text) {
+
+    this.anchor = Anchor.center;
     //masterGameStart = true;
     this.config = notValid;
     this.anchor = Anchor.center;
-    this.x = 50;
-    this.y = 50;
-
+    this.x = tempWidth/2;
+    this.y = tempHeight*(2/5);
+   titleSprite = Sprite('yellow_button00.png');
 
   }
   @override
@@ -650,15 +720,96 @@ class StartMenu extends TextComponent with Tapable {
   }
   @override
   void update(double tt){
-    if (m != null){
-    if (startRect.contains(m.globalPosition)){
-      _paint12 = Paint()
-        ..color = Colors.blue;
-      print("touched");
-      masterGameStart = true;
+    if (!stop){
+      game.add(new LoginButton("Login"));
+      stop = true;
+    }
+
+    super.update(tt);
+
+
+  }
+  @override
+  void render(Canvas c) {
+    TextConfig test1 = TextConfig(color: Colors.indigo, fontSize: 15, fontFamily: "ken");
+    game.add(TextComponent('Local Game', config: test1)
+      ..anchor = Anchor.topCenter
+      ..x = tempWidth/2
+      ..y = tempHeight*1.4/5);
+    TextConfig test2 = TextConfig(color: Colors.indigo, fontSize: 15, fontFamily: "ken");
+    game.add(TextComponent('Global Game', config: test2)
+      ..anchor = Anchor.topCenter
+      ..x = tempWidth/2
+      ..y = tempHeight*2.5/5);
+    c.drawRRect(RRect.fromRectAndRadius((outer),Radius.circular(8.0)),_outer);
+    titleSprite.renderRect(c, startRect);
+
+   super.render(c);
+
+  }
+}
+
+class LoginButton extends TextComponent with Tapable {
+  double height = AppBar().preferredSize.height;
+
+  bool collectedItem = false;
+  double speedX = 150.0;
+
+  bool collectPrime = false;
+  double accel = 0;
+  int value1 = 0;
+  bool returned = false;
+  Paint _paint12 = Paint()
+    ..color = Colors.yellow;
+  Paint _outer = Paint()
+    ..color = Color.fromRGBO(238, 238, 238, 1);
+  Rect titleRect;
+  Sprite titleSprite;
+
+  TextConfig notValid = TextConfig(color: Color.fromRGBO(90, 90, 90, 0.8), fontSize: 15, fontFamily: "ken");
+  TapUpDetails m;
+
+  Rect startRect = Rect.fromLTWH(tempWidth/2-((heightApp*3.5)/2), tempHeight*(3.1/5)-heightApp/2, heightApp*3.5,heightApp );
+
+  @override
+  void onTapUp(TapUpDetails details) {
+    Navigator.push(contexts, new MaterialPageRoute(
+        builder: (context) => LoginPage()));
+    returned = true;
+    destroy();
+  }
+
+  @override
+  void onTapDown(TapDownDetails details) {
+    titleSprite = Sprite('blue_button01.png');
+
+  }
+
+  @override
+  void onTapCancel() {
+    titleSprite = Sprite('blue_button00.png');
+  }
+  LoginButton (String text) : super(text) {
+
+    this.anchor = Anchor.center;
+    //masterGameStart = true;
+    this.config = notValid;
+    this.anchor = Anchor.center;
+    this.x = tempWidth/2;
+    this.y = tempHeight*3.1/5;
+    titleSprite = Sprite('blue_button00.png');
+
+  }
+  @override
+  bool destroy() {
+    return returned;
+  }
+  @override
+  void update(double tt){
+    if (masterGameStart){
       returned = true;
       destroy();
-    }}
+    }
 
     super.update(tt);
 
@@ -667,7 +818,8 @@ class StartMenu extends TextComponent with Tapable {
   @override
   void render(Canvas c) {
 
-    c.drawRRect(RRect.fromRectAndRadius((startRect),Radius.circular(8.0)),_paint12);
+    titleSprite.renderRect(c, startRect);
+
     super.render(c);
 
   }
@@ -729,6 +881,7 @@ class EndMenu extends TextComponent with Tapable {
   void render(Canvas c) {
 
     c.drawRRect(RRect.fromRectAndRadius((startRect),Radius.circular(8.0)),_paint12);
+
     super.render(c);
 
   }
@@ -749,8 +902,7 @@ int currentMultiple = 2;
 var positionArray = new List(6);
 class MyGame extends BaseGame  with HasTapableComponents{
 
-  @override
-  Color backgroundColor() => const Color.fromRGBO(0, 0, 0, 0.4);
+
 
   double timerPrime = 0;
   double timerComp = 0;
@@ -778,7 +930,8 @@ class MyGame extends BaseGame  with HasTapableComponents{
   Offset positionNoMoreLives;
   Offset positionNumType;
   Offset positionNumTypeText;
-
+  @override
+  Color backgroundColor() => const Color.fromRGBO(255, 204, 0, 1);
   var count1 = new List(4);
 
   var count2 = new List(6);
@@ -789,136 +942,30 @@ class MyGame extends BaseGame  with HasTapableComponents{
 
   MyGame(Size size) {
 
-
-
-
-    for (int a = 0; a<6; a++){
-      for (int b = 0; b<7; b++){
+    hideMenu = true;
+    for (int a = 0; a < 6; a++) {
+      for (int b = 0; b < 7; b++) {
         table[a][b] = false;
         ctable[a][b] = 0;
         dtable[a][b] = false;
       }
     }
 
-    positionArray[0] = 2* (tempHeight/8);
-    positionArray[1] = 3* (tempHeight/8);
-    positionArray[2] = 4* (tempHeight/8);
-    positionArray[3] = 5* (tempHeight/8);
-    positionArray[4] = 6* (tempHeight/8);
-    positionArray[5] = 7* (tempHeight/8);
+    positionArray[0] = 2 * (tempHeight / 8);
+    positionArray[1] = 3 * (tempHeight / 8);
+    positionArray[2] = 4 * (tempHeight / 8);
+    positionArray[3] = 5 * (tempHeight / 8);
+    positionArray[4] = 6 * (tempHeight / 8);
+    positionArray[5] = 7 * (tempHeight / 8);
 
-    add(startMenu = StartMenu("Start"));
+    add(startMenu = StartMenu("START GAME"));
+
     add(Bg());
 
 
-
-    for (int i = 0; i<3; i++){
-      yPositions[i] = ((tempWidth)/3)*(i+1);
+    for (int i = 0; i < 3; i++) {
+      yPositions[i] = ((tempWidth) / 3) * (i + 1);
     }
-
-    textPainterNoMoreLives = TextPainter(text: TextSpan(
-        text: "" ,
-        style: TextStyle(
-            color: Color(0xFFFF0000), fontSize: 32)),
-        textDirection: TextDirection.ltr);
-    textPainterNoMoreLives.layout(
-      minWidth: 0,
-      maxWidth: size.width,
-    );
-    positionNoMoreLives =
-        Offset(size.width / 2 - textPainterNoMoreLives.width / 2,
-            size.height / 2 - textPainterNoMoreLives.height / 2);
-
-    textPainterLivesText = TextPainter(text: TextSpan(
-        text: "M:",
-        style: TextStyle(
-            color: Color.fromRGBO(252,238,10, 1), fontSize: 22, fontFamily: "bold")),
-        textDirection: TextDirection.ltr);
-    textPainterLivesText.layout(
-      minWidth: 0,
-      maxWidth: size.width,
-    );
-    var te1;
-    textPainterNumTypeText = TextPainter(
-
-      text: TextSpan(
-        text: "MULTIPLES:",
-
-        style: TextStyle(
-            color: Color.fromRGBO(0,0,0, 1), fontSize: 18, fontFamily: "bold")),
-        textDirection: TextDirection.ltr,textAlign: TextAlign.center,
-          );
-
-    textPainterNumTypeText.layout(
-      minWidth: 0,
-      maxWidth: tempWidth,
-
-    );
-
-    positionNumTypeText = Offset(size.width *(9.1/20) - textPainterNumTypeText.width / 2,
-        heightApp/2 - textPainterNumTypeText.height / 2);
-
-    textPainterNumType = TextPainter(
-
-      text: TextSpan(
-          text: " X",
-
-          style: TextStyle(
-              color: Color.fromRGBO(26, 22, 92, 1), fontSize: 36, fontFamily: "bold")),
-      textDirection: TextDirection.ltr,textAlign: TextAlign.center,
-    );
-
-    textPainterNumType.layout(
-      minWidth: 0,
-      maxWidth: tempWidth,
-
-    );
-
-    positionNumType = Offset(size.width *(10.9/20) - textPainterNumType.width / 2,
-        heightApp/2 - textPainterNumType.height / 2);
-
-    positionLivesText = Offset(size.width *(4.9/20) - textPainterLivesText.width / 2,
-        heightApp/2 - textPainterLivesText.height / 2);
-
-    textPainterLives = TextPainter(text: TextSpan(
-        text: lives.toString(),
-        style: TextStyle(
-            color: Colors.white, fontSize: 24, fontFamily: "bold")),
-        textDirection: TextDirection.ltr);
-    textPainterLives.layout(
-      minWidth: 0,
-      maxWidth: size.width,
-    );
-    positionLives = Offset(size.width *(5.9/20)- textPainterLives.width / 2,
-        heightApp/2 - textPainterLives.height / 2);
-
-    textPainterScoreText = TextPainter(text: TextSpan(
-        text: "S: " ,
-        style: TextStyle(
-            color: Color.fromRGBO(252,238,10,1), fontSize: 22, fontFamily: "bold")),
-        textDirection: TextDirection.ltr);
-    textPainterScoreText.layout(
-      minWidth: 0,
-      maxWidth: size.width,
-    );
-    positionScoreText = Offset(size.width *(12.9/20) - textPainterScoreText.width / 2,
-        heightApp/2 - textPainterScoreText.height / 2);
-
-
-
-    textPainterScore = TextPainter(text: TextSpan(
-        text: count[3].toString()+count[2].toString()+ count[1].toString()+ count[0].toString(),
-        style: TextStyle(
-            color: Colors.white, fontSize: 24, fontFamily: "bold")),
-        textDirection: TextDirection.ltr);
-    textPainterScore.layout(
-      minWidth: 0,
-      maxWidth: size.width,
-    );
-    positionScore = Offset(size.width *(14.3/20) - textPainterScore.width / 2,
-        heightApp/2 - textPainterScore.height / 2);
-    statusBox = tempWidth*0.14;
-   updateStatus = tempWidth*0.14/400;
   }
 
 
@@ -938,14 +985,16 @@ class MyGame extends BaseGame  with HasTapableComponents{
   void render(Canvas c) {
 
     super.render(c);
-    textPainterScore.paint(c, positionScore);
-    textPainterScoreText.paint(c, positionScoreText);
-    textPainterLives.paint(c, positionLives);
-    textPainterLivesText.paint(c, positionLivesText);
-    textPainterNoMoreLives.paint(c, positionNoMoreLives);
-    textPainterNumTypeText.paint(c, positionNumTypeText);
-    textPainterNumType.paint(c, positionNumType);
 
+    if (masterGameStart) {
+      textPainterScore.paint(c, positionScore);
+      textPainterScoreText.paint(c, positionScoreText);
+      textPainterLives.paint(c, positionLives);
+      textPainterLivesText.paint(c, positionLivesText);
+      textPainterNoMoreLives.paint(c, positionNoMoreLives);
+      textPainterNumTypeText.paint(c, positionNumTypeText);
+      textPainterNumType.paint(c, positionNumType);
+    }
   }
 
   var rng = new Random();
@@ -1004,10 +1053,217 @@ double testInc = 5;
   @override
   void update(double t) {
 
+    if (updateMenu){
+
+
+      positionNoMoreLives =
+          Offset(size.width / 2 - textPainterNoMoreLives.width / 2,
+              size.height / 2 - textPainterNoMoreLives.height / 2);
+
+      textPainterLivesText = TextPainter(text: TextSpan(
+          text: "M:",
+          style: TextStyle(
+              color: Color.fromRGBO(255, 204, 0, 1), fontSize: 22, fontFamily: "bold")),
+          textDirection: TextDirection.ltr);
+      textPainterLivesText.layout(
+        minWidth: 0,
+        maxWidth: size.width,
+      );
+      var te1;
+      textPainterNumTypeText = TextPainter(
+
+        text: TextSpan(
+            text: "MULTIPLES:",
+
+            style: TextStyle(
+                color: Color.fromRGBO(0,0,0, 1), fontSize: 18, fontFamily: "bold")),
+        textDirection: TextDirection.ltr,textAlign: TextAlign.center,
+      );
+
+      textPainterNumTypeText.layout(
+        minWidth: 0,
+        maxWidth: tempWidth,
+
+      );
+
+      positionNumTypeText = Offset(size.width *(9.1/20) - textPainterNumTypeText.width / 2,
+          heightApp/2 - textPainterNumTypeText.height / 2);
+
+      textPainterNumType = TextPainter(
+
+        text: TextSpan(
+            text: " X",
+
+            style: TextStyle(
+                color: Color.fromRGBO(26, 22, 92, 1), fontSize: 36, fontFamily: "bold")),
+        textDirection: TextDirection.ltr,textAlign: TextAlign.center,
+      );
+
+      textPainterNumType.layout(
+        minWidth: 0,
+        maxWidth: tempWidth,
+
+      );
+
+      positionNumType = Offset(size.width *(10.9/20) - textPainterNumType.width / 2,
+          heightApp/2 - textPainterNumType.height / 2);
+
+      positionLivesText = Offset(size.width *(4.9/20) - textPainterLivesText.width / 2,
+          heightApp/2 - textPainterLivesText.height / 2);
+
+      textPainterLives = TextPainter(text: TextSpan(
+          text: lives.toString(),
+          style: TextStyle(
+              color: Colors.white, fontSize: 24, fontFamily: "bold")),
+          textDirection: TextDirection.ltr);
+      textPainterLives.layout(
+        minWidth: 0,
+        maxWidth: size.width,
+      );
+      positionLives = Offset(size.width *(5.9/20)- textPainterLives.width / 2,
+          heightApp/2 - textPainterLives.height / 2);
+
+      textPainterScoreText = TextPainter(text: TextSpan(
+          text: "S: " ,
+          style: TextStyle(
+              color: Color.fromRGBO(255, 204, 0,1), fontSize: 22, fontFamily: "bold")),
+          textDirection: TextDirection.ltr);
+      textPainterScoreText.layout(
+        minWidth: 0,
+        maxWidth: size.width,
+      );
+      positionScoreText = Offset(size.width *(12.9/20) - textPainterScoreText.width / 2,
+          heightApp/2 - textPainterScoreText.height / 2);
+
+
+
+      textPainterScore = TextPainter(text: TextSpan(
+          text: count[3].toString()+count[2].toString()+ count[1].toString()+ count[0].toString(),
+          style: TextStyle(
+              color: Colors.white, fontSize: 24, fontFamily: "bold")),
+          textDirection: TextDirection.ltr);
+      textPainterScore.layout(
+        minWidth: 0,
+        maxWidth: size.width,
+      );
+      positionScore = Offset(size.width *(14.3/20) - textPainterScore.width / 2,
+          heightApp/2 - textPainterScore.height / 2);
+      statusBox = tempWidth*0.14;
+      updateStatus = tempWidth*0.14/400;
+
+    }
+
+      if (hideMenu){
+
+        textPainterNoMoreLives = TextPainter(text: TextSpan(
+            text: "" ,
+            style: TextStyle(
+                color: Color(0xFFFF0000), fontSize: 32)),
+            textDirection: TextDirection.ltr);
+        textPainterNoMoreLives.layout(
+          minWidth: 0,
+          maxWidth: size.width,
+        );
+        positionNoMoreLives =
+            Offset(size.width / 2 - textPainterNoMoreLives.width / 2,
+                size.height / 2 - textPainterNoMoreLives.height / 2);
+
+        textPainterLivesText = TextPainter(text: TextSpan(
+            text: "",
+            style: TextStyle(
+                color: Color.fromRGBO(252,238,10, 1), fontSize: 22, fontFamily: "bold")),
+            textDirection: TextDirection.ltr);
+        textPainterLivesText.layout(
+          minWidth: 0,
+          maxWidth: size.width,
+        );
+        var te1;
+        textPainterNumTypeText = TextPainter(
+
+          text: TextSpan(
+              text: "",
+
+              style: TextStyle(
+                  color: Color.fromRGBO(0,0,0, 1), fontSize: 18, fontFamily: "bold")),
+          textDirection: TextDirection.ltr,textAlign: TextAlign.center,
+        );
+
+        textPainterNumTypeText.layout(
+          minWidth: 0,
+          maxWidth: tempWidth,
+
+        );
+
+        positionNumTypeText = Offset(size.width *(9.1/20) - textPainterNumTypeText.width / 2,
+            heightApp/2 - textPainterNumTypeText.height / 2);
+
+        textPainterNumType = TextPainter(
+
+          text: TextSpan(
+              text: "",
+
+              style: TextStyle(
+                  color: Color.fromRGBO(26, 22, 92, 1), fontSize: 36, fontFamily: "bold")),
+          textDirection: TextDirection.ltr,textAlign: TextAlign.center,
+        );
+
+        textPainterNumType.layout(
+          minWidth: 0,
+          maxWidth: tempWidth,
+
+        );
+
+        positionNumType = Offset(size.width *(10.9/20) - textPainterNumType.width / 2,
+            heightApp/2 - textPainterNumType.height / 2);
+
+        positionLivesText = Offset(size.width *(4.9/20) - textPainterLivesText.width / 2,
+            heightApp/2 - textPainterLivesText.height / 2);
+
+        textPainterLives = TextPainter(text: TextSpan(
+            text: lives.toString(),
+            style: TextStyle(
+                color: Colors.white, fontSize: 24, fontFamily: "bold")),
+            textDirection: TextDirection.ltr);
+        textPainterLives.layout(
+          minWidth: 0,
+          maxWidth: size.width,
+        );
+        positionLives = Offset(size.width *(5.9/20)- textPainterLives.width / 2,
+            heightApp/2 - textPainterLives.height / 2);
+
+        textPainterScoreText = TextPainter(text: TextSpan(
+            text: "" ,
+            style: TextStyle(
+                color: Color.fromRGBO(252,238,10,1), fontSize: 22, fontFamily: "bold")),
+            textDirection: TextDirection.ltr);
+        textPainterScoreText.layout(
+          minWidth: 0,
+          maxWidth: size.width,
+        );
+        positionScoreText = Offset(size.width *(12.9/20) - textPainterScoreText.width / 2,
+            heightApp/2 - textPainterScoreText.height / 2);
+
+
+
+        textPainterScore = TextPainter(text: TextSpan(
+            text: "",
+            style: TextStyle(
+                color: Colors.white, fontSize: 24, fontFamily: "bold")),
+            textDirection: TextDirection.ltr);
+        textPainterScore.layout(
+          minWidth: 0,
+          maxWidth: size.width,
+        );
+
+
+      }
+
+
     if (stopAttempts) {
 
     if (stopInc == 0){
       add(endMenu = EndMenu("Again"));
+
       print("Called");
 
     }
@@ -1389,29 +1645,52 @@ double testInc = 5;
 
 class Bg extends Component with Resizable {
 
-  static final Paint _paint = Paint()
+    Paint _paint = Paint()
     ..color = COLOR;
-  static final Paint _paint2 = Paint()
+  Paint _paint2 = Paint()
     ..color = COLOR2;
 
-  static final Paint _paint3 = Paint()
+   Paint _paint3 = Paint()
     ..color = COLOR3;
-  static final Paint _paint4 = Paint()
-    ..color = COLOR4;
+
+    Paint _paint4 = Paint()
+      ..color = COLOR4;
+    Paint _master = Paint()
+      ..color = Color.fromRGBO(50, 50, 50, 1);
 
 
-  @override
 
   @override
   void render(Canvas c) {
-    c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth/5, heightApp/8, tempWidth*(3/5), heightApp*6/8),Radius.circular(8.0)),_paint2);
-    c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth/5, heightApp/8, tempWidth*(3/5), heightApp*6/8),Radius.circular(8.0)),_paint2);
-    c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth*0.360,heightApp/8,tempWidth*0.235,heightApp*6/8),Radius.circular(0.0)),_paint3);
-    c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth*0.388,heightApp/1.45,tempWidth*0.14,heightApp*1/8),Radius.circular(3)),_paint4);
-    c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth*0.388,heightApp/1.45,statusBox,heightApp*1/8),Radius.circular(3)),_paint);
+
+    if (masterGameStart) {
+      c.drawRect(Rect.fromLTWH(
+          0, 0, tempWidth, tempHeight),
+           _master);
+      c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(
+          tempWidth / 5, heightApp / 8, tempWidth * (3 / 5), heightApp * 6 / 8),
+          Radius.circular(8.0)), _paint2);
+      c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(
+          tempWidth / 5, heightApp / 8, tempWidth * (3 / 5), heightApp * 6 / 8),
+          Radius.circular(8.0)), _paint2);
+      c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(
+          tempWidth * 0.360, heightApp / 8, tempWidth * 0.235,
+          heightApp * 6 / 8), Radius.circular(0.0)), _paint3);
+      c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(
+          tempWidth * 0.388, heightApp / 1.45, tempWidth * 0.14,
+          heightApp * 1 / 8), Radius.circular(3)), _paint4);
+      c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(
+          tempWidth * 0.388, heightApp / 1.45, statusBox, heightApp * 1 / 8),
+          Radius.circular(3)), _paint);
+      c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(
+          tempWidth * 0.388, heightApp / 1.45, statusBox, heightApp * 1 / 8),
+          Radius.circular(3)), _paint);
+    }
 
 
   }
+
+
 
   @override
   void update(double t) {

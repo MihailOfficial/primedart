@@ -19,7 +19,7 @@ class Header extends StatelessWidget {
       children: <Widget>[
         Container(child: Text(
     'MULTIPLES',
-      style: TextStyle(fontFamily: 'logo', fontSize: 20, color: Color.fromRGBO(252,238,10, 1)),)),
+      style: TextStyle(fontFamily: 'logo', fontSize: 20, color: Color.fromRGBO(255, 204, 0, 1)),)),
         GestureDetector(
           onTap: onSkip,
           child: Text(

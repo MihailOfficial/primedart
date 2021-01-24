@@ -1,4 +1,5 @@
 import 'package:bird/product.dart';
+import 'package:bird/screens/login/login.dart';
 import 'package:bird/screens/onboarding/onboarding.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer_util.dart';
@@ -86,9 +87,7 @@ class MyApp extends StatelessWidget {
           var screenHeight = MediaQuery.of(context).size.height;
 
           return
-            Onboarding(
-          screenHeight: screenHeight,
-          );
+            Home();
         },
       ),
     );
