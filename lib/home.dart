@@ -43,8 +43,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'app_drawer.dart';
 
-const COLOR = const Color.fromRGBO(0,0,0, 0.5);
-const COLOR2 = const Color.fromRGBO(26, 22, 92, 1);
+Color COLOR = const Color.fromRGBO(0,0,0, 0.5);
+Color COLOR2 = const Color.fromRGBO(26, 22, 92, 1);
 const COLOR3 = const Color.fromRGBO(255, 204, 0, 1);
 const COLOR4 = const Color.fromRGBO(0,0,0, 0.3);
 
@@ -257,7 +257,7 @@ bool bottomFall = false;
     }
 
     if (dtable[(row).toInt()][(column-1).toInt()] == true && !fall && !newDeck) {
-      Vibration.vibrate();
+      HapticFeedback.lightImpact();
       dtable[row.toInt()][(column-1).toInt()] = false;
       this.config = TextConfig(color: Colors.black);
       text = '+1';
@@ -664,7 +664,8 @@ class StartMenu extends TextComponent with Tapable {
   bool collectedItem = false;
   double speedX = 150.0;
   bool stop = false;
-
+  TextConfig test1 = TextConfig(color: Colors.indigo, fontSize: 15, fontFamily: "ken");
+  TextConfig test2 = TextConfig(color: Colors.indigo, fontSize: 15, fontFamily: "ken");
   bool collectPrime = false;
   double accel = 0;
   int value1 = 0;
@@ -675,8 +676,8 @@ class StartMenu extends TextComponent with Tapable {
     ..color = Color.fromRGBO(238, 238, 238, 1);
   Rect titleRect;
   Sprite titleSprite;
-
-  TextConfig notValid = TextConfig(color: Color.fromRGBO(90, 90, 90, 0.8), fontSize: 15, fontFamily: "ken");
+TextComponent test;
+  TextConfig notValid = TextConfig(color: Color.fromRGBO(0, 0, 0, 0.9), fontSize: 15, fontFamily: "ken");
   TapUpDetails m;
 
   Rect startRect = Rect.fromLTWH(tempWidth/2-((heightApp*3.5)/2), tempHeight*(2/5)-heightApp/2, heightApp*3.5,heightApp );
@@ -731,16 +732,8 @@ class StartMenu extends TextComponent with Tapable {
   }
   @override
   void render(Canvas c) {
-    TextConfig test1 = TextConfig(color: Colors.indigo, fontSize: 15, fontFamily: "ken");
-    game.add(TextComponent('Local Game', config: test1)
-      ..anchor = Anchor.topCenter
-      ..x = tempWidth/2
-      ..y = tempHeight*1.4/5);
-    TextConfig test2 = TextConfig(color: Colors.indigo, fontSize: 15, fontFamily: "ken");
-    game.add(TextComponent('Global Game', config: test2)
-      ..anchor = Anchor.topCenter
-      ..x = tempWidth/2
-      ..y = tempHeight*2.5/5);
+
+
     c.drawRRect(RRect.fromRectAndRadius((outer),Radius.circular(8.0)),_outer);
     titleSprite.renderRect(c, startRect);
 
@@ -766,11 +759,11 @@ class LoginButton extends TextComponent with Tapable {
   Rect titleRect;
   Sprite titleSprite;
 
-  TextConfig notValid = TextConfig(color: Color.fromRGBO(90, 90, 90, 0.8), fontSize: 15, fontFamily: "ken");
+  TextConfig notValid = TextConfig(color: Color.fromRGBO(0,0, 0, 0.9), fontSize: 15, fontFamily: "ken");
   TapUpDetails m;
-
+  TextConfig test1 = TextConfig(color: Colors.indigo, fontSize: 15, fontFamily: "ken");
   Rect startRect = Rect.fromLTWH(tempWidth/2-((heightApp*3.5)/2), tempHeight*(3.1/5)-heightApp/2, heightApp*3.5,heightApp );
-
+  TextConfig test2 = TextConfig(color: Colors.indigo, fontSize: 15, fontFamily: "ken");
   @override
   void onTapUp(TapUpDetails details) {
     Navigator.push(contexts, new MaterialPageRoute(
@@ -818,6 +811,8 @@ class LoginButton extends TextComponent with Tapable {
   @override
   void render(Canvas c) {
 
+    test1.render(c, "Local Game", Position( tempWidth/2, tempHeight*1.4/5), anchor: Anchor.topCenter);
+    test2.render(c, "Global Game", Position( tempWidth/2, tempHeight*2.5/5), anchor: Anchor.topCenter);
     titleSprite.renderRect(c, startRect);
 
     super.render(c);
@@ -961,7 +956,8 @@ class MyGame extends BaseGame  with HasTapableComponents{
     add(startMenu = StartMenu("START GAME"));
 
     add(Bg());
-
+    statusBox = tempWidth*0.14;
+    updateStatus = tempWidth*0.14/2000;
 
     for (int i = 0; i < 3; i++) {
       yPositions[i] = ((tempWidth) / 3) * (i + 1);
@@ -1148,8 +1144,7 @@ double testInc = 5;
       );
       positionScore = Offset(size.width *(14.3/20) - textPainterScore.width / 2,
           heightApp/2 - textPainterScore.height / 2);
-      statusBox = tempWidth*0.14;
-      updateStatus = tempWidth*0.14/400;
+
 
     }
 
@@ -1374,7 +1369,7 @@ double testInc = 5;
       changedMultiple--;
     }
     counter++;
-    if (counter%400 == 0){
+    if (counter%2000 == 0){
       var rng = new Random();
       //currentMultiple = rng.nextInt(5)+2;
       changedMultiple = 1;
@@ -1640,12 +1635,13 @@ double testInc = 5;
 
   }
   }
-    super.update(t);}
+    super.update(t);
+  }
 }
 
 class Bg extends Component with Resizable {
 
-    Paint _paint = Paint()
+  Paint _paint = Paint()
     ..color = COLOR;
   Paint _paint2 = Paint()
     ..color = COLOR2;
@@ -1679,12 +1675,8 @@ class Bg extends Component with Resizable {
       c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(
           tempWidth * 0.388, heightApp / 1.45, tempWidth * 0.14,
           heightApp * 1 / 8), Radius.circular(3)), _paint4);
-      c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(
-          tempWidth * 0.388, heightApp / 1.45, statusBox, heightApp * 1 / 8),
-          Radius.circular(3)), _paint);
-      c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(
-          tempWidth * 0.388, heightApp / 1.45, statusBox, heightApp * 1 / 8),
-          Radius.circular(3)), _paint);
+      //c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth*0.388,heightApp/1.45,tempWidth*0.14,heightApp*1/8),Radius.circular(3)),_paint4);
+      c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth*0.388,heightApp/1.45,statusBox,heightApp*1/8),Radius.circular(3)),_paint);
     }
 
 

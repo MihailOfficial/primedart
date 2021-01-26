@@ -71,6 +71,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeRight]);
     return LayoutBuilder(                           //return LayoutBuilder
         builder: (context, constraints) {
       return OrientationBuilder(                  //return OrientationBuilder
