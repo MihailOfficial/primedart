@@ -167,9 +167,9 @@ class Test extends StatelessWidget {
 double tempX = 0;
 double heightPos = 0;
 int lives = 3;
-var table = List.generate(6, (i) => List(7), growable: false);
-var ctable = List.generate(6, (i) => List(7), growable: false);
-var dtable = List.generate(6, (i) => List(7), growable: false);
+var table = List.generate(10, (i) => List(7), growable: false);
+var ctable = List.generate(10, (i) => List(7), growable: false);
+var dtable = List.generate(10, (i) => List(7), growable: false);
 double stopInc =0;
 
 
@@ -245,7 +245,7 @@ bool bottomFall = false;
 
 
 
-    if (row != 5 && !fall){
+    if (row != 9 && !fall){
       if (table[(row+1).toInt()][(column-1).toInt()] == false){
         table[(row).toInt()][(column-1).toInt()] = false;
         table[(row+1).toInt()][(column-1).toInt()] = true;
@@ -340,7 +340,7 @@ bool bottomFall = false;
     if (m != null && !shrink && !globalShrink){
       if (pauseRect1.contains(m.globalPosition)){
 
-    Vibration.vibrate();
+
 
         shrink = true;
         collectPrime = true;
@@ -464,7 +464,7 @@ class NotMultiple extends TextComponent  with Tapable{
 
 
 
-    if (row != 5 && !fall){
+    if (row != 9 && !fall){
       if (table[(row+1).toInt()][(column-1).toInt()] == false){
         table[(row).toInt()][(column-1).toInt()] = false;
         table[(row+1).toInt()][(column-1).toInt()] = true;
@@ -476,7 +476,7 @@ class NotMultiple extends TextComponent  with Tapable{
     }
 
     if (dtable[(row).toInt()][(column-1).toInt()] == true && !fall && !newDeck) {
-      Vibration.vibrate();
+
       this.config = TextConfig(color: Colors.black);
       text = '+1';
       dtable[row.toInt()][(column-1).toInt()] = false;
@@ -558,7 +558,7 @@ class NotMultiple extends TextComponent  with Tapable{
 
     if (m != null && !collectNot && !globalShrink){
       if (pauseRect1.contains(m.globalPosition)){
-        Vibration.vibrate();
+
         _paint12 = Paint()
           ..color = Color.fromRGBO(80, 80, 80, 0.9);
         inc++;
@@ -894,7 +894,7 @@ double heightApp = AppBar().preferredSize.height;
 int tempUpdate = 0;
 double statusBox = 0;
 int currentMultiple = 2;
-var positionArray = new List(6);
+var positionArray = new List(10);
 class MyGame extends BaseGame  with HasTapableComponents{
 
 
@@ -938,7 +938,7 @@ class MyGame extends BaseGame  with HasTapableComponents{
   MyGame(Size size) {
 
     hideMenu = true;
-    for (int a = 0; a < 6; a++) {
+    for (int a = 0; a < 9; a++) {
       for (int b = 0; b < 7; b++) {
         table[a][b] = false;
         ctable[a][b] = 0;
@@ -946,12 +946,16 @@ class MyGame extends BaseGame  with HasTapableComponents{
       }
     }
 
-    positionArray[0] = 2 * (tempHeight / 8);
-    positionArray[1] = 3 * (tempHeight / 8);
-    positionArray[2] = 4 * (tempHeight / 8);
-    positionArray[3] = 5 * (tempHeight / 8);
-    positionArray[4] = 6 * (tempHeight / 8);
-    positionArray[5] = 7 * (tempHeight / 8);
+    positionArray[0] = 3 * (tempHeight / 15);
+    positionArray[1] = 4 * (tempHeight / 15);
+    positionArray[2] = 5 * (tempHeight / 15);
+    positionArray[3] = 6 * (tempHeight / 15);
+    positionArray[4] = 7 * (tempHeight / 15);
+    positionArray[5] = 8 * (tempHeight / 15);
+    positionArray[6] = 9 * (tempHeight / 15);
+    positionArray[7] = 10 * (tempHeight / 15);
+    positionArray[8] = 11 * (tempHeight / 15);
+    positionArray[9] = 12 * (tempHeight / 15);
 
     add(startMenu = StartMenu("START GAME"));
 
@@ -996,55 +1000,26 @@ class MyGame extends BaseGame  with HasTapableComponents{
   var rng = new Random();
   String generateMultiple (){
 
-    int gen = rng.nextInt(2);
     String text;
+    int num = rng.nextInt(40) + 2;
 
-    int scalar = rng.nextInt(8) + 1;
-    int finalScaled = scalar * currentMultiple;
-    int secondNum = rng.nextInt(8) + 2;
 
-    while (secondNum >= finalScaled) {
-      scalar = rng.nextInt(8) + 1;
-      finalScaled = scalar * currentMultiple;
-      secondNum = rng.nextInt(8) + 2;
-    }
+    text = ((num*currentMultiple)).toString();
 
-    if (gen == 0) {
-      text = (finalScaled - secondNum).toString() + "+" + secondNum.toString();
-    }
-
-    else {
-      text = (finalScaled + secondNum).toString() + "-" + secondNum.toString();
-
-    }
     return text;
   }
 
   String generateNotMultiple (){
 
-    String text;
-
-    int gen = rng.nextInt(2);
+    String text2;
     int num = rng.nextInt(40) + 2;
-    int tempSecond = 0;
-
-    tempSecond = rng.nextInt(8) + 2;
-
-    while (num % currentMultiple == 0 || tempSecond >= num) {
-      num = rng.nextInt(40) + 2;
-      tempSecond = rng.nextInt(8) + 2;
-    }
 
 
-    if (gen == 0) {
-      text = (num - tempSecond).toString() + "+" + tempSecond.toString();
-    }
-    else {
-      text = (num + tempSecond).toString() + "-" + tempSecond.toString();
-    }
-    return text;
+    text2 = ((num*currentMultiple)+1).toString();
+
+    return text2;
   }
-double testInc = 5;
+double testInc = 9;
 
   @override
   void update(double t) {
@@ -1069,10 +1044,10 @@ double testInc = 5;
       textPainterNumTypeText = TextPainter(
 
         text: TextSpan(
-            text: "MULTIPLES:",
+            text: "MULTIPLE:",
 
             style: TextStyle(
-                color: Color.fromRGBO(0,0,0, 1), fontSize: 18, fontFamily: "bold")),
+                color: Color.fromRGBO(0,0,0, 1), fontSize: 12, fontFamily: "bold")),
         textDirection: TextDirection.ltr,textAlign: TextAlign.center,
       );
 
@@ -1082,7 +1057,7 @@ double testInc = 5;
 
       );
 
-      positionNumTypeText = Offset(size.width *(9.1/20) - textPainterNumTypeText.width / 2,
+      positionNumTypeText = Offset(size.width *(9.4/20) - textPainterNumTypeText.width / 2,
           heightApp/2 - textPainterNumTypeText.height / 2);
 
       textPainterNumType = TextPainter(
@@ -1101,10 +1076,10 @@ double testInc = 5;
 
       );
 
-      positionNumType = Offset(size.width *(10.9/20) - textPainterNumType.width / 2,
+      positionNumType = Offset(size.width *(12/20) - textPainterNumType.width / 2,
           heightApp/2 - textPainterNumType.height / 2);
 
-      positionLivesText = Offset(size.width *(4.9/20) - textPainterLivesText.width / 2,
+      positionLivesText = Offset(size.width *(2.5/20) - textPainterLivesText.width / 2,
           heightApp/2 - textPainterLivesText.height / 2);
 
       textPainterLives = TextPainter(text: TextSpan(
@@ -1116,7 +1091,7 @@ double testInc = 5;
         minWidth: 0,
         maxWidth: size.width,
       );
-      positionLives = Offset(size.width *(5.9/20)- textPainterLives.width / 2,
+      positionLives = Offset(size.width *(4/20)- textPainterLives.width / 2,
           heightApp/2 - textPainterLives.height / 2);
 
       textPainterScoreText = TextPainter(text: TextSpan(
@@ -1128,7 +1103,7 @@ double testInc = 5;
         minWidth: 0,
         maxWidth: size.width,
       );
-      positionScoreText = Offset(size.width *(12.9/20) - textPainterScoreText.width / 2,
+      positionScoreText = Offset(size.width *(15/20) - textPainterScoreText.width / 2,
           heightApp/2 - textPainterScoreText.height / 2);
 
 
@@ -1142,7 +1117,7 @@ double testInc = 5;
         minWidth: 0,
         maxWidth: size.width,
       );
-      positionScore = Offset(size.width *(14.3/20) - textPainterScore.width / 2,
+      positionScore = Offset(size.width *(17.5/20) - textPainterScore.width / 2,
           heightApp/2 - textPainterScore.height / 2);
 
 
@@ -1266,9 +1241,7 @@ double testInc = 5;
       score = 0;
       lives = 3;
 
-      positionLivesText =
-          Offset(size.width * (4.9 / 20) - textPainterLivesText.width / 2,
-              heightApp / 2 - textPainterLivesText.height / 2);
+
 
       textPainterLives = TextPainter(text: TextSpan(
           text: "0",
@@ -1286,7 +1259,7 @@ double testInc = 5;
             text: "GAME OVER:",
 
             style: TextStyle(
-                color: Color.fromRGBO(0,0,0, 1), fontSize: 18, fontFamily: "bold")),
+                color: Color.fromRGBO(0,0,0, 1), fontSize: 12, fontFamily: "bold")),
         textDirection: TextDirection.ltr,textAlign: TextAlign.center,
       );
 
@@ -1296,8 +1269,7 @@ double testInc = 5;
 
       );
 
-      positionNumTypeText = Offset(size.width *(9.1/20) - textPainterNumTypeText.width / 2,
-          heightApp/2 - textPainterNumTypeText.height / 2);
+
 
       textPainterNumType = TextPainter(
 
@@ -1315,17 +1287,16 @@ double testInc = 5;
 
       );
 
-      positionNumType = Offset(size.width *(10.9/20) - textPainterNumType.width / 2,
-          heightApp/2 - textPainterNumType.height / 2);
+
     }
 
     if (!stopAttempts & masterGameStart){
 
 
-    for (int c = 5; c >= 0; c--) {
+    for (int c = 9; c >= 0; c--) {
       for (int d = 0; d < 5; d++) {
         if (ctable[c][d] == ctable[c][d+1] && ctable[c][d] == ctable[c][d+2] && ctable[c][d] != 0 && dtable[c][d] == false && dtable[c][d+1] == false && dtable[c][d+2] == false && table[c][d] == true && table[c][d+1] == true && table[c][d+2] == true){
-
+          HapticFeedback.lightImpact();
           dtable[c][d] = true;
           dtable[c][d+1] = true;
           dtable[c][d+2] = true;
@@ -1334,16 +1305,16 @@ double testInc = 5;
           ctable[c][d+1] = 0;
           ctable[c][d+2] = 0;
 
-      //    game.add(Collected(" +3 ",  (d+1).toDouble(), (c).toDouble()));
+      print("Identify");
         }
       }
     }
 
 
       for (int d = 0; d < 7; d++) {
-        for (int c = 0; c < 4; c++) {
+        for (int c = 0; c < 8; c++) {
         if (ctable[c][d] == ctable[c+1][d] && ctable[c][d] == ctable[c+2][d] && ctable[c][d] != 0 && dtable[c][d] == false && dtable[c+1][d] == false && dtable[c+2][d] == false && table[c][d] == true && table[c+1][d] == true && table[c+2][d] == true){
-
+          HapticFeedback.lightImpact();
 
           dtable[c][d] = true;
           dtable[c+1][d] = true;
@@ -1526,7 +1497,7 @@ double testInc = 5;
           newDeck = false;
           spinNew = false;
           timerPrime = 0;
-          testInc = 5;
+          testInc = 9;
         }
       }
 
@@ -1663,15 +1634,15 @@ class Bg extends Component with Resizable {
       c.drawRect(Rect.fromLTWH(
           0, 0, tempWidth, tempHeight),
            _master);
+
       c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(
-          tempWidth / 5, heightApp / 8, tempWidth * (3 / 5), heightApp * 6 / 8),
+          0, heightApp/8, tempWidth , heightApp*(6/8)),
           Radius.circular(8.0)), _paint2);
+
       c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(
-          tempWidth / 5, heightApp / 8, tempWidth * (3 / 5), heightApp * 6 / 8),
-          Radius.circular(8.0)), _paint2);
-      c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(
-          tempWidth * 0.360, heightApp / 8, tempWidth * 0.235,
-          heightApp * 6 / 8), Radius.circular(0.0)), _paint3);
+          tempWidth * 1/3, heightApp/8, tempWidth * 1/3,
+          heightApp*(6/8)), Radius.circular(0.0)), _paint3);
+
       c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(
           tempWidth * 0.388, heightApp / 1.45, tempWidth * 0.14,
           heightApp * 1 / 8), Radius.circular(3)), _paint4);

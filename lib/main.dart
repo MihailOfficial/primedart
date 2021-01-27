@@ -40,8 +40,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 void main() async {
-  SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeRight]);
-  Flame.util.setLandscape();
+
   Flame.util.fullScreen();
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -71,7 +70,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeRight]);
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return LayoutBuilder(                           //return LayoutBuilder
         builder: (context, constraints) {
       return OrientationBuilder(                  //return OrientationBuilder
