@@ -40,9 +40,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 void main() async {
-
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  Flame.util.setPortrait();
   Flame.util.fullScreen();
   WidgetsFlutterBinding.ensureInitialized();
+
 
   //SharedPreferences storage = await SharedPreferences.getInstance();
   count[0] = 0;
