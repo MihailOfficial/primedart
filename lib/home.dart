@@ -101,7 +101,7 @@ class Home extends StatelessWidget {
        // drawer: AppDrawer(),
    // body:
     Container(
-    color: Colors.black,
+    color:  Colors.red,
     child:
       SafeArea(
       child: game.widget,
@@ -189,7 +189,7 @@ class Multiple extends TextComponent with Tapable{
   bool fall = true;
   bool shrink = false;
   bool shrinkCollect = false;
-  double sizeF = 21.0.sp;
+  double sizeF = 25.0.sp;
   int genColourComp;
   Paint _paint12;
   int counter = 0;
@@ -197,7 +197,7 @@ class Multiple extends TextComponent with Tapable{
     pauseRect1 = Rect.fromLTWH(0,0,0,0);
     this.config = textConfig;
     this.anchor = Anchor.center;
-    this.x = (tempWidth/8)*Column;
+    this.x = (tempWidth/7)*Column;
     this.y = 0;
     column = Column;
     row = Row;
@@ -248,8 +248,9 @@ bool bottomFall = false;
     if (dtable[(row).toInt()][(column-1).toInt()] == true && !fall && !newDeck) {
       HapticFeedback.lightImpact();
       dtable[row.toInt()][(column-1).toInt()] = false;
-      this.config = TextConfig(color: Colors.black);
-      text = '+1';
+
+      this.config = TextConfig(color: Colors.blueGrey, fontSize: 25.0.sp, fontFamily: "fontNum");
+      text = '+2';
       _paint12 = Paint()
         ..color = Color.fromRGBO(255,215,0, 1);
 
@@ -346,7 +347,7 @@ bool bottomFall = false;
       this.x = -20000;
     }
     double dist = 50;
-    pauseRect1 = Rect.fromLTWH((tempWidth/8)*column-(tempWidth/18),(this.y-5)-(this.height/2),(tempWidth/18)*2,this.height+10);
+    pauseRect1 = Rect.fromLTWH((tempWidth/7)*column-(tempWidth/15),(this.y-5)-(this.height/2),(tempWidth/15)*2,this.height+10);
 
 
     //if (this.x <-30 || this.y<0){
@@ -408,7 +409,7 @@ class NotMultiple extends TextComponent  with Tapable{
   bool fall = true;
   Paint _paint12;
   bool collectPrime = false;
-  double sizeF = 21.0.sp;
+  double sizeF = 25.0.sp;
   int genColourComp;
   int counter = 0;
   bool shrinkCollect = false;
@@ -416,7 +417,7 @@ class NotMultiple extends TextComponent  with Tapable{
     pauseRect1 = Rect.fromLTWH(0,0,0,0);
     this.config = textConfig;
     this.anchor = Anchor.center;
-    this.x = (tempWidth/8)*Column;
+    this.x = (tempWidth/7)*Column;
     this.y = 0;
     column = Column;
     row = Row;
@@ -466,8 +467,8 @@ class NotMultiple extends TextComponent  with Tapable{
 
     if (dtable[(row).toInt()][(column-1).toInt()] == true && !fall && !newDeck) {
 
-      this.config = TextConfig(color: Colors.black);
-      text = '+1';
+      this.config = TextConfig(color: Colors.blueGrey, fontSize: 25.0.sp, fontFamily: "fontNum");
+      text = '+2';
       dtable[row.toInt()][(column-1).toInt()] = false;
        _paint12 = Paint()
          ..color = Color.fromRGBO(255,215,0, 1);
@@ -551,7 +552,7 @@ class NotMultiple extends TextComponent  with Tapable{
         _paint12 = Paint()
           ..color = Color.fromRGBO(80, 80, 80, 0.9);
         inc++;
-        this.config = TextConfig(color: Colors.grey, fontSize: 21.0.sp, fontFamily: "fontNum");
+        this.config = TextConfig(color: Colors.grey, fontSize: 25.0.sp, fontFamily: "fontNum");
         ctable[row.toInt()][(column-1).toInt()] = 0;
 
         text = 'X';
@@ -569,7 +570,7 @@ class NotMultiple extends TextComponent  with Tapable{
       this.x = -20000;
     }
     double dist = 50;
-    pauseRect1 = Rect.fromLTWH((tempWidth/8)*column-(tempWidth/18),(this.y-5)-(this.height/2),(tempWidth/18)*2,this.height+10);
+    pauseRect1 = Rect.fromLTWH((tempWidth/7)*column-(tempWidth/15),(this.y-5)-(this.height/2),(tempWidth/15)*2,this.height+10);
 
     if (collectPrime){
       score ++;
@@ -757,7 +758,7 @@ class MyGame extends BaseGame  with HasTapableComponents{
   Offset positionNumType;
   Offset positionNumTypeText;
   @override
-  Color backgroundColor() => const Color.fromRGBO(255, 204, 0, 1);
+  Color backgroundColor() => const Color.fromRGBO(	25, 51, 81, 1);
   var count1 = new List(4);
 
   var count2 = new List(6);
@@ -770,23 +771,23 @@ class MyGame extends BaseGame  with HasTapableComponents{
 
 
     for (int a = 0; a < 9; a++) {
-      for (int b = 0; b < 7; b++) {
+      for (int b = 0; b < 6; b++) {
         table[a][b] = false;
         ctable[a][b] = 0;
         dtable[a][b] = false;
       }
     }
 
-    positionArray[0] = 3 * (tempHeight / 15);
-    positionArray[1] = 4 * (tempHeight / 15);
-    positionArray[2] = 5 * (tempHeight / 15);
-    positionArray[3] = 6 * (tempHeight / 15);
-    positionArray[4] = 7 * (tempHeight / 15);
-    positionArray[5] = 8 * (tempHeight / 15);
-    positionArray[6] = 9 * (tempHeight / 15);
-    positionArray[7] = 10 * (tempHeight / 15);
-    positionArray[8] = 11 * (tempHeight / 15);
-    positionArray[9] = 12 * (tempHeight / 15);
+    positionArray[0] = 3 * (tempHeight / 14);
+    positionArray[1] = 4 * (tempHeight / 14);
+    positionArray[2] = 5 * (tempHeight / 14);
+    positionArray[3] = 6 * (tempHeight / 14);
+    positionArray[4] = 7 * (tempHeight / 14);
+    positionArray[5] = 8 * (tempHeight / 14);
+    positionArray[6] = 9 * (tempHeight / 14);
+    positionArray[7] = 10 * (tempHeight / 14);
+    positionArray[8] = 11 * (tempHeight / 14);
+    positionArray[9] = 12 * (tempHeight / 14);
 
 
 
@@ -1236,7 +1237,7 @@ double testInc = 9;
 
 
     for (int c = 9; c >= 0; c--) {
-      for (int d = 0; d < 5; d++) {
+      for (int d = 0; d < 4; d++) {
         if (ctable[c][d] == ctable[c][d+1] && ctable[c][d] == ctable[c][d+2] && ctable[c][d] != 0 && dtable[c][d] == false && dtable[c][d+1] == false && dtable[c][d+2] == false && table[c][d] == true && table[c][d+1] == true && table[c][d+2] == true){
           HapticFeedback.lightImpact();
           dtable[c][d] = true;
@@ -1253,7 +1254,7 @@ double testInc = 9;
     }
 
 
-      for (int d = 0; d < 7; d++) {
+      for (int d = 0; d < 6; d++) {
         for (int c = 0; c < 8; c++) {
         if (ctable[c][d] == ctable[c+1][d] && ctable[c][d] == ctable[c+2][d] && ctable[c][d] != 0 && dtable[c][d] == false && dtable[c+1][d] == false && dtable[c+2][d] == false && table[c][d] == true && table[c+1][d] == true && table[c+2][d] == true){
           HapticFeedback.lightImpact();
@@ -1349,8 +1350,8 @@ double testInc = 9;
    // int genColourPrime = rng.nextInt(5);
 
   //  TextConfig primeC = TextConfig(color: colours[genColourPrime], fontSize: 40, fontFamily: "fontNum");
-    TextConfig mult = TextConfig(color: Colors.white, fontSize: 21.0.sp, fontFamily: "fontNum");
-    TextConfig nmult = TextConfig(color: Colors.white, fontSize: 21.0.sp, fontFamily: "fontNum");
+    TextConfig mult = TextConfig(color: Colors.white, fontSize: 25.0.sp, fontFamily: "fontNum");
+    TextConfig nmult = TextConfig(color: Colors.white, fontSize: 25.0.sp, fontFamily: "fontNum");
     double Pos = 0;
 
     if (lives > 0) {
@@ -1421,15 +1422,7 @@ double testInc = 9;
             table[testInc.toInt()][5] = true;
           }
 
-          int genTemp7 = rng.nextInt(2);
-          if (genTemp7 == 0) {
-            add(multiple = Multiple((generateMultiple()), mult, 7, testInc, 0));
-            table[testInc.toInt()][6] = true;
-          }
-          else {
-            add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 7, testInc, 0));
-            table[testInc.toInt()][6] = true;
-          }
+
           timerPrime = 0;
 
           testInc --;
@@ -1529,19 +1522,7 @@ double testInc = 9;
 
 
       }
-      else if (table[0][6] == false) {
-        table[0][6] = true;
 
-        int genTemp6 = rng.nextInt(2);
-        if (genTemp6 == 0) {
-          add(multiple = Multiple((generateMultiple()), mult, 7, 0, 0));
-        }
-        else {
-          add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 7, 0, 0));
-        }
-
-
-      }
     }
 
 
@@ -1573,9 +1554,7 @@ class Bg extends Component with Resizable {
   void render(Canvas c) {
 
     if (masterGameStart) {
-      c.drawRect(Rect.fromLTWH(
-          0, 0, tempWidth, tempHeight),
-           _master);
+
 
       c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(
           0, heightApp/8, tempWidth , heightApp*(6/8)),
