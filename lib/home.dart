@@ -44,7 +44,7 @@ import 'package:sizer/sizer.dart';
 import 'app_drawer.dart';
 
 Color COLOR = const Color.fromRGBO(0,0,0, 0.5);
-Color COLOR2 = const Color.fromRGBO(26, 22, 92, 1);
+Color COLOR2 = const Color.fromRGBO(215, 44, 32, 1);
 const COLOR3 = const Color.fromRGBO(255, 204, 0, 1);
 const COLOR4 = const Color.fromRGBO(0,0,0, 0.3);
 
@@ -54,7 +54,7 @@ var colours = [
   Color.fromRGBO(0, 51, 204, 1),
   Color.fromRGBO(0, 153, 51, 1),
   Color.fromRGBO(148,0,211, 1),
-  Color.fromRGBO(205, 113, 21, 1)
+  Color.fromRGBO(215, 123, 31, 1)
  ];
 
 const SIZE = 52.0;
@@ -100,59 +100,23 @@ class Home extends StatelessWidget {
       //Scaffold(
        // drawer: AppDrawer(),
    // body:
-    Container(
-    color:  Colors.red,
-    child:
-      SafeArea(
-      child: game.widget,
+      Stack(
+          children: <Widget>[
+            Container(
+              constraints: BoxConstraints.expand(),
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/603788db98e51342825c0d36649dbe12.jpg"),
+                      fit: BoxFit.cover)
+              ),
+              child: game.widget,
+            ),
 
-
-      ),
-
-
-
-
-   );//);
+          ]);;//);
     }
   }
 
-class Test extends StatelessWidget {
-  static const String routeName = "/home";
 
-  @override
-  Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
-    final double statusBarHeight = MediaQuery.of(context).padding.top;
-    return
-      Scaffold(
-          drawer: AppDrawer(),
-          body:
-          Stack(
-              children: <Widget>[
-                Container(
-                  constraints: BoxConstraints.expand(),
-                  decoration: new BoxDecoration(
-                    gradient: new LinearGradient(
-                        colors: [
-                          Colors.black87,
-                          Colors.black87,
-                        ],
-                        begin: const FractionalOffset(0.0, 0.0),
-                        end: const FractionalOffset(1.0, 0.0),
-                        stops: [0.0, 1.0],
-                        tileMode: TileMode.clamp),
-                  ),
-                  child: LoginPage(),
-
-
-                ),
-
-
-
-
-              ]));
-  }
-}
 double tempX = 0;
 double heightPos = 0;
 int lives = 3;
@@ -748,7 +712,7 @@ class MyGame extends BaseGame  with HasTapableComponents{
   TextPainter textPainterScoreText;
   TextPainter textPainterLivesText;
   TextPainter textPainterNoMoreLives;
-  TextPainter textPainterNumTypeText;
+
   TextPainter textPainterNumType;
   Offset positionScore;
   Offset positionLives;
@@ -756,9 +720,9 @@ class MyGame extends BaseGame  with HasTapableComponents{
   Offset positionLivesText;
   Offset positionNoMoreLives;
   Offset positionNumType;
-  Offset positionNumTypeText;
+
   @override
-  Color backgroundColor() => const Color.fromRGBO(	25, 51, 81, 1);
+  Color backgroundColor() => const Color.fromRGBO(	0, 0,0, 0.5);
   var count1 = new List(4);
 
   var count2 = new List(6);
@@ -792,7 +756,7 @@ class MyGame extends BaseGame  with HasTapableComponents{
 
 
     add(Bg());
-    statusBox = tempWidth*0.14;
+    statusBox = 360;
     updateStatus = tempWidth*0.14/2000;
 
     for (int i = 0; i < 3; i++) {
@@ -822,24 +786,9 @@ class MyGame extends BaseGame  with HasTapableComponents{
       maxWidth: size.width,
     );
     var te1;
-    textPainterNumTypeText = TextPainter(
 
-      text: TextSpan(
-          text: "MULTIPLES:",
 
-          style: TextStyle(
-              color: Color.fromRGBO(0,0,0, 1), fontSize: 12, fontFamily: "bold")),
-      textDirection: TextDirection.ltr,textAlign: TextAlign.center,
-    );
 
-    textPainterNumTypeText.layout(
-      minWidth: 0,
-      maxWidth: tempWidth,
-
-    );
-
-    positionNumTypeText = Offset(size.width *(9.1/20) - textPainterNumTypeText.width / 2,
-        heightApp/2 - textPainterNumTypeText.height / 2);
 
     textPainterNumType = TextPainter(
 
@@ -848,7 +797,7 @@ class MyGame extends BaseGame  with HasTapableComponents{
 
           style: TextStyle(
               color: Color(0xFFFF0000), fontSize: 36, fontFamily: "bold")),
-      textDirection: TextDirection.ltr,textAlign: TextAlign.center,
+      textDirection: TextDirection.ltr,textAlign: TextAlign.center
     );
 
     textPainterNumType.layout(
@@ -857,11 +806,9 @@ class MyGame extends BaseGame  with HasTapableComponents{
 
     );
 
-    positionNumType = Offset(size.width *(10.9/20) - textPainterNumType.width / 2,
-        heightApp/2 - textPainterNumType.height / 2);
 
-    positionLivesText = Offset(size.width *(4.9/20) - textPainterLivesText.width / 2,
-        heightApp/2 - textPainterLivesText.height / 2);
+
+
 
     textPainterLives = TextPainter(text: TextSpan(
         text: lives.toString(),
@@ -872,8 +819,7 @@ class MyGame extends BaseGame  with HasTapableComponents{
       minWidth: 0,
       maxWidth: size.width,
     );
-    positionLives = Offset(size.width *(5.9/20)- textPainterLives.width / 2,
-        heightApp/2 - textPainterLives.height / 2);
+
 
     textPainterScoreText = TextPainter(text: TextSpan(
         text: "S: " ,
@@ -884,8 +830,7 @@ class MyGame extends BaseGame  with HasTapableComponents{
       minWidth: 0,
       maxWidth: size.width,
     );
-    positionScoreText = Offset(size.width *(12.9/20) - textPainterScoreText.width / 2,
-        heightApp/2 - textPainterScoreText.height / 2);
+
 
 
 
@@ -898,23 +843,21 @@ class MyGame extends BaseGame  with HasTapableComponents{
       minWidth: 0,
       maxWidth: size.width,
     );
-    positionScore = Offset(size.width *(14.3/20) - textPainterScore.width / 2,
-        heightApp/2 - textPainterScore.height / 2);
-    statusBox = tempWidth*0.14;
-    updateStatus = tempWidth*0.14/4000;
-    positionNumTypeText = Offset(size.width *(9.4/20) - textPainterNumTypeText.width / 2,
-        heightApp/2 - textPainterNumTypeText.height / 2);
-    positionNumType = Offset(size.width *(11/20) - textPainterNumType.width / 2,
-        heightApp/2 - textPainterNumType.height / 2);
 
-    positionLivesText = Offset(size.width *(2.5/20) - textPainterLivesText.width / 2,
-        heightApp/2 - textPainterLivesText.height / 2);
-    positionLives = Offset(size.width *(4/20)- textPainterLives.width / 2,
-        heightApp/2 - textPainterLives.height / 2);
-    positionScoreText = Offset(size.width *(15/20) - textPainterScoreText.width / 2,
-        heightApp/2 - textPainterScoreText.height / 2);
-    positionScore = Offset(size.width *(17.5/20) - textPainterScore.width / 2,
-        heightApp/2 - textPainterScore.height / 2);
+
+    updateStatus = 360/2000;
+
+    positionNumType = Offset((size.width - textPainterNumType.width) * 0.5,
+        heightApp/2 - textPainterNumType.height / 2+ heightApp/8);
+
+    positionLivesText = Offset(size.width *(5/20) - textPainterLivesText.width / 2,
+        heightApp/2 - textPainterLivesText.height / 2 + heightApp/8);
+    positionLives = Offset(size.width *(6.4/20)- textPainterLives.width / 2,
+        heightApp/2 - textPainterLives.height / 2+ heightApp/8);
+    positionScoreText = Offset(size.width *(13/20) - textPainterScoreText.width / 2,
+        heightApp/2 - textPainterScoreText.height / 2+ heightApp/8);
+    positionScore = Offset(size.width *(15.3/20) - textPainterScore.width / 2,
+        heightApp/2 - textPainterScore.height / 2+ heightApp/8);
   }
 
 
@@ -943,7 +886,7 @@ class MyGame extends BaseGame  with HasTapableComponents{
       textPainterLives.paint(c, positionLives);
       textPainterLivesText.paint(c, positionLivesText);
       textPainterNoMoreLives.paint(c, positionNoMoreLives);
-      textPainterNumTypeText.paint(c, positionNumTypeText);
+
       textPainterNumType.paint(c, positionNumType);
     }
   }
@@ -992,21 +935,7 @@ double testInc = 9;
         maxWidth: size.width,
       );
       var te1;
-      textPainterNumTypeText = TextPainter(
 
-        text: TextSpan(
-            text: "MULTIPLE:",
-
-            style: TextStyle(
-                color: Color.fromRGBO(0,0,0, 1), fontSize: 12, fontFamily: "bold")),
-        textDirection: TextDirection.ltr,textAlign: TextAlign.center,
-      );
-
-      textPainterNumTypeText.layout(
-        minWidth: 0,
-        maxWidth: tempWidth,
-
-      );
 
 
 
@@ -1066,110 +995,7 @@ double testInc = 9;
 
     }
 
-      if (hideMenu){
 
-        textPainterNoMoreLives = TextPainter(text: TextSpan(
-            text: "" ,
-            style: TextStyle(
-                color: Color(0xFFFF0000), fontSize: 32)),
-            textDirection: TextDirection.ltr);
-        textPainterNoMoreLives.layout(
-          minWidth: 0,
-          maxWidth: size.width,
-        );
-        positionNoMoreLives =
-            Offset(size.width / 2 - textPainterNoMoreLives.width / 2,
-                size.height / 2 - textPainterNoMoreLives.height / 2);
-
-        textPainterLivesText = TextPainter(text: TextSpan(
-            text: "",
-            style: TextStyle(
-                color: Color.fromRGBO(252,238,10, 1), fontSize: 22, fontFamily: "bold")),
-            textDirection: TextDirection.ltr);
-        textPainterLivesText.layout(
-          minWidth: 0,
-          maxWidth: size.width,
-        );
-        var te1;
-        textPainterNumTypeText = TextPainter(
-
-          text: TextSpan(
-              text: "",
-
-              style: TextStyle(
-                  color: Color.fromRGBO(0,0,0, 1), fontSize: 18, fontFamily: "bold")),
-          textDirection: TextDirection.ltr,textAlign: TextAlign.center,
-        );
-
-        textPainterNumTypeText.layout(
-          minWidth: 0,
-          maxWidth: tempWidth,
-
-        );
-
-        positionNumTypeText = Offset(size.width *(9.1/20) - textPainterNumTypeText.width / 2,
-            heightApp/2 - textPainterNumTypeText.height / 2);
-
-        textPainterNumType = TextPainter(
-
-          text: TextSpan(
-              text: "",
-
-              style: TextStyle(
-                  color: Color.fromRGBO(26, 22, 92, 1), fontSize: 36, fontFamily: "bold")),
-          textDirection: TextDirection.ltr,textAlign: TextAlign.center,
-        );
-
-        textPainterNumType.layout(
-          minWidth: 0,
-          maxWidth: tempWidth,
-
-        );
-
-        positionNumType = Offset(size.width *(10.9/20) - textPainterNumType.width / 2,
-            heightApp/2 - textPainterNumType.height / 2);
-
-        positionLivesText = Offset(size.width *(4.9/20) - textPainterLivesText.width / 2,
-            heightApp/2 - textPainterLivesText.height / 2);
-
-        textPainterLives = TextPainter(text: TextSpan(
-            text: lives.toString(),
-            style: TextStyle(
-                color: Colors.white, fontSize: 24, fontFamily: "bold")),
-            textDirection: TextDirection.ltr);
-        textPainterLives.layout(
-          minWidth: 0,
-          maxWidth: size.width,
-        );
-        positionLives = Offset(size.width *(5.9/20)- textPainterLives.width / 2,
-            heightApp/2 - textPainterLives.height / 2);
-
-        textPainterScoreText = TextPainter(text: TextSpan(
-            text: "" ,
-            style: TextStyle(
-                color: Color.fromRGBO(252,238,10,1), fontSize: 22, fontFamily: "bold")),
-            textDirection: TextDirection.ltr);
-        textPainterScoreText.layout(
-          minWidth: 0,
-          maxWidth: size.width,
-        );
-        positionScoreText = Offset(size.width *(12.9/20) - textPainterScoreText.width / 2,
-            heightApp/2 - textPainterScoreText.height / 2);
-
-
-
-        textPainterScore = TextPainter(text: TextSpan(
-            text: "",
-            style: TextStyle(
-                color: Colors.white, fontSize: 24, fontFamily: "bold")),
-            textDirection: TextDirection.ltr);
-        textPainterScore.layout(
-          minWidth: 0,
-          maxWidth: size.width,
-        );
-
-
-      }
 
 
     if (stopAttempts) {
@@ -1196,21 +1022,8 @@ double testInc = 9;
         maxWidth: size.width,
       );
 
-      textPainterNumTypeText = TextPainter(
 
-        text: TextSpan(
-            text: "GAME OVER:",
 
-            style: TextStyle(
-                color: Color.fromRGBO(0,0,0, 1), fontSize: 12, fontFamily: "bold")),
-        textDirection: TextDirection.ltr,textAlign: TextAlign.center,
-      );
-
-      textPainterNumTypeText.layout(
-        minWidth: 0,
-        maxWidth: tempWidth,
-
-      );
 
 
 
@@ -1300,7 +1113,7 @@ double testInc = 9;
 
 
 
-      statusBox = tempWidth*0.14;
+      statusBox = 360;
     }
 
     textPainterNumType = TextPainter(text: TextSpan(
@@ -1312,6 +1125,8 @@ double testInc = 9;
       minWidth: 0,
       maxWidth: tempWidth,
     );
+    positionNumType = Offset(((size.width - textPainterNumType.width) * 0.5)-4,
+        heightApp/2 - textPainterNumType.height / 2+ heightApp/8);
 
     if (updateLives) {
       textPainterLives = TextPainter(text: TextSpan(
@@ -1548,28 +1363,46 @@ class Bg extends Component with Resizable {
     Paint _master = Paint()
       ..color = Color.fromRGBO(50, 50, 50, 1);
 
+  Paint _dark = Paint()
+    ..color = Color.fromRGBO(20, 20, 20, 0);
+
 
 
   @override
   void render(Canvas c) {
 
     if (masterGameStart) {
-
-
       c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(
-          0, heightApp/8, tempWidth , heightApp*(6/8)),
+          (tempWidth-tempWidth/1.2)/2, heightApp / 4, tempWidth/1.2, heightApp * (6 / 8)),
           Radius.circular(8.0)), _paint2);
 
       c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(
-          tempWidth * 1/3, heightApp/8, tempWidth * 1/3,
-          heightApp*(6/8)), Radius.circular(0.0)), _paint3);
+         0, tempHeight/8, tempWidth, 6.6*tempHeight/8),
+          Radius.circular(8.0)), _dark);
 
-      c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(
-          tempWidth * 0.388, heightApp / 1.45, tempWidth * 0.14,
-          heightApp * 1 / 8), Radius.circular(3)), _paint4);
-      //c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth*0.388,heightApp/1.45,tempWidth*0.14,heightApp*1/8),Radius.circular(3)),_paint4);
-      c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(tempWidth*0.388,heightApp/1.45,statusBox,heightApp*1/8),Radius.circular(3)),_paint);
+
+      c.drawCircle(Offset(tempWidth / 2, heightApp/2+(heightApp/8)), 30, _paint3);
     }
+    Paint paint = Paint()
+      ..color = Colors.red
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 6.0;
+
+    Paint paint11 = Paint()
+      ..color = Color.fromRGBO(0, 0, 0, 0.2)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 6.0;
+
+    num degToRad(num deg) => deg * (3.1415 / 180.0);
+    Path path2 = Path();
+    // Adds a quarter arc
+    path2.addArc(Rect.fromLTWH((tempWidth/2)-(heightApp*5/6)/2, heightApp/5, heightApp*5/6,heightApp*5/6), degToRad(0), degToRad(360));
+    c.drawPath(path2, paint11);
+    Path path = Path();
+    // Adds a quarter arc
+    path.addArc(Rect.fromLTWH((tempWidth/2)-(heightApp*5/6)/2, heightApp/5, heightApp*5/6,heightApp*5/6), degToRad(0), degToRad(statusBox));
+    c.drawPath(path, paint);
+
 
 
   }
