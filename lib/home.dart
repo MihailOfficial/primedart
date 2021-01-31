@@ -742,16 +742,16 @@ class MyGame extends BaseGame  with HasTapableComponents{
       }
     }
 
-    positionArray[0] = 130.0;
-    positionArray[1] = 185.0;
-    positionArray[2] = 240.0;
-    positionArray[3] = 295.0;
-    positionArray[4] = 350.0;
-    positionArray[5] = 405.0;
-    positionArray[6] = 460.0;
-    positionArray[7] = 515.0;
-    positionArray[8] = 570.0;
-    positionArray[9] = 625.0;
+    positionArray[0] = 160.0;
+    positionArray[1] = 215.0;
+    positionArray[2] = 270.0;
+    positionArray[3] = 325.0;
+    positionArray[4] = 380.0;
+    positionArray[5] = 435.0;
+    positionArray[6] = 490.0;
+    positionArray[7] = 545.0;
+    positionArray[8] = 600.0;
+    positionArray[9] = 655.0;
 
 
 
@@ -851,13 +851,13 @@ class MyGame extends BaseGame  with HasTapableComponents{
         heightApp/2 - textPainterNumType.height / 2+ heightApp/2.7);
 
     positionLivesText = Offset(size.width *(5/20) - textPainterLivesText.width / 2,
-        heightApp/2 - textPainterLivesText.height / 2 + heightApp/2.7);
+        heightApp/2 - textPainterLivesText.height / 2 + heightApp/1.15);
     positionLives = Offset(size.width *(6.4/20)- textPainterLives.width / 2,
-        heightApp/2 - textPainterLives.height / 2+ heightApp/2.7);
+        heightApp/2 - textPainterLives.height / 2+ heightApp/1.15);
     positionScoreText = Offset(size.width *(13/20) - textPainterScoreText.width / 2,
-        heightApp/2 - textPainterScoreText.height / 2+ heightApp/2.7);
+        heightApp/2 - textPainterScoreText.height / 2+ heightApp/1.15);
     positionScore = Offset(size.width *(15.3/20) - textPainterScore.width / 2,
-        heightApp/2 - textPainterScore.height / 2+ heightApp/2.7);
+        heightApp/2 - textPainterScore.height / 2+ heightApp/1.15);
   }
 
 
@@ -1126,7 +1126,7 @@ double testInc = 9;
       maxWidth: tempWidth,
     );
     positionNumType = Offset(((size.width - textPainterNumType.width) * 0.5)-4,
-        heightApp/2 - textPainterNumType.height / 2+ heightApp/3);
+        heightApp/2 - textPainterNumType.height / 2+ heightApp/1.15);
 
     if (updateLives) {
       textPainterLives = TextPainter(text: TextSpan(
@@ -1373,7 +1373,7 @@ class Bg extends Component with Resizable {
 
     if (masterGameStart) {
       c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(
-          (tempWidth-tempWidth/1.2)/2, heightApp / 2, tempWidth/1.2, heightApp * (6 / 8)),
+          (tempWidth-tempWidth/1.2)/2, heightApp, tempWidth/1.2, heightApp * (6 / 8)),
           Radius.circular(8.0)), _paint2);
 
       c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(
@@ -1381,7 +1381,7 @@ class Bg extends Component with Resizable {
           Radius.circular(8.0)), _dark);
 
 
-      c.drawCircle(Offset(tempWidth / 2, heightApp/2+(heightApp/2.8)), 30, _paint3);
+      c.drawCircle(Offset(tempWidth / 2, heightApp/2+(heightApp/1.15)), 30, _paint3);
     }
     Paint paint = Paint()
       ..color = Colors.red
@@ -1396,11 +1396,11 @@ class Bg extends Component with Resizable {
     num degToRad(num deg) => deg * (3.1415 / 180.0);
     Path path2 = Path();
     // Adds a quarter arc
-    path2.addArc(Rect.fromLTWH((tempWidth/2)-(heightApp*5/6)/2, heightApp/2.3, heightApp*5/6,heightApp*5/6), degToRad(0), degToRad(360));
+    path2.addArc(Rect.fromLTWH((tempWidth/2)-(heightApp*5/6)/2, heightApp/1.05, heightApp*5/6,heightApp*5/6), degToRad(0), degToRad(360));
     c.drawPath(path2, paint11);
     Path path = Path();
     // Adds a quarter arc
-    path.addArc(Rect.fromLTWH((tempWidth/2)-(heightApp*5/6)/2, heightApp/2.3, heightApp*5/6,heightApp*5/6), degToRad(0), degToRad(statusBox));
+    path.addArc(Rect.fromLTWH((tempWidth/2)-(heightApp*5/6)/2, heightApp/1.05, heightApp*5/6,heightApp*5/6), degToRad(0), degToRad(statusBox));
     c.drawPath(path, paint);
 
 
