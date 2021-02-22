@@ -1,53 +1,23 @@
-import 'package:bird/screens/login/login.dart';
-import 'package:bird/startButton.dart';
-import 'package:bird/lost-view.dart';
 import 'package:flame/components/mixins/tapable.dart';
-import 'package:flame/gestures.dart';
 import 'package:flutter/material.dart';
-import 'homeView.dart';
-import 'lost.dart';
-import 'routes.dart';
-import 'package:vibration/vibration.dart';
-import 'home.dart';
-import 'dart:io';
 import 'dart:ui';
 import 'package:flame/anchor.dart';
-import 'package:flame/animation.dart';
-import 'package:flame/components/animation_component.dart';
 import 'package:flame/components/component.dart';
 import 'package:flame/components/mixins/resizable.dart';
-import 'package:flame/components/parallax_component.dart';
-import 'package:flame/components/text_box_component.dart';
 import 'package:flame/components/text_component.dart';
-import 'package:flame/effects/effects.dart';
 import 'package:flame/game/base_game.dart';
-import 'package:flame/palette.dart';
 import 'package:flame/position.dart';
-import 'package:flame/sprite.dart';
 import 'package:flame/text_config.dart';
-import 'package:flame/util.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flame/flame.dart';
 import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
-
-import 'app_drawer.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/services.dart';
 import 'dart:math';
-import "package:normal/normal.dart";
-import "package:flame/time.dart";
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-import 'app_drawer.dart';
 
 Color COLOR = const Color.fromRGBO(0,0,0, 0.5);
 Color COLOR2 = const Color.fromRGBO(215, 44, 32, 1);
 const COLOR3 = const Color.fromRGBO(255, 204, 0, 1);
 const COLOR4 = const Color.fromRGBO(0,0,0, 0.3);
-
 
 var colours = [
   Color.fromRGBO(210, 0, 0, 1),
