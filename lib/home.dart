@@ -90,9 +90,9 @@ class Home extends StatelessWidget {
 double tempX = 0;
 double heightPos = 0;
 int lives = 3;
-var table = List.generate(10, (i) => List(7), growable: false);
-var ctable = List.generate(10, (i) => List(7), growable: false);
-var dtable = List.generate(10, (i) => List(7), growable: false);
+var table = List.generate(10, (i) => List(7), growable: true);
+var ctable = List.generate(10, (i) => List(7), growable: true);
+var dtable = List.generate(10, (i) => List(7), growable: true);
 double stopInc =0;
 
 
@@ -114,13 +114,15 @@ class Multiple extends TextComponent with Tapable{
   double posX, posY;
   bool collectPrime = false;
   double accel = 1;
+  double accel2 = 0;
   int value1 = 0;
   bool returned = false;
   double column;
   double row;
-
+  bool fast = false;
   bool rand = false;
   bool fall = true;
+  double rectLeft;
   bool shrink = false;
   bool shrinkCollect = false;
   double sizeF = 25.0.sp;
@@ -135,7 +137,7 @@ class Multiple extends TextComponent with Tapable{
     this.y = 0;
     column = Column;
     row = Row;
-
+    rectLeft = (tempWidth/7)*column-(tempWidth/15);
     var rng1 = new Random();
     genColourComp = rng1.nextInt(5);
     _paint12 = Paint()
@@ -144,112 +146,107 @@ class Multiple extends TextComponent with Tapable{
   }
   @override
   bool destroy() {
+    print("destroyed");
     return returned;
   }
 bool bottomFall = false;
   @override
   void update(double tt){
 
-
-    if (fall && !shrink){
-
-      ctable[row.toInt()][(column-1).toInt()] = 0;
-      if ((this.y + 10) >= positionArray[row.toInt()]){
-          fall = false;
-          ctable[row.toInt()][(column-1).toInt()] = genColourComp+1;
-          table[(row).toInt()][(column-1).toInt()] = true;
-          accel = 1;
-          this.y =  positionArray[row.toInt()];
-        }
+  if (!fast) {
+    if (fall && !shrink) {
+      ctable[row.toInt()][(column - 1).toInt()] = 0;
+      if ((this.y + 10) >= positionArray[row.toInt()]) {
+        fall = false;
+        ctable[row.toInt()][(column - 1).toInt()] = genColourComp + 1;
+        table[(row).toInt()][(column - 1).toInt()] = true;
+        accel = 1;
+        this.y = positionArray[row.toInt()];
+      }
       else {
         this.y += 10;
-        ctable[row.toInt()][(column-1).toInt()] = 0;
-      }}
-
-
-
-    if (row != 9 && !fall){
-      if (table[(row+1).toInt()][(column-1).toInt()] == false){
-        table[(row).toInt()][(column-1).toInt()] = false;
-        table[(row+1).toInt()][(column-1).toInt()] = true;
-        ctable[(row).toInt()][(column-1).toInt()] = 0;
-        rand = true;
-        row++;
-
+        ctable[row.toInt()][(column - 1).toInt()] = 0;
       }
     }
 
-    if (dtable[(row).toInt()][(column-1).toInt()] == true && !fall && !newDeck) {
-      HapticFeedback.lightImpact();
-      dtable[row.toInt()][(column-1).toInt()] = false;
 
-      this.config = TextConfig(color: Colors.blueGrey, fontSize: 25.0.sp, fontFamily: "fontNum");
+    if (row != 9 && !fall) {
+      if (table[(row + 1).toInt()][(column - 1).toInt()] == false) {
+        table[(row).toInt()][(column - 1).toInt()] = false;
+        table[(row + 1).toInt()][(column - 1).toInt()] = true;
+        ctable[(row).toInt()][(column - 1).toInt()] = 0;
+        rand = true;
+        row++;
+      }
+    }
+
+    if (dtable[(row).toInt()][(column - 1).toInt()] == true && !fall &&
+        !newDeck) {
+      HapticFeedback.lightImpact();
+      dtable[row.toInt()][(column - 1).toInt()] = false;
+
+      this.config = TextConfig(
+          color: Colors.black, fontSize: 25.0.sp, fontFamily: "fontNum");
       text = '+2';
       _paint12 = Paint()
-        ..color = Color.fromRGBO(255,215,0, 1);
+        ..color = Color.fromRGBO(255, 215, 0, 1);
 
       collectPrime = true;
       shrinkCollect = true;
     }
 
-    if (rand == true){
-      if ((this.y+5) <=  positionArray[(row).toInt()]){
+    if (rand == true) {
+      if ((this.y + 5) <= positionArray[(row).toInt()]) {
         this.y += 5;
-        ctable[(row).toInt()][(column-1).toInt()] = 0;
+        ctable[(row).toInt()][(column - 1).toInt()] = 0;
         accel++;
       }
       else {
         rand = false;
         accel = 1;
-        this.y =  positionArray[row.toInt()];
-        ctable[(row).toInt()][(column-1).toInt()] = genColourComp+1;
-        table[(row).toInt()][(column-1).toInt()] = true;
+        this.y = positionArray[row.toInt()];
+        ctable[(row).toInt()][(column - 1).toInt()] = genColourComp + 1;
+        table[(row).toInt()][(column - 1).toInt()] = true;
       }
     }
 
-    if (shrink){
-
-      if (sizeF < 0){
+    if (shrink) {
+      if (sizeF < 0) {
         destroy();
         shrink = false;
         returned = true;
-        table[(row).toInt()][(column-1).toInt()] = false;
-        ctable[row.toInt()][(column-1).toInt()] = 0;
-
-
+        table[(row).toInt()][(column - 1).toInt()] = false;
+        ctable[row.toInt()][(column - 1).toInt()] = 0;
       }
 
-      else{
-        TextConfig comp = TextConfig(color: Colors.white, fontSize: sizeF, fontFamily: "fontNum");
-        this.config =comp;
+      else {
+        TextConfig comp = TextConfig(
+            color: Colors.white, fontSize: sizeF, fontFamily: "fontNum");
+        this.config = comp;
         sizeF -= 2.5;
-        ctable[row.toInt()][(column-1).toInt()] = 0;
+        ctable[row.toInt()][(column - 1).toInt()] = 0;
       }
-
     }
 
-    if (shrinkCollect){
+    if (shrinkCollect) {
       counter ++;
-      if (counter < 40){
+      if (counter < 40) {
         globalShrink = true;
       } else {
         globalShrink = false;
       }
 
-      if (sizeF < 0){
+      if (sizeF < 0) {
         globalShrink = false;
         destroy();
         shrinkCollect = false;
         returned = true;
-        table[(row).toInt()][(column-1).toInt()] = false;
-        ctable[row.toInt()][(column-1).toInt()] = 0;
-
-
+        table[(row).toInt()][(column - 1).toInt()] = false;
+        ctable[row.toInt()][(column - 1).toInt()] = 0;
       }
 
-      else{
+      else {
         if (counter > 40) {
-
           TextConfig comp = TextConfig(
               color: Colors.black, fontSize: sizeF, fontFamily: "fontNum");
           this.config = comp;
@@ -257,50 +254,45 @@ bool bottomFall = false;
           ctable[row.toInt()][(column - 1).toInt()] = 0;
         }
       }
-
-
     }
 
-    if (m != null && !shrink && !globalShrink){
-      if (pauseRect1.contains(m.globalPosition)){
-
-
-
+    if (m != null && !shrink && !globalShrink) {
+      if (pauseRect1.contains(m.globalPosition)) {
         shrink = true;
         collectPrime = true;
+      }
+    }
 
-      }}
-
-    if (collectPrime){
+    if (collectPrime) {
       score ++;
 
       updateScore = true;
       collectPrime = false;
     }
-    if (paused){
-      this.x = -20000;
-    }
+
+
     double dist = 50;
-    pauseRect1 = Rect.fromLTWH((tempWidth/7)*column-(tempWidth/15),(this.y-5)-(this.height/2),(tempWidth/15)*2,this.height+10);
-
-
-    //if (this.x <-30 || this.y<0){
-     // returned = true;
-     // destroy();
-
-    //}
-
+    pauseRect1 = Rect.fromLTWH((tempWidth / 7) * column - (tempWidth / 15),
+        (this.y - 5) - (this.height / 2), (tempWidth / 15) * 2,
+        this.height + 10);
 
     super.update(tt);
 
-    if (changedMultiple == 1){
-
-     destroy();
-     returned = true;
-     game.add(new FastMultiple(this.text, this.x, this.y));
-
+    if (changedMultiple == 1) {
+      fast = true;
     }
+  } else {
 
+    if (this.x <-50 ){
+      returned = true;
+      destroy();
+    }
+    accel2++;
+    pauseRect1 = Rect.fromLTWH(rectLeft,(this.y-5)-(this.height/2),(tempWidth/15)*2,this.height+10);
+    rectLeft -= 2*accel2;
+    this.x -= 2*accel2;
+  }
+  super.update(tt);
 
 
 
@@ -332,12 +324,15 @@ class NotMultiple extends TextComponent  with Tapable{
   double posX, posY;
   bool collectNot = false;
   double accel = 1;
+  double accel2 = 0;
   int value1 = 0;
   int inc = 0;
   bool returned = false;
+  bool fast = false;
   double column;
   double row;
   bool topV;
+  double rectLeft = 0;
   bool shrink = false;
   bool rand = false;
   bool fall = true;
@@ -356,6 +351,7 @@ class NotMultiple extends TextComponent  with Tapable{
     column = Column;
     row = Row;
 
+    rectLeft = (tempWidth/7)*column-(tempWidth/15);
     var rng2 = new Random();
     genColourComp = rng2.nextInt(5);
     _paint12 = Paint()
@@ -364,172 +360,167 @@ class NotMultiple extends TextComponent  with Tapable{
   }
   @override
   bool destroy() {
+    print("destroyed");
     return returned;
   }
   bool bottomFall = false;
   @override
   void update(double tt){
 
-    if (fall && !shrink){
-
-      ctable[row.toInt()][(column-1).toInt()] = 0;
-      if ((this.y + 10) >= positionArray[row.toInt()]){
-        fall = false;
-        ctable[row.toInt()][(column-1).toInt()] = genColourComp+1;
-        table[(row).toInt()][(column-1).toInt()] = true;
-        accel = 1;
-        this.y =  positionArray[row.toInt()];
-      }
-      else {
-        this.y += 10;
-        ctable[row.toInt()][(column-1).toInt()] = 0;
-      }}
-
-
-
-
-    if (row != 9 && !fall){
-      if (table[(row+1).toInt()][(column-1).toInt()] == false){
-        table[(row).toInt()][(column-1).toInt()] = false;
-        table[(row+1).toInt()][(column-1).toInt()] = true;
-        ctable[(row+1).toInt()][(column-1).toInt()] = 0;
-        rand = true;
-        row++;
-
-      }
-    }
-
-    if (dtable[(row).toInt()][(column-1).toInt()] == true && !fall && !newDeck) {
-
-      this.config = TextConfig(color: Colors.blueGrey, fontSize: 25.0.sp, fontFamily: "fontNum");
-      text = '+2';
-      dtable[row.toInt()][(column-1).toInt()] = false;
-       _paint12 = Paint()
-         ..color = Color.fromRGBO(255,215,0, 1);
-      collectPrime = true;
-      shrinkCollect = true;
-    }
-
-    if (rand == true){
-      if ((this.y+5) <=  positionArray[(row).toInt()]){
-        this.y += 5;
-        ctable[(row).toInt()][(column-1).toInt()] = 0;
-        accel++;
-      }
-      else {
-        rand = false;
-        accel = 1;
-        this.y =  positionArray[row.toInt()];
-        ctable[(row).toInt()][(column-1).toInt()] = genColourComp+1;
-        table[(row).toInt()][(column-1).toInt()] = true;
-      }
-    }
-
-    if (shrink){
-      if (sizeF < 0){
-
-        destroy();
-        shrink = false;
-        returned = true;
-        table[(row).toInt()][(column-1).toInt()] = false;
-        ctable[row.toInt()][(column-1).toInt()] = 0;
-
-
+    if (!fast) {
+      if (fall && !shrink) {
+        ctable[row.toInt()][(column - 1).toInt()] = 0;
+        if ((this.y + 10) >= positionArray[row.toInt()]) {
+          fall = false;
+          ctable[row.toInt()][(column - 1).toInt()] = genColourComp + 1;
+          table[(row).toInt()][(column - 1).toInt()] = true;
+          accel = 1;
+          this.y = positionArray[row.toInt()];
+        }
+        else {
+          this.y += 10;
+          ctable[row.toInt()][(column - 1).toInt()] = 0;
+        }
       }
 
-      else{
-        TextConfig comp = TextConfig(color: Colors.white, fontSize: sizeF, fontFamily: "fontNum");
-
-        this.config =comp;
-        sizeF -= 2.5;
-        ctable[row.toInt()][(column-1).toInt()] = 0;
+      if (row != 9 && !fall) {
+        if (table[(row + 1).toInt()][(column - 1).toInt()] == false) {
+          table[(row).toInt()][(column - 1).toInt()] = false;
+          table[(row + 1).toInt()][(column - 1).toInt()] = true;
+          ctable[(row + 1).toInt()][(column - 1).toInt()] = 0;
+          rand = true;
+          row++;
+        }
       }
 
-    }
-
-    if (shrinkCollect){
-      counter ++;
-
-      if (counter < 40){
-        globalShrink = true;
-      } else {
-        globalShrink = false;
+      if (dtable[(row).toInt()][(column - 1).toInt()] == true && !fall &&
+          !newDeck) {
+        this.config = TextConfig(
+            color: Colors.black, fontSize: 25.0.sp, fontFamily: "fontNum");
+        text = '+2';
+        dtable[row.toInt()][(column - 1).toInt()] = false;
+        _paint12 = Paint()
+          ..color = Color.fromRGBO(255, 215, 0, 1);
+        collectPrime = true;
+        shrinkCollect = true;
       }
 
-      if (sizeF < 0){
-        globalShrink = false;
-        destroy();
-        shrinkCollect = false;
-        returned = true;
-        table[(row).toInt()][(column-1).toInt()] = false;
-        ctable[row.toInt()][(column-1).toInt()] = 0;
-
-
+      if (rand == true) {
+        if ((this.y + 5) <= positionArray[(row).toInt()]) {
+          this.y += 5;
+          ctable[(row).toInt()][(column - 1).toInt()] = 0;
+          accel++;
+        }
+        else {
+          rand = false;
+          accel = 1;
+          this.y = positionArray[row.toInt()];
+          ctable[(row).toInt()][(column - 1).toInt()] = genColourComp + 1;
+          table[(row).toInt()][(column - 1).toInt()] = true;
+        }
       }
 
-      else{
-        if (counter > 40) {
+      if (shrink) {
+        if (sizeF < 0) {
+          destroy();
+          shrink = false;
+          returned = true;
+          table[(row).toInt()][(column - 1).toInt()] = false;
+          ctable[row.toInt()][(column - 1).toInt()] = 0;
+        }
 
+        else {
           TextConfig comp = TextConfig(
-              color: Colors.black, fontSize: sizeF, fontFamily: "fontNum");
+              color: Colors.white, fontSize: sizeF, fontFamily: "fontNum");
+
           this.config = comp;
           sizeF -= 2.5;
           ctable[row.toInt()][(column - 1).toInt()] = 0;
         }
       }
 
-    }
+      if (shrinkCollect) {
+        counter ++;
 
-    if (m != null && !collectNot && !globalShrink){
-      if (pauseRect1.contains(m.globalPosition)){
+        if (counter < 40) {
+          globalShrink = true;
+        } else {
+          globalShrink = false;
+        }
 
-        _paint12 = Paint()
-          ..color = Color.fromRGBO(80, 80, 80, 0.9);
-        inc++;
-        this.config = TextConfig(color: Colors.grey, fontSize: 25.0.sp, fontFamily: "fontNum");
-        ctable[row.toInt()][(column-1).toInt()] = 0;
+        if (sizeF < 0) {
+          globalShrink = false;
+          destroy();
+          shrinkCollect = false;
+          returned = true;
+          table[(row).toInt()][(column - 1).toInt()] = false;
+          ctable[row.toInt()][(column - 1).toInt()] = 0;
+        }
 
-        text = 'X';
-
-      }}
-    if (inc == 1){
-      if (score>0) {
-        score --;
-
+        else {
+          if (counter > 40) {
+            TextConfig comp = TextConfig(
+                color: Colors.black, fontSize: sizeF, fontFamily: "fontNum");
+            this.config = comp;
+            sizeF -= 2.5;
+            ctable[row.toInt()][(column - 1).toInt()] = 0;
+          }
+        }
       }
-      updateScore = true;
 
+      if (m != null && !collectNot && !globalShrink) {
+        if (pauseRect1.contains(m.globalPosition)) {
+          _paint12 = Paint()
+            ..color = Color.fromRGBO(80, 80, 80, 0.9);
+          inc++;
+          this.config = TextConfig(
+              color: Colors.grey, fontSize: 25.0.sp, fontFamily: "fontNum");
+          ctable[row.toInt()][(column - 1).toInt()] = 0;
+
+          text = 'X';
+        }
+      }
+      if (inc == 1) {
+        if (score > 0) {
+          score --;
+        }
+        updateScore = true;
+      }
+
+
+      double dist = 50;
+      pauseRect1 = Rect.fromLTWH((tempWidth / 7) * column - (tempWidth / 15),
+          (this.y - 5) - (this.height / 2), (tempWidth / 15) * 2,
+          this.height + 10);
+
+      if (collectPrime) {
+        score ++;
+
+        updateScore = true;
+        collectPrime = false;
+      }
+      //if (this.x <-30 || this.y<0){
+      // returned = true;
+      // destroy();
+
+      //}
+
+      if (changedMultiple == 1) {
+        fast = true;
+      }
     }
-    if (paused){
-      this.x = -20000;
+    else {
+
+       if (this.x <-50 ){
+        returned = true;
+        destroy();
+      }
+      accel2++;
+      pauseRect1 = Rect.fromLTWH(rectLeft,(this.y-5)-(this.height/2),(tempWidth/15)*2,this.height+10);
+      rectLeft -= 2*accel2;
+      this.x -= 2*accel2;
     }
-    double dist = 50;
-    pauseRect1 = Rect.fromLTWH((tempWidth/7)*column-(tempWidth/15),(this.y-5)-(this.height/2),(tempWidth/15)*2,this.height+10);
-
-    if (collectPrime){
-      score ++;
-
-      updateScore = true;
-      collectPrime = false;
-    }
-    //if (this.x <-30 || this.y<0){
-    // returned = true;
-    // destroy();
-
-    //}
     super.update(tt);
-
-    if (changedMultiple == 1){
-
-      destroy();
-      returned = true;
-      game.add(new FastMultiple(this.text, this.x, this.y));
-
-    }
-
-
-
-
   }
 
   @override
@@ -542,45 +533,7 @@ class NotMultiple extends TextComponent  with Tapable{
 
 
 double updateStatus = 0;
-class FastMultiple extends TextComponent{
-  double height = AppBar().preferredSize.height;
 
-  bool collectedItem = false;
-  double speedX = 150.0;
-  double posX, posY;
-  bool collectPrime = false;
-  double accel = 0;
-  int value1 = 0;
-  bool returned = false;
-  TextConfig notValid = TextConfig(color: Colors.grey, fontSize: 35, fontFamily: "fontNum");
-  FastMultiple(String text, double posX, double posY) : super(text) {
-   this.config = notValid;
-    this.anchor = Anchor.center;
-    this.x = posX;
-    this.y = posY;
-
-
-  }
-  @override
-  bool destroy() {
-    return returned;
-  }
-  @override
-  void update(double tt){
-    if (paused){
-      this.x = -20000;
-    }
-
-    if (this.x <-50 ){
-      returned = true;
-      destroy();
-    }
-    accel++;
-    super.update(tt);
-    this.x -= 2*accel;
-
-  }
-}
 
 
 
@@ -654,7 +607,6 @@ bool eliminateScoreFlash = false;
 bool spikeDeath = false;
 bool frozen = true;
 
-bool paused = false;
 double heightApp = AppBar().preferredSize.height;
 
 int tempUpdate = 0;
@@ -906,9 +858,6 @@ double testInc = 9;
       );
       var te1;
 
-
-
-
       textPainterNumType = TextPainter(
 
         text: TextSpan(
@@ -924,8 +873,6 @@ double testInc = 9;
         maxWidth: tempWidth,
 
       );
-
-
 
       textPainterLives = TextPainter(text: TextSpan(
           text: lives.toString(),
@@ -970,15 +917,15 @@ double testInc = 9;
 
     if (stopAttempts) {
 
-    if (stopInc == 0){
-      add(endMenu = EndMenu("Again"));
+          if (stopInc == 0){
+            add(endMenu = EndMenu("Again"));
 
-      print("Called");
+            print("Called");
 
-    }
-      stopInc++;
-      score = 0;
-      lives = 3;
+          }
+          stopInc++;
+           score = 0;
+           lives = 3;
 
 
 
@@ -991,10 +938,6 @@ double testInc = 9;
         minWidth: 0,
         maxWidth: size.width,
       );
-
-
-
-
 
 
       textPainterNumType = TextPainter(
@@ -1019,301 +962,296 @@ double testInc = 9;
     if (!stopAttempts & masterGameStart){
 
 
-    for (int c = 9; c >= 0; c--) {
-      for (int d = 0; d < 4; d++) {
-        if (ctable[c][d] == ctable[c][d+1] && ctable[c][d] == ctable[c][d+2] && ctable[c][d] != 0 && dtable[c][d] == false && dtable[c][d+1] == false && dtable[c][d+2] == false && table[c][d] == true && table[c][d+1] == true && table[c][d+2] == true){
-          HapticFeedback.lightImpact();
-          dtable[c][d] = true;
-          dtable[c][d+1] = true;
-          dtable[c][d+2] = true;
+        for (int c = 9; c >= 0; c--) {
+          for (int d = 0; d < 4; d++) {
+            if (ctable[c][d] == ctable[c][d+1] && ctable[c][d] == ctable[c][d+2] && ctable[c][d] != 0 && dtable[c][d] == false && dtable[c][d+1] == false && dtable[c][d+2] == false && table[c][d] == true && table[c][d+1] == true && table[c][d+2] == true){
+              HapticFeedback.lightImpact();
+              dtable[c][d] = true;
+              dtable[c][d+1] = true;
+              dtable[c][d+2] = true;
 
-          ctable[c][d] = 0;
-          ctable[c][d+1] = 0;
-          ctable[c][d+2] = 0;
+              ctable[c][d] = 0;
+              ctable[c][d+1] = 0;
+              ctable[c][d+2] = 0;
 
-      print("Identify");
+          print("Identify");
+            }
+          }
         }
+
+
+          for (int d = 0; d < 6; d++) {
+            for (int c = 0; c < 8; c++) {
+            if (ctable[c][d] == ctable[c+1][d] && ctable[c][d] == ctable[c+2][d] && ctable[c][d] != 0 && dtable[c][d] == false && dtable[c+1][d] == false && dtable[c+2][d] == false && table[c][d] == true && table[c+1][d] == true && table[c+2][d] == true){
+              HapticFeedback.lightImpact();
+
+              dtable[c][d] = true;
+              dtable[c+1][d] = true;
+              dtable[c+2][d] = true;
+
+
+              ctable[c][d] = 0;
+              ctable[c+1][d] = 0;
+              ctable[c+2][d] = 0;
+
+           // game.add(Collected(" +3 ",  (d).toDouble(), (c+1).toDouble()));
+
+
+            }
+          }
+        }
+
+
+        statusBox -= updateStatus;
+
+
+        if (changedMultiple >= 0) {
+          changedMultiple--;
+        }
+        counter++;
+        if (counter%500 == 0){
+          var rng = new Random();
+          //currentMultiple = rng.nextInt(5)+2;
+          changedMultiple = 1;
+          newDeck = true;
+
+          if (lives > 1){
+            lives --;
+            updateLives = true;
+          } else {
+            stopInc = 0;
+            stopAttempts = true;
+          }
+
+
+          statusBox = 360;
+        }
+
+        textPainterNumType = TextPainter(text: TextSpan(
+            text: " " + currentMultiple.toString(),
+            style: TextStyle(
+                color: Color.fromRGBO(26, 22, 92, 1), fontSize: 38, fontFamily: "bold")),
+          textDirection: TextDirection.ltr,textAlign: TextAlign.center,);
+        textPainterNumType.layout(
+          minWidth: 0,
+          maxWidth: tempWidth,
+        );
+        positionNumType = Offset(((size.width - textPainterNumType.width) * 0.5)-4,
+            heightApp/2 - textPainterNumType.height / 2+ heightApp/1.15);
+
+        if (updateLives) {
+          textPainterLives = TextPainter(text: TextSpan(
+              text: lives.toString(),
+              style: TextStyle(
+                  color: Colors.white, fontSize: 24, fontFamily: "bold")),
+              textDirection: TextDirection.ltr);
+          textPainterLives.layout(
+            minWidth: 0,
+            maxWidth: tempWidth,
+          );
+
+        }
+        if (updateScore) {
+
+          count[0] = (score %10).toInt();
+          count[1] = ((score /10) % 10).toInt();
+          count[2] = ((score /100) % 10).toInt();
+          count[3] = ((score /1000) % 10).toInt();
+
+          textPainterScore = TextPainter(text: TextSpan(
+              text: count[3].toString()+count[2].toString()+ count[1].toString()+ count[0].toString(),
+              style: TextStyle(
+                  color: Colors.white, fontSize: 24, fontFamily: "bold")),
+              textDirection: TextDirection.ltr);
+          textPainterScore.layout(
+            minWidth: 0,
+            maxWidth: tempWidth,
+          );
+
+
+          updateScore = false;
+        }
+        //int genColourComp = rng.nextInt(8);
+      //  TextConfig comp = TextConfig(color: colours[genColourComp], fontSize: 40, fontFamily: "fontNum");
+       // int genColourPrime = rng.nextInt(5);
+
+      //  TextConfig primeC = TextConfig(color: colours[genColourPrime], fontSize: 40, fontFamily: "fontNum");
+        TextConfig mult = TextConfig(color: Colors.white, fontSize: 25.0.sp, fontFamily: "fontNum");
+        TextConfig nmult = TextConfig(color: Colors.white, fontSize: 25.0.sp, fontFamily: "fontNum");
+        double Pos = 0;
+
+        if (lives > 0) {
+          if (newDeck){
+            spinNew = true;
+            timerPrime += t;
+            if (timerPrime > 0.3 ) {
+
+
+
+              int genTemp1 = rng.nextInt(2);
+              if (genTemp1 == 0) {
+                add(multiple = Multiple((generateMultiple()), mult, 1, testInc, 0));
+                table[testInc.toInt()][0] = true;
+              }
+              else {
+                add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 1, testInc, 0));
+                table[testInc.toInt()][0] = true;
+              }
+
+              int genTemp2 = rng.nextInt(2);
+              if (genTemp2 == 0) {
+                add(multiple = Multiple((generateMultiple()), mult, 2, testInc, 0));
+                table[testInc.toInt()][1] = true;
+              }
+              else {
+                add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 2, testInc, 0));
+                table[testInc.toInt()][1] = true;
+              }
+
+              int genTemp3 = rng.nextInt(2);
+              if (genTemp3 == 0) {
+                add(multiple = Multiple((generateMultiple()), mult, 3, testInc, 0));
+                table[testInc.toInt()][2] = true;
+              }
+              else {
+                add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 3, testInc, 0));
+                table[testInc.toInt()][2] = true;
+              }
+
+              int genTemp4 = rng.nextInt(2);
+              if (genTemp4 == 0) {
+                add(multiple = Multiple((generateMultiple()), mult, 4, testInc, 0));
+                table[testInc.toInt()][3] = true;
+              }
+              else {
+                add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 4, testInc, 0));
+                table[testInc.toInt()][3] = true;
+              }
+
+              int genTemp5 = rng.nextInt(2);
+              if (genTemp5 == 0) {
+                add(multiple = Multiple((generateMultiple()), mult, 5, testInc, 0));
+                table[testInc.toInt()][4] = true;
+              }
+              else {
+                add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 5, testInc, 0));
+                table[testInc.toInt()][4] = true;
+              }
+
+              int genTemp6 = rng.nextInt(2);
+              if (genTemp6 == 0) {
+                add(multiple = Multiple((generateMultiple()), mult, 6, testInc, 0));
+                table[testInc.toInt()][5] = true;
+              }
+              else {
+                add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 6, testInc, 0));
+                table[testInc.toInt()][5] = true;
+              }
+
+
+              timerPrime = 0;
+
+              testInc --;
+            }
+
+            if (testInc < 0){
+              newDeck = false;
+              spinNew = false;
+              timerPrime = 0;
+              testInc = 9;
+            }
+          }
+
+          else if (table[0][0] == false) {
+
+            table[0][0] = true;
+
+
+            int genTemp5 = rng.nextInt(2);
+              if (genTemp5 == 0) {
+                add(multiple = Multiple((generateMultiple()), mult, 1, 0, 0));
+              }
+              else {
+                add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 1, 0, 0));
+              }
+
+
+            }
+            else if (table[0][1] == false) {
+
+            table[0][1] = true;
+
+
+            int genTemp5 = rng.nextInt(2);
+            if (genTemp5 == 0) {
+              add(multiple = Multiple((generateMultiple()), mult, 2, 0, 0));
+            }
+            else {
+              add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 2, 0, 0));
+            }
+
+
+            }
+            else if (table[0][2] == false) {
+
+            table[0][2] = true;
+
+
+            int genTemp5 = rng.nextInt(2);
+            if (genTemp5 == 0) {
+              add(multiple = Multiple((generateMultiple()), mult,3, 0, 0));
+            }
+            else {
+              add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 3, 0, 0));
+            }
+
+
+
+            } else if (table[0][3] == false) {
+            table[0][3] = true;
+
+            int genTemp5 = rng.nextInt(2);
+            if (genTemp5 == 0) {
+              add(multiple = Multiple((generateMultiple()), mult, 4, 0, 0));
+            }
+            else {
+              add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 4, 0, 0));
+            }
+
+
+              }
+
+          else if (table[0][4] == false) {
+            table[0][4] = true;
+
+            int genTemp5 = rng.nextInt(2);
+            if (genTemp5 == 0) {
+              add(multiple = Multiple((generateMultiple()), mult, 5, 0, 0));
+            }
+            else {
+              add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 5, 0, 0));
+            }
+
+            table[0][4] = true;
+
+          }
+          else if (table[0][5] == false) {
+            table[0][5] = true;
+
+            int genTemp6 = rng.nextInt(2);
+            if (genTemp6 == 0) {
+              add(multiple = Multiple((generateMultiple()), mult, 6, 0, 0));
+            }
+            else {
+              add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 6, 0, 0));
+            }
+
+
+          }
+
+        }
+
       }
-    }
-
-
-      for (int d = 0; d < 6; d++) {
-        for (int c = 0; c < 8; c++) {
-        if (ctable[c][d] == ctable[c+1][d] && ctable[c][d] == ctable[c+2][d] && ctable[c][d] != 0 && dtable[c][d] == false && dtable[c+1][d] == false && dtable[c+2][d] == false && table[c][d] == true && table[c+1][d] == true && table[c+2][d] == true){
-          HapticFeedback.lightImpact();
-
-          dtable[c][d] = true;
-          dtable[c+1][d] = true;
-          dtable[c+2][d] = true;
-
-
-          ctable[c][d] = 0;
-          ctable[c+1][d] = 0;
-          ctable[c+2][d] = 0;
-
-       // game.add(Collected(" +3 ",  (d).toDouble(), (c+1).toDouble()));
-
-
-        }
-      }
-    }
-
-
-    statusBox -= updateStatus;
-
-    if (!paused){
-    if (changedMultiple >= 0) {
-      changedMultiple--;
-    }
-    counter++;
-    if (counter%2000 == 0){
-      var rng = new Random();
-      //currentMultiple = rng.nextInt(5)+2;
-      changedMultiple = 1;
-      newDeck = true;
-
-      if (lives > 1){
-        lives --;
-        updateLives = true;
-      } else {
-        stopInc = 0;
-        stopAttempts = true;
-      }
-
-
-
-
-      statusBox = 360;
-    }
-
-    textPainterNumType = TextPainter(text: TextSpan(
-        text: " " + currentMultiple.toString(),
-        style: TextStyle(
-            color: Color.fromRGBO(26, 22, 92, 1), fontSize: 38, fontFamily: "bold")),
-      textDirection: TextDirection.ltr,textAlign: TextAlign.center,);
-    textPainterNumType.layout(
-      minWidth: 0,
-      maxWidth: tempWidth,
-    );
-    positionNumType = Offset(((size.width - textPainterNumType.width) * 0.5)-4,
-        heightApp/2 - textPainterNumType.height / 2+ heightApp/1.15);
-
-    if (updateLives) {
-      textPainterLives = TextPainter(text: TextSpan(
-          text: lives.toString(),
-          style: TextStyle(
-              color: Colors.white, fontSize: 24, fontFamily: "bold")),
-          textDirection: TextDirection.ltr);
-      textPainterLives.layout(
-        minWidth: 0,
-        maxWidth: tempWidth,
-      );
-
-    }
-    if (updateScore) {
-
-      count[0] = (score %10).toInt();
-      count[1] = ((score /10) % 10).toInt();
-      count[2] = ((score /100) % 10).toInt();
-      count[3] = ((score /1000) % 10).toInt();
-
-      textPainterScore = TextPainter(text: TextSpan(
-          text: count[3].toString()+count[2].toString()+ count[1].toString()+ count[0].toString(),
-          style: TextStyle(
-              color: Colors.white, fontSize: 24, fontFamily: "bold")),
-          textDirection: TextDirection.ltr);
-      textPainterScore.layout(
-        minWidth: 0,
-        maxWidth: tempWidth,
-      );
-
-
-      updateScore = false;
-    }
-    //int genColourComp = rng.nextInt(8);
-  //  TextConfig comp = TextConfig(color: colours[genColourComp], fontSize: 40, fontFamily: "fontNum");
-   // int genColourPrime = rng.nextInt(5);
-
-  //  TextConfig primeC = TextConfig(color: colours[genColourPrime], fontSize: 40, fontFamily: "fontNum");
-    TextConfig mult = TextConfig(color: Colors.white, fontSize: 25.0.sp, fontFamily: "fontNum");
-    TextConfig nmult = TextConfig(color: Colors.white, fontSize: 25.0.sp, fontFamily: "fontNum");
-    double Pos = 0;
-
-    if (lives > 0) {
-      if (newDeck){
-        spinNew = true;
-        timerPrime += t;
-        if (timerPrime > 0.3 ) {
-
-
-
-          int genTemp1 = rng.nextInt(2);
-          if (genTemp1 == 0) {
-            add(multiple = Multiple((generateMultiple()), mult, 1, testInc, 0));
-            table[testInc.toInt()][0] = true;
-          }
-          else {
-            add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 1, testInc, 0));
-            table[testInc.toInt()][0] = true;
-          }
-
-          int genTemp2 = rng.nextInt(2);
-          if (genTemp2 == 0) {
-            add(multiple = Multiple((generateMultiple()), mult, 2, testInc, 0));
-            table[testInc.toInt()][1] = true;
-          }
-          else {
-            add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 2, testInc, 0));
-            table[testInc.toInt()][1] = true;
-          }
-
-          int genTemp3 = rng.nextInt(2);
-          if (genTemp3 == 0) {
-            add(multiple = Multiple((generateMultiple()), mult, 3, testInc, 0));
-            table[testInc.toInt()][2] = true;
-          }
-          else {
-            add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 3, testInc, 0));
-            table[testInc.toInt()][2] = true;
-          }
-
-          int genTemp4 = rng.nextInt(2);
-          if (genTemp4 == 0) {
-            add(multiple = Multiple((generateMultiple()), mult, 4, testInc, 0));
-            table[testInc.toInt()][3] = true;
-          }
-          else {
-            add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 4, testInc, 0));
-            table[testInc.toInt()][3] = true;
-          }
-
-          int genTemp5 = rng.nextInt(2);
-          if (genTemp5 == 0) {
-            add(multiple = Multiple((generateMultiple()), mult, 5, testInc, 0));
-            table[testInc.toInt()][4] = true;
-          }
-          else {
-            add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 5, testInc, 0));
-            table[testInc.toInt()][4] = true;
-          }
-
-          int genTemp6 = rng.nextInt(2);
-          if (genTemp6 == 0) {
-            add(multiple = Multiple((generateMultiple()), mult, 6, testInc, 0));
-            table[testInc.toInt()][5] = true;
-          }
-          else {
-            add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 6, testInc, 0));
-            table[testInc.toInt()][5] = true;
-          }
-
-
-          timerPrime = 0;
-
-          testInc --;
-        }
-
-        if (testInc < 0){
-          newDeck = false;
-          spinNew = false;
-          timerPrime = 0;
-          testInc = 9;
-        }
-      }
-
-      else if (table[0][0] == false) {
-
-        table[0][0] = true;
-
-
-        int genTemp5 = rng.nextInt(2);
-          if (genTemp5 == 0) {
-            add(multiple = Multiple((generateMultiple()), mult, 1, 0, 0));
-          }
-          else {
-            add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 1, 0, 0));
-          }
-
-
-        }
-        else if (table[0][1] == false) {
-
-        table[0][1] = true;
-
-
-        int genTemp5 = rng.nextInt(2);
-        if (genTemp5 == 0) {
-          add(multiple = Multiple((generateMultiple()), mult, 2, 0, 0));
-        }
-        else {
-          add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 2, 0, 0));
-        }
-
-
-        }
-        else if (table[0][2] == false) {
-
-        table[0][2] = true;
-
-
-        int genTemp5 = rng.nextInt(2);
-        if (genTemp5 == 0) {
-          add(multiple = Multiple((generateMultiple()), mult,3, 0, 0));
-        }
-        else {
-          add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 3, 0, 0));
-        }
-
-
-
-        } else if (table[0][3] == false) {
-        table[0][3] = true;
-
-        int genTemp5 = rng.nextInt(2);
-        if (genTemp5 == 0) {
-          add(multiple = Multiple((generateMultiple()), mult, 4, 0, 0));
-        }
-        else {
-          add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 4, 0, 0));
-        }
-
-
-          }
-
-      else if (table[0][4] == false) {
-        table[0][4] = true;
-
-        int genTemp5 = rng.nextInt(2);
-        if (genTemp5 == 0) {
-          add(multiple = Multiple((generateMultiple()), mult, 5, 0, 0));
-        }
-        else {
-          add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 5, 0, 0));
-        }
-
-        table[0][4] = true;
-
-      }
-      else if (table[0][5] == false) {
-        table[0][5] = true;
-
-        int genTemp6 = rng.nextInt(2);
-        if (genTemp6 == 0) {
-          add(multiple = Multiple((generateMultiple()), mult, 6, 0, 0));
-        }
-        else {
-          add(notMultiple = NotMultiple((generateNotMultiple()), nmult, 6, 0, 0));
-        }
-
-
-      }
-
-    }
-
-
-
-  }
-  }
     super.update(t);
   }
 }
