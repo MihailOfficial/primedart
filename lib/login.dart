@@ -147,9 +147,6 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
         email: _emailController.text,
         password: _passwordController.text,
       );
-      setState(() {
-        _userEmail = userCredentials.user.email;
-      });
     } on FirebaseAuthException catch (e) {
       print(e.code);
       _success = false;
@@ -159,7 +156,7 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
         _userEmail = userCredentials.user.email;
         loggedIn.call();
       });
-    } else if (!userCredentials.user.emailVerified){
+    } else if (_success && !userCredentials.user.emailVerified){
       print("unverified email");
     }
   }
