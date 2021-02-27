@@ -73,8 +73,25 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
               alignment: Alignment.center,
             ),
             TextFormField(
+              decoration: InputDecoration(
+                hintText: 'jamesbond@gmail.com',
+                labelText: 'Email',
+                prefixIcon: Icon(Icons.email),
+                hintStyle: TextStyle(color: Colors.grey),
+                filled: true,
+
+                fillColor: Colors.white70,
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                  borderSide: BorderSide(color: Colors.black54, width: 2),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  borderSide: BorderSide(color: Colors.indigo, width: 2),
+                ),
+              ),
               controller: _emailController,
-              decoration: const InputDecoration(labelText: 'Email'),
+
               validator: (String value) {
                 if (value.isEmpty) {
                   return 'Please enter some text';
@@ -82,10 +99,28 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                 return null;
               },
             ),
+            SizedBox(height: 10),
             TextFormField(
+              decoration: InputDecoration(
+                hintText: 'go ahead, im watching',
+                labelText: 'Password',
+                prefixIcon: Icon(Icons.email),
+                hintStyle: TextStyle(color: Colors.grey),
+                filled: true,
+
+                fillColor: Colors.white70,
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                  borderSide: BorderSide(color: Colors.black54, width: 2),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  borderSide: BorderSide(color: Colors.indigo, width: 2),
+                ),
+              ),
               controller: _passwordController,
-              decoration: const InputDecoration(labelText:
-              'Password'),
+              obscureText: true,
+
               validator: (String value) {
                 if (value.isEmpty) {
                   return 'Please enter some text';
@@ -106,7 +141,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                     //print("test");
                   }
                 },
-                child: const Text('Register'),
+                child: const Text('REGISTER'),
               ),
             ),
             Container(
@@ -125,7 +160,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                 onPressed: () async {
                   signIn.call();
                 },
-                child: const Text('I already have an account'),
+                child: const Text('I HAVE AN ACCOUNT'),
       ),
             )]),
 
@@ -193,8 +228,24 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
             alignment: Alignment.center,
           ),
           TextFormField(
+            decoration: InputDecoration(
+              hintText: 'jamesbond@gmail.com',
+              prefixIcon: Icon(Icons.email),
+              hintStyle: TextStyle(color: Colors.grey),
+              filled: true,
+              labelText: 'Email',
+              fillColor: Colors.white70,
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                borderSide: BorderSide(color: Colors.black54, width: 2),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                borderSide: BorderSide(color: Colors.indigo, width: 2),
+              ),
+            ),
             controller: _emailController,
-            decoration: const InputDecoration(labelText: 'Email'),
+
             validator: (String value) {
               if (value.isEmpty) {
                 return 'Please enter some text';
@@ -202,9 +253,27 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
               return null;
             },
           ),
+          SizedBox(height: 10),
           TextFormField(
+            decoration: InputDecoration(
+              hintText: 'go ahead, im watching',
+              prefixIcon: Icon(Icons.email),
+              hintStyle: TextStyle(color: Colors.grey),
+              filled: true,
+              labelText: 'Password',
+              fillColor: Colors.white70,
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                borderSide: BorderSide(color: Colors.black54, width: 2),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                borderSide: BorderSide(color: Colors.indigo, width: 2),
+              ),
+            ),
             controller: _passwordController,
-            decoration: const InputDecoration(labelText: 'Password'),
+            obscureText: true,
+
             validator: (String value) {
               if (value.isEmpty) {
                 return 'Please enter some text';
@@ -221,7 +290,7 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
                   _signInWithEmailAndPassword();
                 }
               },
-              child: const Text('Sign In'),
+              child: const Text('SIGN IN'),
             ),
           ),
           Container(
