@@ -86,9 +86,37 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
             SizedBox(height: 10),
             TextFormField(
               decoration: InputDecoration(
+                hintText: 'Username',
+
+                prefixIcon: Icon(Icons.person_outline),
+                hintStyle: TextStyle(color: Colors.grey),
+                filled: true,
+
+                fillColor: Colors.white70,
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                  borderSide: BorderSide(color: Colors.black54, width: 2),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  borderSide: BorderSide(color: Colors.indigo, width: 2),
+                ),
+              ),
+              controller: _emailController,
+
+              validator: (String value) {
+                if (value.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
+            ),
+            SizedBox(height: 10),
+            TextFormField(
+              decoration: InputDecoration(
                 hintText: 'Email',
 
-                prefixIcon: Icon(Icons.email),
+                prefixIcon: Icon(Icons.alternate_email),
                 hintStyle: TextStyle(color: Colors.grey),
                 filled: true,
 
@@ -115,7 +143,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
             TextFormField(
               decoration: InputDecoration(
                 hintText: 'Password',
-                prefixIcon: Icon(Icons.lock),
+                prefixIcon: Icon(Icons.lock_outline),
                 hintStyle: TextStyle(color: Colors.grey),
                 filled: true,
 
@@ -255,7 +283,7 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
           TextFormField(
             decoration: InputDecoration(
               hintText: 'Email',
-              prefixIcon: Icon(Icons.email),
+              prefixIcon: Icon(Icons.alternate_email),
               hintStyle: TextStyle(color: Colors.grey),
               filled: true,
               fillColor: Colors.white70,
@@ -281,7 +309,7 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
           TextFormField(
             decoration: InputDecoration(
               hintText: 'Password',
-              prefixIcon: Icon(Icons.lock),
+              prefixIcon: Icon(Icons.lock_outline),
               hintStyle: TextStyle(color: Colors.grey),
               filled: true,
 
