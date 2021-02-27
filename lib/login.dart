@@ -53,15 +53,25 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+    return
+
+      Padding(
+        padding: const EdgeInsets.all(40.0),
+        child:
+        Scaffold(
+
       body: Form(
         key: _formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+
+            Container(
+              child: const Text('Please register below:'),
+
+              padding: const EdgeInsets.all(16),
+              alignment: Alignment.center,
+            ),
             TextFormField(
               controller: _emailController,
               decoration: const InputDecoration(labelText: 'Email'),
@@ -83,6 +93,9 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                 return null;
               },
             ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
             Container(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               alignment: Alignment.center,
@@ -93,7 +106,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                     //print("test");
                   }
                 },
-                child: const Text('Submit'),
+                child: const Text('Register'),
               ),
             ),
             Container(
@@ -104,20 +117,22 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                   ? 'Successfully registered ' + _userEmail
                   : 'Registration failed')),
             ),
+            SizedBox(width: 20),
             Container(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
               alignment: Alignment.center,
               child: RaisedButton(
                 onPressed: () async {
                   signIn.call();
                 },
-                child: const Text('Sign In'),
+                child: const Text('I already have an account'),
       ),
-            )
+            )]),
 
           ],
         ),
       ),
-    );
+    ));
   }
 }
 
@@ -163,13 +178,17 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
+    return
+      Padding(
+        padding: const EdgeInsets.all(40.0),
+    child:
+      Form(
       key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            child: const Text('Test sign in with email and password'),
+            child: const Text('Please sign in to your NumDash account.'),
             padding: const EdgeInsets.all(16),
             alignment: Alignment.center,
           ),
@@ -202,7 +221,7 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
                   _signInWithEmailAndPassword();
                 }
               },
-              child: const Text('Submit'),
+              child: const Text('Sign In'),
             ),
           ),
           Container(
@@ -219,7 +238,7 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
           )
         ],
       ),
-    );
+    ));
   }
 
   @override
