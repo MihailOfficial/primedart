@@ -70,19 +70,24 @@ class Home extends StatelessWidget {
       //Scaffold(
        // drawer: AppDrawer(),
    // body:
-      Stack(
-          children: <Widget>[
-            Container(
-              constraints: BoxConstraints.expand(),
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("assets/images/603788db98e51342825c0d36649dbe12.jpg"),
-                      fit: BoxFit.cover)
-              ),
-              child: game.widget,
-            ),
 
-          ]);;//);
+
+      Container(
+        constraints: BoxConstraints.expand(),
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/images/603788db98e51342825c0d36649dbe12.jpg"),
+                fit: BoxFit.cover)
+        ),
+        child: game.widget,
+      );
+
+
+
+
+
+
+
     }
   }
 

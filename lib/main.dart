@@ -95,7 +95,47 @@ class _MyHomePageState extends State<MyHomePage> {
                         var screenHeight = MediaQuery.of(context).size.height;
 
                         return
-                          Home();
+                          Container (
+                          child: Stack(
+                            children: <Widget>[
+                              Home(),
+                              Column(
+                              children: <Widget>[
+
+                                  RaisedButton(
+                                      child: new Text("Button 1", style: new TextStyle(color: Colors.white, fontStyle: FontStyle.italic, fontSize: 20.0)),
+                                      color: Colors.red,
+                                      //onPressed:
+                                  ),
+
+                                  RaisedButton(
+                                    child: new Text("Button 2", style: new TextStyle(color: Colors.white, fontStyle: FontStyle.italic, fontSize: 20.0)),
+                                    color: Colors.red,
+                                    //onPressed:
+                                  ),
+
+                                  RaisedButton(
+                                    child: new Text("Button 3", style: new TextStyle(color: Colors.white, fontStyle: FontStyle.italic, fontSize: 20.0)),
+                                    color: Colors.red,
+                                    //onPressed:
+                                  ),
+
+                                  RaisedButton(
+                                    child: new Text("Button 4", style: new TextStyle(color: Colors.white, fontStyle: FontStyle.italic, fontSize: 20.0)),
+                                    color: Colors.red,
+                                    //onPressed:
+                                  ),
+
+                                  RaisedButton(
+                                    child: new Text("Button 5", style: new TextStyle(color: Colors.white, fontStyle: FontStyle.italic, fontSize: 20.0)),
+                                    color: Colors.red,
+                                    //onPressed:
+                                  ),
+
+                            ],
+                          ),
+
+                            ]));
                       },
                     ),
                   );
