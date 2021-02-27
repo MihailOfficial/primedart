@@ -10,6 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'login.dart';
+import 'highscore_functions.dart';
 
 
 void main() async {
@@ -111,7 +112,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                   RaisedButton(
                                     child: new Text("Button 2", style: new TextStyle(color: Colors.white, fontStyle: FontStyle.italic, fontSize: 20.0)),
                                     color: Colors.red,
-                                    //onPressed:
+                                    onPressed: () async => {
+                                      print(await submitScore(250))
+                                    }
                                   ),
 
                                   RaisedButton(
@@ -123,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   RaisedButton(
                                     child: new Text("Button 4", style: new TextStyle(color: Colors.white, fontStyle: FontStyle.italic, fontSize: 20.0)),
                                     color: Colors.red,
-                                    //onPressed:
+                                    onPressed: () => print("Button press"),
                                   ),
 
                                   RaisedButton(
