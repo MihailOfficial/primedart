@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class RegisterEmailSection extends StatefulWidget {
+
   final String title = 'Registration';
   final VoidCallback signIn;
   RegisterEmailSection({@required this.signIn});
@@ -14,12 +15,14 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final VoidCallback signIn;
+
   bool _success;
   String _userEmail;
 
   _RegisterEmailSectionState({@required this.signIn});
 
   void _register() async {
+
     UserCredential userCredential;
     try {
       userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -54,28 +57,37 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
   @override
   Widget build(BuildContext context) {
     return
-
-      Padding(
-        padding: const EdgeInsets.all(40.0),
+      Container(
+          color: Colors.red,
+          child:SafeArea(child:
+      Container(
+        padding: const EdgeInsets.all(20.0),
+        decoration: BoxDecoration(color: Colors.red),
         child:
-        Scaffold(
+        Container(
+          padding: const EdgeInsets.all(20.0),
 
-      body: Form(
+          decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(20)), color: Colors.white),
+
+      child: Form(
         key: _formKey,
         child: Column(
+
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-
+            SizedBox(height: 20),
+            Container(
+                child: Text('NUMDASH', style: TextStyle(fontFamily: 'logo', fontSize: 30, color: Colors.indigo))
+            ),
+            SizedBox(height: 20),
             Container(
               child: const Text('Please register below:'),
-
-              padding: const EdgeInsets.all(16),
-              alignment: Alignment.center,
             ),
+            SizedBox(height: 10),
             TextFormField(
               decoration: InputDecoration(
-                hintText: 'jamesbond@gmail.com',
-                labelText: 'Email',
+                hintText: 'Email',
+
                 prefixIcon: Icon(Icons.email),
                 hintStyle: TextStyle(color: Colors.grey),
                 filled: true,
@@ -102,9 +114,8 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
             SizedBox(height: 10),
             TextFormField(
               decoration: InputDecoration(
-                hintText: 'go ahead, im watching',
-                labelText: 'Password',
-                prefixIcon: Icon(Icons.email),
+                hintText: 'Password',
+                prefixIcon: Icon(Icons.lock),
                 hintStyle: TextStyle(color: Colors.grey),
                 filled: true,
 
@@ -129,7 +140,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
               },
             ),
           Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
             Container(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -152,7 +163,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                   ? 'Successfully registered ' + _userEmail
                   : 'Registration failed')),
             ),
-            SizedBox(width: 20),
+
             Container(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               alignment: Alignment.center,
@@ -167,7 +178,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
           ],
         ),
       ),
-    ));
+    ))));
   }
 }
 
@@ -214,26 +225,39 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
   @override
   Widget build(BuildContext context) {
     return
-      Padding(
-        padding: const EdgeInsets.all(40.0),
+      Container(
+        color: Colors.red,
+        child:SafeArea(child:
+        Container(
+        padding: const EdgeInsets.all(20.0),
+    decoration: BoxDecoration(color: Colors.red),
+    child:
+    Container(
+    padding: const EdgeInsets.all(20.0),
+    decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(20)), color: Colors.white),
+
     child:
       Form(
       key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          SizedBox(height: 20),
           Container(
-            child: const Text('Please sign in to your NumDash account.'),
-            padding: const EdgeInsets.all(16),
-            alignment: Alignment.center,
+              child: Text('NUMDASH', style: TextStyle(fontFamily: 'logo', fontSize: 30, color: Colors.indigo))
           ),
+          SizedBox(height: 20),
+          Container(
+            child: const Text('Please sign in below:', ),
+
+          ),
+          SizedBox(height: 10),
           TextFormField(
             decoration: InputDecoration(
-              hintText: 'jamesbond@gmail.com',
+              hintText: 'Email',
               prefixIcon: Icon(Icons.email),
               hintStyle: TextStyle(color: Colors.grey),
               filled: true,
-              labelText: 'Email',
               fillColor: Colors.white70,
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(12.0)),
@@ -256,11 +280,11 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
           SizedBox(height: 10),
           TextFormField(
             decoration: InputDecoration(
-              hintText: 'go ahead, im watching',
-              prefixIcon: Icon(Icons.email),
+              hintText: 'Password',
+              prefixIcon: Icon(Icons.lock),
               hintStyle: TextStyle(color: Colors.grey),
               filled: true,
-              labelText: 'Password',
+
               fillColor: Colors.white70,
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(12.0)),
@@ -307,7 +331,7 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
           )
         ],
       ),
-    ));
+    )))));
   }
 
   @override
