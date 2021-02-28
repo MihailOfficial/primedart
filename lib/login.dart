@@ -19,6 +19,8 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
 
   bool _success;
   String _userEmail;
+  int _errorState = NONE_STATE; static const int NONE_STATE = 0, IN_USE_STATE = 1, WEAK_STATE = 2;
+
 
   _RegisterEmailSectionState({@required this.signIn});
 
@@ -35,9 +37,9 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
     } on FirebaseAuthException catch (e) {
       _success = false;
       if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
+        _errorState= WEAK_STATE;
       } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+        _errorState= IN_USE_STATE;
       } else {
         print(e.code);
       }

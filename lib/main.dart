@@ -94,9 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     title: 'Onboarding Concept',
                     home: Builder(
                       builder: (BuildContext context) {
-
                         var screenHeight = MediaQuery.of(context).size.height;
-
                         return
                           Container (
                           child: Home());
