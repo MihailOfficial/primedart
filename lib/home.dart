@@ -25,23 +25,34 @@ class _HomeState extends State<Home> {
       Scaffold(
           body: Column(
               children: <Widget>[
+                SizedBox(height: 20),
+                Container(
+                  child: const Text('Global High Scores:'),
+                ),
+                SizedBox(height: 20),
                 DataTable(
                     columns: const <DataColumn>[
                       DataColumn(
                         label: Text(
-                          'Name',
+                          'Rank',
                           style: TextStyle(fontStyle: FontStyle.italic),
                         ),
                       ),
                       DataColumn(
                         label: Text(
-                          'Age',
+                          'Username',
                           style: TextStyle(fontStyle: FontStyle.italic),
                         ),
                       ),
                       DataColumn(
                         label: Text(
-                          'Role',
+                          'Date',
+                          style: TextStyle(fontStyle: FontStyle.italic),
+                        ),
+                      ),
+                      DataColumn(
+                        label: Text(
+                          'Score',
                           style: TextStyle(fontStyle: FontStyle.italic),
                         ),
                       ),
@@ -49,23 +60,26 @@ class _HomeState extends State<Home> {
                     rows: const <DataRow>[
                       DataRow(
                         cells: <DataCell>[
-                          DataCell(Text('Sarah')),
-                          DataCell(Text('19')),
-                          DataCell(Text('Student')),
+                          DataCell(Text('1')),
+                          DataCell(Text('snowball')),
+                          DataCell(Text('Feb 20, 2021')),
+                          DataCell(Text('25052')),
                         ],
                       ),
                       DataRow(
                         cells: <DataCell>[
-                          DataCell(Text('Janine')),
-                          DataCell(Text('43')),
-                          DataCell(Text('Professor')),
+                          DataCell(Text('2')),
+                          DataCell(Text('aurko')),
+                          DataCell(Text('Feb 20, 2021')),
+                          DataCell(Text('7527')),
                         ],
                       ),
                       DataRow(
                         cells: <DataCell>[
-                          DataCell(Text('William')),
-                          DataCell(Text('27')),
-                          DataCell(Text('Associate Professor')),
+                          DataCell(Text('3')),
+                          DataCell(Text('Becka')),
+                          DataCell(Text('Feb 20, 2021')),
+                          DataCell(Text('05025')),
                         ],
                       ),]),
                 SizedBox(height: 20,),
@@ -75,7 +89,17 @@ class _HomeState extends State<Home> {
                     onPressed: () => setState(() {
                       playGame = true;
                     }),
-                )])));
+                ),
+
+                RaisedButton(
+                  child: new Text("Logout", style: new TextStyle(color: Colors.white, fontStyle: FontStyle.italic, fontSize: 20.0)),
+                  color: Colors.blue,
+                  onPressed: () => setState(() {
+                   // playGame = true;
+                  }),
+                ),
+
+              ])));
 
     } else {
       return MaterialApp(
