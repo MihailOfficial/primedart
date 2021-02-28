@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer_util.dart';
-import 'home.dart';
+import 'game.dart';
 import 'package:flame/util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flame/flame.dart';
@@ -9,6 +9,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'home.dart';
 import 'login.dart';
 import 'highscore_functions.dart';
 
@@ -98,48 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
                         return
                           Container (
-                          child: Stack(
-                            children: <Widget>[
-                              Home(),
-                              Column(
-                              children: <Widget>[
-
-                                  RaisedButton(
-                                      child: new Text("Button 1", style: new TextStyle(color: Colors.white, fontStyle: FontStyle.italic, fontSize: 20.0)),
-                                      color: Colors.red,
-                                      //onPressed:
-                                  ),
-
-                                  RaisedButton(
-                                    child: new Text("Button 2", style: new TextStyle(color: Colors.white, fontStyle: FontStyle.italic, fontSize: 20.0)),
-                                    color: Colors.red,
-                                    onPressed: () async => {
-                                      print(await submitScore(260))
-                                    }
-                                  ),
-
-                                  RaisedButton(
-                                    child: new Text("Button 3", style: new TextStyle(color: Colors.white, fontStyle: FontStyle.italic, fontSize: 20.0)),
-                                    color: Colors.red,
-                                    //onPressed:
-                                  ),
-
-                                  RaisedButton(
-                                    child: new Text("Button 4", style: new TextStyle(color: Colors.white, fontStyle: FontStyle.italic, fontSize: 20.0)),
-                                    color: Colors.red,
-                                    onPressed: () => print("Button press"),
-                                  ),
-
-                                  RaisedButton(
-                                    child: new Text("Button 5", style: new TextStyle(color: Colors.white, fontStyle: FontStyle.italic, fontSize: 20.0)),
-                                    color: Colors.red,
-                                    //onPressed:
-                                  ),
-
-                            ],
-                          ),
-
-                            ]));
+                          child: Home());
                       },
                     ),
                   );
