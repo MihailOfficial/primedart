@@ -112,6 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               setState(() {
                                 signed = true;
                                 logged = false;
+                                FirebaseAuth.instance.signOut();
                               });
                             },
                           ));
