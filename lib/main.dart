@@ -107,7 +107,14 @@ class _MyHomePageState extends State<MyHomePage> {
                         var screenHeight = MediaQuery.of(context).size.height;
                         return
                           Container (
-                          child: Home());
+                          child: Home(
+                            signOut: () {
+                              setState(() {
+                                signed = true;
+                                logged = false;
+                              });
+                            },
+                          ));
                       },
                     ),
                   );

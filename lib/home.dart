@@ -4,12 +4,17 @@ import 'package:flutter/material.dart';
 import 'game.dart';
 
 class Home extends StatefulWidget {
+  final VoidCallback signOut;
+  Home({@required this.signOut});
   @override
-  _HomeState createState() => _HomeState();
+  _HomeState createState() => _HomeState(signOut: signOut);
 }
 
 class _HomeState extends State<Home> {
   static const String routeName = "/home";
+  final VoidCallback signOut;
+
+  _HomeState({@required this.signOut});
   bool playGame = false;
 
   @override
@@ -95,7 +100,7 @@ class _HomeState extends State<Home> {
                   child: new Text("Logout", style: new TextStyle(color: Colors.white, fontStyle: FontStyle.italic, fontSize: 20.0)),
                   color: Colors.blue,
                   onPressed: () => setState(() {
-                   // playGame = true;
+                   signOut.call();
                   }),
                 ),
 
