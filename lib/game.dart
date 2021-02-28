@@ -14,6 +14,8 @@ import 'package:flutter/services.dart';
 import 'dart:math';
 import 'package:sizer/sizer.dart';
 
+import 'highscore_functions.dart';
+
 Color COLOR = const Color.fromRGBO(0, 0, 0, 0.5);
 Color COLOR2 = const Color.fromRGBO(215, 44, 32, 1);
 const COLOR3 = const Color.fromRGBO(255, 204, 0, 1);
@@ -70,16 +72,65 @@ class Game extends StatelessWidget {
         //Scaffold(
         // drawer: AppDrawer(),
         // body:
-
-        Container(
-      constraints: BoxConstraints.expand(),
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage(
-                  "assets/images/603788db98e51342825c0d36649dbe12.jpg"),
-              fit: BoxFit.cover)),
-      child: game.widget,
-    );
+        Stack(children: <Widget>[
+      Container(
+        constraints: BoxConstraints.expand(),
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(
+                    "assets/images/603788db98e51342825c0d36649dbe12.jpg"),
+                fit: BoxFit.cover)),
+        child: game.widget,
+      ),
+      Column(
+        children: <Widget>[
+          RaisedButton(
+            child: new Text("Button 1",
+                style: new TextStyle(
+                    color: Colors.white,
+                    fontStyle: FontStyle.italic,
+                    fontSize: 20.0)),
+            color: Colors.red,
+            //onPressed:
+          ),
+          RaisedButton(
+              child: new Text("Button 2",
+                  style: new TextStyle(
+                      color: Colors.white,
+                      fontStyle: FontStyle.italic,
+                      fontSize: 20.0)),
+              color: Colors.red,
+              onPressed: () async => {print(await submitScore(300))}),
+          RaisedButton(
+            child: new Text("Button 3",
+                style: new TextStyle(
+                    color: Colors.white,
+                    fontStyle: FontStyle.italic,
+                    fontSize: 20.0)),
+            color: Colors.red,
+            //onPressed:
+          ),
+          RaisedButton(
+            child: new Text("Button 4",
+                style: new TextStyle(
+                    color: Colors.white,
+                    fontStyle: FontStyle.italic,
+                    fontSize: 20.0)),
+            color: Colors.red,
+            onPressed: () => print("Button press"),
+          ),
+          RaisedButton(
+            child: new Text("Button 5",
+                style: new TextStyle(
+                    color: Colors.white,
+                    fontStyle: FontStyle.italic,
+                    fontSize: 20.0)),
+            color: Colors.red,
+            //onPressed:
+          ),
+        ],
+      ),
+    ]);
   }
 }
 

@@ -237,7 +237,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                                 TextStyle(fontSize: 16.0, color: Colors.black)),
                       ),
                     ),
-                    SizedBox(height: 300),
+                    SizedBox(height: 175),
 
                   ]),
                 ),
