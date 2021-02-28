@@ -73,6 +73,16 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   bool signed = false;
   bool logged = false;
+
+  @override
+  @mustCallSuper
+  void initState(){
+    super.initState();
+    if(FirebaseAuth.instance.currentUser != null) {
+      logged = true;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done

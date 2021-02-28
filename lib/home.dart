@@ -11,6 +11,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   static const String routeName = "/home";
   bool playGame = false;
+
   @override
   Widget build(BuildContext context) {
     if (!playGame){
