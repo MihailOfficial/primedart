@@ -105,7 +105,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     home: Builder(
                       builder: (BuildContext context) {
                         var screenHeight = MediaQuery.of(context).size.height;
-                        return
+                        return Scaffold(
+
+                            resizeToAvoidBottomInset: false,
+                            body:
                           Container (
                           child: Home(
                             signOut: () {
@@ -115,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 FirebaseAuth.instance.signOut();
                               });
                             },
-                          ));
+                          )));
                       },
                     ),
                   );
