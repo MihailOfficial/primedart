@@ -44,7 +44,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
     }
     if(_success){
       userCredential.user.updateProfile(displayName: _usernameControlller.text);
-      userCredential.user.sendEmailVerification();
+      //userCredential.user.sendEmailVerification();
       setState(() {
         _userEmail = userCredential.user.email;
       });
@@ -242,13 +242,11 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
       print("Error: " + e.code);
       _success = false;
     }
-    if(_success && userCredentials.user.emailVerified){
+    if(_success){
       setState(() {
         _userEmail = userCredentials.user.email;
         loggedIn.call();
       });
-    } else if (_success && !userCredentials.user.emailVerified){
-      print("unverified email");
     }
   }
 
