@@ -23,9 +23,9 @@ Future<bool> checkAttempts() async {
 }
 
 Future<int> submitScore(int score) async {
+  bool check = await checkAttempts();
   DocumentReference saveref = FirebaseFirestore.instance.collection('user_scores').doc(FirebaseAuth.instance.currentUser.uid);
   DocumentSnapshot save = await saveref.get();
-  bool check = await checkAttempts();
   if(check){
     if(score <= await save.get('current_best')){
       return -2;
@@ -38,4 +38,9 @@ Future<int> submitScore(int score) async {
   } else {
     return -1;
   }
+}
+
+Future<List<DocumentSnapshot>> getHighScores(int limit) async {
+  QuerySnapshot result = await FirebaseFirestore.instance.collection('user_scores').orderBy('current_best', descending: true).limit(limit).get();
+  return result.docs;
 }

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flame/components/mixins/tapable.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
@@ -13,9 +14,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'dart:math';
 import 'package:sizer/sizer.dart';
-
 import 'highscore_functions.dart';
-
 Color COLOR = const Color.fromRGBO(0, 0, 0, 0.5);
 Color COLOR2 = const Color.fromRGBO(215, 44, 32, 1);
 const COLOR3 = const Color.fromRGBO(255, 204, 0, 1);
@@ -62,7 +61,6 @@ var count = new List(4);
 
 class Game extends StatelessWidget {
   static const String routeName = "/home";
-
   @override
   Widget build(BuildContext context) {
     contexts = context;
@@ -117,7 +115,9 @@ class Game extends StatelessWidget {
                     fontStyle: FontStyle.italic,
                     fontSize: 20.0)),
             color: Colors.red,
-            onPressed: () => print("Button press"),
+            onPressed: () {
+              getHighScores(10).then((value) => value.forEach((element) => print(element.get('username'))));
+            }
           ),
           RaisedButton(
             child: new Text("Button 5",
@@ -192,7 +192,7 @@ class Multiple extends TextComponent with Tapable {
 
   @override
   bool destroy() {
-    print("destroyed");
+    //print("destroyed");
     return returned;
   }
 
@@ -398,7 +398,7 @@ class NotMultiple extends TextComponent with Tapable {
 
   @override
   bool destroy() {
-    print("destroyed");
+    //print("destroyed");
     return returned;
   }
 
@@ -604,7 +604,7 @@ class EndMenu extends TextComponent with Tapable {
       if (startRect.contains(m.globalPosition)) {
         _paint12 = Paint()..color = Colors.blue;
         updateScore = true;
-        print("touched");
+        //print("touched");
         newDeck = true;
         masterGameStart = true;
         stopInc == 0;
@@ -923,7 +923,7 @@ class MyGame extends BaseGame with HasTapableComponents {
       if (stopInc == 0) {
         add(endMenu = EndMenu("Again"));
 
-        print("Called");
+        //print("Called");
       }
       stopInc++;
       score = 0;
@@ -976,7 +976,7 @@ class MyGame extends BaseGame with HasTapableComponents {
             ctable[c][d + 1] = 0;
             ctable[c][d + 2] = 0;
 
-            print("Identify");
+            //print("Identify");
           }
         }
       }
