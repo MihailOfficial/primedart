@@ -12,6 +12,7 @@ class RegisterEmailSection extends StatefulWidget {
 }
 class _RegisterEmailSectionState extends State<RegisterEmailSection> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _usernameControlller = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final VoidCallback signIn;
@@ -42,6 +43,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
       }
     }
     if(_success){
+      userCredential.user.updateProfile(displayName: _usernameControlller.text);
       userCredential.user.sendEmailVerification();
       setState(() {
         _userEmail = userCredential.user.email;
@@ -102,7 +104,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                   borderSide: BorderSide(color: Colors.indigo, width: 2),
                 ),
               ),
-              controller: _emailController,
+              controller: _usernameControlller,
 
               validator: (String value) {
                 if (value.isEmpty) {

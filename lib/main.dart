@@ -114,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     child: new Text("Button 2", style: new TextStyle(color: Colors.white, fontStyle: FontStyle.italic, fontSize: 20.0)),
                                     color: Colors.red,
                                     onPressed: () async => {
-                                      print(await submitScore(250))
+                                      print(await submitScore(260))
                                     }
                                   ),
 
