@@ -77,6 +77,14 @@ flutter:
     - family: ken
       fonts:
           - asset: assets/fonts/kenvector_future.ttf
+    - family: rage
+      fonts:
+          - asset: assets/fonts/Road_Rage.otf
+    - family: pixel
+      fonts:
+          - asset: assets/fonts/BarcadeBrawlRegular-plYD.ttf
+
+
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

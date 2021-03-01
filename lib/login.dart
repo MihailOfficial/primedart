@@ -66,16 +66,16 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
   Widget build(BuildContext context) {
     return FooterLayout(
         footer: Container(
-            color: Colors.red,
+            color: Colors.black,
             padding: const EdgeInsets.all(15.0),
             child: Row(children: <Widget>[
               Expanded(
                 child: RaisedButton(
                   padding: const EdgeInsets.all(15.0),
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      side: BorderSide(color: Colors.indigo, width: 4.0)),
-                  color: Colors.indigo,
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  color: Colors.deepPurple,
                   onPressed: () async {
                     if (_formKey.currentState.validate()) {
                       _register();
@@ -83,41 +83,54 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                     }
                   },
                   child: const Text('Continue',
-                      style: TextStyle(fontSize: 18.0, color: Colors.white)),
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        color: Colors.yellowAccent,
+                        fontFamily: 'pixel',
+                      )),
                 ),
               ),
             ])),
         child: Container(
-            color: Colors.red,
-            child: SafeArea(
-                child: Container(
-              padding: const EdgeInsets.all(20.0),
-
-              color: Colors.red,
+            decoration: new BoxDecoration(color: Colors.black),
+            child: Container(
+                child: SafeArea(
+                    child: Container(
+              color: Colors.black,
               child: Container(
-
                 padding: const EdgeInsets.all(20.0),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    color: Colors.white),
                 child: Form(
                   key: _formKey,
-                  child:
-
-                  ListView(shrinkWrap: true, children: <Widget>[
+                  child: ListView(shrinkWrap: true, children: <Widget>[
                     SizedBox(height: 20),
                     Center(
                         child: Container(
-                            child: Text('NUMDASH',
+                            child: Text('NumDash',
                                 style: TextStyle(
-                                    fontFamily: 'logo',
-                                    fontSize: 25,
-                                    color: Colors.indigo)))),
+                                  fontFamily: 'rage',
+                                  fontSize: 28,
+                                  color: Colors.yellowAccent,
+                                  shadows: <Shadow>[
+                                    Shadow(
+                                      offset: Offset(5.0, 5.0),
+                                      blurRadius: 3.0,
+                                      color: Color.fromRGBO(240, 240, 240, 0.2),
+                                    ),
+                                    Shadow(
+                                      offset: Offset(5.0, 5.0),
+                                      blurRadius: 8.0,
+                                      color: Color.fromRGBO(240, 240, 240, 0.2),
+                                    ),
+                                  ],
+                                )))),
                     SizedBox(height: 20),
                     Container(
                       child: const Text('Create an account',
                           style: TextStyle(
-                              fontWeight: FontWeight.w600, fontSize: 26)),
+                              fontWeight: FontWeight.w600,
+                              fontFamily: 'pixel',
+                              fontSize: 12,
+                              color: Colors.white)),
                     ),
                     SizedBox(height: 10),
                     Container(
@@ -125,28 +138,40 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                           'By continuing, you agree to our User Agreement and Privacy. Your data is protected by Google.',
                           style: TextStyle(
                             fontWeight: FontWeight.w400,
+                            fontFamily: 'pixel',
+                            fontSize: 8,
+                            color: Colors.grey,
+                            height: 1.4,
                           )),
                     ),
                     SizedBox(height: 10),
                     TextFormField(
                       decoration: InputDecoration(
                         hintText: 'Username',
-                        prefixIcon: Icon(Icons.person_outline),
-                        hintStyle: TextStyle(color: Colors.grey),
+                        prefixIcon: Icon(Icons.person_outline,
+                            color: Colors.yellowAccent),
+                        hintStyle: TextStyle(
+                            color: Colors.grey,
+                            fontFamily: 'pixel',
+                            fontSize: 12),
                         filled: true,
-                        fillColor: Color.fromRGBO(240, 240, 240, 1),
+                        fillColor: Color.fromRGBO(40, 40, 40, 1),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(12.0)),
                           borderSide: BorderSide(
-                              color: Color.fromRGBO(210, 210, 210, 1),
+                              color: Color.fromRGBO(140, 140, 140, 1),
                               width: 2),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                           borderSide:
-                              BorderSide(color: Colors.indigo, width: 2),
+                              BorderSide(color: Colors.yellowAccent, width: 2),
                         ),
                       ),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'pixel',
+                          fontSize: 12),
                       controller: _usernameControlller,
                       validator: (String value) {
                         if (value.isEmpty) {
@@ -159,22 +184,30 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                     TextFormField(
                       decoration: InputDecoration(
                         hintText: 'Email',
-                        prefixIcon: Icon(Icons.alternate_email),
-                        hintStyle: TextStyle(color: Colors.grey),
+                        prefixIcon: Icon(Icons.alternate_email,
+                            color: Colors.yellowAccent),
+                        hintStyle: TextStyle(
+                            color: Colors.grey,
+                            fontFamily: 'pixel',
+                            fontSize: 12),
                         filled: true,
-                        fillColor: Color.fromRGBO(240, 240, 240, 1),
+                        fillColor: Color.fromRGBO(40, 40, 40, 1),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(12.0)),
                           borderSide: BorderSide(
-                              color: Color.fromRGBO(210, 210, 210, 1),
+                              color: Color.fromRGBO(140, 140, 140, 1),
                               width: 2),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                           borderSide:
-                              BorderSide(color: Colors.indigo, width: 2),
+                              BorderSide(color: Colors.yellowAccent, width: 2),
                         ),
                       ),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'pixel',
+                          fontSize: 12),
                       controller: _emailController,
                       validator: (String value) {
                         if (value.isEmpty) {
@@ -187,22 +220,30 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                     TextFormField(
                       decoration: InputDecoration(
                         hintText: 'Password',
-                        prefixIcon: Icon(Icons.lock_outline),
-                        hintStyle: TextStyle(color: Colors.grey),
+                        prefixIcon: Icon(Icons.lock_outline,
+                            color: Colors.yellowAccent),
+                        hintStyle: TextStyle(
+                            color: Colors.grey,
+                            fontFamily: 'pixel',
+                            fontSize: 12),
                         filled: true,
-                        fillColor: Color.fromRGBO(240, 240, 240, 1),
+                        fillColor: Color.fromRGBO(40, 40, 40, 1),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(12.0)),
                           borderSide: BorderSide(
-                              color: Color.fromRGBO(210, 210, 210, 1),
+                              color: Color.fromRGBO(140, 140, 140, 1),
                               width: 2),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                           borderSide:
-                              BorderSide(color: Colors.indigo, width: 2),
+                              BorderSide(color: Colors.yellowAccent, width: 2),
                         ),
                       ),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'pixel',
+                          fontSize: 12),
                       controller: _passwordController,
                       obscureText: true,
                       validator: (String value) {
@@ -224,25 +265,25 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                     Container(
                       alignment: Alignment.center,
                       child: MaterialButton(
-                        color: Color.fromRGBO(240, 240, 240, 1),
+                        color: Color.fromRGBO(40, 40, 40, 1),
                         onPressed: () async {
                           signIn.call();
                         },
                         padding: const EdgeInsets.all(15.0),
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                        child: const Text('Already have an account',
-                            style:
-                                TextStyle(fontSize: 16.0, color: Colors.black)),
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: const Text('im already a numdasher',
+                            style: TextStyle(
+                                fontSize: 10.0,
+                                color: Colors.grey,
+                                fontFamily: 'pixel')),
                       ),
                     ),
-                    SizedBox(height: 175),
-
                   ]),
                 ),
               ),
-            ))));
+            )))));
   }
 }
 

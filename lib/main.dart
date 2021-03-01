@@ -85,6 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIOverlays([]);
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -99,16 +100,17 @@ class _MyHomePageState extends State<MyHomePage> {
                   //initialize SizerUtil()
                   SizerUtil().init(constraints, orientation);
                   return MaterialApp(
+                    theme: new ThemeData(scaffoldBackgroundColor: Colors.black),
+
                     debugShowCheckedModeBanner: false,
 
                     title: 'Onboarding Concept',
                     home: Builder(
                       builder: (BuildContext context) {
                         var screenHeight = MediaQuery.of(context).size.height;
-                        return Scaffold(
-
-                            resizeToAvoidBottomInset: false,
-                            body:
+                        return Container(
+                            decoration: new BoxDecoration(color: Colors.black),
+                          child:
                           Container (
                           child: Home(
                             signOut: () {
@@ -127,7 +129,8 @@ class _MyHomePageState extends State<MyHomePage> {
     } else {
       if(!signed){
         return Scaffold(
-
+          //this worked
+          backgroundColor: Colors.black,
           body: Center(
             // Center is a layout widget. It takes a single child and positions it
             // in the middle of the parent.
@@ -140,7 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
         );
       } else {
         return Scaffold(
-
+          backgroundColor: Colors.red,
           body: Center(
             // Center is a layout widget. It takes a single child and positions it
             // in the middle of the parent.
