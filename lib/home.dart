@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/entypo.dart';
+import 'package:flutter_icons/ionicons.dart';
 
 import 'game.dart';
 
@@ -34,10 +36,28 @@ class _HomeState extends State<Home> {
               Scaffold(
                   body: Column(children: <Widget>[
         SizedBox(height: 20),
+        Padding(
+         padding: const EdgeInsets.symmetric(horizontal: 12.0),
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+
         Container(
-          child: const Text('Global High Scores:'),
+          child: const Text('HIGH SCORES:',
+              style: TextStyle(fontSize: 18.0,fontWeight: FontWeight.w600, color: Colors.black)),
         ),
-        SizedBox(height: 20),
+        RaisedButton(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 2.0),
+            child: Icon(Entypo.getIconData("log-out")),
+          ),
+
+          color: Colors.blue,
+          onPressed: () => setState(() {
+            signOut.call();
+          }),
+        )])),
+        SizedBox(height: 10),
         DataTable(columns: const <DataColumn>[
           DataColumn(
             label: Text(
@@ -51,12 +71,7 @@ class _HomeState extends State<Home> {
               style: TextStyle(fontStyle: FontStyle.italic),
             ),
           ),
-          DataColumn(
-            label: Text(
-              'Date',
-              style: TextStyle(fontStyle: FontStyle.italic),
-            ),
-          ),
+
           DataColumn(
             label: Text(
               'Score',
@@ -68,7 +83,6 @@ class _HomeState extends State<Home> {
             cells: <DataCell>[
               DataCell(Text('1')),
               DataCell(Text('snowball')),
-              DataCell(Text('Feb 20, 2021')),
               DataCell(Text('25052')),
             ],
           ),
@@ -76,7 +90,6 @@ class _HomeState extends State<Home> {
             cells: <DataCell>[
               DataCell(Text('2')),
               DataCell(Text('aurko')),
-              DataCell(Text('Feb 20, 2021')),
               DataCell(Text('7527')),
             ],
           ),
@@ -84,7 +97,13 @@ class _HomeState extends State<Home> {
             cells: <DataCell>[
               DataCell(Text('3')),
               DataCell(Text('Becka')),
-              DataCell(Text('Feb 20, 2021')),
+              DataCell(Text('05025')),
+            ],
+          ),
+          DataRow(
+            cells: <DataCell>[
+              DataCell(Text('X')),
+              DataCell(Text('You')),
               DataCell(Text('05025')),
             ],
           ),
@@ -107,7 +126,7 @@ class _HomeState extends State<Home> {
           height: 40,
         ),
         RaisedButton(
-          child: new Text("New Game",
+          child: new Text("Insert Token",
               style: new TextStyle(
                   color: Colors.white,
                   fontStyle: FontStyle.italic,
@@ -117,17 +136,7 @@ class _HomeState extends State<Home> {
             playGame = true;
           }),
         ),
-        RaisedButton(
-          child: new Text("Logout",
-              style: new TextStyle(
-                  color: Colors.white,
-                  fontStyle: FontStyle.italic,
-                  fontSize: 20.0)),
-          color: Colors.blue,
-          onPressed: () => setState(() {
-            signOut.call();
-          }),
-        ),
+
       ])));
     } else {
       return MaterialApp(
