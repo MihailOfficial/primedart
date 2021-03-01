@@ -16,9 +16,10 @@ import 'dart:math';
 import 'package:sizer/sizer.dart';
 import 'highscore_functions.dart';
 import 'home.dart';
+
 Color COLOR = const Color.fromRGBO(0, 0, 0, 0.5);
 Color COLOR2 = const Color.fromRGBO(215, 44, 32, 1);
-const COLOR3 = const Color.fromRGBO(255, 204, 0, 1);
+const CYellow = const Color.fromRGBO(252, 238, 10, 1);
 const COLOR4 = const Color.fromRGBO(0, 0, 0, 0.3);
 
 var colours = [
@@ -62,6 +63,7 @@ var count = new List(4);
 
 class Game extends StatelessWidget {
   static const String routeName = "/home";
+
   @override
   Widget build(BuildContext context) {
     contexts = context;
@@ -75,68 +77,36 @@ class Game extends StatelessWidget {
       Container(
         constraints: BoxConstraints.expand(),
         decoration: BoxDecoration(
-            image: DecorationImage(
+            /*image: DecorationImage(
                 image: AssetImage(
-                    "assets/images/603788db98e51342825c0d36649dbe12.jpg"),
-                fit: BoxFit.cover)),
+                    ""),
+                fit: BoxFit.cover)*/
+            ),
         child: game.widget,
       ),
-      Column(
-        children: <Widget>[
-          RaisedButton(
-            child: new Text("BACK",
-                style: new TextStyle(
-                    color: Colors.white,
-                    fontStyle: FontStyle.italic,
-                    fontSize: 20.0)),
-            color: Colors.indigo,
-              onPressed: (){
+      Align(
+        alignment: Alignment.bottomCenter,
+        child: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: RaisedButton(
+              child: new Text("BACK",
+                  style: new TextStyle(
+                      fontSize: 14.0,
+                      color: Colors.yellowAccent,
+                      fontFamily: 'pixel',)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              color: Colors.deepPurple,
+              onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => Home()),
                 );
               }
-            //onPressed:
-          ),
-          SizedBox(height: 30),
-          RaisedButton(
-              child: new Text("Button 2",
-                  style: new TextStyle(
-                      color: Colors.white,
-                      fontStyle: FontStyle.italic,
-                      fontSize: 20.0)),
-              color: Colors.red,
-              onPressed: () async => {print(await submitScore(300))}),
-          RaisedButton(
-            child: new Text("Button 3",
-                style: new TextStyle(
-                    color: Colors.white,
-                    fontStyle: FontStyle.italic,
-                    fontSize: 20.0)),
-            color: Colors.red,
-            //onPressed:
-          ),
-          RaisedButton(
-            child: new Text("Button 4",
-                style: new TextStyle(
-                    color: Colors.white,
-                    fontStyle: FontStyle.italic,
-                    fontSize: 20.0)),
-            color: Colors.red,
-            onPressed: () {
-              getHighScores(10).then((value) => value.forEach((element) => print(element.get('username'))));
-            }
-          ),
-          RaisedButton(
-            child: new Text("Button 5",
-                style: new TextStyle(
-                    color: Colors.white,
-                    fontStyle: FontStyle.italic,
-                    fontSize: 20.0)),
-            color: Colors.red,
-            //onPressed:
-          ),
-        ],
+              //onPressed:
+              ),
+        ),
       ),
     ]);
   }
@@ -347,7 +317,7 @@ class Multiple extends TextComponent with Tapable {
   @override
   void render(Canvas c) {
     c.drawRRect(
-        RRect.fromRectAndRadius((pauseRect1), Radius.circular(8.0)), _paint12);
+        RRect.fromRectAndRadius((pauseRect1), Radius.circular(6.0)), _paint12);
     super.render(c);
   }
 }
@@ -566,7 +536,7 @@ class NotMultiple extends TextComponent with Tapable {
   @override
   void render(Canvas c) {
     c.drawRRect(
-        RRect.fromRectAndRadius((pauseRect1), Radius.circular(8.0)), _paint12);
+        RRect.fromRectAndRadius((pauseRect1), Radius.circular(6.0)), _paint12);
     super.render(c);
   }
 }
@@ -725,11 +695,11 @@ class MyGame extends BaseGame with HasTapableComponents {
 
     textPainterLivesText = TextPainter(
         text: TextSpan(
-            text: "M:",
+            text: "Round:",
             style: TextStyle(
                 color: Color.fromRGBO(252, 238, 10, 1),
-                fontSize: 22,
-                fontFamily: "bold")),
+                fontSize: 14,
+                fontFamily: "pixel")),
         textDirection: TextDirection.ltr);
     textPainterLivesText.layout(
       minWidth: 0,
@@ -741,7 +711,7 @@ class MyGame extends BaseGame with HasTapableComponents {
         text: TextSpan(
             text: "",
             style: TextStyle(
-                color: Color(0xFFFF0000), fontSize: 36, fontFamily: "bold")),
+                color: Color(0xFFFF0000), fontSize: 32, fontFamily: "pixel")),
         textDirection: TextDirection.ltr,
         textAlign: TextAlign.center);
 
@@ -754,7 +724,7 @@ class MyGame extends BaseGame with HasTapableComponents {
         text: TextSpan(
             text: lives.toString(),
             style: TextStyle(
-                color: Colors.white, fontSize: 24, fontFamily: "bold")),
+                color: Colors.white, fontSize: 20, fontFamily: "pixel")),
         textDirection: TextDirection.ltr);
     textPainterLives.layout(
       minWidth: 0,
@@ -763,11 +733,11 @@ class MyGame extends BaseGame with HasTapableComponents {
 
     textPainterScoreText = TextPainter(
         text: TextSpan(
-            text: "S: ",
+            text: "SCORE: ",
             style: TextStyle(
                 color: Color.fromRGBO(252, 238, 10, 1),
-                fontSize: 22,
-                fontFamily: "bold")),
+                fontSize: 14,
+                fontFamily: "pixel")),
         textDirection: TextDirection.ltr);
     textPainterScoreText.layout(
       minWidth: 0,
@@ -781,7 +751,7 @@ class MyGame extends BaseGame with HasTapableComponents {
                 count[1].toString() +
                 count[0].toString(),
             style: TextStyle(
-                color: Colors.white, fontSize: 24, fontFamily: "bold")),
+                color: Colors.white, fontSize: 20, fontFamily: "pixel")),
         textDirection: TextDirection.ltr);
     textPainterScore.layout(
       minWidth: 0,
@@ -795,12 +765,12 @@ class MyGame extends BaseGame with HasTapableComponents {
 
     positionLivesText = Offset(
         size.width * (5 / 20) - textPainterLivesText.width / 2,
-        heightApp / 2 - textPainterLivesText.height / 2 + heightApp / 1.15);
+        heightApp / 2 - textPainterLivesText.height / 2 + heightApp / 2);
     positionLives = Offset(size.width * (6.4 / 20) - textPainterLives.width / 2,
         heightApp / 2 - textPainterLives.height / 2 + heightApp / 1.15);
     positionScoreText = Offset(
-        size.width * (13 / 20) - textPainterScoreText.width / 2,
-        heightApp / 2 - textPainterScoreText.height / 2 + heightApp / 1.15);
+        size.width * (15 / 20) - textPainterScoreText.width / 2,
+        heightApp / 2 - textPainterScoreText.height / 2 + heightApp / 1.95);
     positionScore = Offset(
         size.width * (15.3 / 20) - textPainterScore.width / 2,
         heightApp / 2 - textPainterScore.height / 2 + heightApp / 1.15);
@@ -853,80 +823,6 @@ class MyGame extends BaseGame with HasTapableComponents {
 
   @override
   void update(double t) {
-    if (updateMenu) {
-      positionNoMoreLives = Offset(
-          size.width / 2 - textPainterNoMoreLives.width / 2,
-          size.height / 2 - textPainterNoMoreLives.height / 2);
-
-      textPainterLivesText = TextPainter(
-          text: TextSpan(
-              text: "M:",
-              style: TextStyle(
-                  color: Color.fromRGBO(255, 204, 0, 1),
-                  fontSize: 22,
-                  fontFamily: "bold")),
-          textDirection: TextDirection.ltr);
-      textPainterLivesText.layout(
-        minWidth: 0,
-        maxWidth: size.width,
-      );
-      var te1;
-
-      textPainterNumType = TextPainter(
-        text: TextSpan(
-            text: " X",
-            style: TextStyle(
-                color: Color.fromRGBO(26, 22, 92, 1),
-                fontSize: 36,
-                fontFamily: "bold")),
-        textDirection: TextDirection.ltr,
-        textAlign: TextAlign.center,
-      );
-
-      textPainterNumType.layout(
-        minWidth: 0,
-        maxWidth: tempWidth,
-      );
-
-      textPainterLives = TextPainter(
-          text: TextSpan(
-              text: lives.toString(),
-              style: TextStyle(
-                  color: Colors.white, fontSize: 24, fontFamily: "bold")),
-          textDirection: TextDirection.ltr);
-      textPainterLives.layout(
-        minWidth: 0,
-        maxWidth: size.width,
-      );
-
-      textPainterScoreText = TextPainter(
-          text: TextSpan(
-              text: "S: ",
-              style: TextStyle(
-                  color: Color.fromRGBO(255, 204, 0, 1),
-                  fontSize: 22,
-                  fontFamily: "bold")),
-          textDirection: TextDirection.ltr);
-      textPainterScoreText.layout(
-        minWidth: 0,
-        maxWidth: size.width,
-      );
-
-      textPainterScore = TextPainter(
-          text: TextSpan(
-              text: count[3].toString() +
-                  count[2].toString() +
-                  count[1].toString() +
-                  count[0].toString(),
-              style: TextStyle(
-                  color: Colors.white, fontSize: 24, fontFamily: "bold")),
-          textDirection: TextDirection.ltr);
-      textPainterScore.layout(
-        minWidth: 0,
-        maxWidth: size.width,
-      );
-    }
-
     if (stopAttempts) {
       if (stopInc == 0) {
         add(endMenu = EndMenu("Again"));
@@ -941,7 +837,7 @@ class MyGame extends BaseGame with HasTapableComponents {
           text: TextSpan(
               text: "0",
               style: TextStyle(
-                  color: Colors.white, fontSize: 24, fontFamily: "bold")),
+                  color: Colors.white, fontSize: 24, fontFamily: "pixel")),
           textDirection: TextDirection.ltr);
       textPainterLives.layout(
         minWidth: 0,
@@ -952,7 +848,7 @@ class MyGame extends BaseGame with HasTapableComponents {
         text: TextSpan(
             text: " !",
             style: TextStyle(
-                color: Color(0xFFFF0000), fontSize: 36, fontFamily: "bold")),
+                color: Color(0xFFFF0000), fontSize: 36, fontFamily: "pixel")),
         textDirection: TextDirection.ltr,
         textAlign: TextAlign.center,
       );
@@ -1044,8 +940,8 @@ class MyGame extends BaseGame with HasTapableComponents {
             text: " " + currentMultiple.toString(),
             style: TextStyle(
                 color: Color.fromRGBO(26, 22, 92, 1),
-                fontSize: 38,
-                fontFamily: "bold")),
+                fontSize: 24,
+                fontFamily: "pixel")),
         textDirection: TextDirection.ltr,
         textAlign: TextAlign.center,
       );
@@ -1062,7 +958,7 @@ class MyGame extends BaseGame with HasTapableComponents {
             text: TextSpan(
                 text: lives.toString(),
                 style: TextStyle(
-                    color: Colors.white, fontSize: 24, fontFamily: "bold")),
+                    color: Colors.white, fontSize: 18, fontFamily: "pixel")),
             textDirection: TextDirection.ltr);
         textPainterLives.layout(
           minWidth: 0,
@@ -1082,7 +978,7 @@ class MyGame extends BaseGame with HasTapableComponents {
                     count[1].toString() +
                     count[0].toString(),
                 style: TextStyle(
-                    color: Colors.white, fontSize: 24, fontFamily: "bold")),
+                    color: Colors.white, fontSize: 18, fontFamily: "pixel")),
             textDirection: TextDirection.ltr);
         textPainterScore.layout(
           minWidth: 0,
@@ -1257,7 +1153,7 @@ class Bg extends Component with Resizable {
   Paint _paint = Paint()..color = COLOR;
   Paint _paint2 = Paint()..color = COLOR2;
 
-  Paint _paint3 = Paint()..color = COLOR3;
+  Paint _paint3 = Paint()..color = CYellow;
 
   Paint _paint4 = Paint()..color = COLOR4;
   Paint _master = Paint()..color = Color.fromRGBO(50, 50, 50, 1);
@@ -1267,12 +1163,12 @@ class Bg extends Component with Resizable {
   @override
   void render(Canvas c) {
     if (masterGameStart) {
-      c.drawRRect(
+      /*c.drawRRect(
           RRect.fromRectAndRadius(
               Rect.fromLTWH((tempWidth - tempWidth / 1.2) / 2, heightApp,
                   tempWidth / 1.2, heightApp * (6 / 8)),
               Radius.circular(8.0)),
-          _paint2);
+          _paint2);*/
 
       c.drawRRect(
           RRect.fromRectAndRadius(
