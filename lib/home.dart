@@ -93,6 +93,20 @@ class _HomeState extends State<Home> {
           height: 20,
         ),
         RaisedButton(
+          child: new Text("Refresh",
+              style: new TextStyle(
+                  color: Colors.white,
+                  fontStyle: FontStyle.italic,
+                  fontSize: 20.0)),
+          color: Colors.orange,
+          onPressed: () => setState(() {
+
+          }),
+        ),
+        SizedBox(
+          height: 40,
+        ),
+        RaisedButton(
           child: new Text("New Game",
               style: new TextStyle(
                   color: Colors.white,

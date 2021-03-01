@@ -15,6 +15,7 @@ import 'package:flutter/services.dart';
 import 'dart:math';
 import 'package:sizer/sizer.dart';
 import 'highscore_functions.dart';
+import 'home.dart';
 Color COLOR = const Color.fromRGBO(0, 0, 0, 0.5);
 Color COLOR2 = const Color.fromRGBO(215, 44, 32, 1);
 const COLOR3 = const Color.fromRGBO(255, 204, 0, 1);
@@ -83,14 +84,21 @@ class Game extends StatelessWidget {
       Column(
         children: <Widget>[
           RaisedButton(
-            child: new Text("Button 1",
+            child: new Text("BACK",
                 style: new TextStyle(
                     color: Colors.white,
                     fontStyle: FontStyle.italic,
                     fontSize: 20.0)),
-            color: Colors.red,
+            color: Colors.indigo,
+              onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Home()),
+                );
+              }
             //onPressed:
           ),
+          SizedBox(height: 30),
           RaisedButton(
               child: new Text("Button 2",
                   style: new TextStyle(
