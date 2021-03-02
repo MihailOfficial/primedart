@@ -34,7 +34,11 @@ class _HomeState extends State<Home> {
               //Scaffold(
               // drawer: AppDrawer(),
               // body:
-
+          Container(
+              decoration: new BoxDecoration(color: Colors.black),
+              child: Container(
+                  child: SafeArea(
+                  child: Container(child:
               Scaffold(
                   body: Container(
                       color: Colors.black,
@@ -246,7 +250,7 @@ class _HomeState extends State<Home> {
                             endColor: Colors.orangeAccent,
                           ),
                         ),
-                      ]))));
+                      ]))))))));
     } else {
       return MaterialApp(
         debugShowCheckedModeBanner: false,
