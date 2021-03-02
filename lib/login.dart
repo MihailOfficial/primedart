@@ -1,3 +1,4 @@
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:keyboard_attachable/keyboard_attachable.dart';
@@ -12,7 +13,8 @@ class RegisterEmailSection extends StatefulWidget {
   State<StatefulWidget> createState() =>
       _RegisterEmailSectionState(signIn: signIn);
 }
-
+ bool error = false;
+bool error2 = false;
 class _RegisterEmailSectionState extends State<RegisterEmailSection> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _usernameControlller = TextEditingController();
@@ -39,14 +41,60 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
     } on FirebaseAuthException catch (e) {
       _success = false;
       if (e.code == 'weak-password') {
+        Flushbar(
+          messageText: Text("Error: weak password", style: TextStyle(fontSize: 14.0, color: Colors.yellowAccent, fontFamily: "Pixel"),),
+          flushbarPosition: FlushbarPosition.TOP,
+          icon: Icon(
+            Icons.error_outline,
+            size: 28.0,
+            color: Colors.yellowAccent,
+          ),
+          leftBarIndicatorColor: Colors.yellowAccent,
+          duration: Duration(seconds: 2),
+        )..show(context);
         _errorState = WEAK_STATE;
       } else if (e.code == 'email-already-in-use') {
+        Flushbar(
+          messageText: Text("Error: email in use", style: TextStyle(fontSize: 14.0, color: Colors.yellowAccent, fontFamily: "Pixel"),),
+          flushbarPosition: FlushbarPosition.TOP,
+          icon: Icon(
+            Icons.error_outline,
+            size: 28.0,
+            color: Colors.yellowAccent,
+          ),
+          leftBarIndicatorColor: Colors.yellowAccent,
+          duration: Duration(seconds: 2),
+        )..show(context);
+        _errorState = IN_USE_STATE;
+      } else if (e.code == 'invalid-email') {
+        Flushbar(
+          messageText: Text("Error: invalid email", style: TextStyle(fontSize: 14.0, color: Colors.yellowAccent, fontFamily: "Pixel"),),
+          flushbarPosition: FlushbarPosition.TOP,
+          icon: Icon(
+            Icons.error_outline,
+            size: 28.0,
+            color: Colors.yellowAccent,
+          ),
+          leftBarIndicatorColor: Colors.yellowAccent,
+          duration: Duration(seconds: 2),
+        )..show(context);
         _errorState = IN_USE_STATE;
       } else {
         print(e.code);
       }
     }
     if (_success) {
+      Flushbar(
+        messageText: Text("Successful Login", style: TextStyle(fontSize: 14.0, color: Colors.yellowAccent, fontFamily: "Pixel"),),
+        flushbarPosition: FlushbarPosition.TOP,
+        icon: Icon(
+          Icons.error_outline,
+          size: 28.0,
+          color: Colors.yellowAccent,
+        ),
+        leftBarIndicatorColor: Colors.yellowAccent,
+        duration: Duration(seconds: 2),
+      )..show(context);
       userCredential.user.updateProfile(displayName: _usernameControlller.text);
       //userCredential.user.sendEmailVerification();
       setState(() {
@@ -77,6 +125,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                   ),
                   color: Colors.deepPurple,
                   onPressed: () async {
+                    error = false;
                     if (_formKey.currentState.validate()) {
                       _register();
                       //print("test");
@@ -147,6 +196,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                     SizedBox(height: 10),
                     TextFormField(
                       decoration: InputDecoration(
+                        errorStyle: TextStyle(height: 0),
                         hintText: 'Username',
                         prefixIcon: Icon(Icons.person_outline,
                             color: Colors.yellowAccent),
@@ -175,14 +225,27 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                       controller: _usernameControlller,
                       validator: (String value) {
                         if (value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
+                          if (!error){
+                            error = true;
+                            Flushbar(
+                              messageText: Text("Blank Input", style: TextStyle(fontSize: 14.0, color: Colors.yellowAccent, fontFamily: "Pixel"),),
+                              flushbarPosition: FlushbarPosition.TOP,
+                              icon: Icon(
+                                Icons.error_outline,
+                                size: 28.0,
+                                color: Colors.yellowAccent,
+                              ),
+                              leftBarIndicatorColor: Colors.yellowAccent,
+                              duration: Duration(seconds: 2),
+                            )..show(context);
+                          }}
+
                       },
                     ),
                     SizedBox(height: 10),
                     TextFormField(
                       decoration: InputDecoration(
+                        errorStyle: TextStyle(height: 0),
                         hintText: 'Email',
                         prefixIcon: Icon(Icons.alternate_email,
                             color: Colors.yellowAccent),
@@ -211,14 +274,28 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                       controller: _emailController,
                       validator: (String value) {
                         if (value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
+                          if (!error){
+                            error = true;
+                            Flushbar(
+                              messageText: Text("Blank Input", style: TextStyle(fontSize: 14.0, color: Colors.yellowAccent, fontFamily: "Pixel"),),
+                              flushbarPosition: FlushbarPosition.TOP,
+                              icon: Icon(
+                                Icons.error_outline,
+                                size: 28.0,
+                                color: Colors.yellowAccent,
+                              ),
+                              leftBarIndicatorColor: Colors.yellowAccent,
+                              duration: Duration(seconds: 2),
+                            )..show(context);
+                          }}
+
                       },
                     ),
                     SizedBox(height: 10),
                     TextFormField(
+
                       decoration: InputDecoration(
+                        errorStyle: TextStyle(height: 0),
                         hintText: 'Password',
                         prefixIcon: Icon(Icons.lock_outline,
                             color: Colors.yellowAccent),
@@ -248,10 +325,23 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                       obscureText: true,
                       validator: (String value) {
                         if (value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
+                          if (!error){
+                           error = true;
+                          Flushbar(
+                            messageText: Text("Blank Input", style: TextStyle(fontSize: 14.0, color: Colors.yellowAccent, fontFamily: "Pixel"),),
+                            flushbarPosition: FlushbarPosition.TOP,
+                            icon: Icon(
+                              Icons.error_outline,
+                              size: 28.0,
+                              color: Colors.yellowAccent,
+                            ),
+                            leftBarIndicatorColor: Colors.yellowAccent,
+                            duration: Duration(seconds: 2),
+                          )..show(context);
+                        }}
+
                       },
+
                     ),
                     SizedBox(height: 10),
                     Container(
@@ -342,8 +432,12 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
                   ),
                   color: Colors.deepPurple,
                   onPressed: () async {
+                    error2 = false;
                     if (_formKey.currentState.validate()) {
+
                       _signInWithEmailAndPassword();
+
+
                     }
                   },
                   child: const Text('Continue',
@@ -366,6 +460,7 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
                         child: Form(
                           key: _formKey,
                           child: ListView(shrinkWrap: true, children: <Widget>[
+
                             SizedBox(height: 20),
                             Center(
                                 child: Container(
@@ -440,9 +535,21 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
                               controller: _emailController,
                               validator: (String value) {
                                 if (value.isEmpty) {
-                                  return 'Please enter some text';
-                                }
-                                return null;
+                                  if (!error2){
+                                    error2 = true;
+                                    Flushbar(
+                                      messageText: Text("Blank Input", style: TextStyle(fontSize: 14.0, color: Colors.yellowAccent, fontFamily: "Pixel"),),
+                                      flushbarPosition: FlushbarPosition.TOP,
+                                      icon: Icon(
+                                        Icons.error_outline,
+                                        size: 28.0,
+                                        color: Colors.yellowAccent,
+                                      ),
+                                      leftBarIndicatorColor: Colors.yellowAccent,
+                                      duration: Duration(seconds: 2),
+                                    )..show(context);
+                                  }}
+
                               },
                             ),
                             SizedBox(height: 10),
@@ -477,9 +584,21 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
                               obscureText: true,
                               validator: (String value) {
                                 if (value.isEmpty) {
-                                  return 'Please enter some text';
-                                }
-                                return null;
+                                  if (!error2){
+                                    error2 = true;
+                                    Flushbar(
+                                      messageText: Text("Blank Input", style: TextStyle(fontSize: 14.0, color: Colors.yellowAccent, fontFamily: "Pixel"),),
+                                      flushbarPosition: FlushbarPosition.TOP,
+                                      icon: Icon(
+                                        Icons.error_outline,
+                                        size: 28.0,
+                                        color: Colors.yellowAccent,
+                                      ),
+                                      leftBarIndicatorColor: Colors.yellowAccent,
+                                      duration: Duration(seconds: 2),
+                                    )..show(context);
+                                  }}
+
                               },
                             ),
                             SizedBox(height: 10),
