@@ -143,7 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
         );
       } else {
         return Scaffold(
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.black,
           body: Center(
             // Center is a layout widget. It takes a single child and positions it
             // in the middle of the parent.
