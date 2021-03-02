@@ -13,8 +13,10 @@ class RegisterEmailSection extends StatefulWidget {
   State<StatefulWidget> createState() =>
       _RegisterEmailSectionState(signIn: signIn);
 }
- bool error = false;
+
+bool error = false;
 bool error2 = false;
+
 class _RegisterEmailSectionState extends State<RegisterEmailSection> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _usernameControlller = TextEditingController();
@@ -42,7 +44,13 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
       _success = false;
       if (e.code == 'weak-password') {
         Flushbar(
-          messageText: Text("Error: weak password", style: TextStyle(fontSize: 14.0, color: Colors.yellowAccent, fontFamily: "Pixel"),),
+          messageText: Text(
+            "Error: weak password",
+            style: TextStyle(
+                fontSize: 14.0,
+                color: Colors.yellowAccent,
+                fontFamily: "Pixel"),
+          ),
           flushbarPosition: FlushbarPosition.TOP,
           icon: Icon(
             Icons.error_outline,
@@ -55,7 +63,13 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
         _errorState = WEAK_STATE;
       } else if (e.code == 'email-already-in-use') {
         Flushbar(
-          messageText: Text("Error: email in use", style: TextStyle(fontSize: 14.0, color: Colors.yellowAccent, fontFamily: "Pixel"),),
+          messageText: Text(
+            "Error: email in use",
+            style: TextStyle(
+                fontSize: 14.0,
+                color: Colors.yellowAccent,
+                fontFamily: "Pixel"),
+          ),
           flushbarPosition: FlushbarPosition.TOP,
           icon: Icon(
             Icons.error_outline,
@@ -68,7 +82,13 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
         _errorState = IN_USE_STATE;
       } else if (e.code == 'invalid-email') {
         Flushbar(
-          messageText: Text("Error: invalid email", style: TextStyle(fontSize: 14.0, color: Colors.yellowAccent, fontFamily: "Pixel"),),
+          messageText: Text(
+            "Error: invalid email",
+            style: TextStyle(
+                fontSize: 14.0,
+                color: Colors.yellowAccent,
+                fontFamily: "Pixel"),
+          ),
           flushbarPosition: FlushbarPosition.TOP,
           icon: Icon(
             Icons.error_outline,
@@ -85,7 +105,11 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
     }
     if (_success) {
       Flushbar(
-        messageText: Text("Successful Login", style: TextStyle(fontSize: 14.0, color: Colors.yellowAccent, fontFamily: "Pixel"),),
+        messageText: Text(
+          "Successful Login",
+          style: TextStyle(
+              fontSize: 14.0, color: Colors.yellowAccent, fontFamily: "Pixel"),
+        ),
         flushbarPosition: FlushbarPosition.TOP,
         icon: Icon(
           Icons.error_outline,
@@ -225,10 +249,16 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                       controller: _usernameControlller,
                       validator: (String value) {
                         if (value.isEmpty) {
-                          if (!error){
+                          if (!error) {
                             error = true;
                             Flushbar(
-                              messageText: Text("Blank Input", style: TextStyle(fontSize: 14.0, color: Colors.yellowAccent, fontFamily: "Pixel"),),
+                              messageText: Text(
+                                "Blank Input",
+                                style: TextStyle(
+                                    fontSize: 14.0,
+                                    color: Colors.yellowAccent,
+                                    fontFamily: "Pixel"),
+                              ),
                               flushbarPosition: FlushbarPosition.TOP,
                               icon: Icon(
                                 Icons.error_outline,
@@ -238,8 +268,8 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                               leftBarIndicatorColor: Colors.yellowAccent,
                               duration: Duration(seconds: 2),
                             )..show(context);
-                          }}
-
+                          }
+                        }
                       },
                     ),
                     SizedBox(height: 10),
@@ -274,10 +304,16 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                       controller: _emailController,
                       validator: (String value) {
                         if (value.isEmpty) {
-                          if (!error){
+                          if (!error) {
                             error = true;
                             Flushbar(
-                              messageText: Text("Blank Input", style: TextStyle(fontSize: 14.0, color: Colors.yellowAccent, fontFamily: "Pixel"),),
+                              messageText: Text(
+                                "Blank Input",
+                                style: TextStyle(
+                                    fontSize: 14.0,
+                                    color: Colors.yellowAccent,
+                                    fontFamily: "Pixel"),
+                              ),
                               flushbarPosition: FlushbarPosition.TOP,
                               icon: Icon(
                                 Icons.error_outline,
@@ -287,13 +323,12 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                               leftBarIndicatorColor: Colors.yellowAccent,
                               duration: Duration(seconds: 2),
                             )..show(context);
-                          }}
-
+                          }
+                        }
                       },
                     ),
                     SizedBox(height: 10),
                     TextFormField(
-
                       decoration: InputDecoration(
                         errorStyle: TextStyle(height: 0),
                         hintText: 'Password',
@@ -325,23 +360,28 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                       obscureText: true,
                       validator: (String value) {
                         if (value.isEmpty) {
-                          if (!error){
-                           error = true;
-                          Flushbar(
-                            messageText: Text("Blank Input", style: TextStyle(fontSize: 14.0, color: Colors.yellowAccent, fontFamily: "Pixel"),),
-                            flushbarPosition: FlushbarPosition.TOP,
-                            icon: Icon(
-                              Icons.error_outline,
-                              size: 28.0,
-                              color: Colors.yellowAccent,
-                            ),
-                            leftBarIndicatorColor: Colors.yellowAccent,
-                            duration: Duration(seconds: 2),
-                          )..show(context);
-                        }}
-
+                          if (!error) {
+                            error = true;
+                            Flushbar(
+                              messageText: Text(
+                                "Blank Input",
+                                style: TextStyle(
+                                    fontSize: 14.0,
+                                    color: Colors.yellowAccent,
+                                    fontFamily: "Pixel"),
+                              ),
+                              flushbarPosition: FlushbarPosition.TOP,
+                              icon: Icon(
+                                Icons.error_outline,
+                                size: 28.0,
+                                color: Colors.yellowAccent,
+                              ),
+                              leftBarIndicatorColor: Colors.yellowAccent,
+                              duration: Duration(seconds: 2),
+                            )..show(context);
+                          }
+                        }
                       },
-
                     ),
                     SizedBox(height: 10),
                     Container(
@@ -405,8 +445,41 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
         email: _emailController.text,
         password: _passwordController.text,
       );
+      Flushbar(
+        messageText: Text(
+          "Successful Login",
+          style: TextStyle(
+              fontSize: 14.0, color: Colors.yellowAccent, fontFamily: "Pixel"),
+        ),
+        flushbarPosition: FlushbarPosition.TOP,
+        icon: Icon(
+          Icons.error_outline,
+          size: 28.0,
+          color: Colors.yellowAccent,
+        ),
+        leftBarIndicatorColor: Colors.yellowAccent,
+        duration: Duration(seconds: 2),
+      )..show(context);
     } on FirebaseAuthException catch (e) {
-      print("Error: " + e.code);
+      if (e.code == 'wrong-password') {
+        Flushbar(
+          messageText: Text(
+            "Error: wrong password",
+            style: TextStyle(
+                fontSize: 14.0,
+                color: Colors.yellowAccent,
+                fontFamily: "Pixel"),
+          ),
+          flushbarPosition: FlushbarPosition.TOP,
+          icon: Icon(
+            Icons.error_outline,
+            size: 28.0,
+            color: Colors.yellowAccent,
+          ),
+          leftBarIndicatorColor: Colors.yellowAccent,
+          duration: Duration(seconds: 2),
+        )..show(context);
+      }
       _success = false;
     }
     if (_success) {
@@ -434,10 +507,7 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
                   onPressed: () async {
                     error2 = false;
                     if (_formKey.currentState.validate()) {
-
                       _signInWithEmailAndPassword();
-
-
                     }
                   },
                   child: const Text('Continue',
@@ -454,167 +524,176 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
             child: Container(
                 child: SafeArea(
                     child: Container(
-                      color: Colors.black,
-                      child: Container(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Form(
-                          key: _formKey,
-                          child: ListView(shrinkWrap: true, children: <Widget>[
-
-                            SizedBox(height: 20),
-                            Center(
-                                child: Container(
-                                    child: Text('NumDash',
-                                        style: TextStyle(
-                                          fontFamily: 'rage',
-                                          fontSize: 28,
-                                          color: Colors.yellowAccent,
-                                          shadows: <Shadow>[
-                                            Shadow(
-                                              offset: Offset(5.0, 5.0),
-                                              blurRadius: 3.0,
-                                              color: Color.fromRGBO(240, 240, 240, 0.2),
-                                            ),
-                                            Shadow(
-                                              offset: Offset(5.0, 5.0),
-                                              blurRadius: 8.0,
-                                              color: Color.fromRGBO(240, 240, 240, 0.2),
-                                            ),
-                                          ],
-                                        )))),
-                            SizedBox(height: 20),
-                            Container(
-                              child: const Text('SIGN IN',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: 'pixel',
-                                      fontSize: 12,
-                                      color: Colors.white)),
-                            ),
-                            SizedBox(height: 10),
-                            Container(
-                              child: const Text(
-                                  'By continuing, you agree to our User Agreement and Privacy. Your data is protected by Google.',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: 'pixel',
-                                    fontSize: 8,
-                                    color: Colors.grey,
-                                    height: 1.4,
-                                  )),
-                            ),
-                            SizedBox(height: 10),
-
-                            TextFormField(
-                              decoration: InputDecoration(
-                                hintText: 'Email',
-                                prefixIcon: Icon(Icons.alternate_email,
-                                    color: Colors.yellowAccent),
-                                hintStyle: TextStyle(
-                                    color: Colors.grey,
-                                    fontFamily: 'pixel',
-                                    fontSize: 12),
-                                filled: true,
-                                fillColor: Color.fromRGBO(40, 40, 40, 1),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                                  borderSide: BorderSide(
-                                      color: Color.fromRGBO(140, 140, 140, 1),
-                                      width: 2),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                                  borderSide:
-                                  BorderSide(color: Colors.yellowAccent, width: 2),
-                                ),
-                              ),
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'pixel',
-                                  fontSize: 12),
-                              controller: _emailController,
-                              validator: (String value) {
-                                if (value.isEmpty) {
-                                  if (!error2){
-                                    error2 = true;
-                                    Flushbar(
-                                      messageText: Text("Blank Input", style: TextStyle(fontSize: 14.0, color: Colors.yellowAccent, fontFamily: "Pixel"),),
-                                      flushbarPosition: FlushbarPosition.TOP,
-                                      icon: Icon(
-                                        Icons.error_outline,
-                                        size: 28.0,
-                                        color: Colors.yellowAccent,
-                                      ),
-                                      leftBarIndicatorColor: Colors.yellowAccent,
-                                      duration: Duration(seconds: 2),
-                                    )..show(context);
-                                  }}
-
-                              },
-                            ),
-                            SizedBox(height: 10),
-                            TextFormField(
-                              decoration: InputDecoration(
-                                hintText: 'Password',
-                                prefixIcon: Icon(Icons.lock_outline,
-                                    color: Colors.yellowAccent),
-                                hintStyle: TextStyle(
-                                    color: Colors.grey,
-                                    fontFamily: 'pixel',
-                                    fontSize: 12),
-                                filled: true,
-                                fillColor: Color.fromRGBO(40, 40, 40, 1),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                                  borderSide: BorderSide(
-                                      color: Color.fromRGBO(140, 140, 140, 1),
-                                      width: 2),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                                  borderSide:
-                                  BorderSide(color: Colors.yellowAccent, width: 2),
-                                ),
-                              ),
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'pixel',
-                                  fontSize: 12),
-                              controller: _passwordController,
-                              obscureText: true,
-                              validator: (String value) {
-                                if (value.isEmpty) {
-                                  if (!error2){
-                                    error2 = true;
-                                    Flushbar(
-                                      messageText: Text("Blank Input", style: TextStyle(fontSize: 14.0, color: Colors.yellowAccent, fontFamily: "Pixel"),),
-                                      flushbarPosition: FlushbarPosition.TOP,
-                                      icon: Icon(
-                                        Icons.error_outline,
-                                        size: 28.0,
-                                        color: Colors.yellowAccent,
-                                      ),
-                                      leftBarIndicatorColor: Colors.yellowAccent,
-                                      duration: Duration(seconds: 2),
-                                    )..show(context);
-                                  }}
-
-                              },
-                            ),
-                            SizedBox(height: 10),
-                            Container(
-                              alignment: Alignment.center,
-                              child: Text(_success == null
-                                  ? ''
-                                  : (_success
-                                  ? 'Successfully registered ' + _userEmail
-                                  : 'Registration failed')),
-                            ),
-
-                          ]),
+              color: Colors.black,
+              child: Container(
+                padding: const EdgeInsets.all(20.0),
+                child: Form(
+                  key: _formKey,
+                  child: ListView(shrinkWrap: true, children: <Widget>[
+                    SizedBox(height: 20),
+                    Center(
+                        child: Container(
+                            child: Text('NumDash',
+                                style: TextStyle(
+                                  fontFamily: 'rage',
+                                  fontSize: 28,
+                                  color: Colors.yellowAccent,
+                                  shadows: <Shadow>[
+                                    Shadow(
+                                      offset: Offset(5.0, 5.0),
+                                      blurRadius: 3.0,
+                                      color: Color.fromRGBO(240, 240, 240, 0.2),
+                                    ),
+                                    Shadow(
+                                      offset: Offset(5.0, 5.0),
+                                      blurRadius: 8.0,
+                                      color: Color.fromRGBO(240, 240, 240, 0.2),
+                                    ),
+                                  ],
+                                )))),
+                    SizedBox(height: 20),
+                    Container(
+                      child: const Text('SIGN IN',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontFamily: 'pixel',
+                              fontSize: 12,
+                              color: Colors.white)),
+                    ),
+                    SizedBox(height: 10),
+                    Container(
+                      child: const Text(
+                          'By continuing, you agree to our User Agreement and Privacy. Your data is protected by Google.',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'pixel',
+                            fontSize: 8,
+                            color: Colors.grey,
+                            height: 1.4,
+                          )),
+                    ),
+                    SizedBox(height: 10),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        hintText: 'Email',
+                        prefixIcon: Icon(Icons.alternate_email,
+                            color: Colors.yellowAccent),
+                        hintStyle: TextStyle(
+                            color: Colors.grey,
+                            fontFamily: 'pixel',
+                            fontSize: 12),
+                        filled: true,
+                        fillColor: Color.fromRGBO(40, 40, 40, 1),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                          borderSide: BorderSide(
+                              color: Color.fromRGBO(140, 140, 140, 1),
+                              width: 2),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          borderSide:
+                              BorderSide(color: Colors.yellowAccent, width: 2),
                         ),
                       ),
-                    )))));
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'pixel',
+                          fontSize: 12),
+                      controller: _emailController,
+                      validator: (String value) {
+                        if (value.isEmpty) {
+                          if (!error2) {
+                            error2 = true;
+                            Flushbar(
+                              messageText: Text(
+                                "Blank Input",
+                                style: TextStyle(
+                                    fontSize: 14.0,
+                                    color: Colors.yellowAccent,
+                                    fontFamily: "Pixel"),
+                              ),
+                              flushbarPosition: FlushbarPosition.TOP,
+                              icon: Icon(
+                                Icons.error_outline,
+                                size: 28.0,
+                                color: Colors.yellowAccent,
+                              ),
+                              leftBarIndicatorColor: Colors.yellowAccent,
+                              duration: Duration(seconds: 2),
+                            )..show(context);
+                          }
+                        }
+                      },
+                    ),
+                    SizedBox(height: 10),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        hintText: 'Password',
+                        prefixIcon: Icon(Icons.lock_outline,
+                            color: Colors.yellowAccent),
+                        hintStyle: TextStyle(
+                            color: Colors.grey,
+                            fontFamily: 'pixel',
+                            fontSize: 12),
+                        filled: true,
+                        fillColor: Color.fromRGBO(40, 40, 40, 1),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                          borderSide: BorderSide(
+                              color: Color.fromRGBO(140, 140, 140, 1),
+                              width: 2),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          borderSide:
+                              BorderSide(color: Colors.yellowAccent, width: 2),
+                        ),
+                      ),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'pixel',
+                          fontSize: 12),
+                      controller: _passwordController,
+                      obscureText: true,
+                      validator: (String value) {
+                        if (value.isEmpty) {
+                          if (!error2) {
+                            error2 = true;
+                            Flushbar(
+                              messageText: Text(
+                                "Blank Input",
+                                style: TextStyle(
+                                    fontSize: 14.0,
+                                    color: Colors.yellowAccent,
+                                    fontFamily: "Pixel"),
+                              ),
+                              flushbarPosition: FlushbarPosition.TOP,
+                              icon: Icon(
+                                Icons.error_outline,
+                                size: 28.0,
+                                color: Colors.yellowAccent,
+                              ),
+                              leftBarIndicatorColor: Colors.yellowAccent,
+                              duration: Duration(seconds: 2),
+                            )..show(context);
+                          }
+                        }
+                      },
+                    ),
+                    SizedBox(height: 10),
+                    Container(
+                      alignment: Alignment.center,
+                      child: Text(_success == null
+                          ? ''
+                          : (_success
+                              ? 'Successfully registered ' + _userEmail
+                              : 'Registration failed')),
+                    ),
+                  ]),
+                ),
+              ),
+            )))));
   }
 
   @override

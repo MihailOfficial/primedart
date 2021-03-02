@@ -33,111 +33,164 @@ class _HomeState extends State<Home> {
               //Scaffold(
               // drawer: AppDrawer(),
               // body:
+
               Scaffold(
-                  body: Column(children: <Widget>[
-        SizedBox(height: 20),
-        Padding(
-         padding: const EdgeInsets.symmetric(horizontal: 12.0),
-        child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
+                  body: Container(
+                      color: Colors.black,
+                      child: Column(children: <Widget>[
+                        SizedBox(height: 20),
+                        Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 30.0),
+                            child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Container(
+                                    child: const Text('GLOBAL SCORES',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: 'pixel',
+                                            fontSize: 14,
+                                            color: Colors.yellowAccent)),
+                                  ),
+                                  MaterialButton(
+                                    color: Color.fromRGBO(40, 40, 40, 1),
+                                    onPressed: () async {signOut.call();},
 
-        Container(
-          child: const Text('HIGH SCORES:',
-              style: TextStyle(fontSize: 18.0,fontWeight: FontWeight.w600, color: Colors.black)),
-        ),
-        RaisedButton(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 2.0),
-            child: Icon(Entypo.getIconData("log-out")),
-          ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    child: Icon(Entypo.getIconData("log-out"),color: Colors.yellowAccent,)
+                                  ),
+                                ])),
 
-          color: Colors.blue,
-          onPressed: () => setState(() {
-            signOut.call();
-          }),
-        )])),
-        SizedBox(height: 10),
-        DataTable(columns: const <DataColumn>[
-          DataColumn(
-            label: Text(
-              'Rank',
-              style: TextStyle(fontStyle: FontStyle.italic),
-            ),
-          ),
-          DataColumn(
-            label: Text(
-              'Username',
-              style: TextStyle(fontStyle: FontStyle.italic),
-            ),
-          ),
+                        SizedBox(height: 10),
+                      Container(
 
-          DataColumn(
-            label: Text(
-              'Score',
-              style: TextStyle(fontStyle: FontStyle.italic),
-            ),
-          ),
-        ], rows: const <DataRow>[
-          DataRow(
-            cells: <DataCell>[
-              DataCell(Text('1')),
-              DataCell(Text('snowball')),
-              DataCell(Text('25052')),
-            ],
-          ),
-          DataRow(
-            cells: <DataCell>[
-              DataCell(Text('2')),
-              DataCell(Text('aurko')),
-              DataCell(Text('7527')),
-            ],
-          ),
-          DataRow(
-            cells: <DataCell>[
-              DataCell(Text('3')),
-              DataCell(Text('Becka')),
-              DataCell(Text('05025')),
-            ],
-          ),
-          DataRow(
-            cells: <DataCell>[
-              DataCell(Text('X')),
-              DataCell(Text('You')),
-              DataCell(Text('05025')),
-            ],
-          ),
-        ]),
-        SizedBox(
-          height: 20,
-        ),
-        RaisedButton(
-          child: new Text("Refresh",
-              style: new TextStyle(
-                  color: Colors.white,
-                  fontStyle: FontStyle.italic,
-                  fontSize: 20.0)),
-          color: Colors.orange,
-          onPressed: () => setState(() {
+                        decoration: BoxDecoration(
+                          color: Color.fromRGBO(20, 20, 20, 1),
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                        ),
+                        child:
+                        DataTable(
 
-          }),
-        ),
-        SizedBox(
-          height: 40,
-        ),
-        RaisedButton(
-          child: new Text("Insert Token",
-              style: new TextStyle(
-                  color: Colors.white,
-                  fontStyle: FontStyle.italic,
-                  fontSize: 20.0)),
-          color: Colors.red,
-          onPressed: () => setState(() {
-            playGame = true;
-          }),
-        ),
+                            columns: const <DataColumn>[
+                          DataColumn(
+                            label: Text(
+                              'Rank',
+                              style: TextStyle(fontStyle: FontStyle.italic,fontFamily: 'pixel',
+                                fontSize: 10,color: Colors.white),
+                            ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              'Username',
+                              style: TextStyle(fontStyle: FontStyle.italic,fontFamily: 'pixel',
+                                  fontSize: 10,color: Colors.white),
+                            ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              'Score',
+                              style: TextStyle(fontStyle: FontStyle.italic,fontFamily: 'pixel',
+                                  fontSize: 10,color: Colors.white),
+                            ),
+                          ),
+                        ], rows: const <DataRow>[
+                          DataRow(
+                            cells: <DataCell>[
+                              DataCell(Text('1',
+                                style: TextStyle(fontStyle: FontStyle.italic,fontFamily: 'pixel',
+                                    fontSize: 12,color: Colors.red),)),
+                              DataCell(Text('snowball',
+                                  style: TextStyle(fontStyle: FontStyle.italic,fontFamily: 'pixel',
+                                      fontSize: 10,color: Color.fromRGBO(200, 200, 200, 1)))),
+                              DataCell(Text('25052',
+                                  style: TextStyle(fontStyle: FontStyle.italic,fontFamily: 'pixel',
+                                      fontSize: 10,color: Color.fromRGBO(200, 200, 200, 1)))),
+                            ],
+                          ),
+                          DataRow(
+                            cells: <DataCell>[
+                              DataCell(Text('2',
+                                  style: TextStyle(fontStyle: FontStyle.italic,fontFamily: 'pixel',
+                                      fontSize: 12,color: Colors.blue))),
+                              DataCell(Text('aurko',
+                                  style: TextStyle(fontStyle: FontStyle.italic,fontFamily: 'pixel',
+                                      fontSize: 10,color: Color.fromRGBO(200, 200, 200, 1)))),
+                              DataCell(Text('7527',
+                                  style: TextStyle(fontStyle: FontStyle.italic,fontFamily: 'pixel',
+                                      fontSize: 10,color: Color.fromRGBO(200, 200, 200, 1)))),
+                            ],
+                          ),
+                          DataRow(
+                            cells: <DataCell>[
+                              DataCell(Text('3',
+                                  style: TextStyle(fontStyle: FontStyle.italic,fontFamily: 'pixel',
+                                      fontSize: 12,color: Colors.green))),
+                              DataCell(Text('Becka',
+                                  style: TextStyle(fontStyle: FontStyle.italic,fontFamily: 'pixel',
+                                      fontSize: 10,color: Color.fromRGBO(200, 200, 200, 1)))),
+                              DataCell(Text('05025',
+                                  style: TextStyle(fontStyle: FontStyle.italic,fontFamily: 'pixel',
+                                      fontSize: 10,color: Color.fromRGBO(200, 200, 200, 1)))),
+                            ],
+                          ),
+                          DataRow(
+                            cells: <DataCell>[
+                              DataCell(Text('X',
+                                  style: TextStyle(fontStyle: FontStyle.italic,fontFamily: 'pixel',
+                                      fontSize: 12,color: Colors.grey))),
+                              DataCell(Text('You',
+                                  style: TextStyle(fontStyle: FontStyle.italic,fontFamily: 'pixel',
+                                      fontSize: 10,color: Colors.grey))),
+                              DataCell(Text('05025',
+                                  style: TextStyle(fontStyle: FontStyle.italic,fontFamily: 'pixel',
+                                      fontSize: 10,color: Colors.grey))),
+                            ],
+                          ),
+                        ]),),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          alignment: Alignment.center,
+                          child: MaterialButton(
+                            color: Color.fromRGBO(20, 20, 20, 1),
+                            onPressed: () async {},
+                            padding: const EdgeInsets.all(15.0),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: const Text('Refresh',
+                                style: TextStyle(
+                                    fontSize: 10.0,
+                                    color: Colors.grey,
+                                    fontFamily: 'pixel')),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 40,
+                        ),
+                        RaisedButton(
+                            padding: const EdgeInsets.all(15.0),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            color: Colors.deepPurple,
+                            onPressed: () async {
+                              playGame = true;
+                            },
+                            child: const Text('Insert Token',
+                                style: TextStyle(
+                                  fontSize: 14.0,
+                                  color: Colors.yellowAccent,
+                                  fontFamily: 'pixel',
+                                )),
+                          ),
 
-      ])));
+                      ]))));
     } else {
       return MaterialApp(
         debugShowCheckedModeBanner: false,
