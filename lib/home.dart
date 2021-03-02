@@ -57,9 +57,9 @@ class _HomeState extends State<Home> {
                                   ),
                                   MaterialButton(
                                       color: Color.fromRGBO(40, 40, 40, 1),
-                                      onPressed: () async {
+                                      onPressed: () => setState(() {
                                         signOut.call();
-                                      },
+                                      }),
                                       shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(10.0),
