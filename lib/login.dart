@@ -45,7 +45,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
       if (e.code == 'weak-password') {
         Flushbar(
           messageText: Text(
-            "Error: weak password",
+            "Weak password",
             style: TextStyle(
                 fontSize: 14.0,
                 color: Colors.yellowAccent,
@@ -54,17 +54,17 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
           flushbarPosition: FlushbarPosition.TOP,
           icon: Icon(
             Icons.error_outline,
-            size: 28.0,
-            color: Colors.yellowAccent,
+                                size: 28.0,
+                                color: Colors.yellowAccent,
           ),
-          leftBarIndicatorColor: Colors.yellowAccent,
+          leftBarIndicatorColor: Colors.red,
           duration: Duration(seconds: 2),
         )..show(context);
         _errorState = WEAK_STATE;
       } else if (e.code == 'email-already-in-use') {
         Flushbar(
           messageText: Text(
-            "Error: email in use",
+            "Email in use",
             style: TextStyle(
                 fontSize: 14.0,
                 color: Colors.yellowAccent,
@@ -73,17 +73,17 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
           flushbarPosition: FlushbarPosition.TOP,
           icon: Icon(
             Icons.error_outline,
-            size: 28.0,
-            color: Colors.yellowAccent,
+                                size: 28.0,
+                                color: Colors.yellowAccent,
           ),
-          leftBarIndicatorColor: Colors.yellowAccent,
+          leftBarIndicatorColor: Colors.red,
           duration: Duration(seconds: 2),
         )..show(context);
         _errorState = IN_USE_STATE;
       } else if (e.code == 'invalid-email') {
         Flushbar(
           messageText: Text(
-            "Error: invalid email",
+            "Invalid email",
             style: TextStyle(
                 fontSize: 14.0,
                 color: Colors.yellowAccent,
@@ -92,10 +92,10 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
           flushbarPosition: FlushbarPosition.TOP,
           icon: Icon(
             Icons.error_outline,
-            size: 28.0,
-            color: Colors.yellowAccent,
+                                size: 28.0,
+                                color: Colors.yellowAccent,
           ),
-          leftBarIndicatorColor: Colors.yellowAccent,
+          leftBarIndicatorColor: Colors.red,
           duration: Duration(seconds: 2),
         )..show(context);
         _errorState = IN_USE_STATE;
@@ -116,7 +116,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
           size: 28.0,
           color: Colors.yellowAccent,
         ),
-        leftBarIndicatorColor: Colors.yellowAccent,
+        leftBarIndicatorColor: Colors.red,
         duration: Duration(seconds: 2),
       )..show(context);
       userCredential.user.updateProfile(displayName: _usernameControlller.text);
@@ -265,7 +265,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                                 size: 28.0,
                                 color: Colors.yellowAccent,
                               ),
-                              leftBarIndicatorColor: Colors.yellowAccent,
+                              leftBarIndicatorColor: Colors.red,
                               duration: Duration(seconds: 2),
                             )..show(context);
                           }
@@ -320,7 +320,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                                 size: 28.0,
                                 color: Colors.yellowAccent,
                               ),
-                              leftBarIndicatorColor: Colors.yellowAccent,
+                              leftBarIndicatorColor: Colors.red,
                               duration: Duration(seconds: 2),
                             )..show(context);
                           }
@@ -376,7 +376,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                                 size: 28.0,
                                 color: Colors.yellowAccent,
                               ),
-                              leftBarIndicatorColor: Colors.yellowAccent,
+                              leftBarIndicatorColor: Colors.red,
                               duration: Duration(seconds: 2),
                             )..show(context);
                           }
@@ -453,18 +453,18 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
         ),
         flushbarPosition: FlushbarPosition.TOP,
         icon: Icon(
-          Icons.error_outline,
+          Icons.check,
           size: 28.0,
           color: Colors.yellowAccent,
         ),
-        leftBarIndicatorColor: Colors.yellowAccent,
+        leftBarIndicatorColor: Colors.red,
         duration: Duration(seconds: 2),
       )..show(context);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'wrong-password') {
         Flushbar(
           messageText: Text(
-            "Error: wrong password",
+            "Wrong password",
             style: TextStyle(
                 fontSize: 14.0,
                 color: Colors.yellowAccent,
@@ -473,10 +473,10 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
           flushbarPosition: FlushbarPosition.TOP,
           icon: Icon(
             Icons.error_outline,
-            size: 28.0,
-            color: Colors.yellowAccent,
+                                size: 28.0,
+                                color: Colors.yellowAccent,
           ),
-          leftBarIndicatorColor: Colors.yellowAccent,
+          leftBarIndicatorColor: Colors.red,
           duration: Duration(seconds: 2),
         )..show(context);
       }
@@ -619,7 +619,7 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
                                 size: 28.0,
                                 color: Colors.yellowAccent,
                               ),
-                              leftBarIndicatorColor: Colors.yellowAccent,
+                              leftBarIndicatorColor: Colors.red,
                               duration: Duration(seconds: 2),
                             )..show(context);
                           }
@@ -674,7 +674,7 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
                                 size: 28.0,
                                 color: Colors.yellowAccent,
                               ),
-                              leftBarIndicatorColor: Colors.yellowAccent,
+                              leftBarIndicatorColor: Colors.red,
                               duration: Duration(seconds: 2),
                             )..show(context);
                           }
