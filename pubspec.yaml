@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.10.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -46,6 +46,7 @@ dependencies:
   package_info: 0.4.0+3
   flushbar: ^1.10.4
   blinking_text: ^0.0.4+1
+  animated_splash: ^1.0.0
 
 
 
@@ -93,6 +94,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/603788db98e51342825c0d36649dbe12.jpg
+    - assets/images/logf.png
 
 
 

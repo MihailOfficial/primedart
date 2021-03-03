@@ -2,7 +2,7 @@ import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:keyboard_attachable/keyboard_attachable.dart';
-
+import 'package:keyboard_attachable/keyboard_attachable.dart';
 class RegisterEmailSection extends StatefulWidget {
   final String title = 'Registration';
   final VoidCallback signIn;
@@ -176,6 +176,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                   key: _formKey,
                   child: ListView(shrinkWrap: true, children: <Widget>[
                     SizedBox(height: 20),
+
                     Center(
                         child: Container(
                             child: Text('NumDash',

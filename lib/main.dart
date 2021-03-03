@@ -1,4 +1,5 @@
 
+import 'package:animated_splash/animated_splash.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer_util.dart';
 import 'game.dart';
@@ -11,7 +12,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'home.dart';
 import 'login.dart';
-import 'highscore_functions.dart';
 
 
 void main() async {
@@ -35,23 +35,20 @@ void main() async {
   tempWidth = size.width;
   tempHeight = size.height;
   game = MyGame(size);
-  runApp(MyApp());
+  runApp(MaterialApp(
+    home: AnimatedSplash(
+      imagePath: 'assets/images/logf.png',
+      home: MyHomePage(title: "primedart"),
+      duration: 2500,
+
+      type: AnimatedSplashType.StaticDuration,
+    ),
+  ));
 
 
 }
 
 
-class MyApp extends StatelessWidget {
-
-  @override
-  Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-
-    return MaterialApp(
-        home: MyHomePage(title: "primedart")
-    );
-  }
-}
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
