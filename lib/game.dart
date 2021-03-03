@@ -37,6 +37,7 @@ var score = 0;
 bool updateScore = false;
 bool stopAttempts = false;
 bool start = false;
+bool pauseGame = true;
 int highScore = 0;
 int changedMultiple = -1;
 MyGame game;
@@ -89,7 +90,7 @@ class Game extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.all(16.0),
           child: RaisedButton(
-              child: new Text("BACK",
+              child: new Text("BACK/PAUSE",
                   style: new TextStyle(
                       fontSize: 14.0,
                       color: Colors.yellowAccent,
@@ -99,6 +100,8 @@ class Game extends StatelessWidget {
               ),
               color: Colors.deepPurple,
               onPressed: () {
+
+                pauseGame = true;
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => Home()),
@@ -659,6 +662,8 @@ class MyGame extends BaseGame with HasTapableComponents {
   var yPositions = new List(8);
 
   MyGame(Size size) {
+
+    pauseGame = false;
     for (int a = 0; a < 9; a++) {
       for (int b = 0; b < 6; b++) {
         table[a][b] = false;
@@ -826,6 +831,10 @@ class MyGame extends BaseGame with HasTapableComponents {
 
   @override
   void update(double t) {
+    if (pauseGame){
+      pauseEngine();
+    }
+
     if (stopAttempts) {
       if (stopInc == 0) {
         add(endMenu = EndMenu("Play again"));
@@ -1145,6 +1154,8 @@ class MyGame extends BaseGame with HasTapableComponents {
         }
       }
     }
+
+
     super.update(t);
   }
 }

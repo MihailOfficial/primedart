@@ -340,6 +340,7 @@ class _HomeState extends State<Home> {
                                                 color: Colors.deepPurple,
                                                 onPressed: () => setState(() {
                                                   playGame = true;
+                                                  pauseGame = false;
                                                 }),
                                                 child: Text(
                                                   'INSERT COIN',
