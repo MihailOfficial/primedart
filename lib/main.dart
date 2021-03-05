@@ -1,7 +1,7 @@
 
-import 'package:animated_splash/animated_splash.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer_util.dart';
+import 'package:splashscreen/splashscreen.dart';
 import 'game.dart';
 import 'package:flame/util.dart';
 import 'package:flutter/cupertino.dart';
@@ -36,14 +36,18 @@ void main() async {
   tempHeight = size.height;
   game = MyGame(size);
   runApp(MaterialApp(
-    home: AnimatedSplash(
-      imagePath: 'assets/images/logf.png',
-      home: MyHomePage(title: "primedart"),
-      duration: 2500,
-
-      type: AnimatedSplashType.StaticDuration,
+    home: Container (
+    child:
+    SplashScreen(
+        seconds: 3,
+        navigateAfterSeconds: MyHomePage(title: "primedart"),
+        image: new Image.asset('assets/images/logf.png'),
+        backgroundColor: Colors.black,
+        styleTextUnderTheLoader: new TextStyle(),
+        photoSize: 150.0,
+        loaderColor: Colors.yellowAccent
     ),
-  ));
+  )));
 
 
 }
