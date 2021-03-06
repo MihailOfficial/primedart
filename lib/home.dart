@@ -107,6 +107,7 @@ class _HomeState extends State<Home> {
                                                 Radius.circular(12)),
                                           ),
                                           child: Column(children: <Widget>[
+
                                             Container(
                                               padding: EdgeInsets.fromLTRB(
                                                   0, 15, 0, 0),
@@ -166,7 +167,8 @@ class _HomeState extends State<Home> {
                                                         fontSize: 12,
                                                         color: Colors.red),
                                                   )),
-                                                  DataCell(Text('snowball',
+                                                  DataCell(Text('55555555555555555',
+                                                      overflow: TextOverflow.ellipsis,
                                                       style: TextStyle(
                                                           fontStyle:
                                                               FontStyle.italic,
