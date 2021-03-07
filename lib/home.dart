@@ -1,4 +1,5 @@
 import 'package:blinking_text/blinking_text.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/entypo.dart';
@@ -274,7 +275,7 @@ class _HomeState extends State<Home> {
                                                                 fontFamily: 'pixel',
                                                                 fontSize: 12,
                                                                 color: Colors.grey))),
-                                                        DataCell(Text('You',
+                                                        DataCell(Text(FirebaseAuth.instance.currentUser.displayName,
                                                             style: TextStyle(
                                                                 fontStyle:
                                                                 FontStyle.italic,
