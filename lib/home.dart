@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/entypo.dart';
 import 'package:flutter_icons/ionicons.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'highscore_functions.dart';
 
 import 'game.dart';
 
@@ -22,7 +24,7 @@ class _HomeState extends State<Home> {
   _HomeState({@required this.signOut});
 
   bool playGame = false;
-
+  Future<List<DocumentSnapshot>> highscores = getHighScores(3);
   @override
   Widget build(BuildContext context) {
     if (!playGame) {
@@ -120,175 +122,186 @@ class _HomeState extends State<Home> {
                                                       color:
                                                           Colors.yellowAccent)),
                                             ),
-                                            DataTable(columns: const <
-                                                DataColumn>[
-                                              DataColumn(
-                                                label: Text(
-                                                  'Rank',
-                                                  style: TextStyle(
-                                                      fontStyle:
-                                                          FontStyle.italic,
-                                                      fontFamily: 'pixel',
-                                                      fontSize: 10,
-                                                      color: Colors.white),
-                                                ),
-                                              ),
-                                              DataColumn(
-                                                label: Text(
-                                                  'Username',
-                                                  style: TextStyle(
-                                                      fontStyle:
-                                                          FontStyle.italic,
-                                                      fontFamily: 'pixel',
-                                                      fontSize: 10,
-                                                      color: Colors.white),
-                                                ),
-                                              ),
-                                              DataColumn(
-                                                label: Text(
-                                                  'Score',
-                                                  style: TextStyle(
-                                                      fontStyle:
-                                                          FontStyle.italic,
-                                                      fontFamily: 'pixel',
-                                                      fontSize: 10,
-                                                      color: Colors.white),
-                                                ),
-                                              ),
-                                            ], rows: const <DataRow>[
-                                              DataRow(
-                                                cells: <DataCell>[
-                                                  DataCell(Text(
-                                                    '1',
-                                                    style: TextStyle(
-                                                        fontStyle:
+                                            FutureBuilder(
+                                              future: highscores,
+                                              builder: (BuildContext context, AsyncSnapshot<List<DocumentSnapshot>> snapshot) {
+                                                if(snapshot.hasData){
+                                                  return DataTable(columns: const <
+                                                      DataColumn>[
+                                                    DataColumn(
+                                                      label: Text(
+                                                        'Rank',
+                                                        style: TextStyle(
+                                                            fontStyle:
                                                             FontStyle.italic,
-                                                        fontFamily: 'pixel',
-                                                        fontSize: 12,
-                                                        color: Colors.red),
-                                                  )),
-                                                  DataCell(Text('55555555555555555',
-                                                      overflow: TextOverflow.ellipsis,
-                                                      style: TextStyle(
-                                                          fontStyle:
+                                                            fontFamily: 'pixel',
+                                                            fontSize: 10,
+                                                            color: Colors.white),
+                                                      ),
+                                                    ),
+                                                    DataColumn(
+                                                      label: Text(
+                                                        'Username',
+                                                        style: TextStyle(
+                                                            fontStyle:
+                                                            FontStyle.italic,
+                                                            fontFamily: 'pixel',
+                                                            fontSize: 10,
+                                                            color: Colors.white),
+                                                      ),
+                                                    ),
+                                                    DataColumn(
+                                                      label: Text(
+                                                        'Score',
+                                                        style: TextStyle(
+                                                            fontStyle:
+                                                            FontStyle.italic,
+                                                            fontFamily: 'pixel',
+                                                            fontSize: 10,
+                                                            color: Colors.white),
+                                                      ),
+                                                    ),
+                                                  ], rows: <DataRow>[
+                                                    DataRow(
+                                                      cells: <DataCell>[
+                                                        DataCell(Text(
+                                                          '1',
+                                                          style: TextStyle(
+                                                              fontStyle:
                                                               FontStyle.italic,
-                                                          fontFamily: 'pixel',
-                                                          fontSize: 10,
-                                                          color: Color.fromRGBO(
-                                                              200,
-                                                              200,
-                                                              200,
-                                                              1)))),
-                                                  DataCell(Text('25052',
-                                                      style: TextStyle(
-                                                          fontStyle:
-                                                              FontStyle.italic,
-                                                          fontFamily: 'pixel',
-                                                          fontSize: 10,
-                                                          color: Color.fromRGBO(
-                                                              200,
-                                                              200,
-                                                              200,
-                                                              1)))),
-                                                ],
-                                              ),
-                                              DataRow(
-                                                cells: <DataCell>[
-                                                  DataCell(Text('2',
-                                                      style: TextStyle(
-                                                          fontStyle:
-                                                              FontStyle.italic,
-                                                          fontFamily: 'pixel',
-                                                          fontSize: 12,
-                                                          color: Colors.blue))),
-                                                  DataCell(Text('aurko',
-                                                      style: TextStyle(
-                                                          fontStyle:
-                                                              FontStyle.italic,
-                                                          fontFamily: 'pixel',
-                                                          fontSize: 10,
-                                                          color: Color.fromRGBO(
-                                                              200,
-                                                              200,
-                                                              200,
-                                                              1)))),
-                                                  DataCell(Text('7527',
-                                                      style: TextStyle(
-                                                          fontStyle:
-                                                              FontStyle.italic,
-                                                          fontFamily: 'pixel',
-                                                          fontSize: 10,
-                                                          color: Color.fromRGBO(
-                                                              200,
-                                                              200,
-                                                              200,
-                                                              1)))),
-                                                ],
-                                              ),
-                                              DataRow(
-                                                cells: <DataCell>[
-                                                  DataCell(Text('3',
-                                                      style: TextStyle(
-                                                          fontStyle:
-                                                              FontStyle.italic,
-                                                          fontFamily: 'pixel',
-                                                          fontSize: 12,
-                                                          color:
-                                                              Colors.green))),
-                                                  DataCell(Text('Becka',
-                                                      style: TextStyle(
-                                                          fontStyle:
-                                                              FontStyle.italic,
-                                                          fontFamily: 'pixel',
-                                                          fontSize: 10,
-                                                          color: Color.fromRGBO(
-                                                              200,
-                                                              200,
-                                                              200,
-                                                              1)))),
-                                                  DataCell(Text('05025',
-                                                      style: TextStyle(
-                                                          fontStyle:
-                                                              FontStyle.italic,
-                                                          fontFamily: 'pixel',
-                                                          fontSize: 10,
-                                                          color: Color.fromRGBO(
-                                                              200,
-                                                              200,
-                                                              200,
-                                                              1)))),
-                                                ],
-                                              ),
-                                              DataRow(
-                                                cells: <DataCell>[
-                                                  DataCell(Text('X',
-                                                      style: TextStyle(
-                                                          fontStyle:
-                                                              FontStyle.italic,
-                                                          fontFamily: 'pixel',
-                                                          fontSize: 12,
-                                                          color: Colors.grey))),
-                                                  DataCell(Text('You',
-                                                      style: TextStyle(
-                                                          fontStyle:
-                                                              FontStyle.italic,
-                                                          fontFamily: 'pixel',
-                                                          fontSize: 10,
-                                                          color: Colors.grey))),
-                                                  DataCell(Text('05025',
-                                                      style: TextStyle(
-                                                          fontStyle:
-                                                              FontStyle.italic,
-                                                          fontFamily: 'pixel',
-                                                          fontSize: 10,
-                                                          color: Colors.grey))),
-                                                ],
-                                              ),
-                                            ]),
+                                                              fontFamily: 'pixel',
+                                                              fontSize: 12,
+                                                              color: Colors.red),
+                                                        )),
+                                                        DataCell(Text(snapshot.data[0].get("username").toString(),
+                                                            overflow: TextOverflow.ellipsis,
+                                                            style: TextStyle(
+                                                                fontStyle:
+                                                                FontStyle.italic,
+                                                                fontFamily: 'pixel',
+                                                                fontSize: 10,
+                                                                color: Color.fromRGBO(
+                                                                    200,
+                                                                    200,
+                                                                    200,
+                                                                    1)))),
+                                                        DataCell(Text(snapshot.data[0].get("current_best").toString(),
+                                                            style: TextStyle(
+                                                                fontStyle:
+                                                                FontStyle.italic,
+                                                                fontFamily: 'pixel',
+                                                                fontSize: 10,
+                                                                color: Color.fromRGBO(
+                                                                    200,
+                                                                    200,
+                                                                    200,
+                                                                    1)))),
+                                                      ],
+                                                    ),
+                                                    DataRow(
+                                                      cells: <DataCell>[
+                                                        DataCell(Text('2',
+                                                            style: TextStyle(
+                                                                fontStyle:
+                                                                FontStyle.italic,
+                                                                fontFamily: 'pixel',
+                                                                fontSize: 12,
+                                                                color: Colors.blue))),
+                                                        DataCell(Text(snapshot.data[1].get("username").toString(),
+                                                            style: TextStyle(
+                                                                fontStyle:
+                                                                FontStyle.italic,
+                                                                fontFamily: 'pixel',
+                                                                fontSize: 10,
+                                                                color: Color.fromRGBO(
+                                                                    200,
+                                                                    200,
+                                                                    200,
+                                                                    1)))),
+                                                        DataCell(Text(snapshot.data[1].get("current_best").toString(),
+                                                            style: TextStyle(
+                                                                fontStyle:
+                                                                FontStyle.italic,
+                                                                fontFamily: 'pixel',
+                                                                fontSize: 10,
+                                                                color: Color.fromRGBO(
+                                                                    200,
+                                                                    200,
+                                                                    200,
+                                                                    1)))),
+                                                      ],
+                                                    ),
+                                                    DataRow(
+                                                      cells: <DataCell>[
+                                                        DataCell(Text('3',
+                                                            style: TextStyle(
+                                                                fontStyle:
+                                                                FontStyle.italic,
+                                                                fontFamily: 'pixel',
+                                                                fontSize: 12,
+                                                                color:
+                                                                Colors.green))),
+                                                        DataCell(Text(snapshot.data[2].get("username").toString(),
+                                                            style: TextStyle(
+                                                                fontStyle:
+                                                                FontStyle.italic,
+                                                                fontFamily: 'pixel',
+                                                                fontSize: 10,
+                                                                color: Color.fromRGBO(
+                                                                    200,
+                                                                    200,
+                                                                    200,
+                                                                    1)))),
+                                                        DataCell(Text(snapshot.data[2].get("current_best").toString(),
+                                                            style: TextStyle(
+                                                                fontStyle:
+                                                                FontStyle.italic,
+                                                                fontFamily: 'pixel',
+                                                                fontSize: 10,
+                                                                color: Color.fromRGBO(
+                                                                    200,
+                                                                    200,
+                                                                    200,
+                                                                    1)))),
+                                                      ],
+                                                    ),
+                                                    DataRow(
+                                                      cells: <DataCell>[
+                                                        DataCell(Text('X',
+                                                            style: TextStyle(
+                                                                fontStyle:
+                                                                FontStyle.italic,
+                                                                fontFamily: 'pixel',
+                                                                fontSize: 12,
+                                                                color: Colors.grey))),
+                                                        DataCell(Text('You',
+                                                            style: TextStyle(
+                                                                fontStyle:
+                                                                FontStyle.italic,
+                                                                fontFamily: 'pixel',
+                                                                fontSize: 10,
+                                                                color: Colors.grey))),
+                                                        DataCell(Text('05025',
+                                                            style: TextStyle(
+                                                                fontStyle:
+                                                                FontStyle.italic,
+                                                                fontFamily: 'pixel',
+                                                                fontSize: 10,
+                                                                color: Colors.grey))),
+                                                      ],
+                                                    ),
+                                                  ]);
+                                                } else {
+                                                  return CircularProgressIndicator();
+                                                }
+                                              }
+                                            ),
                                            MaterialButton(
                                                 color: Color.fromRGBO(
                                                     20, 20, 20, 1),
-                                                onPressed: () async {},
+                                                onPressed: () async {setState(() {
+                                                  highscores = getHighScores(3);
+                                                });},
 
 
 
