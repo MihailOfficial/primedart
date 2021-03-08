@@ -9,7 +9,7 @@ Future<bool> checkAttempts() async {
 
   if(save.exists){
     Timestamp t = save.get('last_attempt');
-   if(t.toDate().difference(Timestamp.now().toDate()).inDays >= 1){
+   if(t.toDate().difference(Timestamp.now().toDate()).inDays <= -1){
      await saveref.set({'last_attempt' : Timestamp.now(), 'period_attempts' : 0, 'current_best' : 0}, SetOptions(merge: true));
      return true;
    } else {
@@ -43,4 +43,16 @@ Future<int> submitScore(int score) async {
 Future<List<DocumentSnapshot>> getHighScores(int limit) async {
   QuerySnapshot result = await FirebaseFirestore.instance.collection('user_scores').orderBy('current_best', descending: true).limit(limit).get();
   return result.docs;
+}
+
+Future<int> getMyScore() async {
+  return FirebaseFirestore.instance.collection("user_scores").doc(FirebaseAuth.instance.currentUser.uid).get().then((snapshot) {
+    Timestamp t = snapshot.get("last_attempt");
+    //print(t.toDate().difference(Timestamp.now().toDate()).inDays);
+    if(t.toDate().difference(Timestamp.now().toDate()).inDays <= -1){
+      return 0;
+    } else {
+      return snapshot['current_best'];
+    }
+  });
 }

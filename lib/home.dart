@@ -124,8 +124,8 @@ class _HomeState extends State<Home> {
                                                           Colors.yellowAccent)),
                                             ),
                                             FutureBuilder(
-                                              future: highscores,
-                                              builder: (BuildContext context, AsyncSnapshot<List<DocumentSnapshot>> snapshot) {
+                                              future: Future.wait([highscores,getMyScore()]),
+                                              builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
                                                 if(snapshot.hasData){
                                                   return DataTable(columns: const <
                                                       DataColumn>[
@@ -174,7 +174,7 @@ class _HomeState extends State<Home> {
                                                               fontSize: 12,
                                                               color: Colors.red),
                                                         )),
-                                                        DataCell(Text(snapshot.data[0].get("username").toString(),
+                                                        DataCell(Text(snapshot.data[0][0].get("username").toString(),
                                                             overflow: TextOverflow.ellipsis,
                                                             style: TextStyle(
                                                                 fontStyle:
@@ -186,7 +186,7 @@ class _HomeState extends State<Home> {
                                                                     200,
                                                                     200,
                                                                     1)))),
-                                                        DataCell(Text(snapshot.data[0].get("current_best").toString(),
+                                                        DataCell(Text(snapshot.data[0][0].get("current_best").toString(),
                                                             style: TextStyle(
                                                                 fontStyle:
                                                                 FontStyle.italic,
@@ -208,7 +208,7 @@ class _HomeState extends State<Home> {
                                                                 fontFamily: 'pixel',
                                                                 fontSize: 12,
                                                                 color: Colors.blue))),
-                                                        DataCell(Text(snapshot.data[1].get("username").toString(),
+                                                        DataCell(Text(snapshot.data[0][1].get("username").toString(),
                                                             style: TextStyle(
                                                                 fontStyle:
                                                                 FontStyle.italic,
@@ -219,7 +219,7 @@ class _HomeState extends State<Home> {
                                                                     200,
                                                                     200,
                                                                     1)))),
-                                                        DataCell(Text(snapshot.data[1].get("current_best").toString(),
+                                                        DataCell(Text(snapshot.data[0][1].get("current_best").toString(),
                                                             style: TextStyle(
                                                                 fontStyle:
                                                                 FontStyle.italic,
@@ -242,7 +242,7 @@ class _HomeState extends State<Home> {
                                                                 fontSize: 12,
                                                                 color:
                                                                 Colors.green))),
-                                                        DataCell(Text(snapshot.data[2].get("username").toString(),
+                                                        DataCell(Text(snapshot.data[0][2].get("username").toString(),
                                                             style: TextStyle(
                                                                 fontStyle:
                                                                 FontStyle.italic,
@@ -253,7 +253,7 @@ class _HomeState extends State<Home> {
                                                                     200,
                                                                     200,
                                                                     1)))),
-                                                        DataCell(Text(snapshot.data[2].get("current_best").toString(),
+                                                        DataCell(Text(snapshot.data[0][2].get("current_best").toString(),
                                                             style: TextStyle(
                                                                 fontStyle:
                                                                 FontStyle.italic,
@@ -282,7 +282,7 @@ class _HomeState extends State<Home> {
                                                                 fontFamily: 'pixel',
                                                                 fontSize: 10,
                                                                 color: Colors.grey))),
-                                                        DataCell(Text('05025',
+                                                        DataCell(Text(snapshot.data[1].toString(),
                                                             style: TextStyle(
                                                                 fontStyle:
                                                                 FontStyle.italic,
@@ -292,6 +292,10 @@ class _HomeState extends State<Home> {
                                                       ],
                                                     ),
                                                   ]);
+                                                } else if(snapshot.hasError){
+                                                  print("alert");
+                                                  print(snapshot.error);
+                                                  return CircularProgressIndicator();
                                                 } else {
                                                   return CircularProgressIndicator();
                                                 }
