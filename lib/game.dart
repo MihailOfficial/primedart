@@ -930,6 +930,7 @@ class MyGame extends BaseGame with HasTapableComponents {
       }
       counter++;
       if (counter % 2000 == 0) {
+        submitScore(score);
         var rng = new Random();
         //currentMultiple = rng.nextInt(5)+2;
         changedMultiple = 1;
