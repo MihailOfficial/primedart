@@ -93,8 +93,7 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - assets/images/603788db98e51342825c0d36649dbe12.jpg
-    - assets/images/logf.png
+    - assets/images/
 
 
 

@@ -39,13 +39,13 @@ void main() async {
     home: Container (
     child:
     SplashScreen(
-        seconds: 3,
+        seconds: 0,
         navigateAfterSeconds: MyHomePage(title: "primedart"),
         image: new Image.asset('assets/images/logf.png'),
-        backgroundColor: Colors.black,
+        backgroundColor: Color.fromRGBO(0, 0, 0, 1),
         styleTextUnderTheLoader: new TextStyle(),
         photoSize: 150.0,
-        loaderColor: Colors.yellowAccent
+        loaderColor: Colors.indigo,
     ),
   )));
 
@@ -101,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   //initialize SizerUtil()
                   SizerUtil().init(constraints, orientation);
                   return MaterialApp(
-                    theme: new ThemeData(scaffoldBackgroundColor: Colors.black),
+                    theme: new ThemeData(scaffoldBackgroundColor: Color.fromRGBO(	0, 0, 0, 1)),
 
                     debugShowCheckedModeBanner: false,
 
@@ -110,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       builder: (BuildContext context) {
                         var screenHeight = MediaQuery.of(context).size.height;
                         return Container(
-                            decoration: new BoxDecoration(color: Colors.black),
+                            decoration: new BoxDecoration(color: Color.fromRGBO(	0, 0, 0, 1)),
                           child:
                           Container (
                           child: Home(
@@ -131,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
       if(!signed){
         return Scaffold(
           //this worked
-          backgroundColor: Colors.black,
+          backgroundColor: Color.fromRGBO(	0, 0, 0, 1),
           body: Center(
             // Center is a layout widget. It takes a single child and positions it
             // in the middle of the parent.
@@ -144,7 +144,7 @@ class _MyHomePageState extends State<MyHomePage> {
         );
       } else {
         return Scaffold(
-          backgroundColor: Colors.black,
+          backgroundColor: Color.fromRGBO(	0, 0, 0, 1),
           body: Center(
             // Center is a layout widget. It takes a single child and positions it
             // in the middle of the parent.

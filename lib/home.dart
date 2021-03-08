@@ -25,7 +25,7 @@ class _HomeState extends State<Home> {
   _HomeState({@required this.signOut});
 
   bool playGame = false;
-  Future<List<DocumentSnapshot>> highscores = getHighScores(3);
+  Future<List<DocumentSnapshot>> highscores = getHighScores(5);
   @override
   Widget build(BuildContext context) {
     if (!playGame) {
@@ -38,19 +38,24 @@ class _HomeState extends State<Home> {
               // drawer: AppDrawer(),
               // body:
               Container(
-                  decoration: new BoxDecoration(color: Colors.black),
+                  decoration: new BoxDecoration(color: Color.fromRGBO(20, 20, 20, 0)),
                   child: Container(
                       child: SafeArea(
                           child: Container(
                               child: Scaffold(
                                   body: Container(
-                                      color: Colors.black,
+                                      decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage("assets/images/886041.jpg"),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
                                       child: Column(children: <Widget>[
                                         SizedBox(height: 20),
-                                        Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 35.0),
-                                            child: Row(
+                                      Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 40.0),
+                                          child:Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
                                                         .spaceBetween,
@@ -59,7 +64,7 @@ class _HomeState extends State<Home> {
                                                       child: Text('NumDash',
                                                           style: TextStyle(
                                                             fontFamily: 'rage',
-                                                            fontSize: 28,
+                                                            fontSize: 40,
                                                             color: Colors
                                                                 .yellowAccent,
                                                             shadows: <Shadow>[
@@ -87,65 +92,110 @@ class _HomeState extends State<Home> {
                                                               ),
                                                             ],
                                                           ))),
+
+                                      ButtonTheme(
+                                          minWidth: 20.0,
+                                          child:
                                                   MaterialButton(
 
                                                       onPressed: () =>
                                                           setState(() {
                                                             signOut.call();
                                                           }),
-
+                                                      color:
+                                                      Color.fromRGBO(20, 20, 20, 0.1),
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius:
+                                                        BorderRadius.circular(
+                                                            10.0),
+                                                      ),
                                                       child: Icon(
                                                         Entypo.getIconData(
                                                             "log-out"),
                                                         color:
-                                                            Colors.yellowAccent,
+                                                            Colors.white,
                                                       )),
-                                                ])),
+                                      ) ])),
                                         SizedBox(height: 10),
+                                      Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 30.0),
+                                        child:
                                         Container(
+
                                           decoration: BoxDecoration(
+                                            border: Border.all(
+                                              width: 3.0,
+                                              color: Colors.grey,
+                                            ),
                                             color:
-                                                Color.fromRGBO(20, 20, 20, 1),
+                                            Color.fromRGBO(20, 20, 20, 0.8),
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(12)),
                                           ),
                                           child: Column(children: <Widget>[
+                                            SizedBox(height: 10),
+                                          Padding(
+                                              padding: const EdgeInsets.symmetric(
+                                                  horizontal: 20.0),
+                                              child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: <Widget>[
 
                                             Container(
-                                              padding: EdgeInsets.fromLTRB(
-                                                  0, 15, 0, 0),
+
                                               child: const Text('GLOBAL SCORES',
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontFamily: 'pixel',
-                                                      fontSize: 14,
-                                                      color:
-                                                          Colors.yellowAccent)),
+                                                      fontSize: 15,
+                                                      color: Colors.amber)),
                                             ),
+                                            ButtonTheme(
+                                                minWidth: 20.0,
+                                                child: MaterialButton(
+
+                                                onPressed: () async {setState(() {
+                                                  highscores = getHighScores(5);
+                                                });},
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                  BorderRadius.circular(
+                                                      10.0),
+                                                ),
+
+                                                child: Icon(
+                                                  Icons.refresh,
+                                                  color:
+                                                  Colors.white,
+                                                )
+                                            )),])),
+
                                             FutureBuilder(
                                               future: Future.wait([highscores,getMyScore()]),
                                               builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
                                                 if(snapshot.hasData){
-                                                  return DataTable(columns: const <
+                                                  return DataTable(
+                                                    columnSpacing: 20,
+                                                      dataRowHeight: 20,
+                                                    columns: const <
                                                       DataColumn>[
                                                     DataColumn(
-                                                      label: Text(
+                                                      label:  Text(
                                                         'Rank',
                                                         style: TextStyle(
-                                                            fontStyle:
-                                                            FontStyle.italic,
+
                                                             fontFamily: 'pixel',
                                                             fontSize: 10,
                                                             color: Colors.white),
-                                                      ),
-                                                    ),
+                                                      ),),
                                                     DataColumn(
                                                       label: Text(
                                                         'Username',
                                                         style: TextStyle(
-                                                            fontStyle:
-                                                            FontStyle.italic,
+
+
                                                             fontFamily: 'pixel',
                                                             fontSize: 10,
                                                             color: Colors.white),
@@ -155,14 +205,14 @@ class _HomeState extends State<Home> {
                                                       label: Text(
                                                         'Score',
                                                         style: TextStyle(
-                                                            fontStyle:
-                                                            FontStyle.italic,
+
                                                             fontFamily: 'pixel',
                                                             fontSize: 10,
                                                             color: Colors.white),
                                                       ),
                                                     ),
                                                   ], rows: <DataRow>[
+
                                                     DataRow(
                                                       cells: <DataCell>[
                                                         DataCell(Text(
@@ -172,34 +222,31 @@ class _HomeState extends State<Home> {
                                                               FontStyle.italic,
                                                               fontFamily: 'pixel',
                                                               fontSize: 12,
-                                                              color: Colors.red),
+                                                              color: Colors.yellowAccent),
                                                         )),
-                                                        DataCell(Text(snapshot.data[0][0].get("username").toString(),
+                                                        DataCell(
+                                                      SizedBox(width: 160,
+
+                                                      child:
+                                                            Text(snapshot.data[0][0].get("username").toString(),
                                                             overflow: TextOverflow.ellipsis,
                                                             style: TextStyle(
                                                                 fontStyle:
                                                                 FontStyle.italic,
                                                                 fontFamily: 'pixel',
                                                                 fontSize: 10,
-                                                                color: Color.fromRGBO(
-                                                                    200,
-                                                                    200,
-                                                                    200,
-                                                                    1)))),
+                                                                color: Colors.blueGrey)))),
                                                         DataCell(Text(snapshot.data[0][0].get("current_best").toString(),
                                                             style: TextStyle(
                                                                 fontStyle:
                                                                 FontStyle.italic,
                                                                 fontFamily: 'pixel',
                                                                 fontSize: 10,
-                                                                color: Color.fromRGBO(
-                                                                    200,
-                                                                    200,
-                                                                    200,
-                                                                    1)))),
+                                                                color: Colors.blueGrey))),
                                                       ],
                                                     ),
                                                     DataRow(
+
                                                       cells: <DataCell>[
                                                         DataCell(Text('2',
                                                             style: TextStyle(
@@ -207,29 +254,26 @@ class _HomeState extends State<Home> {
                                                                 FontStyle.italic,
                                                                 fontFamily: 'pixel',
                                                                 fontSize: 12,
-                                                                color: Colors.blue))),
-                                                        DataCell(Text(snapshot.data[0][1].get("username").toString(),
+                                                                color: Colors.yellowAccent))),
+                                                        DataCell(
+                                                SizedBox(width: 160,
+
+                                                child:
+                                                Text(snapshot.data[0][1].get("username").toString(),
+                                                    overflow: TextOverflow.ellipsis,
                                                             style: TextStyle(
                                                                 fontStyle:
                                                                 FontStyle.italic,
                                                                 fontFamily: 'pixel',
                                                                 fontSize: 10,
-                                                                color: Color.fromRGBO(
-                                                                    200,
-                                                                    200,
-                                                                    200,
-                                                                    1)))),
+                                                                color: Colors.blueGrey)))),
                                                         DataCell(Text(snapshot.data[0][1].get("current_best").toString(),
                                                             style: TextStyle(
                                                                 fontStyle:
                                                                 FontStyle.italic,
                                                                 fontFamily: 'pixel',
                                                                 fontSize: 10,
-                                                                color: Color.fromRGBO(
-                                                                    200,
-                                                                    200,
-                                                                    200,
-                                                                    1)))),
+                                                                color: Colors.blueGrey))),
                                                       ],
                                                     ),
                                                     DataRow(
@@ -241,56 +285,124 @@ class _HomeState extends State<Home> {
                                                                 fontFamily: 'pixel',
                                                                 fontSize: 12,
                                                                 color:
-                                                                Colors.green))),
-                                                        DataCell(Text(snapshot.data[0][2].get("username").toString(),
+                                                                Colors.yellowAccent))),
+                                                        DataCell(
+                                                SizedBox(width: 160,
+
+                                                child:
+
+                                                Text(snapshot.data[0][2].get("username").toString(),
+                                                    overflow: TextOverflow.ellipsis,
                                                             style: TextStyle(
                                                                 fontStyle:
                                                                 FontStyle.italic,
                                                                 fontFamily: 'pixel',
                                                                 fontSize: 10,
-                                                                color: Color.fromRGBO(
-                                                                    200,
-                                                                    200,
-                                                                    200,
-                                                                    1)))),
+                                                                color: Colors.blueGrey)))),
                                                         DataCell(Text(snapshot.data[0][2].get("current_best").toString(),
                                                             style: TextStyle(
                                                                 fontStyle:
                                                                 FontStyle.italic,
                                                                 fontFamily: 'pixel',
                                                                 fontSize: 10,
-                                                                color: Color.fromRGBO(
-                                                                    200,
-                                                                    200,
-                                                                    200,
-                                                                    1)))),
+                                                                color: Colors.blueGrey))),
                                                       ],
                                                     ),
                                                     DataRow(
                                                       cells: <DataCell>[
-                                                        DataCell(Text('X',
+                                                        DataCell( Text('4',
                                                             style: TextStyle(
                                                                 fontStyle:
                                                                 FontStyle.italic,
                                                                 fontFamily: 'pixel',
                                                                 fontSize: 12,
-                                                                color: Colors.grey))),
-                                                        DataCell(Text(FirebaseAuth.instance.currentUser.displayName,
+                                                                color:
+                                                                Colors.yellowAccent))),
+                                                        DataCell(
+                                                            SizedBox(width: 160,
+
+                                                                child:
+
+                                                                Text(snapshot.data[0][3].get("username").toString(),
+                                                                    overflow: TextOverflow.ellipsis,
+                                                                    style: TextStyle(
+                                                                        fontStyle:
+                                                                        FontStyle.italic,
+                                                                        fontFamily: 'pixel',
+                                                                        fontSize: 10,
+                                                                        color: Colors.blueGrey)))),
+                                                        DataCell(Text(snapshot.data[0][3].get("current_best").toString(),
                                                             style: TextStyle(
                                                                 fontStyle:
                                                                 FontStyle.italic,
                                                                 fontFamily: 'pixel',
                                                                 fontSize: 10,
-                                                                color: Colors.grey))),
+                                                                color: Colors.blueGrey))),
+                                                      ],
+                                                    ),
+                                                    DataRow(
+                                                      cells: <DataCell>[
+                                                        DataCell( Text('5',
+                                                            style: TextStyle(
+                                                                fontStyle:
+                                                                FontStyle.italic,
+                                                                fontFamily: 'pixel',
+                                                                fontSize: 12,
+                                                                color:
+                                                                Colors.yellowAccent))),
+                                                        DataCell(
+                                                            SizedBox(width: 160,
+
+                                                                child:
+
+                                                                Text(snapshot.data[0][4].get("username").toString(),
+                                                                    overflow: TextOverflow.ellipsis,
+                                                                    style: TextStyle(
+                                                                        fontStyle:
+                                                                        FontStyle.italic,
+                                                                        fontFamily: 'pixel',
+                                                                        fontSize: 10,
+                                                                        color: Colors.blueGrey)))),
+                                                        DataCell(Text(snapshot.data[0][4].get("current_best").toString(),
+                                                            style: TextStyle(
+                                                                fontStyle:
+                                                                FontStyle.italic,
+                                                                fontFamily: 'pixel',
+                                                                fontSize: 10,
+                                                                color: Colors.blueGrey))),
+                                                      ],
+                                                    ),
+                                                    DataRow(
+                                                      cells: <DataCell>[
+                                                        DataCell(
+                                                Text('29',
+                                                            style: TextStyle(
+                                                                fontStyle:
+                                                                FontStyle.italic,
+                                                                fontFamily: 'pixel',
+                                                                fontSize: 12,
+                                                                color: Colors.yellowAccent))),
+                                                        DataCell(SizedBox(width: 160,
+
+                                                child:
+                                                Text(FirebaseAuth.instance.currentUser.displayName,
+                                                    overflow: TextOverflow.ellipsis,
+                                                            style: TextStyle(
+                                                                fontStyle:
+                                                                FontStyle.italic,
+                                                                fontFamily: 'pixel',
+                                                                fontSize: 10,
+                                                                color: Colors.blueGrey)))),
                                                         DataCell(Text(snapshot.data[1].toString(),
                                                             style: TextStyle(
                                                                 fontStyle:
                                                                 FontStyle.italic,
                                                                 fontFamily: 'pixel',
                                                                 fontSize: 10,
-                                                                color: Colors.grey))),
+                                                                color: Colors.blueGrey))),
                                                       ],
                                                     ),
+
                                                   ]);
                                                 } else if(snapshot.hasError){
                                                   print("alert");
@@ -301,43 +413,35 @@ class _HomeState extends State<Home> {
                                                 }
                                               }
                                             ),
-                                           MaterialButton(
-                                                color: Color.fromRGBO(
-                                                    20, 20, 20, 1),
-                                                onPressed: () async {setState(() {
-                                                  highscores = getHighScores(3);
-                                                });},
 
-
-
-                                                child: const Text('Refresh',
-                                                    style: TextStyle(
-                                                        fontSize: 10.0,
-                                                        color: Colors.grey,
-                                                        fontFamily: 'pixel')),
-                                              ),
+                                            SizedBox(height: 20),
 
                                           ]),
-                                        ),
+                                        )),
                                         SizedBox(
-                                          height: 20,
+                                          height: 10,
                                         ),
-                                        Container(
-                                            padding: EdgeInsets.all(15.0),
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                width: 3.0,
-                                                color: Colors.yellowAccent,
-                                              ),
-                                              color:
-                                                  Color.fromRGBO(20, 20, 20, 1),
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(12)),
-                                            ),
-                                            child: Column(children: <Widget>[
-                                              Container(
-                                                child: const BlinkText(
-                                                  'INSERT COIN TO PLAY',
+                                      Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 30.0),
+                                          child:
+                                      ButtonTheme(
+                                        minWidth: double.infinity,
+                                          height: 50.0,
+                                          child:MaterialButton(
+                                                padding:
+                                                    const EdgeInsets.all(10.0),
+                                                shape: RoundedRectangleBorder(
+                                                    side: BorderSide(color: Colors.grey, width: 3),
+                                                  borderRadius:BorderRadius.circular(10.0),
+                                                ),
+                                                color: Color.fromRGBO(20, 20, 20, 0.8),
+                                                onPressed: () => setState(() {
+                                                  playGame = true;
+                                                  pauseGame = false;
+                                                }),
+                                                child: BlinkText(
+                                                  'INSERT COIN',
                                                   style: TextStyle(
                                                     fontSize: 14.0,
                                                     color: Colors.yellowAccent,
@@ -346,33 +450,8 @@ class _HomeState extends State<Home> {
                                                   endColor: Colors.red,
                                                 ),
                                               ),
-                                              SizedBox(
-                                                height: 15,
-                                              ),
-                                              RaisedButton(
-                                                padding:
-                                                    const EdgeInsets.all(10.0),
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.0),
-                                                ),
-                                                color: Colors.deepPurple,
-                                                onPressed: () => setState(() {
-                                                  playGame = true;
-                                                  pauseGame = false;
-                                                }),
-                                                child: Text(
-                                                  'INSERT COIN',
-                                                  style: TextStyle(
-                                                    fontSize: 14.0,
-                                                    color: Colors.yellowAccent,
-                                                    fontFamily: 'pixel',
-                                                  ),
-                                                ),
-                                              ),
-                                            ]))
-                                      ]))))))));
+                                      ))]))
+                                      ))))));
     } else {
       return MaterialApp(
         debugShowCheckedModeBanner: false,
