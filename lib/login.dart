@@ -135,7 +135,8 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
   @override
   Widget build(BuildContext context) {
     return FooterLayout(
-        footer: Container(
+
+        footer:Container(
 
 
             padding: const EdgeInsets.all(15.0),
@@ -166,8 +167,8 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
         child: Container(
 
             child: Container(
-                child: SafeArea(
-                    child: Container(
+
+                child:Container(
                       decoration: new BoxDecoration(color: Color.fromRGBO(10, 10, 10, 0)),
               child: Container(
                 padding: const EdgeInsets.all(20.0),
@@ -411,7 +412,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                   ]),
                 ),
               ),
-            )))));
+            ))));
   }
 }
 
@@ -520,8 +521,7 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
         child: Container(
             decoration: new BoxDecoration(color: Color.fromRGBO(20, 20, 20, 0)),
             child: Container(
-                child: SafeArea(
-                    child: Container(
+                child: Container(
               color: Color.fromRGBO(20, 20, 20, 0),
               child: Container(
                 padding: const EdgeInsets.all(20.0),
@@ -690,7 +690,7 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
                   ]),
                 ),
               ),
-            )))));
+            ))));
   }
 
   @override

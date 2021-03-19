@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flame/components/mixins/tapable.dart';
+import 'package:flame/flame.dart';
+import 'package:flame/util.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:flame/anchor.dart';
@@ -68,7 +70,7 @@ class Game extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     contexts = context;
-    SystemChrome.setEnabledSystemUIOverlays([]);
+
     final double statusBarHeight = MediaQuery.of(context).padding.top;
     return
         //Scaffold(
@@ -76,15 +78,11 @@ class Game extends StatelessWidget {
         // body:
         Stack(children: <Widget>[
       Container(
-        constraints: BoxConstraints.expand(),
-        decoration: BoxDecoration(
-            /*image: DecorationImage(
-                image: AssetImage(
-                    ""),
-                fit: BoxFit.cover)*/
-            ),
-        child: game.widget,
-      ),
+            child: game.widget,
+
+          ),
+
+
       Align(
         alignment: Alignment.bottomCenter,
         child: Padding(

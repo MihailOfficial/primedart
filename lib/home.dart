@@ -5,6 +5,7 @@ import 'package:blinking_text/blinking_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_icons/entypo.dart';
 import 'package:flutter_icons/ionicons.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -32,22 +33,17 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+
     if (!playGame) {
       contexts = context;
       var screenHeight = MediaQuery.of(context).size.height;
       final double statusBarHeight = MediaQuery.of(context).padding.top;
-      return MaterialApp(
-          home:
-              //Scaffold(
-              // drawer: AppDrawer(),
-              // body:
-              Container(
-                  child: Container(
-                      child: SafeArea(
-                          child: Container(
-
-                              child: Scaffold(
-                                  body: Container(
+      return
+          Scaffold(body:
+             Container(
+               color: Colors.white,
+               child: SafeArea(
+                 child: Container(
 
                                       decoration: BoxDecoration(
 
@@ -69,101 +65,137 @@ class _HomeState extends State<Home> {
                                       Container(
                                           color: Color.fromRGBO(250, 250, 250, 0.5),
                                       child:Column(children: <Widget>[
-                                        SizedBox(height: 20),
-                                            Container(
 
-                                              child: Text("NUMDASH",style: TextStyle(
-                                                  fontFamily: "rage",
-                                                  fontSize: 19,
-                                                  color: Colors.yellowAccent))
-                                            ),
-                                            FutureBuilder(
-                                            future: Future.wait([
-                                            highscores,
-                                            getMyScore()
-                                            ]),
-                                            builder:
-                                            (BuildContext context,
-                                            AsyncSnapshot<List>
-                                            snapshot) {
-                                            if (snapshot.hasData) {
-                                            return Padding(
+                                        Container(
+                                          width: double.infinity,
+                                            decoration: BoxDecoration(color: Color.fromRGBO(250, 250, 250, 0.8),
+                                          ),
+
+                                            child:Padding(
+                                                padding: const EdgeInsets.symmetric(
+                                                    vertical: 5.0),
+                                                child: Row(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                                children: <Widget>[
+                                                Text('NumDash',
+                                                style: TextStyle(
+                                                  fontFamily: 'rage',
+                                                  fontSize: 34,
+                                                  color: Colors.red,
+                                                  shadows: <Shadow>[
+                                                    Shadow(
+                                                      offset: Offset(5.0, 5.0),
+                                                      blurRadius: 3.0,
+                                                      color: Color.fromRGBO(240, 240, 240, 0.2),
+                                                    ),
+                                                    Shadow(
+                                                      offset: Offset(5.0, 5.0),
+                                                      blurRadius: 8.0,
+                                                      color: Color.fromRGBO(240, 240, 240, 0.2),
+                                                    ),
+                                                  ],
+                                                ))]))),
+                                        SizedBox(height: 10),
+                                            Padding(
                                             padding: const EdgeInsets.symmetric(
-                                                horizontal: 20.0),
+                                                horizontal: 30.0),
                                             child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
                                                         .spaceBetween,
                                                 children: <Widget>[
-                                              Padding(
+
+                                                  Padding(
                                               padding: const EdgeInsets.symmetric(
                                                   horizontal: 10.0, vertical: 10,),
-                                                  child:
+                                                  child:Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: <Widget>[
                                                   Container(
                                                       child: Text(
-                                                          "Welcome, "+(FirebaseAuth
-                                                              .instance
-                                                              .currentUser
-                                                              .displayName)+"!",
+                                                          "welcome:",
                                                           overflow: TextOverflow
                                                               .ellipsis,
                                                           style: TextStyle(
 
-                                                              fontSize: 19,
-                                                              color: Colors.blueGrey)),
+                                                              fontSize: 18,
+                                                              )),
+                                              ),
+                                                        FutureBuilder(
+                                                        future: Future.wait([
+                                                        highscores,
+                                                        getMyScore()
+                                                        ]),
+                                                        builder:
+                                                        (BuildContext context,
+                                                        AsyncSnapshot<List>
+                                                        snapshot) {
+                                                        if (snapshot.hasData) {
+                                                        return Container(child: Text(
+                                                          (FirebaseAuth
+                                                              .instance
+                                                              .currentUser
+                                                              .displayName),
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          style: TextStyle(
+                                                            fontWeight:
+                                                            FontWeight
+                                                                .w700,
+                                                            fontSize: 22,
+                                                          )),
+                                                    );} else if (snapshot
+                                                              .hasError) {
+                                                          print("alert");
+                                                          print(snapshot.error);
+                                                          return CircularProgressIndicator();
+                                                          } else {
+                                                          return CircularProgressIndicator();
+                                                          }
+                                                        }),
+                                                  ]
 
-                                              )),
-                                                  Padding(
-                                                      padding: const EdgeInsets.symmetric(
-                                                          horizontal: 20.0),
-                                                      child: ButtonTheme(
-                                                    minWidth: 20.0,
-                                                    child: MaterialButton(
-                                                        onPressed: () =>
+                                              ),),
+                                                  ClipOval(
+                                                    child: Material(
+                                                      color: Colors.white, // button color
+                                                      child: InkWell(
+                                                        splashColor: Colors.red, // inkwell color
+                                                        child: SizedBox(width: 46, height: 46, child: Icon(
+                                                          Entypo.getIconData(
+                                                              "log-out"),
+                                                          color:
+                                                          Colors.black,
+                                                        ),),
+                                                        onTap: () =>
                                                             setState(() {
                                                               signOut.call();
                                                             }),
-                                                        color: Color.fromRGBO(254, 149, 132, 1),
-                                                        shape:
-                                                            RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      10.0),
-                                                        ),
-                                                        child:Text("Logout")),
-                                                  ))
-                                                ]));
-                                              } else if (snapshot
-                                                  .hasError) {
-                                              print("alert");
-                                              print(snapshot.error);
-                                              return CircularProgressIndicator();
-                                              } else {
-                                              return CircularProgressIndicator();
-                                              }
-                                            }),
+                                                      ),
+                                                    ),
+                                                  ),
+
+
+                                                ])),
+
 
                                         SizedBox(height: 10),
-                                        Container(
-                                              decoration: BoxDecoration(
-                                                /*border: Border.all(
-                                                  width: 3.0,
-                                                  color: Colors.grey,
-                                                ),*/
+                                        Padding(
+                                              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                                        child: Container(
 
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(12)),
-                                              ),
                                               child:ClipRRect(
-                                                  borderRadius: BorderRadius.circular(12.0),// <-- clips to the 200x200 [Container] below
+                                                  borderRadius: BorderRadius.circular(30.0),// <-- clips to the 200x200 [Container] below
                                                   child:BackdropFilter(
 
                                                 filter: new ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
                                                 child: Container(
                                                     decoration: BoxDecoration(
-                                                      borderRadius: BorderRadius.all(
-                                                          Radius.circular(12)),
+                                                      borderRadius: BorderRadius.circular(30.0),
+                                                        border: Border.all(
+                                                            color: Colors.white,// set border color
+                                                            width: 2.0),
                                                       gradient: LinearGradient(
                                                         begin: Alignment.centerLeft,
                                                         end: Alignment.centerRight,
@@ -187,13 +219,13 @@ class _HomeState extends State<Home> {
                                                         children: <Widget>[
                                                           Container(
                                                             child: const Text(
-                                                                'GLOBAL SCORES',
+                                                                'Global Scores',
                                                                 style: TextStyle(
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w700,
                                                                     fontSize:
-                                                                        25,
+                                                                        26,
                                                                     color: Color.fromRGBO(28, 98, 249, 1))),
                                                           ),
                                                           ButtonTheme(
@@ -252,7 +284,7 @@ class _HomeState extends State<Home> {
                                                               DataColumn(
                                                                 label: Text(
 
-                                                                  'USERNAME',
+                                                                  'NAME',
                                                                   style: TextStyle(
                                                                       fontWeight: FontWeight.w900,
                                                                       fontSize:
@@ -532,86 +564,89 @@ class _HomeState extends State<Home> {
                                                       }
                                                     }),
                                                 SizedBox(height: 20),
-                                                      Padding(
-                                                        padding: const EdgeInsets.symmetric(
-                                                            horizontal: 30.0), child: Container(
-
-                                                        decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.all(
-                                                              Radius.circular(12)),
-                                                          gradient: LinearGradient(
-                                                            begin: Alignment.centerLeft,
-                                                            end: Alignment.centerRight,
-                                                            colors: <Color>[
-                                                              Color.fromRGBO(255, 141, 104, 0.9),
-                                                              Color.fromRGBO(250, 198, 130, 0.9)
-                                                            ],
-                                                          ),
-                                                        ),
-
-                                                        child:
-                                                         Column(children: <Widget>[
                                                       SizedBox(height: 10),
-                                                    Padding(
-                                                        padding: const EdgeInsets.symmetric(
-                                                            horizontal: 30.0),
-                                                        child:
-                                                      Container(
-                                                        child: const Text(
-                                                            'START TO PLAY',
-                                                            style: TextStyle(
-                                                                fontWeight:
-                                                                FontWeight
-                                                                    .w700,
-                                                                fontSize:
-                                                                25,
-                                                                color: Colors.white)),
-                                                      ),),
-                                                      SizedBox(height: 10),
-                                                    Padding(
-                                                        padding: const EdgeInsets.symmetric(
-                                                            horizontal: 20.0),
-                                                        child:
-                                                      ButtonTheme(
-                                                        minWidth: double.infinity,
-                                                        height: 50.0,
-                                                        child: MaterialButton(
-                                                          padding:
-                                                          const EdgeInsets.all(10.0),
-                                                          shape: RoundedRectangleBorder(
-                                                            /*side: BorderSide(
+                                                    ])),
+                                            )))),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 20.0), child: Container(
+
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(20)),
+                                              border: Border.all(
+                                                  color: Colors.white,// set border color
+                                                  width: 2.0),
+                                              gradient: LinearGradient(
+                                                begin: Alignment.centerLeft,
+                                                end: Alignment.centerRight,
+                                                colors: <Color>[
+                                                  Color.fromRGBO(250, 198, 150, 0.5),
+                                                  Color.fromRGBO(250, 228, 150, 0.5)
+                                                ],
+                                              ),
+                                            ),
+
+                                            child:
+                                            Column(children: <Widget>[
+                                              SizedBox(height: 10),
+                                             Container(
+                                                  child: const Text(
+                                                      'Press to play',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                          FontWeight
+                                                              .w700,
+                                                          fontSize:
+                                                          26,
+                                                          color: Color.fromRGBO(28, 98, 249, 1))),
+                                                ),
+                                              SizedBox(height: 10),
+                                              Padding(
+                                                padding: const EdgeInsets.symmetric(
+                                                    horizontal: 50.0),
+                                                child:
+                                                ButtonTheme(
+                                                  minWidth: double.infinity,
+                                                  height: 50.0,
+                                                  child: MaterialButton(
+                                                    padding:
+                                                    const EdgeInsets.all(10.0),
+                                                    shape: RoundedRectangleBorder(
+                                                      /*side: BorderSide(
                                                       color: Colors.grey,
                                                       width: 3),*/
-                                                            borderRadius:
-                                                            BorderRadius.circular(
-                                                                10.0),
-                                                          ),
-                                                          color: Colors.white,
-                                                          onPressed: () => setState(() {
-                                                            playGame = true;
-                                                            pauseGame = false;
-                                                          }),
-                                                          child: BlinkText(
-                                                            'START',
-                                                            style: TextStyle(
-                                                              fontSize: 22.0,
-                                                              color: Colors.blueAccent,
-                                                            ),
-                                                            endColor: Colors.blue,
-                                                          ),
-                                                        ),
-                                                      ),),SizedBox(height: 10),])),
+                                                      borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                    ),
+                                                    color: Colors.white,
+                                                    onPressed: () => setState(() {
+                                                      playGame = true;
+                                                      pauseGame = false;
+                                                    }),
+                                                    child: BlinkText(
+                                                      'NUMDASH',
+                                                      style: TextStyle(
+                                                        fontSize: 22.0,
+                                                        fontWeight:
+                                                        FontWeight
+                                                            .w700,
+                                                        color: Colors.black,
+                                                      ),
+                                                      endColor: Colors.red,
+                                                    ),
+                                                  ),
+                                                ),),SizedBox(height: 10),])),
 
-                                                    ),SizedBox(height: 10),])),
-                                            ))),
-                                        SizedBox(
-                                          height: 10,
                                         ),
-
-                                      ])))))))))));
+                                      ]))))))));
     } else {
       return MaterialApp(
-        debugShowCheckedModeBanner: false,
+
         title: 'Onboarding Concept',
         home: Builder(
           builder: (BuildContext context) {

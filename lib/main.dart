@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer_util.dart';
-import 'package:splashscreen/splashscreen.dart';
+
 import 'game.dart';
 import 'package:flame/util.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,8 +16,7 @@ import 'login.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  Flame.util.setPortrait();
+
   await Firebase.initializeApp();
   //SharedPreferences storage = await SharedPreferences.getInstance();
   count[0] = 0;
@@ -28,25 +27,18 @@ void main() async {
   Util flameUtil = Util();
 
   final size = await Flame.util.initialDimensions();
-
-
+ // SystemChrome.setEnabledSystemUIOverlays([]);
   TapGestureRecognizer tapper = TapGestureRecognizer();
   flameUtil.addGestureRecognizer(tapper);
   tempWidth = size.width;
   tempHeight = size.height;
   game = MyGame(size);
   runApp(MaterialApp(
+
     home: Container (
     child:
-    SplashScreen(
-        seconds: 0,
-        navigateAfterSeconds: MyHomePage(title: "primedart"),
-        image: new Image.asset('assets/images/logf.png'),
-        backgroundColor: Color.fromRGBO(0, 0, 0, 1),
-        styleTextUnderTheLoader: new TextStyle(),
-        photoSize: 150.0,
-        loaderColor: Colors.indigo,
-    ),
+    MyHomePage(title: "primedart"),
+
   )));
 
 
@@ -55,15 +47,6 @@ void main() async {
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   final String title;
 
@@ -86,13 +69,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+
+
     if(logged){
       return LayoutBuilder(                           //return LayoutBuilder
           builder: (context, constraints) {
@@ -100,20 +78,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 builder: (context, orientation) {
                   //initialize SizerUtil()
                   SizerUtil().init(constraints, orientation);
-                  return MaterialApp(
-                    theme: new ThemeData(scaffoldBackgroundColor: Color.fromRGBO(	0, 0, 0, 1)),
-
-                    debugShowCheckedModeBanner: false,
-
-                    title: 'Onboarding Concept',
-                    home: Builder(
+                  return Builder(
                       builder: (BuildContext context) {
                         var screenHeight = MediaQuery.of(context).size.height;
                         return Container(
-                            decoration: new BoxDecoration(color: Color.fromRGBO(	0, 0, 0, 1)),
+                              color: Colors.red,
+                            child: Container(
+                            decoration: new BoxDecoration(color: Color.fromRGBO(	250, 250, 250, 1)),
                           child:
                           Container (
                           child: Home(
+
                             signOut: () {
                               setState(() {
                                 signed = true;
@@ -121,9 +96,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                 FirebaseAuth.instance.signOut();
                               });
                             },
-                          )));
+                          ))));
                       },
-                    ),
+
                   );
                 });
           });
@@ -131,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
       if(!signed){
         return Scaffold(
           //this worked
-          backgroundColor: Color.fromRGBO(	0, 0, 0, 1),
+          backgroundColor: Color.fromRGBO(	250,250, 250, 1),
           body: Center(
             // Center is a layout widget. It takes a single child and positions it
             // in the middle of the parent.
@@ -144,7 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
         );
       } else {
         return Scaffold(
-          backgroundColor: Color.fromRGBO(	0, 0, 0, 1),
+          backgroundColor: Color.fromRGBO(	250, 250, 250, 1),
           body: Center(
             // Center is a layout widget. It takes a single child and positions it
             // in the middle of the parent.
