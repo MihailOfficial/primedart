@@ -45,11 +45,11 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
       if (e.code == 'weak-password') {
         Flushbar(
           messageText: Text(
-            "Weak password",
+            "WEAK PASSWORD",
             style: TextStyle(
-                fontSize: 14.0,
+                fontSize: 18.0,
                 color: Colors.yellowAccent,
-                fontFamily: "Pixel"),
+ ),
           ),
           flushbarPosition: FlushbarPosition.TOP,
           icon: Icon(
@@ -64,11 +64,10 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
       } else if (e.code == 'email-already-in-use') {
         Flushbar(
           messageText: Text(
-            "Email in use",
+            "EMAIL IN USE",
             style: TextStyle(
                 fontSize: 14.0,
-                color: Colors.yellowAccent,
-                fontFamily: "Pixel"),
+                color: Colors.yellowAccent,),
           ),
           flushbarPosition: FlushbarPosition.TOP,
           icon: Icon(
@@ -85,9 +84,8 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
           messageText: Text(
             "Invalid email",
             style: TextStyle(
-                fontSize: 14.0,
-                color: Colors.yellowAccent,
-                fontFamily: "Pixel"),
+                fontSize: 18.0,
+                color: Colors.yellowAccent,),
           ),
           flushbarPosition: FlushbarPosition.TOP,
           icon: Icon(
@@ -106,9 +104,9 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
     if (_success) {
       Flushbar(
         messageText: Text(
-          "Successful Login",
+          "SUCCESSFUL LOGIN",
           style: TextStyle(
-              fontSize: 14.0, color: Colors.yellowAccent, fontFamily: "Pixel"),
+              fontSize: 18.0, color: Colors.yellowAccent),
         ),
         flushbarPosition: FlushbarPosition.TOP,
         icon: Icon(
@@ -156,11 +154,11 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                       //print("test");
                     }
                   },
-                  child: const Text('Continue',
+                  child: const Text('CONTINUE',
                       style: TextStyle(
-                        fontSize: 14.0,
+                        fontSize: 18.0,
                         color: Colors.yellowAccent,
-                        fontFamily: 'pixel',
+
                       )),
                 ),
               ),
@@ -183,7 +181,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                             child: Text('NumDash',
                                 style: TextStyle(
                                   fontFamily: 'rage',
-                                  fontSize: 28,
+                                  fontSize: 34,
                                   color: Colors.yellowAccent,
                                   shadows: <Shadow>[
                                     Shadow(
@@ -200,11 +198,11 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                                 )))),
                     SizedBox(height: 20),
                     Container(
-                      child: const Text('Create an account',
+                      child: const Text('CREATE AN ACCOUNT',
                           style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontFamily: 'pixel',
-                              fontSize: 12,
+                              fontWeight: FontWeight.w900,
+
+                              fontSize: 20,
                               color: Colors.white)),
                     ),
                     SizedBox(height: 10),
@@ -213,8 +211,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                           'By continuing, you agree to our User Agreement and Privacy. Your data is protected by Google.',
                           style: TextStyle(
                             fontWeight: FontWeight.w400,
-                            fontFamily: 'pixel',
-                            fontSize: 8,
+                            fontSize: 14,
                             color: Colors.grey,
                             height: 1.4,
                           )),
@@ -223,13 +220,12 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                     TextFormField(
                       decoration: InputDecoration(
                         errorStyle: TextStyle(height: 0),
-                        hintText: 'Username',
+                        hintText: 'USERNAME',
                         prefixIcon: Icon(Icons.person_outline,
                             color: Colors.yellowAccent),
                         hintStyle: TextStyle(
                             color: Colors.grey,
-                            fontFamily: 'pixel',
-                            fontSize: 12),
+                            fontSize: 18),
                         filled: true,
                         fillColor: Color.fromRGBO(40, 40, 40, 1),
                         enabledBorder: OutlineInputBorder(
@@ -246,8 +242,8 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                       ),
                       style: TextStyle(
                           color: Colors.white,
-                          fontFamily: 'pixel',
-                          fontSize: 12),
+
+                          fontSize: 20),
                       controller: _usernameControlller,
                       validator: (String value) {
                         if (value.isEmpty) {
@@ -255,11 +251,11 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                             error = true;
                             Flushbar(
                               messageText: Text(
-                                "Blank Input",
+                                "BLANK INPUT",
                                 style: TextStyle(
-                                    fontSize: 14.0,
+                                    fontSize: 18.0,
                                     color: Colors.yellowAccent,
-                                    fontFamily: "Pixel"),
+                                    ),
                               ),
                               flushbarPosition: FlushbarPosition.TOP,
                               icon: Icon(
@@ -278,13 +274,13 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                     TextFormField(
                       decoration: InputDecoration(
                         errorStyle: TextStyle(height: 0),
-                        hintText: 'Email',
+                        hintText: 'EMAIL',
                         prefixIcon: Icon(Icons.alternate_email,
                             color: Colors.yellowAccent),
                         hintStyle: TextStyle(
                             color: Colors.grey,
-                            fontFamily: 'pixel',
-                            fontSize: 12),
+
+                            fontSize: 18),
                         filled: true,
                         fillColor: Color.fromRGBO(40, 40, 40, 1),
                         enabledBorder: OutlineInputBorder(
@@ -301,8 +297,8 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                       ),
                       style: TextStyle(
                           color: Colors.white,
-                          fontFamily: 'pixel',
-                          fontSize: 12),
+
+                          fontSize: 20),
                       controller: _emailController,
                       validator: (String value) {
                         if (value.isEmpty) {
@@ -310,11 +306,11 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                             error = true;
                             Flushbar(
                               messageText: Text(
-                                "Blank Input",
+                                "BLANK INPUT",
                                 style: TextStyle(
-                                    fontSize: 14.0,
+                                    fontSize: 18.0,
                                     color: Colors.yellowAccent,
-                                    fontFamily: "Pixel"),
+                                   ),
                               ),
                               flushbarPosition: FlushbarPosition.TOP,
                               icon: Icon(
@@ -333,13 +329,13 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                     TextFormField(
                       decoration: InputDecoration(
                         errorStyle: TextStyle(height: 0),
-                        hintText: 'Password',
+                        hintText: 'PASSWORD',
                         prefixIcon: Icon(Icons.lock_outline,
                             color: Colors.yellowAccent),
                         hintStyle: TextStyle(
                             color: Colors.grey,
-                            fontFamily: 'pixel',
-                            fontSize: 12),
+
+                            fontSize: 18),
                         filled: true,
                         fillColor: Color.fromRGBO(40, 40, 40, 1),
                         enabledBorder: OutlineInputBorder(
@@ -356,8 +352,8 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                       ),
                       style: TextStyle(
                           color: Colors.white,
-                          fontFamily: 'pixel',
-                          fontSize: 12),
+
+                          fontSize: 20),
                       controller: _passwordController,
                       obscureText: true,
                       validator: (String value) {
@@ -366,11 +362,11 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                             error = true;
                             Flushbar(
                               messageText: Text(
-                                "Blank Input",
+                                "BLANK INPUT",
                                 style: TextStyle(
-                                    fontSize: 14.0,
+                                    fontSize: 18.0,
                                     color: Colors.yellowAccent,
-                                    fontFamily: "Pixel"),
+                                    ),
                               ),
                               flushbarPosition: FlushbarPosition.TOP,
                               icon: Icon(
@@ -405,11 +401,11 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
-                        child: const Text('im already a numdasher',
+                        child: const Text("I HAVE AN ACCOUNT",
                             style: TextStyle(
-                                fontSize: 10.0,
+                                fontSize: 18.0,
                                 color: Colors.grey,
-                                fontFamily: 'pixel')),
+                               )),
                       ),
                     ),
                   ]),
@@ -449,9 +445,9 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
       );
       Flushbar(
         messageText: Text(
-          "Successful Login",
+          "SUCCESSFUL LOGIN",
           style: TextStyle(
-              fontSize: 14.0, color: Colors.yellowAccent, fontFamily: "Pixel"),
+              fontSize: 18.0, color: Colors.yellowAccent, ),
         ),
         flushbarPosition: FlushbarPosition.TOP,
         icon: Icon(
@@ -466,11 +462,11 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
       if (e.code == 'wrong-password') {
         Flushbar(
           messageText: Text(
-            "Wrong password",
+            "WRONG PASSWORD",
             style: TextStyle(
-                fontSize: 14.0,
+                fontSize: 18.0,
                 color: Colors.yellowAccent,
-                fontFamily: "Pixel"),
+              ),
           ),
           flushbarPosition: FlushbarPosition.TOP,
           icon: Icon(
@@ -512,11 +508,11 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
                       _signInWithEmailAndPassword();
                     }
                   },
-                  child: const Text('Continue',
+                  child: const Text('CONTINUE',
                       style: TextStyle(
-                        fontSize: 14.0,
+                        fontSize: 18.0,
                         color: Colors.yellowAccent,
-                        fontFamily: 'pixel',
+
                       )),
                 ),
               ),
@@ -558,8 +554,8 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
                       child: const Text('SIGN IN',
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
-                              fontFamily: 'pixel',
-                              fontSize: 12,
+
+                              fontSize: 20,
                               color: Colors.white)),
                     ),
                     SizedBox(height: 10),
@@ -568,8 +564,8 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
                           'By continuing, you agree to our User Agreement and Privacy. Your data is protected by Google.',
                           style: TextStyle(
                             fontWeight: FontWeight.w400,
-                            fontFamily: 'pixel',
-                            fontSize: 8,
+
+                            fontSize: 14,
                             color: Colors.grey,
                             height: 1.4,
                           )),
@@ -577,13 +573,12 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
                     SizedBox(height: 10),
                     TextFormField(
                       decoration: InputDecoration(
-                        hintText: 'Email',
+                        hintText: 'EMAIL',
                         prefixIcon: Icon(Icons.alternate_email,
                             color: Colors.yellowAccent),
                         hintStyle: TextStyle(
                             color: Colors.grey,
-                            fontFamily: 'pixel',
-                            fontSize: 12),
+                            fontSize: 18),
                         filled: true,
                         fillColor: Color.fromRGBO(40, 40, 40, 1),
                         enabledBorder: OutlineInputBorder(
@@ -600,8 +595,8 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
                       ),
                       style: TextStyle(
                           color: Colors.white,
-                          fontFamily: 'pixel',
-                          fontSize: 12),
+
+                          fontSize: 20),
                       controller: _emailController,
                       validator: (String value) {
                         if (value.isEmpty) {
@@ -609,11 +604,11 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
                             error2 = true;
                             Flushbar(
                               messageText: Text(
-                                "Blank Input",
+                                "BLANK INPUT",
                                 style: TextStyle(
-                                    fontSize: 14.0,
+                                    fontSize: 18.0,
                                     color: Colors.yellowAccent,
-                                    fontFamily: "Pixel"),
+                       ),
                               ),
                               flushbarPosition: FlushbarPosition.TOP,
                               icon: Icon(
@@ -631,13 +626,13 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
                     SizedBox(height: 10),
                     TextFormField(
                       decoration: InputDecoration(
-                        hintText: 'Password',
+                        hintText: 'PASSWORD',
                         prefixIcon: Icon(Icons.lock_outline,
                             color: Colors.yellowAccent),
                         hintStyle: TextStyle(
                             color: Colors.grey,
-                            fontFamily: 'pixel',
-                            fontSize: 12),
+
+                            fontSize: 18),
                         filled: true,
                         fillColor: Color.fromRGBO(40, 40, 40, 1),
                         enabledBorder: OutlineInputBorder(
@@ -654,8 +649,8 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
                       ),
                       style: TextStyle(
                           color: Colors.white,
-                          fontFamily: 'pixel',
-                          fontSize: 12),
+
+                          fontSize: 20),
                       controller: _passwordController,
                       obscureText: true,
                       validator: (String value) {
@@ -664,11 +659,11 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
                             error2 = true;
                             Flushbar(
                               messageText: Text(
-                                "Blank Input",
+                                "BLANK INPUT",
                                 style: TextStyle(
-                                    fontSize: 14.0,
+                                    fontSize: 18.0,
                                     color: Colors.yellowAccent,
-                                    fontFamily: "Pixel"),
+                       ),
                               ),
                               flushbarPosition: FlushbarPosition.TOP,
                               icon: Icon(
