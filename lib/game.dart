@@ -78,6 +78,7 @@ class Game extends StatelessWidget {
         // body:
         Stack(children: <Widget>[
       Container(
+        color: Colors.black,
             child: game.widget,
 
           ),
@@ -90,13 +91,13 @@ class Game extends StatelessWidget {
           child: RaisedButton(
               child: new Text("BACK/PAUSE",
                   style: new TextStyle(
-                      fontSize: 14.0,
-                      color: Colors.yellowAccent,
-                      fontFamily: 'pixel',)),
+                      fontSize: 18.0,
+                      color: Colors.black,
+                      )),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
-              color: Colors.deepPurple,
+              color: Color.fromRGBO(253, 150, 151, 1),
               onPressed: () {
 
                 pauseGame = true;
@@ -647,11 +648,11 @@ class MyGame extends BaseGame with HasTapableComponents {
   Offset positionLivesText;
   Offset positionNoMoreLives;
   Offset positionNumType;
-  TextStyle scoreStyler = TextStyle(color: Colors.white, fontSize: 20, fontFamily: "pixel");
-  TextStyle roundStyler = TextStyle(color: Colors.white, fontSize: 20, fontFamily: "pixel");
+  TextStyle scoreStyler = TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.w900,);
+  TextStyle roundStyler = TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.w900,);
 
   @override
-  Color backgroundColor() => const Color.fromRGBO(0, 0, 0, 0.5);
+  Color backgroundColor() => const Color.fromRGBO(0, 0, 0, 0);
   var count1 = new List(4);
 
   var count2 = new List(6);
@@ -703,11 +704,13 @@ class MyGame extends BaseGame with HasTapableComponents {
 
     textPainterLivesText = TextPainter(
         text: TextSpan(
-            text: "Round:",
+            text: "ROUND:",
             style: TextStyle(
                 color: Colors.yellow,
-                fontSize: 14,
-                fontFamily: "pixel")),
+              fontWeight: FontWeight
+                  .w700,
+                fontSize: 18,
+                )),
         textDirection: TextDirection.ltr);
     textPainterLivesText.layout(
       minWidth: 0,
@@ -719,7 +722,7 @@ class MyGame extends BaseGame with HasTapableComponents {
         text: TextSpan(
             text: "",
             style: TextStyle(
-                color: Color(0xFFFF0000), fontSize: 32, fontFamily: "pixel")),
+                color: Color(0xFFFF0000), fontSize: 32)),
         textDirection: TextDirection.ltr,
         textAlign: TextAlign.center);
 
@@ -742,9 +745,11 @@ class MyGame extends BaseGame with HasTapableComponents {
         text: TextSpan(
             text: "SCORE: ",
             style: TextStyle(
+              fontWeight: FontWeight
+                  .w700,
                 color: Colors.yellow,
-                fontSize: 14,
-                fontFamily: "pixel")),
+                fontSize: 18,
+                )),
         textDirection: TextDirection.ltr);
     textPainterScoreText.layout(
       minWidth: 0,
@@ -857,7 +862,9 @@ class MyGame extends BaseGame with HasTapableComponents {
         text: TextSpan(
             text: " X",
             style: TextStyle(
-                color: Color(0xFFFF0000), fontSize: 25, fontFamily: "pixel")),
+              color: Color.fromRGBO(26, 22, 92, 1),
+              fontSize: 34,
+              fontWeight: FontWeight.w900,)),
         textDirection: TextDirection.ltr,
         textAlign: TextAlign.center,
       );
@@ -871,9 +878,7 @@ class MyGame extends BaseGame with HasTapableComponents {
     if (!stopAttempts & masterGameStart) {
       for (int c = 9; c >= 0; c--) {
         for (int d = 0; d < 4; d++) {
-          if (ctable[c][d] == ctable[c][d + 1] &&
-              ctable[c][d] == ctable[c][d + 2] &&
-              ctable[c][d] != 0 &&
+          if (ctable[c][d] == ctable[c][d + 1] && ctable[c][d] == ctable[c][d + 2] && ctable[c][d] != 0 &&
               dtable[c][d] == false &&
               dtable[c][d + 1] == false &&
               dtable[c][d + 2] == false &&
@@ -950,8 +955,9 @@ class MyGame extends BaseGame with HasTapableComponents {
             text: " " + currentMultiple.toString(),
             style: TextStyle(
                 color: Color.fromRGBO(26, 22, 92, 1),
-                fontSize: 24,
-                fontFamily: "pixel")),
+                fontSize: 34,
+              fontWeight: FontWeight.w900,
+               )),
         textDirection: TextDirection.ltr,
         textAlign: TextAlign.center,
       );
@@ -960,8 +966,8 @@ class MyGame extends BaseGame with HasTapableComponents {
         maxWidth: tempWidth,
       );
       positionNumType = Offset(
-          ((size.width - textPainterNumType.width) * 0.5) - 4,
-          heightApp / 2 - textPainterNumType.height / 2 + heightApp / 1.15);
+          (size.width - textPainterNumType.width) * 0.5-(3),
+          heightApp / 2 - textPainterNumType.height / 2 + heightApp / 1.25);
 
       if (updateLives) {
         textPainterLives = TextPainter(
@@ -1167,7 +1173,7 @@ class Bg extends Component with Resizable {
 
   Paint _paint4 = Paint()..color = COLOR4;
   Paint _master = Paint()..color = Color.fromRGBO(50, 50, 50, 1);
-
+  Paint _top = Paint()..color = Color.fromRGBO(50, 50, 50, 1);
   Paint _dark = Paint()..color = Color.fromRGBO(20, 20, 20, 0);
 
   @override
@@ -1179,6 +1185,9 @@ class Bg extends Component with Resizable {
                   tempWidth / 1.2, heightApp * (6 / 8)),
               Radius.circular(8.0)),
           _paint2);*/
+      c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(
+          (tempWidth-tempWidth/1.2)/2, heightApp*(3/4), tempWidth/1.2, heightApp ),
+          Radius.circular(8.0)), _top);
 
       c.drawRRect(
           RRect.fromRectAndRadius(
@@ -1186,7 +1195,7 @@ class Bg extends Component with Resizable {
               Radius.circular(8.0)),
           _dark);
 
-      c.drawCircle(Offset(tempWidth / 2, heightApp / 2 + (heightApp / 1.15)),
+      c.drawCircle(Offset(tempWidth / 2, heightApp / 0.78),
           30, _paint3);
     }
     Paint paint = Paint()
@@ -1204,7 +1213,7 @@ class Bg extends Component with Resizable {
     // Adds a quarter arc
     path2.addArc(
         Rect.fromLTWH((tempWidth / 2) - (heightApp * 5 / 6) / 2,
-            heightApp / 1.05, heightApp * 5 / 6, heightApp * 5 / 6),
+            heightApp / 1.15, heightApp * 5 / 6, heightApp * 5 / 6),
         degToRad(0),
         degToRad(360));
     c.drawPath(path2, paint11);
@@ -1212,7 +1221,7 @@ class Bg extends Component with Resizable {
     // Adds a quarter arc
     path.addArc(
         Rect.fromLTWH((tempWidth / 2) - (heightApp * 5 / 6) / 2,
-            heightApp / 1.05, heightApp * 5 / 6, heightApp * 5 / 6),
+            heightApp / 1.15, heightApp * 5 / 6, heightApp * 5 / 6),
         degToRad(0),
         degToRad(statusBox));
     c.drawPath(path, paint);

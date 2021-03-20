@@ -33,6 +33,7 @@ void main() async {
   tempWidth = size.width;
   tempHeight = size.height;
   game = MyGame(size);
+  SystemChrome.setEnabledSystemUIOverlays(<SystemUiOverlay>[]);
   runApp(MaterialApp(
 
     home: Container (
@@ -70,7 +71,12 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
 
-
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle.dark.copyWith(
+        systemNavigationBarColor: Colors.pink,
+        statusBarColor: Colors.pink,
+      ),
+    );
     if(logged){
       return LayoutBuilder(                           //return LayoutBuilder
           builder: (context, constraints) {
@@ -81,13 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   return Builder(
                       builder: (BuildContext context) {
                         var screenHeight = MediaQuery.of(context).size.height;
-                        return Container(
-                              color: Colors.red,
-                            child: Container(
-                            decoration: new BoxDecoration(color: Color.fromRGBO(	250, 250, 250, 1)),
-                          child:
-                          Container (
-                          child: Home(
+                        return Home(
 
                             signOut: () {
                               setState(() {
@@ -96,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 FirebaseAuth.instance.signOut();
                               });
                             },
-                          ))));
+                          );
                       },
 
                   );
@@ -106,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
       if(!signed){
         return Scaffold(
           //this worked
-          backgroundColor: Color.fromRGBO(	250,250, 250, 1),
+          backgroundColor:Color.fromRGBO(	250, 250, 250, 1),
           body: Center(
             // Center is a layout widget. It takes a single child and positions it
             // in the middle of the parent.

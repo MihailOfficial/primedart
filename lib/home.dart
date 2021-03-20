@@ -39,10 +39,9 @@ class _HomeState extends State<Home> {
       var screenHeight = MediaQuery.of(context).size.height;
       final double statusBarHeight = MediaQuery.of(context).padding.top;
       return
-          Scaffold(body:
-             Container(
-               color: Colors.white,
-               child: SafeArea(
+          Scaffold(
+         body:
+             SafeArea(
                  child: Container(
 
                                       decoration: BoxDecoration(
@@ -595,7 +594,7 @@ class _HomeState extends State<Home> {
                                               SizedBox(height: 10),
                                              Container(
                                                   child: const Text(
-                                                      'Press to play',
+                                                      'Press to Play',
                                                       style: TextStyle(
                                                           fontWeight:
                                                           FontWeight
@@ -643,7 +642,7 @@ class _HomeState extends State<Home> {
                                                 ),),SizedBox(height: 10),])),
 
                                         ),
-                                      ]))))))));
+                                      ])))))));
     } else {
       return MaterialApp(
 
