@@ -183,7 +183,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                                 style: TextStyle(
                                   fontFamily: 'rage',
                                   fontSize: 34,
-                                  color: Colors.red,
+                                  color: Colors.yellow,
                                   shadows: <Shadow>[
                                     Shadow(
                                       offset: Offset(5.0, 5.0),
@@ -207,7 +207,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                                   .w700,
                               fontSize:
                               26,
-                              color: Colors.black)),
+                              color: Colors.white)),
                     ),
                     SizedBox(height: 10),
                     Container(
@@ -217,7 +217,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                           style: TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 14,
-                            color: Colors.black,
+                            color: Colors.white,
                             height: 1.4,
                           )),
                     ),
@@ -229,14 +229,14 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                         prefixIcon: Icon(Icons.person_outline,
                             color: Colors.red),
                         hintStyle: TextStyle(
-                            color: Colors.black54,
+                            color: Colors.grey,
                             fontSize: 18),
                         filled: true,
-                        fillColor: Colors.white,
+                        fillColor: Colors.black,
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(12.0)),
                           borderSide: BorderSide(
-                              color: Color.fromRGBO(210, 210, 210, 1),
+                              color: Color.fromRGBO(80, 80, 80, 1),
                               width: 2),
                         ),
                         focusedBorder: OutlineInputBorder(
@@ -246,7 +246,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                         ),
                       ),
                       style: TextStyle(
-                          color: Colors.black,
+                          color: Colors.white,
 
                           fontSize: 20),
                       controller: _usernameControlller,
@@ -283,15 +283,15 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                         prefixIcon: Icon(Icons.alternate_email,
                             color: Colors.red),
                         hintStyle: TextStyle(
-                            color: Colors.black54,
+                            color: Colors.grey,
 
                             fontSize: 18),
                         filled: true,
-                        fillColor: Colors.white,
+                        fillColor: Colors.black,
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(12.0)),
                           borderSide: BorderSide(
-                              color: Color.fromRGBO(210, 210, 210, 1),
+                              color: Color.fromRGBO(80, 80, 80, 1),
                               width: 2),
                         ),
                         focusedBorder: OutlineInputBorder(
@@ -301,7 +301,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                         ),
                       ),
                       style: TextStyle(
-                          color: Colors.black,
+                          color: Colors.white,
 
                           fontSize: 20),
                       controller: _emailController,
@@ -338,15 +338,15 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                         prefixIcon: Icon(Icons.lock_outline,
                             color: Colors.red),
                         hintStyle: TextStyle(
-                            color: Colors.black54,
+                            color: Colors.grey,
 
                             fontSize: 18),
                         filled: true,
-                        fillColor: Colors.white,
+                        fillColor: Colors.black,
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(12.0)),
                           borderSide: BorderSide(
-                              color: Color.fromRGBO(210, 210, 210, 1),
+                              color: Color.fromRGBO(80, 80, 80, 1),
                               width: 2),
                         ),
                         focusedBorder: OutlineInputBorder(
@@ -356,7 +356,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                         ),
                       ),
                       style: TextStyle(
-                          color: Colors.black,
+                          color: Colors.white,
 
                           fontSize: 20),
                       controller: _passwordController,
@@ -398,7 +398,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                     Container(
                       alignment: Alignment.center,
                       child: MaterialButton(
-                        color: Color.fromRGBO(220, 220, 220, 1),
+                        color: Color.fromRGBO(60, 60, 60, 1),
                         onPressed: () async {
                           signIn.call();
                         },
@@ -409,7 +409,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                         child: const Text("I HAVE AN ACCOUNT",
                             style: TextStyle(
                                 fontSize: 18.0,
-                                color: Colors.black,
+                                color: Colors.grey,
                                )),
                       ),
                     ),
@@ -539,7 +539,7 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
                                 style: TextStyle(
                                   fontFamily: 'rage',
                                   fontSize: 34,
-                                  color: Colors.red,
+                                  color: Colors.yellow,
                                   shadows: <Shadow>[
                                     Shadow(
                                       offset: Offset(5.0, 5.0),
@@ -562,7 +562,7 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
                                   .w700,
                               fontSize:
                               26,
-                              color: Colors.black)),
+                              color: Colors.white)),
                     ),
                     SizedBox(height: 10),
                     Container(
@@ -572,7 +572,7 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
                             fontWeight: FontWeight.w400,
 
                             fontSize: 14,
-                            color: Colors.black,
+                            color: Colors.white,
                             height: 1.4,
                           )),
                     ),
@@ -586,11 +586,11 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
                             color: Colors.grey,
                             fontSize: 18),
                         filled: true,
-                        fillColor: Colors.white,
+                        fillColor: Colors.black,
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(12.0)),
                           borderSide: BorderSide(
-                              color: Color.fromRGBO(210, 210, 210, 1),
+                              color: Color.fromRGBO(80, 80, 80, 1),
                               width: 2),
                         ),
                         focusedBorder: OutlineInputBorder(
@@ -600,7 +600,7 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
                         ),
                       ),
                       style: TextStyle(
-                          color: Colors.black,
+                          color: Colors.white,
 
                           fontSize: 20),
                       controller: _emailController,
@@ -640,11 +640,11 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
 
                             fontSize: 18),
                         filled: true,
-                        fillColor: Colors.white,
+                        fillColor: Colors.black,
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(12.0)),
                           borderSide: BorderSide(
-                              color: Color.fromRGBO(210, 210, 210, 1),
+                              color: Color.fromRGBO(80, 80, 80, 1),
                               width: 2),
                         ),
                         focusedBorder: OutlineInputBorder(
@@ -654,7 +654,7 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
                         ),
                       ),
                       style: TextStyle(
-                          color: Colors.black,
+                          color: Colors.white,
 
                           fontSize: 20),
                       controller: _passwordController,

@@ -9,6 +9,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_icons/entypo.dart';
 import 'package:flutter_icons/ionicons.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fullscreen/fullscreen.dart';
+
 import 'highscore_functions.dart';
 
 import 'game.dart';
@@ -23,6 +25,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
   static const String routeName = "/home";
   final VoidCallback signOut;
 
@@ -41,34 +44,28 @@ class _HomeState extends State<Home> {
       return
           Scaffold(
          body:
-             SafeArea(
-                 child: Container(
+              Container(
 
                                       decoration: BoxDecoration(
 
                                         image: DecorationImage(
 
                                           image: AssetImage(
-                                              "assets/images/teset.jpg"),
+                                              "assets/images/485d3de9570a51ae604d6646a81e519e.png"),
                                           fit: BoxFit.cover,
                                         ),
                                       ),
-                                      child:
-                                      ClipRRect(
-                                     // <-- clips to the 200x200 [Container] below
-                                      child:BackdropFilter(
-
-                                      filter: new ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
-                                      child:
+                                      child:SafeArea(
+                                          child:
 
                                       Container(
-                                          color: Color.fromRGBO(250, 250, 250, 0.5),
+                                          color: Color.fromRGBO(0, 0, 0, 0.5),
                                       child:Column(children: <Widget>[
 
                                         Container(
                                           width: double.infinity,
-                                            decoration: BoxDecoration(color: Color.fromRGBO(250, 250, 250, 0.8),
-                                          ),
+
+
 
                                             child:Padding(
                                                 padding: const EdgeInsets.symmetric(
@@ -81,7 +78,7 @@ class _HomeState extends State<Home> {
                                                 style: TextStyle(
                                                   fontFamily: 'rage',
                                                   fontSize: 34,
-                                                  color: Colors.red,
+                                                  color: Colors.yellow,
                                                   shadows: <Shadow>[
                                                     Shadow(
                                                       offset: Offset(5.0, 5.0),
@@ -117,7 +114,7 @@ class _HomeState extends State<Home> {
                                                           overflow: TextOverflow
                                                               .ellipsis,
                                                           style: TextStyle(
-
+                                                            color: Colors.white,
                                                               fontSize: 18,
                                                               )),
                                               ),
@@ -142,6 +139,7 @@ class _HomeState extends State<Home> {
                                                             fontWeight:
                                                             FontWeight
                                                                 .w700,
+                                                            color: Colors.white,
                                                             fontSize: 22,
                                                           )),
                                                     );} else if (snapshot
@@ -158,14 +156,14 @@ class _HomeState extends State<Home> {
                                               ),),
                                                   ClipOval(
                                                     child: Material(
-                                                      color: Colors.white, // button color
+                                                      color: Color.fromRGBO(50, 50, 50, 1), // button color
                                                       child: InkWell(
                                                         splashColor: Colors.red, // inkwell color
                                                         child: SizedBox(width: 46, height: 46, child: Icon(
                                                           Entypo.getIconData(
                                                               "log-out"),
                                                           color:
-                                                          Colors.black,
+                                                          Colors.white,
                                                         ),),
                                                         onTap: () =>
                                                             setState(() {
@@ -188,19 +186,19 @@ class _HomeState extends State<Home> {
                                                   borderRadius: BorderRadius.circular(30.0),// <-- clips to the 200x200 [Container] below
                                                   child:BackdropFilter(
 
-                                                filter: new ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
+                                                filter: new ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
                                                 child: Container(
                                                     decoration: BoxDecoration(
                                                       borderRadius: BorderRadius.circular(30.0),
                                                         border: Border.all(
                                                             color: Colors.white,// set border color
-                                                            width: 2.0),
+                                                            width: 1.0),
                                                       gradient: LinearGradient(
                                                         begin: Alignment.centerLeft,
                                                         end: Alignment.centerRight,
                                                         colors: <Color>[
-                                                          Color.fromRGBO(250, 250, 250, 0.5),
-                                                          Color.fromRGBO(250, 250, 250, 0.9)
+                                                          Color.fromRGBO(250, 250, 250, 0),
+                                                          Color.fromRGBO(250, 250, 250, 0)
                                                         ],
                                                       ),
                                                     ),
@@ -225,7 +223,7 @@ class _HomeState extends State<Home> {
                                                                             .w700,
                                                                     fontSize:
                                                                         26,
-                                                                    color: Color.fromRGBO(28, 98, 249, 1))),
+                                                                    color:Colors.lightBlueAccent)),
                                                           ),
                                                           ButtonTheme(
                                                               minWidth: 20.0,
@@ -248,7 +246,7 @@ class _HomeState extends State<Home> {
                                                                           Icon(
                                                                         Icons
                                                                             .refresh,
-                                                                        color: Color.fromRGBO(110, 110, 110, 1),
+                                                                        color: Colors.white,
                                                                       ))),
                                                         ])),
                                                 FutureBuilder(
@@ -277,7 +275,7 @@ class _HomeState extends State<Home> {
                                                                       fontWeight: FontWeight.w900,
                                                                       fontSize:
                                                                           19,
-                                                                      color: Color.fromRGBO(80, 80, 80, 1)),
+                                                                      color: Color.fromRGBO(150, 150, 150, 1)),
                                                                 ),
                                                               ),
                                                               DataColumn(
@@ -288,7 +286,7 @@ class _HomeState extends State<Home> {
                                                                       fontWeight: FontWeight.w900,
                                                                       fontSize:
                                                                           19,
-                                                                      color: Color.fromRGBO(80, 80, 80, 1)),
+                                                                      color: Color.fromRGBO(150, 150, 150, 1)),
                                                                 ),
                                                               ),
                                                               DataColumn(
@@ -298,7 +296,7 @@ class _HomeState extends State<Home> {
                                                                       fontWeight: FontWeight.w900,
                                                                       fontSize:
                                                                           19,
-                                                                      color:  Color.fromRGBO(80, 80, 80, 1)),
+                                                                      color:  Color.fromRGBO(150, 150, 150, 1)),
                                                                 ),
                                                               ),
                                                             ],
@@ -571,20 +569,25 @@ class _HomeState extends State<Home> {
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.symmetric(
-                                              horizontal: 20.0), child: Container(
+                                              horizontal: 20.0), child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(20.0),// <-- clips to the 200x200 [Container] below
+                                            child:BackdropFilter(
+
+                                                filter: new ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
+                                                child: Container(
 
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(20)),
                                               border: Border.all(
                                                   color: Colors.white,// set border color
-                                                  width: 2.0),
+                                                  width: 1.0),
                                               gradient: LinearGradient(
                                                 begin: Alignment.centerLeft,
                                                 end: Alignment.centerRight,
                                                 colors: <Color>[
-                                                  Color.fromRGBO(250, 198, 150, 0.5),
-                                                  Color.fromRGBO(250, 228, 150, 0.5)
+                                                  Color.fromRGBO(60, 60, 60, 0),
+                                                  Color.fromRGBO(130, 130, 130, 0)
                                                 ],
                                               ),
                                             ),
@@ -601,7 +604,7 @@ class _HomeState extends State<Home> {
                                                               .w700,
                                                           fontSize:
                                                           26,
-                                                          color: Color.fromRGBO(28, 98, 249, 1))),
+                                                          color: Colors.lightBlueAccent)),
                                                 ),
                                               SizedBox(height: 10),
                                               Padding(
@@ -622,7 +625,7 @@ class _HomeState extends State<Home> {
                                                       BorderRadius.circular(
                                                           10.0),
                                                     ),
-                                                    color: Colors.white,
+                                                    color: Colors.blueGrey,
                                                     onPressed: () => setState(() {
                                                       playGame = true;
                                                       pauseGame = false;
@@ -634,15 +637,15 @@ class _HomeState extends State<Home> {
                                                         fontWeight:
                                                         FontWeight
                                                             .w700,
-                                                        color: Colors.black,
+                                                        color: Colors.white,
                                                       ),
-                                                      endColor: Colors.red,
+                                                      endColor: Colors.yellow,
                                                     ),
                                                   ),
                                                 ),),SizedBox(height: 10),])),
 
                                         ),
-                                      ])))))));
+                                        ))])))));
     } else {
       return MaterialApp(
 

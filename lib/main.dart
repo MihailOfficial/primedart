@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
+import 'package:fullscreen/fullscreen.dart';
 import 'package:sizer/sizer_util.dart';
+import 'package:splashscreen/splashscreen.dart';
 
 import 'game.dart';
 import 'package:flame/util.dart';
@@ -25,28 +27,36 @@ void main() async {
   count[3] = 0;
 
   Util flameUtil = Util();
-
+  SystemChrome.setEnabledSystemUIOverlays([]);
   final size = await Flame.util.initialDimensions();
- // SystemChrome.setEnabledSystemUIOverlays([]);
+
   TapGestureRecognizer tapper = TapGestureRecognizer();
   flameUtil.addGestureRecognizer(tapper);
   tempWidth = size.width;
   tempHeight = size.height;
   game = MyGame(size);
-  SystemChrome.setEnabledSystemUIOverlays(<SystemUiOverlay>[]);
+
+
   runApp(MaterialApp(
-
-    home: Container (
-    child:
-    MyHomePage(title: "primedart"),
-
-  )));
+      home: Container (
+        child:
+        SplashScreen(
+            seconds: 2,
+            navigateAfterSeconds: MyHomePage(title: "primedart"),
+            image: new Image.asset('assets/images/logf.png'),
+            backgroundColor: Colors.black,
+            styleTextUnderTheLoader: new TextStyle(),
+            photoSize: 180.0,
+            loaderColor: Colors.yellow
+        ),
+      )));
 
 
 }
 
 
 class MyHomePage extends StatefulWidget {
+
   MyHomePage({Key key, this.title}) : super(key: key);
 
   final String title;
@@ -56,6 +66,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
   bool signed = false;
   bool logged = false;
 
@@ -73,8 +84,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle.dark.copyWith(
-        systemNavigationBarColor: Colors.pink,
-        statusBarColor: Colors.pink,
+
+        statusBarColor: Colors.black,
       ),
     );
     if(logged){
@@ -106,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
       if(!signed){
         return Scaffold(
           //this worked
-          backgroundColor:Color.fromRGBO(	250, 250, 250, 1),
+          backgroundColor:Color.fromRGBO(	0, 0, 0, 1),
           body: Center(
             // Center is a layout widget. It takes a single child and positions it
             // in the middle of the parent.
@@ -119,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
         );
       } else {
         return Scaffold(
-          backgroundColor: Color.fromRGBO(	250, 250, 250, 1),
+          backgroundColor: Color.fromRGBO(	0, 0,0, 1),
           body: Center(
             // Center is a layout widget. It takes a single child and positions it
             // in the middle of the parent.

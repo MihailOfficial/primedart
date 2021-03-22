@@ -77,10 +77,14 @@ class Game extends StatelessWidget {
         // drawer: AppDrawer(),
         // body:
         Stack(children: <Widget>[
-      Container(
-        color: Colors.black,
+        Container(
+            constraints: BoxConstraints.expand(),
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(
+                        "assets/images/teset2.jpg"),
+                    fit: BoxFit.cover)),
             child: game.widget,
-
           ),
 
 
@@ -92,12 +96,12 @@ class Game extends StatelessWidget {
               child: new Text("BACK/PAUSE",
                   style: new TextStyle(
                       fontSize: 18.0,
-                      color: Colors.black,
+                      color: Colors.white,
                       )),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
-              color: Color.fromRGBO(253, 150, 151, 1),
+              color: Color.fromRGBO(50, 50, 50, 1),
               onPressed: () {
 
                 pauseGame = true;
@@ -205,6 +209,7 @@ class Multiple extends TextComponent with Tapable {
         }
       }
 
+
       if (dtable[(row).toInt()][(column - 1).toInt()] == true &&
           !fall &&
           !newDeck) {
@@ -278,6 +283,7 @@ class Multiple extends TextComponent with Tapable {
 
       if (m != null && !shrink && !globalShrink) {
         if (pauseRect1.contains(m.globalPosition)) {
+
           shrink = true;
           collectPrime = true;
         }
@@ -652,7 +658,7 @@ class MyGame extends BaseGame with HasTapableComponents {
   TextStyle roundStyler = TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.w900,);
 
   @override
-  Color backgroundColor() => const Color.fromRGBO(0, 0, 0, 0);
+  Color backgroundColor() => const Color.fromRGBO(0,0, 0, 1);
   var count1 = new List(4);
 
   var count2 = new List(6);
@@ -663,7 +669,7 @@ class MyGame extends BaseGame with HasTapableComponents {
   MyGame(Size size) {
 
     pauseGame = false;
-    for (int a = 0; a < 9; a++) {
+    for (int a = 0; a < 10; a++) {
       for (int b = 0; b < 6; b++) {
         table[a][b] = false;
         ctable[a][b] = 0;
@@ -876,7 +882,7 @@ class MyGame extends BaseGame with HasTapableComponents {
     }
 
     if (!stopAttempts & masterGameStart) {
-      for (int c = 9; c >= 0; c--) {
+      for (int c = 0; c <10; c++) {
         for (int d = 0; d < 4; d++) {
           if (ctable[c][d] == ctable[c][d + 1] && ctable[c][d] == ctable[c][d + 2] && ctable[c][d] != 0 &&
               dtable[c][d] == false &&
@@ -1007,9 +1013,9 @@ class MyGame extends BaseGame with HasTapableComponents {
 
       //  TextConfig primeC = TextConfig(color: colours[genColourPrime], fontSize: 40, fontFamily: "fontNum");
       TextConfig mult = TextConfig(
-          color: Colors.white, fontSize: 25.0.sp, fontFamily: "fontNum");
+          color: Color.fromRGBO(230, 230, 230, 1), fontSize: 25.0.sp, fontFamily: "fontNum");
       TextConfig nmult = TextConfig(
-          color: Colors.white, fontSize: 25.0.sp, fontFamily: "fontNum");
+          color: Color.fromRGBO(230, 230, 230, 1), fontSize: 25.0.sp, fontFamily: "fontNum");
       double Pos = 0;
 
       if (lives > 0) {
