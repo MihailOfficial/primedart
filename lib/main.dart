@@ -1,4 +1,6 @@
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:fullscreen/fullscreen.dart';
 import 'package:sizer/sizer_util.dart';
@@ -39,22 +41,37 @@ void main() async {
 
   runApp(MaterialApp(
       home: Container (
-        child:
-        SplashScreen(
-            seconds: 2,
-            navigateAfterSeconds: MyHomePage(title: "primedart"),
-            image: new Image.asset('assets/images/logf.png'),
-            backgroundColor: Colors.black,
-            styleTextUnderTheLoader: new TextStyle(),
-            photoSize: 180.0,
-            loaderColor: Colors.yellow
-        ),
-      )));
+          decoration: BoxDecoration(),
+        child: SplashScreen())));
 
 
 }
 
+class SplashScreen extends StatefulWidget {
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
 
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Timer(
+        Duration(seconds: 3),
+            () => Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (BuildContext context) => MyHomePage(title: "primedart"))));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color.fromRGBO(0, 0, 0, 0.5),
+      body: Center(
+        child: Image.asset('assets/images/logf(temp).png'),
+      ),
+    );
+  }
+}
 class MyHomePage extends StatefulWidget {
 
   MyHomePage({Key key, this.title}) : super(key: key);
