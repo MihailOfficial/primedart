@@ -41,7 +41,7 @@ bool stopAttempts = false;
 bool start = false;
 bool pauseGame = true;
 int highScore = 0;
-int rowCount = 11;
+int rowCount = 10;
 int changedMultiple = -1;
 MyGame game;
 double tempHeight = 0;
