@@ -41,6 +41,7 @@ bool stopAttempts = false;
 bool start = false;
 bool pauseGame = true;
 int highScore = 0;
+int rowCount = 11;
 int changedMultiple = -1;
 MyGame game;
 double tempHeight = 0;
@@ -121,9 +122,9 @@ class Game extends StatelessWidget {
 double tempX = 0;
 double heightPos = 0;
 int lives = 3;
-var table = List.generate(10, (i) => List(7), growable: true);
-var ctable = List.generate(10, (i) => List(7), growable: true);
-var dtable = List.generate(10, (i) => List(7), growable: true);
+var table = List.generate(rowCount, (i) => List(7), growable: true);
+var ctable = List.generate(rowCount, (i) => List(7), growable: true);
+var dtable = List.generate(rowCount, (i) => List(7), growable: true);
 double stopInc = 0;
 
 class Multiple extends TextComponent with Tapable {
@@ -199,7 +200,7 @@ class Multiple extends TextComponent with Tapable {
         }
       }
 
-      if (row != 9 && !fall) {
+      if (row != (rowCount-1) && !fall) {
         if (table[(row + 1).toInt()][(column - 1).toInt()] == false) {
           table[(row).toInt()][(column - 1).toInt()] = false;
           table[(row + 1).toInt()][(column - 1).toInt()] = true;
@@ -407,7 +408,7 @@ class NotMultiple extends TextComponent with Tapable {
         }
       }
 
-      if (row != 9 && !fall) {
+      if (row != (rowCount-1) && !fall) {
         if (table[(row + 1).toInt()][(column - 1).toInt()] == false) {
           table[(row).toInt()][(column - 1).toInt()] = false;
           table[(row + 1).toInt()][(column - 1).toInt()] = true;
@@ -638,7 +639,7 @@ class MyGame extends BaseGame with HasTapableComponents {
   EndMenu endMenu;
   NotMultiple notMultiple;
   var multiples = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  var subtrators = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
 
   var counter = 0;
   TextPainter textPainterScore;
@@ -662,14 +663,19 @@ class MyGame extends BaseGame with HasTapableComponents {
   var count1 = new List(4);
 
   var count2 = new List(6);
-
+  double topSpaceTile = 160;
   double previousPos = 0.0;
   var yPositions = new List(8);
 
   MyGame(Size size) {
-
+    if (size.height < 650){
+      topSpaceTile = 150;
+      rowCount = 8;
+    }
+    print("height: " + (size.height).toString());
     pauseGame = false;
-    for (int a = 0; a < 10; a++) {
+    for (int a = 0; a < rowCount; a++) {
+      positionArray[a] = topSpaceTile + (55*a);
       for (int b = 0; b < 6; b++) {
         table[a][b] = false;
         ctable[a][b] = 0;
@@ -677,16 +683,6 @@ class MyGame extends BaseGame with HasTapableComponents {
       }
     }
 
-    positionArray[0] = 160.0;
-    positionArray[1] = 215.0;
-    positionArray[2] = 270.0;
-    positionArray[3] = 325.0;
-    positionArray[4] = 380.0;
-    positionArray[5] = 435.0;
-    positionArray[6] = 490.0;
-    positionArray[7] = 545.0;
-    positionArray[8] = 600.0;
-    positionArray[9] = 655.0;
 
     add(Bg());
     statusBox = 360;
@@ -836,7 +832,7 @@ class MyGame extends BaseGame with HasTapableComponents {
     return text2;
   }
 
-  double testInc = 9;
+  double testInc = (rowCount-1).toDouble();
 
   @override
   void update(double t) {
@@ -882,7 +878,7 @@ class MyGame extends BaseGame with HasTapableComponents {
     }
 
     if (!stopAttempts & masterGameStart) {
-      for (int c = 0; c <10; c++) {
+      for (int c = 0; c <rowCount; c++) {
         for (int d = 0; d < 4; d++) {
           if (ctable[c][d] == ctable[c][d + 1] && ctable[c][d] == ctable[c][d + 2] && ctable[c][d] != 0 &&
               dtable[c][d] == false &&
@@ -906,7 +902,7 @@ class MyGame extends BaseGame with HasTapableComponents {
       }
 
       for (int d = 0; d < 6; d++) {
-        for (int c = 0; c < 8; c++) {
+        for (int c = 0; c < rowCount-2; c++) {
           if (ctable[c][d] == ctable[c + 1][d] &&
               ctable[c][d] == ctable[c + 2][d] &&
               ctable[c][d] != 0 &&
@@ -1098,7 +1094,7 @@ class MyGame extends BaseGame with HasTapableComponents {
             newDeck = false;
             spinNew = false;
             timerPrime = 0;
-            testInc = 9;
+            testInc = (rowCount-1).toDouble();
           }
         } else if (table[0][0] == false) {
           table[0][0] = true;

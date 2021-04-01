@@ -10,7 +10,7 @@ import 'package:flutter_icons/entypo.dart';
 import 'package:flutter_icons/ionicons.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fullscreen/fullscreen.dart';
-
+import 'package:sizer/sizer.dart';
 import 'highscore_functions.dart';
 
 import 'game.dart';
@@ -77,7 +77,7 @@ class _HomeState extends State<Home> {
                                                 Text('NumDash',
                                                 style: TextStyle(
                                                   fontFamily: 'rage',
-                                                  fontSize: 34,
+                                                  fontSize: 28.0.sp,
                                                   color: Colors.yellow,
                                                   shadows: <Shadow>[
                                                     Shadow(
@@ -115,7 +115,7 @@ class _HomeState extends State<Home> {
                                                               .ellipsis,
                                                           style: TextStyle(
                                                             color: Colors.white,
-                                                              fontSize: 18,
+                                                              fontSize: 14.0.sp,
                                                               )),
                                               ),
                                                         FutureBuilder(
@@ -140,7 +140,7 @@ class _HomeState extends State<Home> {
                                                             FontWeight
                                                                 .w700,
                                                             color: Colors.white,
-                                                            fontSize: 22,
+                                                            fontSize: 16.0.sp,
                                                           )),
                                                     );} else if (snapshot
                                                               .hasError) {
@@ -215,14 +215,13 @@ class _HomeState extends State<Home> {
                                                                 .spaceBetween,
                                                         children: <Widget>[
                                                           Container(
-                                                            child: const Text(
+                                                            child:  Text(
                                                                 'Global Scores',
                                                                 style: TextStyle(
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w700,
-                                                                    fontSize:
-                                                                        26,
+                                                                    fontSize: 20.0.sp,
                                                                     color:Colors.lightBlueAccent)),
                                                           ),
                                                           ButtonTheme(
@@ -266,15 +265,14 @@ class _HomeState extends State<Home> {
                                                             child:DataTable(
                                                             columnSpacing: 20,
                                                             dataRowHeight: 20,
-                                                            columns: const <
+                                                            columns:  <
                                                                 DataColumn>[
                                                               DataColumn(
                                                                 label: Text(
                                                                   'RANK',
                                                                   style: TextStyle(
                                                                       fontWeight: FontWeight.w900,
-                                                                      fontSize:
-                                                                          19,
+                                                                      fontSize: 15.0.sp,
                                                                       color: Color.fromRGBO(150, 150, 150, 1)),
                                                                 ),
                                                               ),
@@ -284,8 +282,7 @@ class _HomeState extends State<Home> {
                                                                   'NAME',
                                                                   style: TextStyle(
                                                                       fontWeight: FontWeight.w900,
-                                                                      fontSize:
-                                                                          19,
+                                                                      fontSize: 15.0.sp,
                                                                       color: Color.fromRGBO(150, 150, 150, 1)),
                                                                 ),
                                                               ),
@@ -294,8 +291,7 @@ class _HomeState extends State<Home> {
                                                                   'SCORE',
                                                                   style: TextStyle(
                                                                       fontWeight: FontWeight.w900,
-                                                                      fontSize:
-                                                                          19,
+                                                                      fontSize: 15.0.sp,
                                                                       color:  Color.fromRGBO(150, 150, 150, 1)),
                                                                 ),
                                                               ),
@@ -308,8 +304,7 @@ class _HomeState extends State<Home> {
                                                                     '1',
                                                                     style: TextStyle(
                                                                         fontWeight: FontWeight.w900,
-                                                                        fontSize:
-                                                                        19,
+                                                                        fontSize: 15.0.sp,
                                                                         color:
                                                                         Colors.blueGrey),
                                                                   )),
@@ -324,8 +319,8 @@ class _HomeState extends State<Home> {
                                                                           overflow: TextOverflow
                                                                               .ellipsis,
                                                                           style: TextStyle(
-                                                                                 
-                                                                              fontSize: 19,
+
+                                                                              fontSize: 15.0.sp,
                                                                               color: Colors.blueGrey)))),
                                                                   DataCell(Text(
                                                                       snapshot
@@ -337,9 +332,7 @@ class _HomeState extends State<Home> {
                                                                               "current_best")
                                                                           .toString(),
                                                                       style: TextStyle(
-
-                                                                          fontSize:
-                                                                              19,
+                                                                          fontSize: 15.0.sp,
                                                                           color:
                                                                           Colors.blueGrey))),
                                                                 ],
@@ -351,8 +344,7 @@ class _HomeState extends State<Home> {
                                                                       '2',
                                                                       style: TextStyle(
                                                                           fontWeight: FontWeight.w900,
-                                                                          fontSize:
-                                                                              19,
+                                                                          fontSize: 15.0.sp,
                                                                           color:
                                                                           Colors.blueGrey))),
                                                                   DataCell(SizedBox(
@@ -367,7 +359,7 @@ class _HomeState extends State<Home> {
                                                                               .ellipsis,
                                                                           style: TextStyle(
 
-                                                                              fontSize: 19,
+                                                                              fontSize: 15.0.sp,
                                                                               color: Colors.blueGrey)))),
                                                                   DataCell(Text(
                                                                       snapshot
@@ -380,8 +372,7 @@ class _HomeState extends State<Home> {
                                                                           .toString(),
                                                                       style: TextStyle(
 
-                                                                          fontSize:
-                                                                              19,
+                                                                          fontSize: 15.0.sp,
                                                                           color:
                                                                           Colors.blueGrey))),
                                                                 ],
@@ -393,8 +384,7 @@ class _HomeState extends State<Home> {
                                                                       '3',
                                                                       style: TextStyle(
                                                                           fontWeight: FontWeight.w900,
-                                                                          fontSize:
-                                                                          19,
+                                                                          fontSize: 15.0.sp,
                                                                           color:
                                                                           Colors.blueGrey))),
                                                                   DataCell(SizedBox(
@@ -409,7 +399,7 @@ class _HomeState extends State<Home> {
                                                                               .ellipsis,
                                                                           style: TextStyle(
 
-                                                                              fontSize: 19,
+                                                                              fontSize: 15.0.sp,
                                                                               color: Colors.blueGrey)))),
                                                                   DataCell(Text(
                                                                       snapshot
@@ -422,8 +412,7 @@ class _HomeState extends State<Home> {
                                                                           .toString(),
                                                                       style: TextStyle(
 
-                                                                          fontSize:
-                                                                              19,
+                                                                          fontSize: 15.0.sp,
                                                                           color:
                                                                           Colors.blueGrey))),
                                                                 ],
@@ -435,8 +424,7 @@ class _HomeState extends State<Home> {
                                                                       '4',
                                                                       style: TextStyle(
                                                                           fontWeight: FontWeight.w900,
-                                                                          fontSize:
-                                                                          19,
+                                                                          fontSize: 15.0.sp,
                                                                           color:
                                                                           Colors.blueGrey))),
                                                                   DataCell(SizedBox(
@@ -451,7 +439,7 @@ class _HomeState extends State<Home> {
                                                                               .ellipsis,
                                                                           style: TextStyle(
 
-                                                                              fontSize: 19,
+                                                                              fontSize: 15.0.sp,
                                                                               color: Colors.blueGrey)))),
                                                                   DataCell(Text(
                                                                       snapshot
@@ -464,8 +452,7 @@ class _HomeState extends State<Home> {
                                                                           .toString(),
                                                                       style: TextStyle(
 
-                                                                          fontSize:
-                                                                              19,
+                                                                          fontSize: 15.0.sp,
                                                                           color:
                                                                           Colors.blueGrey))),
                                                                 ],
@@ -477,8 +464,7 @@ class _HomeState extends State<Home> {
                                                                       '5',
                                                                       style: TextStyle(
                                                                           fontWeight: FontWeight.w900,
-                                                                          fontSize:
-                                                                          19,
+                                                                          fontSize: 15.0.sp,
                                                                           color:
                                                                           Colors.blueGrey))),
                                                                   DataCell(SizedBox(
@@ -493,7 +479,7 @@ class _HomeState extends State<Home> {
                                                                               .ellipsis,
                                                                           style: TextStyle(
 
-                                                                              fontSize: 19,
+                                                                              fontSize: 15.0.sp,
                                                                               color: Colors.blueGrey)))),
                                                                   DataCell(Text(
                                                                       snapshot
@@ -506,8 +492,7 @@ class _HomeState extends State<Home> {
                                                                           .toString(),
                                                                       style: TextStyle(
 
-                                                                          fontSize:
-                                                                              19,
+                                                                          fontSize: 15.0.sp,
                                                                           color:
                                                                           Colors.blueGrey))),
                                                                 ],
@@ -519,8 +504,7 @@ class _HomeState extends State<Home> {
                                                                       '29',
                                                                       style: TextStyle(
                                                                           fontWeight: FontWeight.w900,
-                                                                          fontSize:
-                                                                          19,
+                                                                          fontSize: 15.0.sp,
                                                                           color:
                                                                           Colors.blueGrey))),
                                                                   DataCell(SizedBox(
@@ -535,7 +519,7 @@ class _HomeState extends State<Home> {
                                                                               .ellipsis,
                                                                           style: TextStyle(
 
-                                                                              fontSize: 19,
+                                                                              fontSize: 15.0.sp,
                                                                               color: Colors.blueGrey)))),
                                                                   DataCell(Text(
                                                                       snapshot
@@ -544,8 +528,7 @@ class _HomeState extends State<Home> {
                                                                           .toString(),
                                                                       style: TextStyle(
 
-                                                                          fontSize:
-                                                                              19,
+                                                                          fontSize: 15.0.sp,
                                                                           color:
                                                                           Colors.blueGrey))),
                                                                 ],
@@ -596,14 +579,13 @@ class _HomeState extends State<Home> {
                                             Column(children: <Widget>[
                                               SizedBox(height: 10),
                                              Container(
-                                                  child: const Text(
+                                                  child:  Text(
                                                       'Press to Play',
                                                       style: TextStyle(
                                                           fontWeight:
                                                           FontWeight
                                                               .w700,
-                                                          fontSize:
-                                                          26,
+                                                          fontSize: 20.0.sp,
                                                           color: Colors.lightBlueAccent)),
                                                 ),
                                               SizedBox(height: 10),
@@ -633,7 +615,7 @@ class _HomeState extends State<Home> {
                                                     child: BlinkText(
                                                       'NUMDASH',
                                                       style: TextStyle(
-                                                        fontSize: 22.0,
+                                                        fontSize: 20.0.sp,
                                                         fontWeight:
                                                         FontWeight
                                                             .w700,
@@ -642,7 +624,7 @@ class _HomeState extends State<Home> {
                                                       endColor: Colors.yellow,
                                                     ),
                                                   ),
-                                                ),),SizedBox(height: 10),])),
+                                                ),),SizedBox(height: 20),])),
 
                                         ),
                                         ))])))));
