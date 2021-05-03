@@ -1,11 +1,7 @@
 
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:fullscreen/fullscreen.dart';
 import 'package:sizer/sizer_util.dart';
-import 'package:splashscreen/splashscreen.dart';
-
 import 'game.dart';
 import 'package:flame/util.dart';
 import 'package:flutter/cupertino.dart';
