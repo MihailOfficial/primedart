@@ -63,27 +63,17 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
   fonts:
-    - family: logo
-      fonts:
-        - asset: assets/fonts/SF Sports Night.ttf
     - family: fontNum
       fonts:
         - asset: assets/fonts/Montserrat-Regular.ttf
-    - family: bold
-      fonts:
-        - asset: assets/fonts/Montserrat-Bold.ttf
-    - family: test
-      fonts:
-        - asset: assets/fonts/Mollen-Regular.otf
-    - family: ken
-      fonts:
-          - asset: assets/fonts/kenvector_future.ttf
     - family: rage
       fonts:
           - asset: assets/fonts/Road_Rage.otf
-    - family: pixel
+    - family: sansSar
       fonts:
-          - asset: assets/fonts/BarcadeBrawlRegular-plYD.ttf
+          - asset: assets/fonts/BebasNeue-Regular.ttf
+
+
 
 
 

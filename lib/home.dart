@@ -51,7 +51,7 @@ class _HomeState extends State<Home> {
                                         image: DecorationImage(
 
                                           image: AssetImage(
-                                              "assets/images/485d3de9570a51ae604d6646a81e519e.png"),
+                                              "assets/images/home_background.png"),
                                           fit: BoxFit.cover,
                                         ),
                                       ),
@@ -59,7 +59,7 @@ class _HomeState extends State<Home> {
                                           child:
 
                                       Container(
-                                          color: Color.fromRGBO(0, 0, 0, 0.5),
+                                          color: Color.fromRGBO(0, 0, 0, 0.3),
                                       child:Column(children: <Widget>[
 
                                         Container(
@@ -108,16 +108,7 @@ class _HomeState extends State<Home> {
                                                   child:Column(
                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: <Widget>[
-                                                  Container(
-                                                      child: Text(
-                                                          "welcome:",
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          style: TextStyle(
-                                                            color: Colors.white,
-                                                              fontSize: 14.0.sp,
-                                                              )),
-                                              ),
+
                                                         FutureBuilder(
                                                         future: Future.wait([
                                                         highscores,
@@ -128,11 +119,11 @@ class _HomeState extends State<Home> {
                                                         AsyncSnapshot<List>
                                                         snapshot) {
                                                         if (snapshot.hasData) {
-                                                        return Container(child: Text(
+                                                        return Container(child: Text("Hi, "+
                                                           (FirebaseAuth
                                                               .instance
                                                               .currentUser
-                                                              .displayName),
+                                                              .displayName) ,
                                                           overflow: TextOverflow
                                                               .ellipsis,
                                                           style: TextStyle(
@@ -177,7 +168,9 @@ class _HomeState extends State<Home> {
                                                 ])),
 
 
-                                        SizedBox(height: 10),
+
+
+                                        SizedBox(height: 20),
                                         Padding(
                                               padding: const EdgeInsets.symmetric(horizontal: 20.0),
                                         child: Container(
@@ -218,10 +211,9 @@ class _HomeState extends State<Home> {
                                                             child:  Text(
                                                                 'Global Scores',
                                                                 style: TextStyle(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                    fontSize: 20.0.sp,
+
+                                                                    fontSize: 25.0.sp,
+                                                                    fontFamily: "sansSar",
                                                                     color:Colors.lightBlueAccent)),
                                                           ),
                                                           ButtonTheme(
@@ -271,7 +263,7 @@ class _HomeState extends State<Home> {
                                                                 label: Text(
                                                                   'RANK',
                                                                   style: TextStyle(
-                                                                      fontWeight: FontWeight.w900,
+                                                                      fontWeight: FontWeight.w700,
                                                                       fontSize: 15.0.sp,
                                                                       color: Color.fromRGBO(150, 150, 150, 1)),
                                                                 ),
@@ -281,7 +273,7 @@ class _HomeState extends State<Home> {
 
                                                                   'NAME',
                                                                   style: TextStyle(
-                                                                      fontWeight: FontWeight.w900,
+                                                                      fontWeight: FontWeight.w700,
                                                                       fontSize: 15.0.sp,
                                                                       color: Color.fromRGBO(150, 150, 150, 1)),
                                                                 ),
@@ -290,7 +282,7 @@ class _HomeState extends State<Home> {
                                                                 label: Text(
                                                                   'SCORE',
                                                                   style: TextStyle(
-                                                                      fontWeight: FontWeight.w900,
+                                                                      fontWeight: FontWeight.w700,
                                                                       fontSize: 15.0.sp,
                                                                       color:  Color.fromRGBO(150, 150, 150, 1)),
                                                                 ),
@@ -582,10 +574,10 @@ class _HomeState extends State<Home> {
                                                   child:  Text(
                                                       'Press to Play',
                                                       style: TextStyle(
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .w700,
-                                                          fontSize: 20.0.sp,
+
+
+                                                          fontSize: 25.0.sp,
+                                                          fontFamily: "sansSar",
                                                           color: Colors.lightBlueAccent)),
                                                 ),
                                               SizedBox(height: 10),
@@ -613,7 +605,7 @@ class _HomeState extends State<Home> {
                                                       pauseGame = false;
                                                     }),
                                                     child: BlinkText(
-                                                      'NUMDASH',
+                                                      'START',
                                                       style: TextStyle(
                                                         fontSize: 20.0.sp,
                                                         fontWeight:
@@ -621,10 +613,13 @@ class _HomeState extends State<Home> {
                                                             .w700,
                                                         color: Colors.white,
                                                       ),
-                                                      endColor: Colors.yellow,
+                                                      endColor: Colors.white,
                                                     ),
                                                   ),
-                                                ),),SizedBox(height: 20),])),
+                                                ),),SizedBox(height: 20),
+
+
+                                            ])),
 
                                         ),
                                         ))])))));

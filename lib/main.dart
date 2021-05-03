@@ -57,7 +57,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(
-        Duration(seconds: 3),
+        Duration(seconds: 1),
             () => Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (BuildContext context) => MyHomePage(title: "primedart"))));
   }
@@ -65,10 +65,10 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(0, 0, 0, 0.5),
+      backgroundColor: Color.fromRGBO(0, 0, 0, 0),
       body: Center(
-        child: Image.asset('assets/images/logf(temp).png'),
-      ),
+          child: Image.asset('assets/images/splash_logo.png'),
+        ),
     );
   }
 }
