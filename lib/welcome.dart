@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:sizer/sizer.dart';
 
 import 'main.dart';
@@ -17,7 +18,6 @@ class _WelcomeState extends State<Welcomer1> {
   @override
   Widget build(BuildContext context) {
 
-    if (!playGame) {
     var screenHeight = MediaQuery.of(context).size.height;
     final double statusBarHeight = MediaQuery.of(context).padding.top;
       return Scaffold(
@@ -182,9 +182,15 @@ class _WelcomeState extends State<Welcomer1> {
                                             ),
                                             color: Colors.blueGrey,
                                             onPressed: () => setState(() {
+
+
                                               Navigator.push(
                                                 context,
-                                                MaterialPageRoute(builder: (context) => MyHomePage(title: "primedart")),
+                                                PageTransition(
+                                                    type: PageTransitionType.rightToLeft,
+                                                    child: MyHomePage(title: "primedart"),
+                                                    inheritTheme: true,
+                                                    ctx: context),
                                               );
                                             }),
                                             child: Text(
@@ -218,7 +224,14 @@ class _WelcomeState extends State<Welcomer1> {
                                             ),
                                             color: Color.fromRGBO(36, 36, 36, 1),
                                             onPressed: () => setState(() {
-                                              playGame = true;
+                                              Navigator.push(
+                                                context,
+                                                PageTransition(
+                                                    type: PageTransitionType.rightToLeft,
+                                                    child: Game(tempt: false),
+                                                    inheritTheme: true,
+                                                    ctx: context),
+                                              );
                                               pauseGame = false;
                                             }),
                                             child: Text(
@@ -237,17 +250,7 @@ class _WelcomeState extends State<Welcomer1> {
                               ),
                             ))
                       ])))));
-    }else {
-      return MaterialApp(
-        title: 'Onboarding Concept',
-        home: Builder(
-          builder: (BuildContext context) {
-            var screenHeight = MediaQuery.of(context).size.height;
-            return Container(child: Game(tempt: false));
-          },
-        ),
-      );
-    }
+
     }
   }
 

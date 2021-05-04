@@ -37,6 +37,7 @@ void main() async {
 
 
   runApp(MaterialApp(
+      theme: new ThemeData(scaffoldBackgroundColor:  Colors.black),
       debugShowCheckedModeBanner: false,
       home: Container (
           decoration: BoxDecoration(),

@@ -12,6 +12,7 @@ import 'package:flame/text_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
+import 'package:page_transition/page_transition.dart';
 import 'dart:math';
 import 'package:sizer/sizer.dart';
 import 'highscore_functions.dart';
@@ -125,9 +126,24 @@ class Game extends StatelessWidget  {
               onPressed: () {
                 pauseGame = true;
                 if (online){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => Home()),);
+                  Navigator.push(
+                    context,
+                    PageTransition(
+                        type: PageTransitionType.leftToRight,
+                        child: Home(),
+                        inheritTheme: true,
+                        ctx: context),
+                  );
                 } else {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => Welcomer1()),);
+                  Navigator.push(
+                    context,
+                    PageTransition(
+                        type: PageTransitionType.leftToRight,
+                        child: Welcomer1(),
+                        inheritTheme: true,
+                        ctx: context),
+                  );
+
                 }
               }
               //onPressed:

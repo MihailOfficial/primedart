@@ -10,6 +10,7 @@ import 'package:flutter_icons/entypo.dart';
 import 'package:flutter_icons/ionicons.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fullscreen/fullscreen.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:sizer/sizer.dart';
 import 'highscore_functions.dart';
 
@@ -39,7 +40,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    if (!playGame) {
+
       contexts = context;
       var screenHeight = MediaQuery.of(context).size.height;
       final double statusBarHeight = MediaQuery.of(context).padding.top;
@@ -621,7 +622,14 @@ class _HomeState extends State<Home> {
                                             ),
                                             color: Colors.blueGrey,
                                             onPressed: () => setState(() {
-                                              playGame = true;
+                                              Navigator.push(
+                                                context,
+                                                PageTransition(
+                                                    type: PageTransitionType.rightToLeft,
+                                                    child: Game(tempt: true),
+                                                    inheritTheme: true,
+                                                    ctx: context),
+                                              );
                                               pauseGame = false;
                                             }),
                                             child: BlinkText(
@@ -641,16 +649,6 @@ class _HomeState extends State<Home> {
                               ),
                             ))
                       ])))));
-    } else {
-      return MaterialApp(
-        title: 'Onboarding Concept',
-        home: Builder(
-          builder: (BuildContext context) {
-            var screenHeight = MediaQuery.of(context).size.height;
-            return Container(child: Game(tempt: true));
-          },
-        ),
-      );
-    }
+
   }
 }

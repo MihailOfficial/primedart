@@ -37,6 +37,7 @@ dependencies:
   firebase_auth: ^0.20.1
   cloud_firestore: ^0.16.0+1
   firebase_analytics: ^7.0.1
+  page_transition: ^1.1.7+6
   flutter_icons: 0.1.4
   sizer: ^1.1.8
   line_icons: ^0.2.0
