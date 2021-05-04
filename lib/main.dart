@@ -2,6 +2,7 @@
 import 'dart:async';
 import 'package:bird/welcome.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:sizer/sizer_util.dart';
 import 'game.dart';
 import 'package:flame/util.dart';
@@ -57,9 +58,12 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Timer(
         Duration(seconds: 1),
-            () => Navigator.of(context).pushReplacement(MaterialPageRoute(
-
-    builder: (BuildContext context) =>  MyWelcomePage())));
+            () => Navigator.of(context).pushReplacement(PageTransition(
+                type: PageTransitionType.fade,
+                child: MyWelcomePage(),
+                inheritTheme: true,
+                ctx: context),
+            ));
   }
 
   @override
