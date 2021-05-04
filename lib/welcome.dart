@@ -194,7 +194,7 @@ class _WelcomeState extends State<Welcomer1> {
                                               );
                                             }),
                                             child: Text(
-                                              'ONLINE',
+                                              '- ONLINE -',
                                               style: TextStyle(
                                                 fontSize: 20.0,
                                                 fontWeight: FontWeight.w700,

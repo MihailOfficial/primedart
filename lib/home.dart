@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:bird/statspage.dart';
 import 'package:blinking_text/blinking_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -140,18 +141,26 @@ class _HomeState extends State<Home> {
                                       color: Color.fromRGBO(50, 50, 50, 1),
                                       // button color
                                       child: InkWell(
-                                        splashColor: Colors.red,
+                                        splashColor: Colors.yellow,
                                         // inkwell color
                                         child: SizedBox(
                                           width: 46,
                                           height: 46,
                                           child: Icon(
-                                            Entypo.getIconData("log-out"),
+                                            Icons.poll_rounded,
                                             color: Colors.white,
                                           ),
                                         ),
                                         onTap: () => setState(() {
-                                          signOut.call();
+
+                                          Navigator.push(
+                                            context,
+                                            PageTransition(
+                                                type: PageTransitionType.rightToLeft,
+                                                child: StatsPage(),
+                                                inheritTheme: true,
+                                                ctx: context),
+                                          );
                                         }),
                                       ),
                                     ),
@@ -633,10 +642,10 @@ class _HomeState extends State<Home> {
                                               pauseGame = false;
                                             }),
                                             child: BlinkText(
-                                              'START',
+                                              '- PLAY -',
                                               style: TextStyle(
                                                 fontSize: 20.0.sp,
-                                                fontWeight: FontWeight.w700,
+                                                fontWeight: FontWeight.w600,
                                                 color: Colors.white,
                                               ),
                                               endColor: Colors.white,
@@ -645,6 +654,41 @@ class _HomeState extends State<Home> {
                                         ),
                                       ),
                                       SizedBox(height: 20),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 50.0),
+                                        child: ButtonTheme(
+                                          minWidth: double.infinity,
+                                          height: 50.0,
+                                          child: MaterialButton(
+                                            padding: const EdgeInsets.all(10.0),
+                                            shape: RoundedRectangleBorder(
+                                              /*side: BorderSide(
+                              color: Colors.grey,
+                              width: 3),*/
+                                              borderRadius:
+                                              BorderRadius.circular(10.0),
+                                            ),
+                                            color: Colors.black,
+                                            onPressed: () => setState(() {
+                                              signOut.call();
+                                            }),
+                                            child: BlinkText(
+                                              'DEBUG LOGOUT',
+                                              style: TextStyle(
+                                                fontSize: 10.0.sp,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.grey,
+                                              ),
+                                              endColor: Colors.grey,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+
+
+
+                                      SizedBox(height: 10),
                                     ])),
                               ),
                             ))
