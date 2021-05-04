@@ -1,5 +1,6 @@
 
 import 'dart:async';
+import 'package:bird/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer_util.dart';
 import 'game.dart';
@@ -36,6 +37,7 @@ void main() async {
 
 
   runApp(MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Container (
           decoration: BoxDecoration(),
         child: SplashScreen())));
@@ -55,7 +57,8 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(
         Duration(seconds: 1),
             () => Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (BuildContext context) => MyHomePage(title: "primedart"))));
+
+    builder: (BuildContext context) =>  MyWelcomePage())));
   }
 
   @override
@@ -161,3 +164,59 @@ class _MyHomePageState extends State<MyHomePage> {
 
   }
 }
+
+class MyWelcomePage extends StatefulWidget {
+
+
+
+  @override
+  _MyWelcomePageState createState() => _MyWelcomePageState();
+}
+
+class _MyWelcomePageState extends State<MyWelcomePage> {
+
+  bool signed = false;
+  bool logged = false;
+
+  @override
+  @mustCallSuper
+  void initState(){
+    super.initState();
+    if(FirebaseAuth.instance.currentUser != null) {
+      logged = true;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle.dark.copyWith(
+
+        statusBarColor: Colors.black,
+      ),
+    );
+
+      return LayoutBuilder(                           //return LayoutBuilder
+          builder: (context, constraints) {
+            return OrientationBuilder(                  //return OrientationBuilder
+                builder: (context, orientation) {
+                  //initialize SizerUtil()
+                  SizerUtil().init(constraints, orientation);
+                  return Builder(
+                    builder: (BuildContext context) {
+                      var screenHeight = MediaQuery.of(context).size.height;
+                      return  Welcomer1();
+                    },
+
+                  );
+                });
+          });
+
+
+
+
+
+  }
+}
+

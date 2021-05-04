@@ -1,7 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:bird/welcome.dart';
 import 'package:flame/components/mixins/tapable.dart';
-import 'package:flame/flame.dart';
-import 'package:flame/util.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:flame/anchor.dart';
@@ -64,30 +62,51 @@ var y;
 //Building APK --> flutter build apk --split-per-abi
 double height = AppBar().preferredSize.height;
 var count = new List(4);
-
-class Game extends StatelessWidget {
+var online = true;
+class Game extends StatelessWidget  {
   static const String routeName = "/home";
+  final bool tempt;
 
+
+  /// Here is your constructor
+
+  const Game({Key key, this.tempt}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    online = tempt;
     contexts = context;
-
-    final double statusBarHeight = MediaQuery.of(context).padding.top;
+    print(online);
     return
-        //Scaffold(
+        Scaffold(
         // drawer: AppDrawer(),
-        // body:
+         body:
         Stack(children: <Widget>[
-        Container(
+
+
+          Container(
             constraints: BoxConstraints.expand(),
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage(
-                        "assets/images/teset2.jpg"),
-                    fit: BoxFit.cover)),
+
             child: game.widget,
           ),
-
+          Padding(
+            padding: EdgeInsets.all(10),
+          child: Align(
+              alignment: Alignment.topCenter,
+              child: Column(children: <Widget>[
+            if (online)
+              Text("ONLINE",
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.grey,
+                ),),
+            if (!online)
+              Text("OFFLINE",
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.grey,
+                ),)
+            ],)
+              ),),
 
       Align(
         alignment: Alignment.bottomCenter,
@@ -104,27 +123,27 @@ class Game extends StatelessWidget {
               ),
               color: Color.fromRGBO(50, 50, 50, 1),
               onPressed: () {
-
                 pauseGame = true;
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Home()),
-                );
+                if (online){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Home()),);
+                } else {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Welcomer1()),);
+                }
               }
               //onPressed:
               ),
         ),
       ),
-    ]);
+    ]));
   }
 }
 
 double tempX = 0;
 double heightPos = 0;
 int lives = 3;
-var table = List.generate(rowCount, (i) => List(7), growable: true);
-var ctable = List.generate(rowCount, (i) => List(7), growable: true);
-var dtable = List.generate(rowCount, (i) => List(7), growable: true);
+var table;
+var ctable;
+var dtable;
 double stopInc = 0;
 
 class Multiple extends TextComponent with Tapable {
@@ -633,7 +652,7 @@ var positionArray = new List(10);
 class MyGame extends BaseGame with HasTapableComponents {
   double timerPrime = 0;
   double timerComp = 0;
-
+  double testInc;
   Multiple multiple;
 
   EndMenu endMenu;
@@ -672,6 +691,10 @@ class MyGame extends BaseGame with HasTapableComponents {
       topSpaceTile = 150;
       rowCount = 8;
     }
+    testInc = (rowCount-1).toDouble();
+   table = List.generate(rowCount, (i) => List(7), growable: true);
+    ctable = List.generate(rowCount, (i) => List(7), growable: true);
+    dtable = List.generate(rowCount, (i) => List(7), growable: true);
     print("height: " + (size.height).toString());
     pauseGame = false;
     for (int a = 0; a < rowCount; a++) {
@@ -832,7 +855,6 @@ class MyGame extends BaseGame with HasTapableComponents {
     return text2;
   }
 
-  double testInc = (rowCount-1).toDouble();
 
   @override
   void update(double t) {
@@ -935,7 +957,9 @@ class MyGame extends BaseGame with HasTapableComponents {
       }
       counter++;
       if (counter % 2000 == 0) {
+        if (online){
         submitScore(score);
+        }
         var rng = new Random();
         //currentMultiple = rng.nextInt(5)+2;
         changedMultiple = 1;
