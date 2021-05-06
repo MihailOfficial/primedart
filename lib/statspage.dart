@@ -1,14 +1,16 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:sizer/sizer.dart';
 
+import 'dataclass.dart';
 import 'home.dart';
 import 'main.dart';
 import 'game.dart';
-class StatsPage extends StatefulWidget {
 
+class StatsPage extends StatefulWidget {
   @override
   _StatsPageState createState() => _StatsPageState();
 }
@@ -18,9 +20,13 @@ class _StatsPageState extends State<StatsPage> {
 
   @override
   Widget build(BuildContext context) {
-
     var screenHeight = MediaQuery.of(context).size.height;
     final double statusBarHeight = MediaQuery.of(context).padding.top;
+    Data dataInst = new Data();
+    dataInst.readFile();
+    Future<List<String>> values = dataInst.readFile();
+    print("crossed");
+
     return Scaffold(
         body: Container(
             decoration: BoxDecoration(
@@ -31,13 +37,12 @@ class _StatsPageState extends State<StatsPage> {
             ),
             child: SafeArea(
                 child: Container(
-                    color: Color.fromRGBO(0, 0, 0, 0.3),
                     child: Column(children: <Widget>[
                       Container(
                           width: double.infinity,
                           child: Padding(
                               padding:
-                              const EdgeInsets.symmetric(vertical: 5.0),
+                                  const EdgeInsets.symmetric(vertical: 5.0),
                               child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
@@ -75,7 +80,7 @@ class _StatsPageState extends State<StatsPage> {
                                     child: Container(
                                         decoration: BoxDecoration(
                                           borderRadius:
-                                          BorderRadius.circular(30.0),
+                                              BorderRadius.circular(30.0),
                                           border: Border.all(
                                               color: Colors.white,
                                               // set border color
@@ -91,46 +96,53 @@ class _StatsPageState extends State<StatsPage> {
                                         ),
                                         child: Column(children: <Widget>[
                                           SizedBox(height: 20),
-                                      Padding(
-                                          padding:
-                                          const EdgeInsets.symmetric(horizontal: 30.0),
-                                          child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: <Widget>[
-
+                                          Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 30.0),
+                                              child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: <Widget>[
                                                     Container(
-                                                      child: Text(
-                                                          'Your stats',
+                                                      child: Text('Your stats',
                                                           style: TextStyle(
                                                               fontSize: 25.0.sp,
                                                               fontFamily:
-                                                              "sansSar",
+                                                                  "sansSar",
                                                               color: Colors
                                                                   .lightBlueAccent)),
                                                     ),
                                                     ClipOval(
                                                       child: Material(
-                                                        color: Color.fromRGBO(50, 50, 50, 1),
+                                                        color: Color.fromRGBO(
+                                                            50, 50, 50, 1),
                                                         // button color
                                                         child: InkWell(
-                                                          splashColor: Colors.yellow,
+                                                          splashColor:
+                                                              Colors.yellow,
                                                           // inkwell color
                                                           child: SizedBox(
                                                             width: 35,
                                                             height: 35,
                                                             child: Icon(
-                                                              Icons.arrow_back_ios_sharp,
-                                                              color: Colors.white,
+                                                              Icons
+                                                                  .arrow_back_ios_sharp,
+                                                              color:
+                                                                  Colors.white,
                                                             ),
                                                           ),
-                                                          onTap: () => setState(() {
-
+                                                          onTap: () =>
+                                                              setState(() {
                                                             Navigator.push(
                                                               context,
                                                               PageTransition(
-                                                                  type: PageTransitionType.leftToRight,
+                                                                  type: PageTransitionType
+                                                                      .leftToRight,
                                                                   child: Home(),
-                                                                  inheritTheme: true,
+                                                                  inheritTheme:
+                                                                      true,
                                                                   ctx: context),
                                                             );
                                                           }),
@@ -139,21 +151,297 @@ class _StatsPageState extends State<StatsPage> {
                                                     ),
 
                                                   ])),
-                                          SizedBox(height: 10),
+                                          SizedBox(height: 20),
                                           Padding(
                                               padding:
-                                              const EdgeInsets.symmetric(
-                                                  horizontal: 30.0),
-                                              child: Container(
-                                                child: Text(
-                                                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus non lobortis massa. Aliquam et sagittis tortor. Pellentesque risus ligula, maximus in diam at, tempus pulvinar turpis. Ut sagittis felis enim, ac fermentum ipsum auctor quis. Vestibulum eget ligula vestibulum, efficitur quam porta, fermentum erat. ',
-                                                    textAlign: TextAlign.justify,
-                                                    style: TextStyle(
-                                                        fontSize: 15.0,
-                                                        color: Colors
-                                                            .blueGrey)),
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 30.0),
+                                              child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: <Widget>[
+                                                    Row(
+                                                        mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                        children: <Widget>[
+                                                          Container(
+                                                            child: Text(
+                                                                'Highest Score:',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                    18.0.sp,
+                                                                    fontFamily:
+                                                                    "sansSar",
+                                                                    color: Colors
+                                                                        .blueGrey)),
+                                                          ),
+                                                            FutureBuilder(
+                                                            future: Future.wait(
 
-                                              )),
+                                                            [values,  dataInst.readFile()]),
+                                                            builder: (BuildContext context,
+                                                            AsyncSnapshot<List>
+                                                            snapshot) {
+                                                            if (snapshot.hasData) {
+                                                            return Container(
+                                                            child: Text(
+                                                                dataInst.arr[0],
+                                                            overflow: TextOverflow
+                                                                .ellipsis,
+                                                            style: TextStyle(
+                                                                fontSize:
+                                                                18.0.sp,
+                                                                fontFamily:
+                                                                "sansSar",
+                                                                color: Colors
+                                                                    .blueGrey
+                                                            )),
+                                                            );
+                                                            } else if (snapshot.hasError) {
+                                                            print("alert");
+                                                            print(snapshot.error);
+                                                            return CircularProgressIndicator();
+                                                            } else {
+                                                            return CircularProgressIndicator();
+                                                            }}),
+
+                                                        ]),
+                                                    Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: <Widget>[
+                                                          Container(
+                                                            child: Text(
+                                                                'Total Attempts:',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        18.0.sp,
+                                                                    fontFamily:
+                                                                        "sansSar",
+                                                                    color: Colors
+                                                                        .blueGrey)),
+                                                          ),
+                                                          FutureBuilder(
+                                                              future: Future.wait(
+
+                                                                  [values,  dataInst.readFile()]),
+                                                              builder: (BuildContext context,
+                                                                  AsyncSnapshot<List>
+                                                                  snapshot) {
+                                                                if (snapshot.hasData) {
+                                                                  return Container(
+                                                                    child: Text(
+                                                                        dataInst.arr[1],
+                                                                        overflow: TextOverflow
+                                                                            .ellipsis,
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                            18.0.sp,
+                                                                            fontFamily:
+                                                                            "sansSar",
+                                                                            color: Colors
+                                                                                .blueGrey,
+                                                                        )),
+                                                                  );
+                                                                } else if (snapshot.hasError) {
+                                                                  print("alert");
+                                                                  print(snapshot.error);
+                                                                  return CircularProgressIndicator();
+                                                                } else {
+                                                                  return CircularProgressIndicator();
+                                                                }}),
+                                                        ]),
+                                                    SizedBox(height: 20),
+                                                    Row(
+                                                        mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                        children: <Widget>[
+                                                          Container(
+                                                            child: Text(
+                                                                'Multiple Accuracy:',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                    18.0.sp,
+                                                                    fontFamily:
+                                                                    "sansSar",
+                                                                    color: Colors
+                                                                        .blueGrey)),
+                                                          ),
+                                                          FutureBuilder(
+                                                              future: Future.wait(
+
+                                                                  [values,  dataInst.readFile()]),
+                                                              builder: (BuildContext context,
+                                                                  AsyncSnapshot<List>
+                                                                  snapshot) {
+                                                                if (snapshot.hasData) {
+                                                                  return Container(
+                                                                    child: Text(
+                                                                        dataInst.arr[2] + "%",
+                                                                        overflow: TextOverflow
+                                                                            .ellipsis,
+                                                                        style: TextStyle(
+                                                                          fontSize:
+                                                                          18.0.sp,
+                                                                          fontFamily:
+                                                                          "sansSar",
+                                                                          color: Colors
+                                                                              .blueGrey,
+                                                                        )),
+                                                                  );
+                                                                } else if (snapshot.hasError) {
+                                                                  print("alert");
+                                                                  print(snapshot.error);
+                                                                  return CircularProgressIndicator();
+                                                                } else {
+                                                                  return CircularProgressIndicator();
+                                                                }}),
+                                                        ]),
+                                                    SizedBox(height: 20),
+                                                    Row(
+                                                        mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                        children: <Widget>[
+                                                          Container(
+                                                            child: Text(
+                                                                'Matched row/columns:',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                    18.0.sp,
+                                                                    fontFamily:
+                                                                    "sansSar",
+                                                                    color: Colors
+                                                                        .blueGrey)),
+                                                          ),
+                                                          FutureBuilder(
+                                                              future: Future.wait(
+
+                                                                  [values,  dataInst.readFile()]),
+                                                              builder: (BuildContext context,
+                                                                  AsyncSnapshot<List>
+                                                                  snapshot) {
+                                                                if (snapshot.hasData) {
+                                                                  return Container(
+                                                                    child: Text(
+                                                                        dataInst.arr[3],
+                                                                        overflow: TextOverflow
+                                                                            .ellipsis,
+                                                                        style: TextStyle(
+                                                                          fontSize:
+                                                                          18.0.sp,
+                                                                          fontFamily:
+                                                                          "sansSar",
+                                                                          color: Colors
+                                                                              .blueGrey,
+                                                                        )),
+                                                                  );
+                                                                } else if (snapshot.hasError) {
+                                                                  print("alert");
+                                                                  print(snapshot.error);
+                                                                  return CircularProgressIndicator();
+                                                                } else {
+                                                                  return CircularProgressIndicator();
+                                                                }}),
+                                                        ]),
+
+                                                    Row(
+                                                        mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                        children: <Widget>[
+                                                          Container(
+                                                            child: Text(
+                                                                '# multiples touched:',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                    18.0.sp,
+                                                                    fontFamily:
+                                                                    "sansSar",
+                                                                    color: Colors
+                                                                        .blueGrey)),
+                                                          ),
+                                                          FutureBuilder(
+                                                              future: Future.wait(
+
+                                                                  [values,  dataInst.readFile()]),
+                                                              builder: (BuildContext context,
+                                                                  AsyncSnapshot<List>
+                                                                  snapshot) {
+                                                                if (snapshot.hasData) {
+                                                                  return Container(
+                                                                    child: Text(
+                                                                        dataInst.arr[4],
+                                                                        overflow: TextOverflow
+                                                                            .ellipsis,
+                                                                        style: TextStyle(
+                                                                          fontSize:
+                                                                          18.0.sp,
+                                                                          fontFamily:
+                                                                          "sansSar",
+                                                                          color: Colors
+                                                                              .blueGrey,
+                                                                        )),
+                                                                  );
+                                                                } else if (snapshot.hasError) {
+                                                                  print("alert");
+                                                                  print(snapshot.error);
+                                                                  return CircularProgressIndicator();
+                                                                } else {
+                                                                  return CircularProgressIndicator();
+                                                                }}),
+                                                        ]),
+                                                    Row(
+                                                        mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                        children: <Widget>[
+                                                          Container(
+                                                            child: Text(
+                                                                '# Non multiples touched:',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                    18.0.sp,
+                                                                    fontFamily:
+                                                                    "sansSar",
+                                                                    color: Colors
+                                                                        .blueGrey)),
+                                                          ),
+                                                          FutureBuilder(
+                                                              future: Future.wait(
+
+                                                                  [values,  dataInst.readFile()]),
+                                                              builder: (BuildContext context,
+                                                                  AsyncSnapshot<List>
+                                                                  snapshot) {
+                                                                if (snapshot.hasData) {
+                                                                  return Container(
+                                                                    child: Text(
+                                                                        dataInst.arr[5],
+                                                                        overflow: TextOverflow
+                                                                            .ellipsis,
+                                                                        style: TextStyle(
+                                                                          fontSize:
+                                                                          18.0.sp,
+                                                                          fontFamily:
+                                                                          "sansSar",
+                                                                          color: Colors
+                                                                              .blueGrey,
+                                                                        )),
+                                                                  );
+                                                                } else if (snapshot.hasError) {
+                                                                  print("alert");
+                                                                  print(snapshot.error);
+                                                                  return CircularProgressIndicator();
+                                                                } else {
+                                                                  return CircularProgressIndicator();
+                                                                }}),
+                                                        ]),
+                                                  ])),
                                           SizedBox(height: 20),
                                           SizedBox(height: 10),
                                         ])),
@@ -161,9 +449,6 @@ class _StatsPageState extends State<StatsPage> {
                       SizedBox(
                         height: 20,
                       ),
-
                     ])))));
-
   }
 }
-

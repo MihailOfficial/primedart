@@ -15,6 +15,7 @@ import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
 import 'dart:math';
 import 'package:sizer/sizer.dart';
+import 'dataclass.dart';
 import 'highscore_functions.dart';
 import 'home.dart';
 
@@ -57,6 +58,10 @@ bool visible = false;
 bool updateMenu = false;
 bool hideMenu = false;
 BuildContext contexts;
+int multipleTouched = 0;
+int nonMultipleTouched = 0;
+int matchedRC = 0;
+
 var x;
 var y;
 
@@ -319,7 +324,7 @@ class Multiple extends TextComponent with Tapable {
 
       if (m != null && !shrink && !globalShrink) {
         if (pauseRect1.contains(m.globalPosition)) {
-
+          multipleTouched++;
           shrink = true;
           collectPrime = true;
         }
@@ -535,6 +540,7 @@ class NotMultiple extends TextComponent with Tapable {
         }
       }
       if (inc == 1) {
+        nonMultipleTouched ++;
         if (score > 0) {
           score--;
         }
@@ -633,6 +639,9 @@ class EndMenu extends TextComponent with Tapable {
         masterGameStart = true;
         stopInc == 0;
         stopAttempts = false;
+        multipleTouched = 0;
+        nonMultipleTouched = 0;
+        matchedRC ==0;
         returned = true;
         destroy();
       }
@@ -880,8 +889,13 @@ class MyGame extends BaseGame with HasTapableComponents {
 
     if (stopAttempts) {
       if (stopInc == 0) {
+        highScore = score;
         add(endMenu = EndMenu("Play again"));
+        String value;
 
+        //call stats here
+        statsWriter();
+        //
         //print("Called");
       }
       stopInc++;
@@ -929,11 +943,10 @@ class MyGame extends BaseGame with HasTapableComponents {
             dtable[c][d] = true;
             dtable[c][d + 1] = true;
             dtable[c][d + 2] = true;
-
             ctable[c][d] = 0;
             ctable[c][d + 1] = 0;
             ctable[c][d + 2] = 0;
-
+            matchedRC++;
             //print("Identify");
           }
         }
@@ -959,7 +972,7 @@ class MyGame extends BaseGame with HasTapableComponents {
             ctable[c][d] = 0;
             ctable[c + 1][d] = 0;
             ctable[c + 2][d] = 0;
-
+            matchedRC++;
             // game.add(Collected(" +3 ",  (d).toDouble(), (c+1).toDouble()));
 
           }
@@ -972,7 +985,8 @@ class MyGame extends BaseGame with HasTapableComponents {
         changedMultiple--;
       }
       counter++;
-      if (counter % 2000 == 0) {
+      //was 2000
+      if (counter % 400 == 0) {
         if (online){
         submitScore(score);
         }
@@ -1273,4 +1287,45 @@ class Bg extends Component with Resizable {
   void update(double t) {
     // TODO: implement update
   }
+}
+
+Future<void> statsWriter() async {
+
+ // Data dataInst = new Data();
+  //List<String> arr = dataInst.readFile() as List<String>;
+//
+  Data dataInst = new Data();
+
+  List arr = await dataInst.readFile();
+ //
+
+  int hS = int.parse(arr[0]);
+  int tA = int.parse(arr[1]);
+  int mRC = int.parse(arr[3]);
+  int mT = int.parse(arr[4]);
+  int nmT = int.parse(arr[5]);
+  if (highScore > hS){
+    hS = highScore;
+    print("hs: " +  highScore.toString());
+  }
+  tA++;
+  mRC = mRC + matchedRC;
+  mT = mT + multipleTouched;
+  nmT = nmT + nonMultipleTouched;
+  int multipleAcc = 0;
+  if (mT != 0 && nmT != 0) {
+    multipleAcc = ((mT/(nmT+mT)) * 100).round();
+    print("yes: " +  multipleAcc.toString());
+  }
+  String result = "";
+
+  result += hS.toString() + "/";
+  result += tA.toString() + "/";
+  result += multipleAcc.toString() + "/";
+  result += mRC.toString() + "/";
+  result += mT.toString() + "/";
+  result += nmT.toString();
+  dataInst.saveFile(result);
+
+
 }

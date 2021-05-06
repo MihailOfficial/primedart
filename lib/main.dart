@@ -4,6 +4,7 @@ import 'package:bird/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:sizer/sizer_util.dart';
+import 'dataclass.dart';
 import 'game.dart';
 import 'package:flame/util.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,7 +15,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'home.dart';
 import 'login.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,7 +36,14 @@ void main() async {
   tempWidth = size.width;
   tempHeight = size.height;
   game = MyGame(size);
-
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  bool _seen = (prefs.getBool('seen') ?? false);
+  if (_seen) {
+  } else {
+    await prefs.setBool('seen', true);
+    Data dataInst = new Data();
+    dataInst.saveFile("0/0/0/0/0/0");
+  }
 
   runApp(MaterialApp(
       theme: new ThemeData(scaffoldBackgroundColor:  Colors.black),
@@ -48,12 +56,16 @@ void main() async {
 }
 
 class SplashScreen extends StatefulWidget {
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  @override
+
+
+
+    @override
   void initState() {
     super.initState();
     Timer(
@@ -217,11 +229,6 @@ class _MyWelcomePageState extends State<MyWelcomePage> {
                   );
                 });
           });
-
-
-
-
-
   }
 }
 

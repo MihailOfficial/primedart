@@ -55,7 +55,6 @@ class _HomeState extends State<Home> {
               ),
               child: SafeArea(
                   child: Container(
-                      color: Color.fromRGBO(0, 0, 0, 0.3),
                       child: Column(children: <Widget>[
                         Container(
                             width: double.infinity,

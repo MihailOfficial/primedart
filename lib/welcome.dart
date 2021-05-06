@@ -183,7 +183,6 @@ class _WelcomeState extends State<Welcomer1> {
                                             color: Colors.blueGrey,
                                             onPressed: () => setState(() {
 
-
                                               Navigator.push(
                                                 context,
                                                 PageTransition(
@@ -224,6 +223,7 @@ class _WelcomeState extends State<Welcomer1> {
                                             ),
                                             color: Color.fromRGBO(36, 36, 36, 1),
                                             onPressed: () => setState(() {
+
                                               Navigator.push(
                                                 context,
                                                 PageTransition(
@@ -233,6 +233,7 @@ class _WelcomeState extends State<Welcomer1> {
                                                     ctx: context),
                                               );
                                               pauseGame = false;
+
                                             }),
                                             child: Text(
                                               'OFFLINE',
