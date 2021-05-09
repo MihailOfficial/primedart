@@ -7,8 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_icons/entypo.dart';
-import 'package:flutter_icons/ionicons.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fullscreen/fullscreen.dart';
 import 'package:page_transition/page_transition.dart';

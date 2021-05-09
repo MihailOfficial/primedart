@@ -39,7 +39,7 @@ dependencies:
   firebase_analytics: ^8.0.3
   page_transition: ^2.0.2
   flutter_icons: ^1.1.0
-  sizer: ^2.0.10
+  sizer: ^1.1.8
   line_icons: ^2.0.1
   vibration: ^1.7.3
   provider: ^5.0.0
