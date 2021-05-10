@@ -226,6 +226,7 @@ class Multiple extends TextComponent with Tapable {
   @override
   void update(double tt) {
     if (!fast) {
+
       if (fall && !shrink) {
         ctable[row.toInt()][(column - 1).toInt()] = 0;
         if ((this.y + 10) >= positionArray[row.toInt()]) {
@@ -239,8 +240,8 @@ class Multiple extends TextComponent with Tapable {
           ctable[row.toInt()][(column - 1).toInt()] = 0;
         }
       }
-
-      if (row != (rowCount-1) && !fall) {
+    else {
+      if (row != (rowCount - 1) && !fall) {
         if (table[(row + 1).toInt()][(column - 1).toInt()] == false) {
           table[(row).toInt()][(column - 1).toInt()] = false;
           table[(row + 1).toInt()][(column - 1).toInt()] = true;
@@ -260,7 +261,8 @@ class Multiple extends TextComponent with Tapable {
         this.config = TextConfig(
             color: Colors.black, fontSize: 25.0.sp, fontFamily: "fontNum");
         text = '+2';
-        _paint12 = Paint()..color = Color.fromRGBO(255, 215, 0, 1);
+        _paint12 = Paint()
+          ..color = Color.fromRGBO(255, 215, 0, 1);
 
         collectPrime = true;
         shrinkCollect = true;
@@ -337,18 +339,19 @@ class Multiple extends TextComponent with Tapable {
         collectPrime = false;
       }
 
-      double dist = 50;
-      pauseRect1 = Rect.fromLTWH(
-          (tempWidth / 7) * column - (tempWidth / 15),
-          (this.y - 5) - (this.height / 2),
-          (tempWidth / 15) * 2,
-          this.height + 10);
+
 
       super.update(tt);
 
       if (changedMultiple == 1) {
         fast = true;
       }
+    }
+      pauseRect1 = Rect.fromLTWH(
+          (tempWidth / 7) * column - (tempWidth / 15),
+          (this.y - 5) - (this.height / 2),
+          (tempWidth / 15) * 2,
+          this.height + 10);
     } else {
       if (this.x < -50) {
         returned = true;
@@ -366,7 +369,7 @@ class Multiple extends TextComponent with Tapable {
   @override
   void render(Canvas c) {
     c.drawRRect(
-        RRect.fromRectAndRadius((pauseRect1), Radius.circular(6.0)), _paint12);
+        RRect.fromRectAndRadius((pauseRect1), Radius.circular(4)), _paint12);
     super.render(c);
   }
 }
@@ -447,8 +450,8 @@ class NotMultiple extends TextComponent with Tapable {
           ctable[row.toInt()][(column - 1).toInt()] = 0;
         }
       }
-
-      if (row != (rowCount-1) && !fall) {
+      else {
+      if (row != (rowCount - 1) && !fall) {
         if (table[(row + 1).toInt()][(column - 1).toInt()] == false) {
           table[(row).toInt()][(column - 1).toInt()] = false;
           table[(row + 1).toInt()][(column - 1).toInt()] = true;
@@ -465,7 +468,8 @@ class NotMultiple extends TextComponent with Tapable {
             color: Colors.black, fontSize: 25.0.sp, fontFamily: "fontNum");
         text = '+2';
         dtable[row.toInt()][(column - 1).toInt()] = false;
-        _paint12 = Paint()..color = Color.fromRGBO(255, 215, 0, 1);
+        _paint12 = Paint()
+          ..color = Color.fromRGBO(255, 215, 0, 1);
         collectPrime = true;
         shrinkCollect = true;
       }
@@ -530,7 +534,8 @@ class NotMultiple extends TextComponent with Tapable {
 
       if (m != null && !collectNot && !globalShrink) {
         if (pauseRect1.contains(m.globalPosition)) {
-          _paint12 = Paint()..color = Color.fromRGBO(80, 80, 80, 0.9);
+          _paint12 = Paint()
+            ..color = Color.fromRGBO(80, 80, 80, 0.9);
           inc++;
           this.config = TextConfig(
               color: Colors.grey, fontSize: 25.0.sp, fontFamily: "fontNum");
@@ -547,13 +552,6 @@ class NotMultiple extends TextComponent with Tapable {
         updateScore = true;
       }
 
-      double dist = 50;
-      pauseRect1 = Rect.fromLTWH(
-          (tempWidth / 7) * column - (tempWidth / 15),
-          (this.y - 5) - (this.height / 2),
-          (tempWidth / 15) * 2,
-          this.height + 10);
-
       if (collectPrime) {
         score++;
 
@@ -569,6 +567,12 @@ class NotMultiple extends TextComponent with Tapable {
       if (changedMultiple == 1) {
         fast = true;
       }
+    }
+      pauseRect1 = Rect.fromLTWH(
+          (tempWidth / 7) * column - (tempWidth / 15),
+          (this.y - 5) - (this.height / 2),
+          (tempWidth / 15) * 2,
+          this.height + 10);
     } else {
       if (this.x < -50) {
         returned = true;
@@ -586,7 +590,7 @@ class NotMultiple extends TextComponent with Tapable {
   @override
   void render(Canvas c) {
     c.drawRRect(
-        RRect.fromRectAndRadius((pauseRect1), Radius.circular(6.0)), _paint12);
+        RRect.fromRectAndRadius((pauseRect1), Radius.circular(4)), _paint12);
     super.render(c);
   }
 }
@@ -930,55 +934,58 @@ class MyGame extends BaseGame with HasTapableComponents {
     }
 
     if (!stopAttempts & masterGameStart) {
-      for (int c = 0; c <rowCount; c++) {
-        for (int d = 0; d < 4; d++) {
-          if (ctable[c][d] == ctable[c][d + 1] && ctable[c][d] == ctable[c][d + 2] && ctable[c][d] != 0 &&
-              dtable[c][d] == false &&
-              dtable[c][d + 1] == false &&
-              dtable[c][d + 2] == false &&
-              table[c][d] == true &&
-              table[c][d + 1] == true &&
-              table[c][d + 2] == true) {
-            HapticFeedback.lightImpact();
-            dtable[c][d] = true;
-            dtable[c][d + 1] = true;
-            dtable[c][d + 2] = true;
-            ctable[c][d] = 0;
-            ctable[c][d + 1] = 0;
-            ctable[c][d + 2] = 0;
-            matchedRC++;
-            //print("Identify");
+
+      if (!newDeck) {
+        for (int c = 0; c < rowCount; c++) {
+          for (int d = 0; d < 4; d++) {
+            if (ctable[c][d] == ctable[c][d + 1] &&
+                ctable[c][d] == ctable[c][d + 2] && ctable[c][d] != 0 &&
+                dtable[c][d] == false &&
+                dtable[c][d + 1] == false &&
+                dtable[c][d + 2] == false &&
+                table[c][d] == true &&
+                table[c][d + 1] == true &&
+                table[c][d + 2] == true) {
+              HapticFeedback.lightImpact();
+              dtable[c][d] = true;
+              dtable[c][d + 1] = true;
+              dtable[c][d + 2] = true;
+              ctable[c][d] = 0;
+              ctable[c][d + 1] = 0;
+              ctable[c][d + 2] = 0;
+              matchedRC++;
+              //print("Identify");
+            }
+          }
+        }
+
+        for (int d = 0; d < 6; d++) {
+          for (int c = 0; c < rowCount - 2; c++) {
+            if (ctable[c][d] == ctable[c + 1][d] &&
+                ctable[c][d] == ctable[c + 2][d] &&
+                ctable[c][d] != 0 &&
+                dtable[c][d] == false &&
+                dtable[c + 1][d] == false &&
+                dtable[c + 2][d] == false &&
+                table[c][d] == true &&
+                table[c + 1][d] == true &&
+                table[c + 2][d] == true) {
+              HapticFeedback.lightImpact();
+
+              dtable[c][d] = true;
+              dtable[c + 1][d] = true;
+              dtable[c + 2][d] = true;
+
+              ctable[c][d] = 0;
+              ctable[c + 1][d] = 0;
+              ctable[c + 2][d] = 0;
+              matchedRC++;
+              // game.add(Collected(" +3 ",  (d).toDouble(), (c+1).toDouble()));
+
+            }
           }
         }
       }
-
-      for (int d = 0; d < 6; d++) {
-        for (int c = 0; c < rowCount-2; c++) {
-          if (ctable[c][d] == ctable[c + 1][d] &&
-              ctable[c][d] == ctable[c + 2][d] &&
-              ctable[c][d] != 0 &&
-              dtable[c][d] == false &&
-              dtable[c + 1][d] == false &&
-              dtable[c + 2][d] == false &&
-              table[c][d] == true &&
-              table[c + 1][d] == true &&
-              table[c + 2][d] == true) {
-            HapticFeedback.lightImpact();
-
-            dtable[c][d] = true;
-            dtable[c + 1][d] = true;
-            dtable[c + 2][d] = true;
-
-            ctable[c][d] = 0;
-            ctable[c + 1][d] = 0;
-            ctable[c + 2][d] = 0;
-            matchedRC++;
-            // game.add(Collected(" +3 ",  (d).toDouble(), (c+1).toDouble()));
-
-          }
-        }
-      }
-
       statusBox -= updateStatus;
 
       if (changedMultiple >= 0) {
@@ -986,7 +993,7 @@ class MyGame extends BaseGame with HasTapableComponents {
       }
       counter++;
       //was 2000
-      if (counter % 400 == 0) {
+      if (counter % 4000 == 0) {
         if (online){
         submitScore(score);
         }
@@ -1063,9 +1070,9 @@ class MyGame extends BaseGame with HasTapableComponents {
 
       //  TextConfig primeC = TextConfig(color: colours[genColourPrime], fontSize: 40, fontFamily: "fontNum");
       TextConfig mult = TextConfig(
-          color: Color.fromRGBO(230, 230, 230, 1), fontSize: 25.0.sp, fontFamily: "fontNum");
+          color: Color.fromRGBO(240, 240, 240, 1), fontSize: 25.0.sp, fontFamily: "fontNum");
       TextConfig nmult = TextConfig(
-          color: Color.fromRGBO(230, 230, 230, 1), fontSize: 25.0.sp, fontFamily: "fontNum");
+          color: Color.fromRGBO(240, 240, 240, 1), fontSize: 25.0.sp, fontFamily: "fontNum");
       double Pos = 0;
 
       if (lives > 0) {
