@@ -32,7 +32,7 @@ class _HomeState extends State<Home> {
   _HomeState({@required this.signOut});
 
   bool playGame = false;
-  Future<List<Map<dynamic,dynamic>>> highscores = getHighScores(5);
+  Future<List<Map<dynamic, dynamic>>> highscores = getHighScores(5);
 
   @override
   Widget build(BuildContext context) {
@@ -96,9 +96,7 @@ class _HomeState extends State<Home> {
                                         AsyncSnapshot<String> snapshot) {
                                       if (snapshot.hasData) {
                                         return Container(
-                                          child: Text(
-                                              "Hi, " +
-                                                  snapshot.data,
+                                          child: Text("Hi, " + snapshot.data,
                                               overflow: TextOverflow.ellipsis,
                                               style: TextStyle(
                                                 fontWeight: FontWeight.w700,
@@ -185,9 +183,9 @@ class _HomeState extends State<Home> {
                                                   style: TextStyle(
                                                       fontSize: 25.0.sp,
                                                       fontFamily: "sansSar",
-                                                      color: Colors
-                                                          .lightBlueAccent)),
+                                                      color: Colors.lightBlueAccent)),
                                             ),
+
                                             ButtonTheme(
                                                 minWidth: 20.0,
                                                 child: MaterialButton(
@@ -208,9 +206,14 @@ class _HomeState extends State<Home> {
                                                       color: Colors.white,
                                                     ))),
                                           ])),
+
                                   FutureBuilder(
-                                      future: Future.wait(
-                                          [highscores, getMyScore(), getRank(), getUsername()]),
+                                      future: Future.wait([
+                                        highscores,
+                                        getMyScore(),
+                                        getRank(),
+                                        getUsername()
+                                      ]),
                                       builder: (BuildContext context,
                                           AsyncSnapshot<List> snapshot) {
                                         if (snapshot.hasData) {
@@ -224,16 +227,16 @@ class _HomeState extends State<Home> {
                                                   columns: <DataColumn>[
                                                     DataColumn(
                                                       label: Text(
-                                                        'RANK',
+                                                        '#',
                                                         style: TextStyle(
                                                             fontWeight:
                                                                 FontWeight.w700,
                                                             fontSize: 15.0.sp,
                                                             color:
                                                                 Color.fromRGBO(
-                                                                    150,
-                                                                    150,
-                                                                    150,
+                                                                    190,
+                                                                    190,
+                                                                    190,
                                                                     1)),
                                                       ),
                                                     ),
@@ -246,9 +249,9 @@ class _HomeState extends State<Home> {
                                                             fontSize: 15.0.sp,
                                                             color:
                                                                 Color.fromRGBO(
-                                                                    150,
-                                                                    150,
-                                                                    150,
+                                                                    190,
+                                                                    190,
+                                                                    190,
                                                                     1)),
                                                       ),
                                                     ),
@@ -261,9 +264,9 @@ class _HomeState extends State<Home> {
                                                             fontSize: 15.0.sp,
                                                             color:
                                                                 Color.fromRGBO(
-                                                                    150,
-                                                                    150,
-                                                                    150,
+                                                                    190,
+                                                                    190,
+                                                                    190,
                                                                     1)),
                                                       ),
                                                     ),
@@ -278,14 +281,14 @@ class _HomeState extends State<Home> {
                                                                   FontWeight
                                                                       .w900,
                                                               fontSize: 15.0.sp,
-                                                              color: Colors
-                                                                  .blueGrey),
+                                                              color: Colors.blueGrey),
                                                         )),
                                                         DataCell(SizedBox(
                                                             width: 150,
                                                             child: Text(
                                                                 snapshot.data[0]
-                                                                        [0]["username"]
+                                                                        [0][
+                                                                        "username"]
                                                                     .toString(),
                                                                 overflow:
                                                                     TextOverflow
@@ -293,16 +296,15 @@ class _HomeState extends State<Home> {
                                                                 style: TextStyle(
                                                                     fontSize:
                                                                         15.0.sp,
-                                                                    color: Colors
-                                                                        .blueGrey)))),
+                                                                    color: Colors.blueGrey)))),
                                                         DataCell(Text(
-                                                            snapshot.data[0][0]["current_best"]
+                                                            snapshot.data[0][0][
+                                                                    "current_best"]
                                                                 .toString(),
                                                             style: TextStyle(
                                                                 fontSize:
                                                                     15.0.sp,
-                                                                color: Colors
-                                                                    .blueGrey))),
+                                                                color: Colors.blueGrey))),
                                                       ],
                                                     ),
                                                     DataRow(
@@ -314,13 +316,13 @@ class _HomeState extends State<Home> {
                                                                         .w900,
                                                                 fontSize:
                                                                     15.0.sp,
-                                                                color: Colors
-                                                                    .blueGrey))),
+                                                                color: Colors.blueGrey))),
                                                         DataCell(SizedBox(
                                                             width: 150,
                                                             child: Text(
                                                                 snapshot.data[0]
-                                                                        [1]["username"]
+                                                                        [1][
+                                                                        "username"]
                                                                     .toString(),
                                                                 overflow:
                                                                     TextOverflow
@@ -328,16 +330,15 @@ class _HomeState extends State<Home> {
                                                                 style: TextStyle(
                                                                     fontSize:
                                                                         15.0.sp,
-                                                                    color: Colors
-                                                                        .blueGrey)))),
+                                                                    color: Colors.blueGrey)))),
                                                         DataCell(Text(
-                                                            snapshot.data[0][1]["current_best"]
+                                                            snapshot.data[0][1][
+                                                                    "current_best"]
                                                                 .toString(),
                                                             style: TextStyle(
                                                                 fontSize:
                                                                     15.0.sp,
-                                                                color: Colors
-                                                                    .blueGrey))),
+                                                                color: Colors.blueGrey))),
                                                       ],
                                                     ),
                                                     DataRow(
@@ -349,13 +350,13 @@ class _HomeState extends State<Home> {
                                                                         .w900,
                                                                 fontSize:
                                                                     15.0.sp,
-                                                                color: Colors
-                                                                    .blueGrey))),
+                                                                color: Colors.blueGrey))),
                                                         DataCell(SizedBox(
                                                             width: 150,
                                                             child: Text(
                                                                 snapshot.data[0]
-                                                                        [2]["username"]
+                                                                        [2][
+                                                                        "username"]
                                                                     .toString(),
                                                                 overflow:
                                                                     TextOverflow
@@ -363,16 +364,15 @@ class _HomeState extends State<Home> {
                                                                 style: TextStyle(
                                                                     fontSize:
                                                                         15.0.sp,
-                                                                    color: Colors
-                                                                        .blueGrey)))),
+                                                                    color: Colors.blueGrey)))),
                                                         DataCell(Text(
-                                                            snapshot.data[0][2]["current_best"]
+                                                            snapshot.data[0][2][
+                                                                    "current_best"]
                                                                 .toString(),
                                                             style: TextStyle(
                                                                 fontSize:
                                                                     15.0.sp,
-                                                                color: Colors
-                                                                    .blueGrey))),
+                                                                color: Colors.blueGrey))),
                                                       ],
                                                     ),
                                                     DataRow(
@@ -384,13 +384,13 @@ class _HomeState extends State<Home> {
                                                                         .w900,
                                                                 fontSize:
                                                                     15.0.sp,
-                                                                color: Colors
-                                                                    .blueGrey))),
+                                                                color: Colors.blueGrey))),
                                                         DataCell(SizedBox(
                                                             width: 150,
                                                             child: Text(
                                                                 snapshot.data[0]
-                                                                        [3]["username"]
+                                                                        [3][
+                                                                        "username"]
                                                                     .toString(),
                                                                 overflow:
                                                                     TextOverflow
@@ -398,16 +398,15 @@ class _HomeState extends State<Home> {
                                                                 style: TextStyle(
                                                                     fontSize:
                                                                         15.0.sp,
-                                                                    color: Colors
-                                                                        .blueGrey)))),
+                                                                    color: Colors.blueGrey)))),
                                                         DataCell(Text(
-                                                            snapshot.data[0][3]["current_best"]
+                                                            snapshot.data[0][3][
+                                                                    "current_best"]
                                                                 .toString(),
                                                             style: TextStyle(
                                                                 fontSize:
                                                                     15.0.sp,
-                                                                color: Colors
-                                                                    .blueGrey))),
+                                                                color: Colors.blueGrey))),
                                                       ],
                                                     ),
                                                     DataRow(
@@ -419,13 +418,13 @@ class _HomeState extends State<Home> {
                                                                         .w900,
                                                                 fontSize:
                                                                     15.0.sp,
-                                                                color: Colors
-                                                                    .blueGrey))),
+                                                                color: Colors.blueGrey))),
                                                         DataCell(SizedBox(
                                                             width: 150,
                                                             child: Text(
                                                                 snapshot.data[0]
-                                                                        [4]["username"]
+                                                                        [4][
+                                                                        "username"]
                                                                     .toString(),
                                                                 overflow:
                                                                     TextOverflow
@@ -433,50 +432,62 @@ class _HomeState extends State<Home> {
                                                                 style: TextStyle(
                                                                     fontSize:
                                                                         15.0.sp,
-                                                                    color: Colors
-                                                                        .blueGrey)))),
+                                                                    color: Colors.blueGrey)))),
                                                         DataCell(Text(
-                                                            snapshot.data[0][4]["current_best"]
+                                                            snapshot.data[0][4][
+                                                                    "current_best"]
                                                                 .toString(),
                                                             style: TextStyle(
                                                                 fontSize:
                                                                     15.0.sp,
-                                                                color: Colors
-                                                                    .blueGrey))),
+                                                                color: Colors.blueGrey))),
                                                       ],
                                                     ),
                                                     DataRow(
                                                       cells: <DataCell>[
-                                                        DataCell(Text(snapshot.data[2]
-                                                            .toString(),
+                                                        DataCell(Text(
+                                                            "",
                                                             style: TextStyle(
                                                                 fontWeight:
-                                                                    FontWeight
-                                                                        .w900,
+                                                                FontWeight
+                                                                    .w900,
                                                                 fontSize:
+                                                                15.0.sp,
+                                                                color: Colors.blueGrey))),
+                                                        DataCell(SizedBox(
+                                                            width: 150,
+                                                            child: Text("",
+                                                                overflow: TextOverflow.ellipsis,
+                                                                style: TextStyle(
+                                                                    fontSize:
                                                                     15.0.sp,
-                                                                color: Colors
-                                                                    .blueGrey))),
+                                                                    color: Colors.blueGrey)))),
+                                                        DataCell(Text(
+                                                            "",
+                                                            style: TextStyle(
+                                                                fontSize:
+                                                                15.0.sp,
+                                                                color: Colors.blueGrey))),
+                                                      ],
+                                                    ),
+                                                    DataRow(
+                                                      cells: <DataCell>[
+                                                        DataCell(Text(
+                                                            snapshot.data[2]
+                                                                .toString(),
+                                                            style: TextStyle(
+                                                                fontWeight: FontWeight.w900,
+                                                                fontSize: 15.0.sp,
+                                                                color: Colors.yellow.withOpacity(0.5)))),
                                                         DataCell(SizedBox(
                                                             width: 150,
                                                             child: Text(
                                                                 snapshot.data[3],
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        15.0.sp,
-                                                                    color: Colors
-                                                                        .blueGrey)))),
+                                                                overflow: TextOverflow.ellipsis,
+                                                                style: TextStyle(fontSize: 15.0.sp, color: Colors.yellow.withOpacity(0.5))))),
                                                         DataCell(Text(
-                                                            snapshot.data[1]
-                                                                .toString(),
-                                                            style: TextStyle(
-                                                                fontSize:
-                                                                    15.0.sp,
-                                                                color: Colors
-                                                                    .blueGrey))),
+                                                            snapshot.data[1].toString(),
+                                                            style: TextStyle(fontSize: 15.0.sp, color: Colors.yellow.withOpacity(0.5)))),
                                                       ],
                                                     ),
                                                   ]));
@@ -489,6 +500,7 @@ class _HomeState extends State<Home> {
                                         }
                                       }),
                                   SizedBox(height: 20),
+
                                   SizedBox(height: 10),
                                 ])),
                           )))),
@@ -506,7 +518,8 @@ class _HomeState extends State<Home> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(20)),
                             border: Border.all(
-                                color: Colors.yellow, // set border color
+                                color: Colors.yellow,
+                                // set border color
                                 width: 1.0),
                             gradient: LinearGradient(
                               begin: Alignment.centerLeft,
@@ -566,37 +579,7 @@ class _HomeState extends State<Home> {
                               ),
                             ),
                             SizedBox(height: 20),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 50.0),
-                              child: ButtonTheme(
-                                minWidth: double.infinity,
-                                height: 50.0,
-                                child: MaterialButton(
-                                  padding: const EdgeInsets.all(10.0),
-                                  shape: RoundedRectangleBorder(
-                                    /*side: BorderSide(
-                              color: Colors.grey,
-                              width: 3),*/
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  color: Colors.black,
-                                  onPressed: () => setState(() {
-                                    signOut.call();
-                                  }),
-                                  child: BlinkText(
-                                    'DEBUG LOGOUT',
-                                    style: TextStyle(
-                                      fontSize: 10.0.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.grey,
-                                    ),
-                                    endColor: Colors.grey,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 10),
+
                           ])),
                     ),
                   ))

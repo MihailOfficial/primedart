@@ -449,6 +449,74 @@ class _StatsPageState extends State<StatsPage> {
                       SizedBox(
                         height: 20,
                       ),
+                      Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20.0),
+                            // <-- clips to the 200x200 [Container] below
+                            child: BackdropFilter(
+                              filter: new ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                                    border: Border.all(
+                                        color: Colors.white,
+                                        // set border color
+                                        width: 1.0),
+                                    gradient: LinearGradient(
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight,
+                                      colors: <Color>[
+                                        Color.fromRGBO(60, 60, 60, 0),
+                                        Color.fromRGBO(130, 130, 130, 0)
+                                      ],
+                                    ),
+                                  ),
+                                  child: Column(children: <Widget>[
+                                    SizedBox(height: 10),
+                                    Container(
+                                      child: Text('Change Username',
+                                          style: TextStyle(
+                                              fontSize: 25.0.sp,
+                                              fontFamily: "sansSar",
+                                              color: Colors.lightBlueAccent)),
+                                    ),
+                                    SizedBox(height: 10),
+                                    Padding(
+                                      padding:
+                                      const EdgeInsets.symmetric(horizontal: 50.0),
+                                      child: ButtonTheme(
+                                        minWidth: double.infinity,
+                                        height: 50.0,
+                                        child: MaterialButton(
+
+                                          shape: RoundedRectangleBorder(
+                                            /*side: BorderSide(
+                              color: Colors.grey,
+                              width: 3),*/
+                                            borderRadius: BorderRadius.circular(10.0),
+                                          ),
+                                          color: Colors.blueGrey,
+                                          onPressed: () => setState(() {
+
+                                          }),
+                                          child: Text(
+                                            'EDIT',
+                                            style: TextStyle(
+                                              fontSize: 15.0.sp,
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.white,
+                                            ),
+
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(height: 20),
+
+                                  ])),
+                            ),
+                          ))
                     ])))));
   }
 }
