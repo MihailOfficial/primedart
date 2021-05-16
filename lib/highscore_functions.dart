@@ -22,6 +22,7 @@ Future<bool> createUser(String usr) async {
           .set(tag.value + 1);
       if(udid.value != null){
         await FirebaseDatabase.instance.reference().child("users").child(uid).child("username").set(usr);
+        await FirebaseDatabase.instance.reference().child("users").child(uid).child("tag").set(tag.value);
         return true;
       } else {
         await FirebaseDatabase.instance.reference().child("users")
@@ -47,6 +48,7 @@ Future<bool> createUser(String usr) async {
         1);
     if(udid.value != null){
       await FirebaseDatabase.instance.reference().child("users").child(uid).child("username").set(usr);
+      await FirebaseDatabase.instance.reference().child("users").child(uid).child("tag").set(0);
       return true;
     } else {
       await FirebaseDatabase.instance.reference().child("users").child(uid).set(
