@@ -346,6 +346,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
   }
 }
 
+/*
 class EmailPasswordForm extends StatefulWidget {
   final VoidCallback loggedIn;
 
@@ -632,3 +633,4 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
     super.dispose();
   }
 }
+*/

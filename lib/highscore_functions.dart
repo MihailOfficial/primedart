@@ -9,35 +9,59 @@ import 'package:firebase_database/firebase_database.dart';
 
 
 Future<bool> createUser(String usr) async {
-  //String usr = "real tester";
   String uid = await FlutterUdid.consistentUdid;
-  DataSnapshot tag = await FirebaseDatabase.instance.reference().child("tags").child(usr).once();
-  if(tag.value != null){
-    if(tag.value < 9999){
-      await FirebaseDatabase.instance.reference().child("tags").child(usr).set(tag.value + 1);
-      await FirebaseDatabase.instance.reference().child("users").child(uid).set({
-        "all_time_best":0,
-        "current_best":0,
-        "last_attempt": DateTime.now().millisecondsSinceEpoch / 1000,
-        "period_attempts":0,
-        "username": usr,
-        "tag":tag.value
-      });
-      return true;
+  DataSnapshot udid = await FirebaseDatabase.instance.reference().child("users").child(uid).once();
+  DataSnapshot tag = await FirebaseDatabase.instance.reference()
+      .child("tags")
+      .child(usr)
+      .once();
+  if (tag.value != null) {
+    if (tag.value < 9999) {
+      await FirebaseDatabase.instance.reference().child("tags")
+          .child(usr)
+          .set(tag.value + 1);
+      if(udid.value != null){
+        await FirebaseDatabase.instance.reference().child("users").child(uid).child("username").set(usr);
+        return true;
+      } else {
+        await FirebaseDatabase.instance.reference().child("users")
+            .child(uid)
+            .set(
+            {
+              "all_time_best": 0,
+              "current_best": 0,
+              "last_attempt": DateTime
+                  .now()
+                  .millisecondsSinceEpoch / 1000,
+              "period_attempts": 0,
+              "username": usr,
+              "tag": 0
+            });
+        return true;
+      }
     } else {
       return false;
     }
   } else {
-    await FirebaseDatabase.instance.reference().child("tags").child(usr).set(1);
-    await FirebaseDatabase.instance.reference().child("users").child(uid).set({
-      "all_time_best":0,
-      "current_best":0,
-      "last_attempt": DateTime.now().millisecondsSinceEpoch / 1000,
-      "period_attempts":0,
-      "username": usr,
-      "tag":0
-    });
-    return true;
+    await FirebaseDatabase.instance.reference().child("tags").child(usr).set(
+        1);
+    if(udid.value != null){
+      await FirebaseDatabase.instance.reference().child("users").child(uid).child("username").set(usr);
+      return true;
+    } else {
+      await FirebaseDatabase.instance.reference().child("users").child(uid).set(
+          {
+            "all_time_best": 0,
+            "current_best": 0,
+            "last_attempt": DateTime
+                .now()
+                .millisecondsSinceEpoch / 1000,
+            "period_attempts": 0,
+            "username": usr,
+            "tag": 0
+          });
+      return true;
+    }
   }
 }
 Future<bool> createUser1(int num) async {
