@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bird/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:sizer/sizer_util.dart';
+import 'package:sizer/sizer.dart';
 import 'dataclass.dart';
 import 'game.dart';
 import 'package:flame/util.dart';
