@@ -8,8 +8,8 @@ import 'dart:math';
 import 'package:firebase_database/firebase_database.dart';
 
 
-Future<bool> createUser() async {
-  String usr = "real tester";
+Future<bool> createUser(String usr) async {
+  //String usr = "real tester";
   String uid = await FlutterUdid.consistentUdid;
   DataSnapshot tag = await FirebaseDatabase.instance.reference().child("tags").child(usr).once();
   if(tag.value != null){
@@ -76,10 +76,6 @@ Future<bool> createUser1(int num) async {
 
 Future<bool> checkAttempts() async {
   String uid = await FlutterUdid.consistentUdid;
-  bool exists = await usrExists();
-  if(!exists) {
-    await createUser();
-  }
   /*
   DatabaseReference usr = FirebaseDatabase.instance.reference().child("users").child(uid);
   DataSnapshot lastAttempt = await usr.child("last_attempt").once();
@@ -145,9 +141,6 @@ Future<List<Map<dynamic,dynamic>>> getHighScores(int limit) async {
 Future<int> getMyScore() async {
   String uid = await FlutterUdid.consistentUdid;
   bool exists = await usrExists();
-  if(!exists) {
-    await createUser();
-  }
   DataSnapshot d = await FirebaseDatabase.instance.reference().child("users").child(uid).child('current_best').once();
   int result = d.value;
   return result;
@@ -156,9 +149,6 @@ Future<int> getMyScore() async {
 Future<String> getUsername() async {
   String uid = await FlutterUdid.consistentUdid;
   bool exists = await usrExists();
-  if(!exists) {
-    await createUser();
-  }
   DataSnapshot d = await FirebaseDatabase.instance.reference().child("users").child(uid).child('username').once();
   String result = d.value;
   return result;
@@ -167,9 +157,6 @@ Future<String> getUsername() async {
 Future<int> getTag() async {
   String uid = await FlutterUdid.consistentUdid;
   bool exists = await usrExists();
-  if(!exists) {
-    await createUser();
-  }
   DataSnapshot d = await FirebaseDatabase.instance.reference().child("users").child(uid).child('tag').once();
   int result = d.value;
   return result;
@@ -178,9 +165,6 @@ Future<int> getTag() async {
 Future<int> getRank() async {
   String uid = await FlutterUdid.consistentUdid;
   bool exists = await usrExists();
-  if(!exists) {
-    await createUser();
-  }
 
   DataSnapshot d = await FirebaseDatabase.instance.reference().child("users").orderByChild("current_best").startAt((await getMyScore())).once();
   Map<dynamic,dynamic> users = d.value;

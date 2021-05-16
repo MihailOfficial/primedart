@@ -91,16 +91,14 @@ class _HomeState extends State<Home> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 FutureBuilder(
-                                    future:
-                                        Future.wait([highscores, getMyScore()]),
+                                    future: getUsername(),
                                     builder: (BuildContext context,
-                                        AsyncSnapshot<List> snapshot) {
+                                        AsyncSnapshot<String> snapshot) {
                                       if (snapshot.hasData) {
                                         return Container(
                                           child: Text(
                                               "Hi, " +
-                                                  (FirebaseAuth.instance
-                                                      .currentUser.displayName),
+                                                  snapshot.data,
                                               overflow: TextOverflow.ellipsis,
                                               style: TextStyle(
                                                 fontWeight: FontWeight.w700,

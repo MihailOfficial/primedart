@@ -1,5 +1,6 @@
 
 import 'dart:async';
+import 'package:bird/highscore_functions.dart';
 import 'package:bird/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -16,11 +17,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'home.dart';
 import 'login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+bool usrCreated;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp();
+  usrCreated = await usrExists();
   //SharedPreferences storage = await SharedPreferences.getInstance();
   count[0] = 0;
   count[1] = 0;
@@ -101,15 +103,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
   bool signed = false;
-  bool logged = false;
-
   @override
   @mustCallSuper
   void initState(){
     super.initState();
-    if(FirebaseAuth.instance.currentUser != null) {
-      logged = true;
-    }
+    signed = usrCreated;
   }
 
   @override
@@ -121,7 +119,21 @@ class _MyHomePageState extends State<MyHomePage> {
         statusBarColor: Colors.black,
       ),
     );
-    if(logged){
+    if(!signed){
+      return Scaffold(
+        //this worked
+        backgroundColor:Color.fromRGBO(	0, 0, 0, 1),
+        body: Center(
+          // Center is a layout widget. It takes a single child and positions it
+          // in the middle of the parent.
+            child:  RegisterEmailSection(signIn: (){
+              setState(() {
+                signed = true;
+              });
+            })
+        ),
+      );
+    } else {
       return LayoutBuilder(                           //return LayoutBuilder
           builder: (context, constraints) {
             return OrientationBuilder(                  //return OrientationBuilder
@@ -129,56 +141,20 @@ class _MyHomePageState extends State<MyHomePage> {
                   //initialize SizerUtil()
                   SizerUtil().init(constraints, orientation);
                   return Builder(
-                      builder: (BuildContext context) {
-                        var screenHeight = MediaQuery.of(context).size.height;
-                        return Home(
+                    builder: (BuildContext context) {
+                      var screenHeight = MediaQuery.of(context).size.height;
+                      return Home(
 
-                            signOut: () {
-                              setState(() {
-                                signed = true;
-                                logged = false;
-                                FirebaseAuth.instance.signOut();
-                              });
-                            },
-                          );
-                      },
+                        signOut: () {
+                          //do not use
+                        },
+                      );
+                    },
 
                   );
                 });
           });
-    } else {
-      if(!signed){
-        return Scaffold(
-          //this worked
-          backgroundColor:Color.fromRGBO(	0, 0, 0, 1),
-          body: Center(
-            // Center is a layout widget. It takes a single child and positions it
-            // in the middle of the parent.
-              child:  RegisterEmailSection(signIn: (){
-                setState(() {
-                  logged = true;
-                });
-              })
-          ),
-        );
-      } else {
-        return Scaffold(
-          backgroundColor: Color.fromRGBO(	0, 0,0, 1),
-          body: Center(
-            // Center is a layout widget. It takes a single child and positions it
-            // in the middle of the parent.
-              child: EmailPasswordForm(
-                loggedIn: (){
-                  setState(() {
-                    logged = true;
-                  });
-                },
-              )
-          ),
-        );
-      }
     }
-
   }
 }
 

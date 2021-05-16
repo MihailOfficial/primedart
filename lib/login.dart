@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:keyboard_attachable/keyboard_attachable.dart';
 import 'package:keyboard_attachable/keyboard_attachable.dart';
+import 'highscore_functions.dart';
 class RegisterEmailSection extends StatefulWidget {
   final String title = 'Registration';
   final VoidCallback signIn;
@@ -19,9 +20,7 @@ bool error2 = false;
 
 class _RegisterEmailSectionState extends State<RegisterEmailSection> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _usernameControlller = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
   final VoidCallback signIn;
 
   bool _success;
@@ -31,7 +30,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
 
   _RegisterEmailSectionState({@required this.signIn});
 
-  void _register() async {
+  /*void _register() async {
     UserCredential userCredential;
     try {
       userCredential =
@@ -124,12 +123,49 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
       });
       signIn.call();
     }
-  }
+  }*/
 
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
+  void _register() async {
+    bool _success = await createUser(_usernameController.text);
+    if (_success) {
+      Flushbar(
+        messageText: Text(
+          "SUCCESSFUL LOGIN",
+          style: TextStyle(
+              fontSize: 18.0, color: Colors.yellow),
+        ),
+        flushbarPosition: FlushbarPosition.TOP,
+        icon: Icon(
+          Icons.error_outline,
+          size: 28.0,
+          color: Colors.yellow,
+        ),
+        leftBarIndicatorColor: Colors.yellow,
+        duration: Duration(seconds: 2),
+      )..show(context);
+      setState(() {
+        _userEmail = _usernameController.text;
+      });
+      signIn.call();
+    } else {
+      Flushbar(
+        messageText: Text(
+          "TOO MANY BOOKED",
+          style: TextStyle(
+            fontSize: 18.0,
+            color: Colors.yellow,
+          ),
+        ),
+        flushbarPosition: FlushbarPosition.TOP,
+        icon: Icon(
+          Icons.error_outline,
+          size: 28.0,
+          color: Colors.yellow,
+        ),
+        leftBarIndicatorColor: Colors.yellow,
+        duration: Duration(seconds: 2),
+      )..show(context);
+    }
   }
 
   @override
@@ -249,118 +285,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                           color: Colors.white,
 
                           fontSize: 20),
-                      controller: _usernameControlller,
-                      validator: (String value) {
-                        if (value.isEmpty) {
-                          if (!error) {
-                            error = true;
-                            Flushbar(
-                              messageText: Text(
-                                "BLANK INPUT",
-                                style: TextStyle(
-                                    fontSize: 18.0,
-                                    color: Colors.yellow,
-                                    ),
-                              ),
-                              flushbarPosition: FlushbarPosition.TOP,
-                              icon: Icon(
-                                Icons.error_outline,
-                                size: 28.0,
-                                color: Colors.yellow,
-                              ),
-                              leftBarIndicatorColor: Colors.yellow,
-                              duration: Duration(seconds: 2),
-                            )..show(context);
-                          }
-                        }
-                      },
-                    ),
-                    SizedBox(height: 10),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        errorStyle: TextStyle(height: 0),
-                        hintText: 'EMAIL',
-                        prefixIcon: Icon(Icons.alternate_email,
-                            color: Colors.yellow),
-                        hintStyle: TextStyle(
-                            color: Colors.grey,
-
-                            fontSize: 18),
-                        filled: true,
-                        fillColor: Colors.black,
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                          borderSide: BorderSide(
-                              color: Color.fromRGBO(80, 80, 80, 1),
-                              width: 2),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                          borderSide:
-                              BorderSide(color: Colors.yellow, width: 2),
-                        ),
-                      ),
-                      style: TextStyle(
-                          color: Colors.white,
-
-                          fontSize: 20),
-                      controller: _emailController,
-                      validator: (String value) {
-                        if (value.isEmpty) {
-                          if (!error) {
-                            error = true;
-                            Flushbar(
-                              messageText: Text(
-                                "BLANK INPUT",
-                                style: TextStyle(
-                                    fontSize: 18.0,
-                                    color: Colors.yellow,
-                                   ),
-                              ),
-                              flushbarPosition: FlushbarPosition.TOP,
-                              icon: Icon(
-                                Icons.error_outline,
-                                size: 28.0,
-                                color: Colors.yellow,
-                              ),
-                              leftBarIndicatorColor: Colors.yellow,
-                              duration: Duration(seconds: 2),
-                            )..show(context);
-                          }
-                        }
-                      },
-                    ),
-                    SizedBox(height: 10),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        errorStyle: TextStyle(height: 0),
-                        hintText: 'PASSWORD',
-                        prefixIcon: Icon(Icons.lock_outline,
-                            color: Colors.yellow),
-                        hintStyle: TextStyle(
-                            color: Colors.grey,
-
-                            fontSize: 18),
-                        filled: true,
-                        fillColor: Colors.black,
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                          borderSide: BorderSide(
-                              color: Color.fromRGBO(80, 80, 80, 1),
-                              width: 2),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                          borderSide:
-                              BorderSide(color: Colors.yellow, width: 2),
-                        ),
-                      ),
-                      style: TextStyle(
-                          color: Colors.white,
-
-                          fontSize: 20),
-                      controller: _passwordController,
-                      obscureText: true,
+                      controller: _usernameController,
                       validator: (String value) {
                         if (value.isEmpty) {
                           if (!error) {
@@ -395,6 +320,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                               ? 'Successfully registered ' + _userEmail
                               : 'Registration failed')),
                     ),
+                    /*
                     Container(
                       alignment: Alignment.center,
                       child: MaterialButton(
@@ -412,7 +338,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                                 color: Colors.grey,
                                )),
                       ),
-                    ),
+                    ),*/
                   ]),
                 ),
               ),
