@@ -56,34 +56,6 @@ class _HotToState extends State<HowTo> {
                   child: Container(
                       child: Column(children: <Widget>[
 
-                        Container(
-                    width: double.infinity,
-                    child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 5.0),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text('NumDash',
-                                  style: TextStyle(
-                                    fontFamily: 'rage',
-                                    fontSize: 28.0.sp,
-                                    color: Colors.yellow,
-                                    shadows: <Shadow>[
-                                      Shadow(
-                                        offset: Offset(5.0, 5.0),
-                                        blurRadius: 3.0,
-                                        color:
-                                            Color.fromRGBO(240, 240, 240, 0.2),
-                                      ),
-                                      Shadow(
-                                        offset: Offset(5.0, 5.0),
-                                        blurRadius: 8.0,
-                                        color:
-                                            Color.fromRGBO(240, 240, 240, 0.2),
-                                      ),
-                                    ],
-                                  ))
-                            ]))),
                 SizedBox(height: 20),
                         Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -149,13 +121,8 @@ class _HotToState extends State<HowTo> {
                                                               pauseGame = false;
                                                               Navigator.push(
                                                                 context,
-                                                                PageTransition(
-                                                                    type:
-                                                                    PageTransitionType
-                                                                        .leftToRight,
-                                                                    child: Game(tempt: online),
-                                                                    inheritTheme: true,
-                                                                    ctx: context),
+                                                                MaterialPageRoute(builder: (context) => Game(tempt: online)),
+
                                                               );
                                                             }),
                                                           ),

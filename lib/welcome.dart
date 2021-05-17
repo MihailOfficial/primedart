@@ -184,11 +184,8 @@ class _WelcomeState extends State<Welcomer1> {
 
                                               Navigator.push(
                                                 context,
-                                                PageTransition(
-                                                    type: PageTransitionType.rightToLeft,
-                                                    child: MyHomePage(title: "primedart"),
-                                                    inheritTheme: true,
-                                                    ctx: context),
+                                                MaterialPageRoute(builder: (context) => MyHomePage(title: "primedart")),
+
                                               );
                                             }),
                                             child: Text(
@@ -225,11 +222,8 @@ class _WelcomeState extends State<Welcomer1> {
 
                                               Navigator.push(
                                                 context,
-                                                PageTransition(
-                                                    type: PageTransitionType.rightToLeft,
-                                                    child: Game(tempt: false),
-                                                    inheritTheme: true,
-                                                    ctx: context),
+                                                MaterialPageRoute(builder: (context) => Game(tempt: false)),
+
                                               );
                                               pauseGame = false;
 

@@ -132,11 +132,8 @@ class _HomeState extends State<Home> {
                               onTap: () => setState(() {
                                 Navigator.push(
                                   context,
-                                  PageTransition(
-                                      type: PageTransitionType.rightToLeft,
-                                      child: StatsPage(),
-                                      inheritTheme: true,
-                                      ctx: context),
+                                  MaterialPageRoute(builder: (context) => StatsPage()),
+
                                 );
                               }),
                             ),
@@ -558,11 +555,8 @@ class _HomeState extends State<Home> {
                                   onPressed: () => setState(() {
                                     Navigator.push(
                                       context,
-                                      PageTransition(
-                                          type: PageTransitionType.rightToLeft,
-                                          child: Game(tempt: true),
-                                          inheritTheme: true,
-                                          ctx: context),
+                                      MaterialPageRoute(builder: (context) => Game(tempt: true)),
+
                                     );
                                     pauseGame = false;
                                   }),

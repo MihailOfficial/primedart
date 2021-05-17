@@ -139,20 +139,14 @@ class Game extends StatelessWidget  {
               if (online){
                 Navigator.push(
                   context,
-                  PageTransition(
-                      type: PageTransitionType.leftToRight,
-                      child: Home(),
-                      inheritTheme: true,
-                      ctx: context),
+                  MaterialPageRoute(builder: (context) => Home()),
+
                 );
               } else {
                 Navigator.push(
                   context,
-                  PageTransition(
-                      type: PageTransitionType.leftToRight,
-                      child: Welcomer1(),
-                      inheritTheme: true,
-                      ctx: context),
+                  MaterialPageRoute(builder: (context) => Welcomer1()),
+
                 );
 
               }
@@ -176,11 +170,8 @@ class Game extends StatelessWidget  {
               pauseGame = true;
                 Navigator.push(
                   context,
-                  PageTransition(
-                      type: PageTransitionType.rightToLeft,
-                      child: HowTo(),
-                      inheritTheme: true,
-                      ctx: context),
+                  MaterialPageRoute(builder: (context) => HowTo()),
+
                 );
             }
           //onPressed:

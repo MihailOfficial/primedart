@@ -119,13 +119,8 @@ class _StatsPageState extends State<StatsPage> {
                                                     onTap: () => setState(() {
                                                       Navigator.push(
                                                         context,
-                                                        PageTransition(
-                                                            type:
-                                                                PageTransitionType
-                                                                    .leftToRight,
-                                                            child: Home(),
-                                                            inheritTheme: true,
-                                                            ctx: context),
+                                                        MaterialPageRoute(builder: (context) => Home()),
+
                                                       );
                                                     }),
                                                   ),
