@@ -573,7 +573,7 @@ class _HomeState extends State<Home> {
                                       fontWeight: FontWeight.w600,
                                       color: Colors.white,
                                     ),
-                                    endColor: Colors.white,
+                                    endColor: Color.fromRGBO(200, 200, 200, 1),
                                   ),
                                 ),
                               ),

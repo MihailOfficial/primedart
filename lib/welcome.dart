@@ -30,7 +30,6 @@ class _WelcomeState extends State<Welcomer1> {
               ),
               child: SafeArea(
                   child: Container(
-                      color: Color.fromRGBO(0, 0, 0, 0.3),
                       child: Column(children: <Widget>[
                         Container(
                             width: double.infinity,
@@ -101,7 +100,7 @@ class _WelcomeState extends State<Welcomer1> {
                                                     children: <Widget>[
                                                       Container(
                                                         child: Text(
-                                                            'How to play',
+                                                            'Welcome!',
                                                             style: TextStyle(
                                                                 fontSize: 25.0.sp,
                                                                 fontFamily:
@@ -118,7 +117,7 @@ class _WelcomeState extends State<Welcomer1> {
                                                     horizontal: 30.0),
                                                 child: Container(
                                                   child: Text(
-                                                      'Touch multiples of the number shown at the top and they will disappear, doing so allows you to create 3 long matching colour tile rows/columns (which will disappear as created). The scoring is as follows: +1 for a multiple, -6 for an incorrect multiple, and +8 for any 3 colour row/column. The multiple at the top changes every 30 seconds. <3',
+                                                      'Test your numerical genius in an intense, timed matching game. Compete with other players and pit your aptitude against each other to try and secure a spot on the global leaderboard. Weekly rewards obtained by high-ranking players.',
                                                       textAlign: TextAlign.justify,
                                                       style: TextStyle(
                                                           fontSize: 15.0,

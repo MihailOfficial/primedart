@@ -15,6 +15,7 @@ import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
 import 'dart:math';
 import 'package:sizer/sizer.dart';
+import 'HowTo.dart';
 import 'dataclass.dart';
 import 'highscore_functions.dart';
 import 'home.dart';
@@ -68,7 +69,7 @@ var y;
 //Building APK --> flutter build apk --split-per-abi
 double height = AppBar().preferredSize.height;
 var count = new List(4);
-var online = true;
+var online = false;
 class Game extends StatelessWidget  {
   static const String routeName = "/home";
   final bool tempt;
@@ -116,44 +117,77 @@ class Game extends StatelessWidget  {
 
       Align(
         alignment: Alignment.bottomCenter,
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: RaisedButton(
-              child: new Text("BACK/PAUSE",
-                  style: new TextStyle(
-                      fontSize: 18.0,
-                      color: Colors.white,
-                      )),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              color: Color.fromRGBO(50, 50, 50, 1),
-              onPressed: () {
-                pauseGame = true;
-                if (online){
-                  Navigator.push(
-                    context,
-                    PageTransition(
-                        type: PageTransitionType.leftToRight,
-                        child: Home(),
-                        inheritTheme: true,
-                        ctx: context),
-                  );
-                } else {
-                  Navigator.push(
-                    context,
-                    PageTransition(
-                        type: PageTransitionType.leftToRight,
-                        child: Welcomer1(),
-                        inheritTheme: true,
-                        ctx: context),
-                  );
 
-                }
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: <Widget>[
+      SizedBox(width: 10),
+      Padding(
+        padding: EdgeInsets.all(16.0),
+        child: RaisedButton(
+            child: new Text("BACK/PAUSE",
+                style: new TextStyle(
+                  fontSize: 18.0,
+                  color: Color.fromRGBO(180, 180, 180, 1),
+                )),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            color: Color.fromRGBO(30, 30, 30, 1),
+            onPressed: () {
+              pauseGame = true;
+              if (online){
+                Navigator.push(
+                  context,
+                  PageTransition(
+                      type: PageTransitionType.leftToRight,
+                      child: Home(),
+                      inheritTheme: true,
+                      ctx: context),
+                );
+              } else {
+                Navigator.push(
+                  context,
+                  PageTransition(
+                      type: PageTransitionType.leftToRight,
+                      child: Welcomer1(),
+                      inheritTheme: true,
+                      ctx: context),
+                );
+
               }
-              //onPressed:
-              ),
+            }
+          //onPressed:
         ),
+      ),
+      Padding(
+        padding: EdgeInsets.all(16.0),
+        child: RaisedButton(
+            child: new Text("HELP",
+                style: new TextStyle(
+                  fontSize: 18.0,
+                  color: Color.fromRGBO(180, 180, 180, 1),
+                )),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            color: Color.fromRGBO(30, 30, 30, 1),
+            onPressed: () {
+              pauseGame = true;
+                Navigator.push(
+                  context,
+                  PageTransition(
+                      type: PageTransitionType.rightToLeft,
+                      child: HowTo(),
+                      inheritTheme: true,
+                      ctx: context),
+                );
+            }
+          //onPressed:
+        ),
+      ),
+      SizedBox(width: 10),
+    ])
       ),
     ]));
   }
@@ -181,6 +215,7 @@ class Multiple extends TextComponent with Tapable {
   double speedX = 100.0;
   double posX, posY;
   bool collectPrime = false;
+  bool matchedColours = false;
   double accel = 1;
   double accel2 = 0;
   int value1 = 0;
@@ -260,11 +295,11 @@ class Multiple extends TextComponent with Tapable {
 
         this.config = TextConfig(
             color: Colors.black, fontSize: 25.0.sp, fontFamily: "fontNum");
-        text = '+2';
+        text = '+4';
         _paint12 = Paint()
           ..color = Color.fromRGBO(255, 215, 0, 1);
 
-        collectPrime = true;
+        matchedColours = true;
         shrinkCollect = true;
       }
 
@@ -339,7 +374,12 @@ class Multiple extends TextComponent with Tapable {
         collectPrime = false;
       }
 
+      if (matchedColours) {
+        score += 4;
 
+        updateScore = true;
+        matchedColours = false;
+      }
 
       super.update(tt);
 
@@ -403,6 +443,7 @@ class NotMultiple extends TextComponent with Tapable {
   bool fall = true;
   Paint _paint12;
   bool collectPrime = false;
+  bool matchedColours = false;
   double sizeF = 25.0.sp;
   int genColourComp;
   int counter = 0;
@@ -466,11 +507,11 @@ class NotMultiple extends TextComponent with Tapable {
           !newDeck) {
         this.config = TextConfig(
             color: Colors.black, fontSize: 25.0.sp, fontFamily: "fontNum");
-        text = '+2';
+        text = '+4';
         dtable[row.toInt()][(column - 1).toInt()] = false;
         _paint12 = Paint()
           ..color = Color.fromRGBO(255, 215, 0, 1);
-        collectPrime = true;
+        matchedColours = true;
         shrinkCollect = true;
       }
 
@@ -546,8 +587,10 @@ class NotMultiple extends TextComponent with Tapable {
       }
       if (inc == 1) {
         nonMultipleTouched ++;
-        if (score > 0) {
-          score--;
+        if (score > 4) {
+          score -= 5;
+        } else {
+          score = 0;
         }
         updateScore = true;
       }
@@ -558,11 +601,12 @@ class NotMultiple extends TextComponent with Tapable {
         updateScore = true;
         collectPrime = false;
       }
-      //if (this.x <-30 || this.y<0){
-      // returned = true;
-      // destroy();
+      if (matchedColours) {
+        score += 4;
 
-      //}
+        updateScore = true;
+        matchedColours = false;
+      }
 
       if (changedMultiple == 1) {
         fast = true;
@@ -675,7 +719,7 @@ double heightApp = AppBar().preferredSize.height;
 
 int tempUpdate = 0;
 double statusBox = 0;
-int currentMultiple = 2;
+int currentMultiple = 0;
 var positionArray = new List(10);
 
 class MyGame extends BaseGame with HasTapableComponents {
@@ -716,6 +760,7 @@ class MyGame extends BaseGame with HasTapableComponents {
   var yPositions = new List(8);
 
   MyGame(Size size) {
+    currentMultiple = rng.nextInt(3)+2;
     if (size.height < 650){
       topSpaceTile = 150;
       rowCount = 8;
@@ -868,7 +913,10 @@ class MyGame extends BaseGame with HasTapableComponents {
 
   String generateMultiple() {
     String text;
-    int num = rng.nextInt(40) + 2;
+    int num = 100;
+    while (num * currentMultiple > 99) {
+      num = rng.nextInt(40) + 2;
+    }
 
     text = ((num * currentMultiple)).toString();
 
@@ -877,8 +925,10 @@ class MyGame extends BaseGame with HasTapableComponents {
 
   String generateNotMultiple() {
     String text2;
-    int num = rng.nextInt(40) + 2;
-
+    int num = 100;
+    while (num * currentMultiple > 99) {
+      num = rng.nextInt(40) + 2;
+    }
     text2 = ((num * currentMultiple) + 1).toString();
 
     return text2;
@@ -992,13 +1042,13 @@ class MyGame extends BaseGame with HasTapableComponents {
         changedMultiple--;
       }
       counter++;
-      //was 2000
-      if (counter % 4000 == 0) {
+        
+      if (counter % 2000 == 0) {
         if (online){
         submitScore(score);
         }
         var rng = new Random();
-        //currentMultiple = rng.nextInt(5)+2;
+        currentMultiple = rng.nextInt(3)+2;
         changedMultiple = 1;
         newDeck = true;
 
