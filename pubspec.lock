@@ -15,6 +15,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.18.3"
+  bad_words:
+    dependency: "direct main"
+    description:
+      name: bad_words
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.2"
   blinking_text:
     dependency: "direct main"
     description:
@@ -478,6 +485,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.2.1"
+  profanity_filter:
+    dependency: "direct main"
+    description:
+      name: profanity_filter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.4"
   provider:
     dependency: "direct main"
     description:

@@ -221,7 +221,7 @@ class _HomeState extends State<Home> {
                                                       0, 0, 0, 0)),
                                               child: DataTable(
                                                   columnSpacing: 20,
-                                                  dataRowHeight: 20,
+                                                  dataRowHeight: 24,
                                                   columns: <DataColumn>[
                                                     DataColumn(
                                                       label: Text(
@@ -312,6 +312,7 @@ class _HomeState extends State<Home> {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w900,
+                                                                height: 1.2,
                                                                 fontSize:
                                                                     15.0.sp,
                                                                 color: Colors.blueGrey))),
@@ -326,6 +327,7 @@ class _HomeState extends State<Home> {
                                                                     TextOverflow
                                                                         .ellipsis,
                                                                 style: TextStyle(
+                                                                    height: 1.2,
                                                                     fontSize:
                                                                         15.0.sp,
                                                                     color: Colors.blueGrey)))),
@@ -336,6 +338,7 @@ class _HomeState extends State<Home> {
                                                             style: TextStyle(
                                                                 fontSize:
                                                                     15.0.sp,
+                                                                height: 1.2,
                                                                 color: Colors.blueGrey))),
                                                       ],
                                                     ),
@@ -441,33 +444,7 @@ class _HomeState extends State<Home> {
                                                                 color: Colors.blueGrey))),
                                                       ],
                                                     ),
-                                                    DataRow(
-                                                      cells: <DataCell>[
-                                                        DataCell(Text(
-                                                            "",
-                                                            style: TextStyle(
-                                                                fontWeight:
-                                                                FontWeight
-                                                                    .w900,
-                                                                fontSize:
-                                                                15.0.sp,
-                                                                color: Colors.blueGrey))),
-                                                        DataCell(SizedBox(
-                                                            width: 150,
-                                                            child: Text("",
-                                                                overflow: TextOverflow.ellipsis,
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                    15.0.sp,
-                                                                    color: Colors.blueGrey)))),
-                                                        DataCell(Text(
-                                                            "",
-                                                            style: TextStyle(
-                                                                fontSize:
-                                                                15.0.sp,
-                                                                color: Colors.blueGrey))),
-                                                      ],
-                                                    ),
+
                                                     DataRow(
                                                       cells: <DataCell>[
                                                         DataCell(Text(
@@ -499,7 +476,6 @@ class _HomeState extends State<Home> {
                                       }),
                                   SizedBox(height: 20),
 
-                                  SizedBox(height: 10),
                                 ])),
                           )))),
               SizedBox(

@@ -145,7 +145,7 @@ class Game extends StatelessWidget  {
               } else {
                 Navigator.push(
                   context,
-                  FadeRoute(page: Home()),
+                  FadeRoute(page: Welcomer1()),
 
                 );
 

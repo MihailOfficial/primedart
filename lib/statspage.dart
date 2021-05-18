@@ -242,7 +242,7 @@ class _StatsPageState extends State<StatsPage> {
                                                           }
                                                         }),
                                                   ]),
-                                              SizedBox(height: 20),
+                                              SizedBox(height: 15),
                                               Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
@@ -298,7 +298,7 @@ class _StatsPageState extends State<StatsPage> {
                                                           }
                                                         }),
                                                   ]),
-                                              SizedBox(height: 20),
+                                              SizedBox(height: 15),
                                               Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
@@ -463,7 +463,6 @@ class _StatsPageState extends State<StatsPage> {
                                                   ]),
                                             ])),
                                     SizedBox(height: 20),
-                                    SizedBox(height: 10),
                                   ])),
                             )))),
                 SizedBox(
