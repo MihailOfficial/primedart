@@ -6,6 +6,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:sizer/sizer.dart';
 
 import 'dataclass.dart';
+import 'fader.dart';
 import 'home.dart';
 import 'main.dart';
 import 'game.dart';
@@ -121,8 +122,7 @@ class _HotToState extends State<HowTo> {
                                                               pauseGame = false;
                                                               Navigator.push(
                                                                 context,
-                                                                MaterialPageRoute(builder: (context) => Game(tempt: online)),
-
+                                                                ScaleRoute(page: Game(tempt: online)),
                                                               );
                                                             }),
                                                           ),

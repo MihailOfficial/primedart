@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:sizer/sizer.dart';
 
+import 'fader.dart';
 import 'main.dart';
 import 'game.dart';
 class Welcomer1 extends StatefulWidget {
@@ -184,7 +185,7 @@ class _WelcomeState extends State<Welcomer1> {
 
                                               Navigator.push(
                                                 context,
-                                                MaterialPageRoute(builder: (context) => MyHomePage(title: "primedart")),
+                                                FadeRoute(page: MyHomePage(title: "primedart")),
 
                                               );
                                             }),
@@ -222,7 +223,7 @@ class _WelcomeState extends State<Welcomer1> {
 
                                               Navigator.push(
                                                 context,
-                                                MaterialPageRoute(builder: (context) => Game(tempt: false)),
+                                                ScaleRoute(page: Game(tempt: false)),
 
                                               );
                                               pauseGame = false;

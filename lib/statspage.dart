@@ -6,6 +6,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:sizer/sizer.dart';
 
 import 'dataclass.dart';
+import 'fader.dart';
 import 'home.dart';
 import 'main.dart';
 import 'game.dart';
@@ -119,8 +120,7 @@ class _StatsPageState extends State<StatsPage> {
                                                     onTap: () => setState(() {
                                                       Navigator.push(
                                                         context,
-                                                        MaterialPageRoute(builder: (context) => Home()),
-
+                                                        FadeRoute(page: Home()),
                                                       );
                                                     }),
                                                   ),

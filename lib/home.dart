@@ -12,6 +12,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fullscreen/fullscreen.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:sizer/sizer.dart';
+import 'fader.dart';
 import 'highscore_functions.dart';
 
 import 'game.dart';
@@ -132,7 +133,7 @@ class _HomeState extends State<Home> {
                               onTap: () => setState(() {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => StatsPage()),
+                                  FadeRoute(page: StatsPage()),
 
                                 );
                               }),
@@ -555,8 +556,7 @@ class _HomeState extends State<Home> {
                                   onPressed: () => setState(() {
                                     Navigator.push(
                                       context,
-                                      MaterialPageRoute(builder: (context) => Game(tempt: true)),
-
+                                      ScaleRoute(page: Game(tempt: true)),
                                     );
                                     pauseGame = false;
                                   }),

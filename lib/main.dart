@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:sizer/sizer.dart';
 import 'dataclass.dart';
+import 'fader.dart';
 import 'game.dart';
 import 'package:flame/util.dart';
 import 'package:flutter/cupertino.dart';
@@ -65,18 +66,13 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
 
-
-
-    @override
+  @override
   void initState() {
     super.initState();
     Timer(
         Duration(seconds: 2),
-            () => Navigator.of(context).pushReplacement(PageTransition(
-                type: PageTransitionType.fade,
-                child: MyWelcomePage(),
-                inheritTheme: true,
-                ctx: context),
+            () => Navigator.of(context).pushReplacement(
+              ScaleRoute(page: MyWelcomePage()),
             ));
   }
 

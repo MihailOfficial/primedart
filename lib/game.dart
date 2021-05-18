@@ -17,6 +17,7 @@ import 'dart:math';
 import 'package:sizer/sizer.dart';
 import 'HowTo.dart';
 import 'dataclass.dart';
+import 'fader.dart';
 import 'highscore_functions.dart';
 import 'home.dart';
 
@@ -139,13 +140,12 @@ class Game extends StatelessWidget  {
               if (online){
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Home()),
-
+                  FadeRoute(page: Home()),
                 );
               } else {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Welcomer1()),
+                  FadeRoute(page: Home()),
 
                 );
 
@@ -170,7 +170,8 @@ class Game extends StatelessWidget  {
               pauseGame = true;
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => HowTo()),
+                  FadeRoute(page: HowTo()),
+
 
                 );
             }
