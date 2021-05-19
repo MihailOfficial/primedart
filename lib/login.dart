@@ -90,7 +90,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
         footer:Container(
 
 
-            padding: const EdgeInsets.all(15.0),
+            padding: const EdgeInsets.fromLTRB(40, 15, 40, 15),
             child: Row(children: <Widget>[
               Expanded(
                 child: RaisedButton(
@@ -122,7 +122,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                 child:Container(
                       decoration: new BoxDecoration(color: Color.fromRGBO(10, 10, 10, 0)),
               child: Container(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(40.0),
                 child: Form(
                   key: _formKey,
                   child: ListView(shrinkWrap: true, children: <Widget>[
@@ -133,7 +133,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                             child: Text('NumDash',
                                 style: TextStyle(
                                   fontFamily: 'rage',
-                                  fontSize: 34,
+                                  fontSize: 40,
                                   color: Colors.yellow,
                                   shadows: <Shadow>[
                                     Shadow(
@@ -151,7 +151,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                     SizedBox(height: 40),
                     Container(
                       child: const Text(
-                          'Pick a username',
+                          'Your username:',
                           style: TextStyle(
                               fontSize: 35.0,
                               fontFamily:
@@ -163,7 +163,8 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                     Container(
 
                       child: const Text(
-                          'Enter your global username. Profanity is filtered.',
+                          'Pick and enter a global username. A combination of unique device identifiers are used to secure your username and attached game progress. '
+                              '',
                           style: TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 14,
@@ -225,6 +226,28 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                             )..show(context);
                           }
                         }
+                        if (value.length  > 18) {
+                          if (!error) {
+                            badName = true;
+                            Flushbar(
+                              messageText: Text(
+                                "Very long username!",
+                                style: TextStyle(
+                                  fontSize: 18.0,
+                                  color: Colors.yellow,
+                                ),
+                              ),
+                              flushbarPosition: FlushbarPosition.TOP,
+                              icon: Icon(
+                                Icons.error_outline,
+                                size: 28.0,
+                                color: Colors.yellow,
+                              ),
+                              leftBarIndicatorColor: Colors.yellow,
+                              duration: Duration(seconds: 2),
+                            )..show(context);
+                          }
+                        }
                         if (hasProfanity) {
                           badName = true;
                             Flushbar(
@@ -244,8 +267,6 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                               leftBarIndicatorColor: Colors.yellow,
                               duration: Duration(seconds: 2),
                             )..show(context);
-
-
                         }
 
                       },

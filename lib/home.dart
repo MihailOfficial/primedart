@@ -110,7 +110,15 @@ class _HomeState extends State<Home> {
                                         print(snapshot.error);
                                         return CircularProgressIndicator();
                                       } else {
-                                        return CircularProgressIndicator();
+                                        return Container(
+                                          child: Text("Hi, _" ,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w700,
+                                                color: Colors.white,
+                                                fontSize: 16.0.sp,
+                                              )),
+                                        );
                                       }
                                     }),
                               ]),
@@ -471,7 +479,231 @@ class _HomeState extends State<Home> {
                                           print(snapshot.error);
                                           return CircularProgressIndicator();
                                         } else {
-                                          return CircularProgressIndicator();
+                                          return Theme(
+                                              data: Theme.of(context).copyWith(
+                                                  dividerColor: Color.fromRGBO(
+                                                      0, 0, 0, 0)),
+                                              child: DataTable(
+                                                  columnSpacing: 20,
+                                                  dataRowHeight: 24,
+                                                  columns: <DataColumn>[
+                                                    DataColumn(
+                                                      label: Text(
+                                                        '#',
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                            FontWeight.w700,
+                                                            fontSize: 15.0.sp,
+                                                            color:
+                                                            Color.fromRGBO(
+                                                                190,
+                                                                190,
+                                                                190,
+                                                                1)),
+                                                      ),
+                                                    ),
+                                                    DataColumn(
+                                                      label: Text(
+                                                        'NAME',
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                            FontWeight.w700,
+                                                            fontSize: 15.0.sp,
+                                                            color:
+                                                            Color.fromRGBO(
+                                                                190,
+                                                                190,
+                                                                190,
+                                                                1)),
+                                                      ),
+                                                    ),
+                                                    DataColumn(
+                                                      label: Text(
+                                                        'SCORE',
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                            FontWeight.w700,
+                                                            fontSize: 15.0.sp,
+                                                            color:
+                                                            Color.fromRGBO(
+                                                                190,
+                                                                190,
+                                                                190,
+                                                                1)),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                  rows: <DataRow>[
+                                                    DataRow(
+                                                      cells: <DataCell>[
+                                                        DataCell(Text(
+                                                          '1',
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                              FontWeight
+                                                                  .w900,
+                                                              fontSize: 15.0.sp,
+                                                              color: Colors.blueGrey),
+                                                        )),
+                                                        DataCell(SizedBox(
+                                                            width: 150,
+                                                            child: Text(
+                                                                "_",
+                                                                overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                    15.0.sp,
+                                                                    color: Colors.blueGrey)))),
+                                                        DataCell(Text(
+                                                            "_",
+                                                            style: TextStyle(
+                                                                fontSize:
+                                                                15.0.sp,
+                                                                color: Colors.blueGrey))),
+                                                      ],
+                                                    ),
+                                                    DataRow(
+                                                      cells: <DataCell>[
+                                                        DataCell(Text('2',
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                FontWeight
+                                                                    .w900,
+                                                                height: 1.2,
+                                                                fontSize:
+                                                                15.0.sp,
+                                                                color: Colors.blueGrey))),
+                                                        DataCell(SizedBox(
+                                                            width: 150,
+                                                            child: Text(
+                                                                "_",
+                                                                overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                                style: TextStyle(
+                                                                    height: 1.2,
+                                                                    fontSize:
+                                                                    15.0.sp,
+                                                                    color: Colors.blueGrey)))),
+                                                        DataCell(Text(
+                                                            "_",
+                                                            style: TextStyle(
+                                                                fontSize:
+                                                                15.0.sp,
+                                                                height: 1.2,
+                                                                color: Colors.blueGrey))),
+                                                      ],
+                                                    ),
+                                                    DataRow(
+                                                      cells: <DataCell>[
+                                                        DataCell(Text('3',
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                FontWeight
+                                                                    .w900,
+                                                                fontSize:
+                                                                15.0.sp,
+                                                                color: Colors.blueGrey))),
+                                                        DataCell(SizedBox(
+                                                            width: 150,
+                                                            child: Text(
+                                                                "_",
+                                                                overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                    15.0.sp,
+                                                                    color: Colors.blueGrey)))),
+                                                        DataCell(Text(
+                                                            "_",
+                                                            style: TextStyle(
+                                                                fontSize:
+                                                                15.0.sp,
+                                                                color: Colors.blueGrey))),
+                                                      ],
+                                                    ),
+                                                    DataRow(
+                                                      cells: <DataCell>[
+                                                        DataCell(Text('4',
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                FontWeight
+                                                                    .w900,
+                                                                fontSize:
+                                                                15.0.sp,
+                                                                color: Colors.blueGrey))),
+                                                        DataCell(SizedBox(
+                                                            width: 150,
+                                                            child: Text(
+                                                                "_",
+                                                                overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                    15.0.sp,
+                                                                    color: Colors.blueGrey)))),
+                                                        DataCell(Text(
+                                                            "_",
+                                                            style: TextStyle(
+                                                                fontSize:
+                                                                15.0.sp,
+                                                                color: Colors.blueGrey))),
+                                                      ],
+                                                    ),
+                                                    DataRow(
+                                                      cells: <DataCell>[
+                                                        DataCell(Text('5',
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                FontWeight
+                                                                    .w900,
+                                                                fontSize:
+                                                                15.0.sp,
+                                                                color: Colors.blueGrey))),
+                                                        DataCell(SizedBox(
+                                                            width: 150,
+                                                            child: Text(
+                                                                "_",
+                                                                overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                    15.0.sp,
+                                                                    color: Colors.blueGrey)))),
+                                                        DataCell(Text(
+                                                            "_",
+                                                            style: TextStyle(
+                                                                fontSize:
+                                                                15.0.sp,
+                                                                color: Colors.blueGrey))),
+                                                      ],
+                                                    ),
+
+                                                    DataRow(
+                                                      cells: <DataCell>[
+                                                        DataCell(Text(
+                                                            "_",
+                                                            style: TextStyle(
+                                                                fontWeight: FontWeight.w900,
+                                                                fontSize: 15.0.sp,
+                                                                color: Colors.yellow.withOpacity(0.5)))),
+                                                        DataCell(SizedBox(
+                                                            width: 150,
+                                                            child: Text(
+                                                                "_",
+                                                                overflow: TextOverflow.ellipsis,
+                                                                style: TextStyle(fontSize: 15.0.sp, color: Colors.yellow.withOpacity(0.5))))),
+                                                        DataCell(Text(
+                                                            "_",
+                                                            style: TextStyle(fontSize: 15.0.sp, color: Colors.yellow.withOpacity(0.5)))),
+                                                      ],
+                                                    ),
+                                                  ]));
                                         }
                                       }),
                                   SizedBox(height: 20),

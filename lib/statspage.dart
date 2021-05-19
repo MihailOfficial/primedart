@@ -184,7 +184,21 @@ class _StatsPageState extends State<StatsPage> {
                                                                 snapshot.error);
                                                             return CircularProgressIndicator();
                                                           } else {
-                                                            return CircularProgressIndicator();
+                                                            return Container(
+                                                              child: Text(
+                                                                  "_",
+                                                                  overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                      18.0
+                                                                          .sp,
+                                                                      fontFamily:
+                                                                      "sansSar",
+                                                                      color: Colors
+                                                                          .blueGrey)),
+                                                            );
                                                           }
                                                         }),
                                                   ]),
@@ -238,7 +252,21 @@ class _StatsPageState extends State<StatsPage> {
                                                                 snapshot.error);
                                                             return CircularProgressIndicator();
                                                           } else {
-                                                            return CircularProgressIndicator();
+                                                            return Container(
+                                                              child: Text(
+                                                                  "_",
+                                                                  overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                      18.0
+                                                                          .sp,
+                                                                      fontFamily:
+                                                                      "sansSar",
+                                                                      color: Colors
+                                                                          .blueGrey)),
+                                                            );
                                                           }
                                                         }),
                                                   ]),
@@ -294,7 +322,21 @@ class _StatsPageState extends State<StatsPage> {
                                                                 snapshot.error);
                                                             return CircularProgressIndicator();
                                                           } else {
-                                                            return CircularProgressIndicator();
+                                                            return Container(
+                                                              child: Text(
+                                                                  "_",
+                                                                  overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                      18.0
+                                                                          .sp,
+                                                                      fontFamily:
+                                                                      "sansSar",
+                                                                      color: Colors
+                                                                          .blueGrey)),
+                                                            );
                                                           }
                                                         }),
                                                   ]),
@@ -349,7 +391,21 @@ class _StatsPageState extends State<StatsPage> {
                                                                 snapshot.error);
                                                             return CircularProgressIndicator();
                                                           } else {
-                                                            return CircularProgressIndicator();
+                                                            return Container(
+                                                              child: Text(
+                                                                  "_",
+                                                                  overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                      18.0
+                                                                          .sp,
+                                                                      fontFamily:
+                                                                      "sansSar",
+                                                                      color: Colors
+                                                                          .blueGrey)),
+                                                            );
                                                           }
                                                         }),
                                                   ]),
@@ -403,7 +459,21 @@ class _StatsPageState extends State<StatsPage> {
                                                                 snapshot.error);
                                                             return CircularProgressIndicator();
                                                           } else {
-                                                            return CircularProgressIndicator();
+                                                            return Container(
+                                                              child: Text(
+                                                                  "_",
+                                                                  overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                      18.0
+                                                                          .sp,
+                                                                      fontFamily:
+                                                                      "sansSar",
+                                                                      color: Colors
+                                                                          .blueGrey)),
+                                                            );
                                                           }
                                                         }),
                                                   ]),
@@ -457,7 +527,21 @@ class _StatsPageState extends State<StatsPage> {
                                                                 snapshot.error);
                                                             return CircularProgressIndicator();
                                                           } else {
-                                                            return CircularProgressIndicator();
+                                                            return Container(
+                                                              child: Text(
+                                                                  "_",
+                                                                  overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                      18.0
+                                                                          .sp,
+                                                                      fontFamily:
+                                                                      "sansSar",
+                                                                      color: Colors
+                                                                          .blueGrey)),
+                                                            );
                                                           }
                                                         }),
                                                   ]),
