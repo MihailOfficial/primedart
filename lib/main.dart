@@ -19,6 +19,7 @@ import 'home.dart';
 import 'login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 bool usrCreated;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 

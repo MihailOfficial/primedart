@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:bird/statspage.dart';
+import 'package:bird/welcome.dart';
 import 'package:blinking_text/blinking_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -55,9 +56,52 @@ class _HomeState extends State<Home> {
                   width: double.infinity,
                   child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 5.0),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                      child: Stack(
+
                           children: <Widget>[
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(15),
+                                  child:
+                                  ClipOval(
+
+                                    child: Material(
+                                      color: Color.fromRGBO(
+                                          50, 50, 50, 1),
+                                      // button color
+                                      child: InkWell(
+                                        splashColor:
+                                        Colors.yellow,
+                                        // inkwell color
+                                        child: SizedBox(
+                                          width: 40,
+                                          height: 40,
+                                          child: Icon(
+                                            Icons
+                                                .arrow_back_ios_sharp,
+                                            color: Colors.yellow,
+                                          ),
+                                        ),
+                                        onTap: () =>
+                                            setState(() {
+                                              Navigator.push(
+                                                context,
+                                                FadeRoute(
+                                                    page: Welcomer1()),
+                                              );
+                                            }),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+
+                            Center(
+                              child:
                             Text('NumDash',
                                 style: TextStyle(
                                   fontFamily: 'rage',
@@ -75,7 +119,7 @@ class _HomeState extends State<Home> {
                                       color: Color.fromRGBO(240, 240, 240, 0.2),
                                     ),
                                   ],
-                                ))
+                                )))
                           ]))),
               SizedBox(height: 10),
               Padding(
@@ -762,6 +806,7 @@ class _HomeState extends State<Home> {
                                   ),
                                   color: Colors.blueGrey,
                                   onPressed: () => setState(() {
+
                                     Navigator.push(
                                       context,
                                       ScaleRoute(page: Game(tempt: true)),

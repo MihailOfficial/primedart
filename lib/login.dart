@@ -90,7 +90,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
         footer:Container(
 
 
-            padding: const EdgeInsets.fromLTRB(40, 15, 40, 15),
+            padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
             child: Row(children: <Widget>[
               Expanded(
                 child: RaisedButton(
@@ -122,7 +122,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                 child:Container(
                       decoration: new BoxDecoration(color: Color.fromRGBO(10, 10, 10, 0)),
               child: Container(
-                padding: const EdgeInsets.all(40.0),
+                padding: const EdgeInsets.all(20.0),
                 child: Form(
                   key: _formKey,
                   child: ListView(shrinkWrap: true, children: <Widget>[

@@ -47,114 +47,109 @@ class _HotToState extends State<HowTo> {
 
       return Scaffold(
           body: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/home_background.png"),
-                  fit: BoxFit.cover,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/home_background.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: SafeArea(
+          child: Container(
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+
+            SizedBox(height: 10),
+              Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: ClipOval(
+              child: Material(
+                color: Color.fromRGBO(50, 50, 50, 1),
+                // button color
+                child: InkWell(
+                  splashColor: Colors.yellow,
+                  // inkwell color
+                  child: SizedBox(
+                    width: 40,
+                    height: 40,
+                    child: Icon(
+                      Icons.arrow_back_ios_sharp,
+                      color: Colors.yellow,
+                    ),
+                  ),
+                  onTap: () => setState(() {
+                    pauseGame = false;
+                    Navigator.push(
+                      context,
+                      ScaleRoute(page: Game(tempt: online)),
+                    );
+                  }),
                 ),
               ),
-              child: SafeArea(
-                  child: Container(
-                      child: Column(children: <Widget>[
-
-                SizedBox(height: 20),
-                        Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                            child: Container(
-                                child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(30.0),
-                                    // <-- clips to the 200x200 [Container] below
-                                    child: BackdropFilter(
-                                      filter: new ImageFilter.blur(
-                                          sigmaX: 20.0, sigmaY: 20.0),
-                                      child: Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                            BorderRadius.circular(30.0),
-                                            border: Border.all(
-                                                color: Colors.white,
-                                                // set border color
-                                                width: 1.0),
-                                            gradient: LinearGradient(
-                                              begin: Alignment.centerLeft,
-                                              end: Alignment.centerRight,
-                                              colors: <Color>[
-                                                Color.fromRGBO(250, 250, 250, 0),
-                                                Color.fromRGBO(250, 250, 250, 0)
-                                              ],
-                                            ),
+            ),),
+            SizedBox(height: 20),
+            Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Container(
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(30.0),
+                        // <-- clips to the 200x200 [Container] below
+                        child: BackdropFilter(
+                          filter:
+                              new ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
+                          child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30.0),
+                                border: Border.all(
+                                    color: Colors.white,
+                                    // set border color
+                                    width: 1.0),
+                                gradient: LinearGradient(
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.centerRight,
+                                  colors: <Color>[
+                                    Color.fromRGBO(250, 250, 250, 0),
+                                    Color.fromRGBO(250, 250, 250, 0)
+                                  ],
+                                ),
+                              ),
+                              child: Column(children: <Widget>[
+                                SizedBox(height: 20),
+                                Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 30.0),
+                                    child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Container(
+                                            child: Text('How To Play',
+                                                style: TextStyle(
+                                                    fontSize: 25.0.sp,
+                                                    fontFamily: "sansSar",
+                                                    color: Colors
+                                                        .lightBlueAccent)),
                                           ),
-                                          child: Column(children: <Widget>[
-                                            SizedBox(height: 20),
-                                            Padding(
-                                                padding: const EdgeInsets.symmetric(
-                                                    horizontal: 30.0),
-                                                child: Row(
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment.spaceBetween,
-                                                    children: <Widget>[
-                                                      Container(
-                                                        child: Text('How To Play',
-                                                            style: TextStyle(
-                                                                fontSize: 25.0.sp,
-                                                                fontFamily: "sansSar",
-                                                                color: Colors
-                                                                    .lightBlueAccent)),
-                                                      ),
-                                                      ClipOval(
-                                                        child: Material(
-                                                          color: Color.fromRGBO(
-                                                              50, 50, 50, 1),
-                                                          // button color
-                                                          child: InkWell(
-                                                            splashColor: Colors.yellow,
-                                                            // inkwell color
-                                                            child: SizedBox(
-                                                              width: 35,
-                                                              height: 35,
-                                                              child: Icon(
-                                                                Icons
-                                                                    .arrow_back_ios_sharp,
-                                                                color: Colors.white,
-                                                              ),
-                                                            ),
-                                                            onTap: () => setState(() {
-                                                              pauseGame = false;
-                                                              Navigator.push(
-                                                                context,
-                                                                ScaleRoute(page: Game(tempt: online)),
-                                                              );
-                                                            }),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ])),
-                                            SizedBox(height: 10),
-                                            Padding(
-                                                padding:
-                                                const EdgeInsets.symmetric(
-                                                    horizontal: 30.0),
-                                                child: Container(
-                                                  child: Text(
-                                                      'Connect 3 of the same coloured tile in a row/column to get 12 points. Touching multiples of the number shown at the top awards 1 point and removes the tile. Touching an incorrect multiple is penalized by 6 points and the tile becomes grey (unmatchable). After 20 seconds, all the tiles are removed, the multiple is changed and new tiles appear.',
-                                                      textAlign: TextAlign.justify,
-                                                      style: TextStyle(
-                                                          fontSize: 15.0,
-                                                          color: Colors
-                                                              .blueGrey)),
+                                        ])),
+                                SizedBox(height: 10),
+                                Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 30.0),
+                                    child: Container(
+                                      child: Text(
+                                          'Connect 3 of the same coloured tile in a row/column to get 12 points. Touching multiples of the number shown at the top awards 1 point and removes the tile. Touching an incorrect multiple is penalized by 6 points and the tile becomes grey (unmatchable). After 20 seconds, all the tiles are removed, the multiple is changed and new tiles appear.',
+                                          textAlign: TextAlign.justify,
+                                          style: TextStyle(
+                                              fontSize: 15.0,
+                                              color: Colors.blueGrey)),
+                                    )),
+                                SizedBox(height: 20),
+                              ])),
+                        )))),
 
-                                                )),
-                                            SizedBox(height: 20),
-                                            SizedBox(height: 10),
-                                          ])),
-                                    )))),
-                        SizedBox(
-                          height: 20,
-                        ),
-
-                            ])),
-                      ),
-                    ));
+          ])),
+        ),
+      ));
     }
   }
 }
