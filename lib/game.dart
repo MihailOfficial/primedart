@@ -859,13 +859,13 @@ class MyGame extends BaseGame with HasTapableComponents {
     positionLivesText = Offset(
         size.width * (5 / 20) - textPainterLivesText.width / 2,
         heightApp / 2 - textPainterLivesText.height / 2 + heightApp / 2);
-    positionLives = Offset(size.width * (6.4 / 20) - textPainterLives.width / 2,
+    positionLives = Offset(size.width * (6.2 / 20) - textPainterLives.width / 2,
         heightApp / 2 - textPainterLives.height / 2 + heightApp / 1.05);
     positionScoreText = Offset(
         size.width * (15 / 20) - textPainterScoreText.width / 2,
         heightApp / 2 - textPainterScoreText.height / 2 + heightApp / 1.95);
     positionScore = Offset(
-        size.width * (15.3 / 20) - textPainterScore.width / 2,
+        size.width * (14.9 / 20) - textPainterScore.width / 2,
         heightApp / 2 - textPainterScore.height / 2 + heightApp / 1.05);
   }
 
