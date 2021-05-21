@@ -71,116 +71,111 @@ var y;
 double height = AppBar().preferredSize.height;
 var count = new List(4);
 var online = false;
-class Game extends StatelessWidget  {
+
+class Game extends StatelessWidget {
   static const String routeName = "/home";
   final bool tempt;
-
 
   /// Here is your constructor
 
   const Game({Key key, this.tempt}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     online = tempt;
     contexts = context;
     print(online);
-    return
-        Scaffold(
+    return Scaffold(
         // drawer: AppDrawer(),
-         body:
-        Stack(children: <Widget>[
-
-
-          Container(
-            constraints: BoxConstraints.expand(),
-
-            child: game.widget,
-          ),
-          Padding(
-            padding: EdgeInsets.all(10),
-          child: Align(
-              alignment: Alignment.topCenter,
-              child: Column(children: <Widget>[
-            if (online)
-              Text("ONLINE",
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.grey,
-                ),),
-            if (!online)
-              Text("OFFLINE",
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.grey,
-                ),)
-            ],)
-              ),),
-
+        body: Stack(children: <Widget>[
+      Container(
+        constraints: BoxConstraints.expand(),
+        child: game.widget,
+      ),
+      Padding(
+        padding: EdgeInsets.all(10),
+        child: Align(
+            alignment: Alignment.topCenter,
+            child: Column(
+              children: <Widget>[
+                if (online)
+                  Text(
+                    "ONLINE",
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.grey,
+                    ),
+                  ),
+                if (!online)
+                  Text(
+                    "OFFLINE",
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.grey,
+                    ),
+                  )
+              ],
+            )),
+      ),
       Align(
-        alignment: Alignment.bottomCenter,
-
-        child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: <Widget>[
-      SizedBox(width: 10),
-      Padding(
-        padding: EdgeInsets.all(16.0),
-        child: RaisedButton(
-            child: new Text("BACK/PAUSE",
-                style: new TextStyle(
-                  fontSize: 18.0,
-                  color: Color.fromRGBO(180, 180, 180, 1),
-                )),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            color: Color.fromRGBO(30, 30, 30, 1),
-            onPressed: () {
-              pauseGame = true;
-              if (online){
-                Navigator.push(
-                  context,
-                  FadeRoute(page: Home()),
-                );
-              } else {
-                Navigator.push(
-                  context,
-                  FadeRoute(page: Welcomer1()),
-
-                );
-
-              }
-            }
-          //onPressed:
-        ),
-      ),
-      Padding(
-        padding: EdgeInsets.all(16.0),
-        child: RaisedButton(
-            child: new Text("HELP",
-                style: new TextStyle(
-                  fontSize: 18.0,
-                  color: Color.fromRGBO(180, 180, 180, 1),
-                )),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            color: Color.fromRGBO(30, 30, 30, 1),
-            onPressed: () {
-              pauseGame = true;
-                Navigator.push(
-                  context,
-                  FadeRoute(page: HowTo()),
-
-
-                );
-            }
-          //onPressed:
-        ),
-      ),
-      SizedBox(width: 10),
-    ])
-      ),
+          alignment: Alignment.bottomCenter,
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                SizedBox(width: 10),
+                Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: RaisedButton(
+                      child: new Text("BACK/PAUSE",
+                          style: new TextStyle(
+                            fontSize: 18.0,
+                            color: Color.fromRGBO(180, 180, 180, 1),
+                          )),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      color: Color.fromRGBO(30, 30, 30, 1),
+                      onPressed: () {
+                        pauseGame = true;
+                        if (online) {
+                          Navigator.push(
+                            context,
+                            FadeRoute(page: Home()),
+                          );
+                        } else {
+                          Navigator.push(
+                            context,
+                            FadeRoute(page: Welcomer1()),
+                          );
+                        }
+                      }
+                      //onPressed:
+                      ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: RaisedButton(
+                      child: new Text("HELP",
+                          style: new TextStyle(
+                            fontSize: 18.0,
+                            color: Color.fromRGBO(180, 180, 180, 1),
+                          )),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      color: Color.fromRGBO(30, 30, 30, 1),
+                      onPressed: () {
+                        pauseGame = true;
+                        Navigator.push(
+                          context,
+                          FadeRoute(page: HowTo()),
+                        );
+                      }
+                      //onPressed:
+                      ),
+                ),
+                SizedBox(width: 10),
+              ])),
     ]));
   }
 }
@@ -253,7 +248,9 @@ class Multiple extends TextComponent with Tapable {
   @override
   void update(double tt) {
     if (!fast) {
-
+      if (changedMultiple == 1) {
+        fast = true;
+      } else {
       if (fall && !shrink) {
         ctable[row.toInt()][(column - 1).toInt()] = 0;
         if ((this.y + 10) >= positionArray[row.toInt()]) {
@@ -266,124 +263,120 @@ class Multiple extends TextComponent with Tapable {
           this.y += 10;
           ctable[row.toInt()][(column - 1).toInt()] = 0;
         }
-      }
-    else {
-      if (row != (rowCount - 1) && !fall) {
-        if (table[(row + 1).toInt()][(column - 1).toInt()] == false) {
-          table[(row).toInt()][(column - 1).toInt()] = false;
-          table[(row + 1).toInt()][(column - 1).toInt()] = true;
-          ctable[(row).toInt()][(column - 1).toInt()] = 0;
-          rand = true;
-          row++;
-        }
-      }
-
-
-      if (dtable[(row).toInt()][(column - 1).toInt()] == true &&
-          !fall &&
-          !newDeck) {
-        HapticFeedback.lightImpact();
-        dtable[row.toInt()][(column - 1).toInt()] = false;
-
-        this.config = TextConfig(
-            color: Colors.black, fontSize: 25.0.sp, fontFamily: "fontNum");
-        text = '+4';
-        _paint12 = Paint()
-          ..color = Color.fromRGBO(255, 215, 0, 1);
-
-        matchedColours = true;
-        shrinkCollect = true;
-      }
-
-      if (rand == true) {
-        if ((this.y + 5) <= positionArray[(row).toInt()]) {
-          this.y += 5;
-          ctable[(row).toInt()][(column - 1).toInt()] = 0;
-          accel++;
-        } else {
-          rand = false;
-          accel = 1;
-          this.y = positionArray[row.toInt()];
-          ctable[(row).toInt()][(column - 1).toInt()] = genColourComp + 1;
-          table[(row).toInt()][(column - 1).toInt()] = true;
-        }
-      }
-
-      if (shrink) {
-        if (sizeF < 0) {
-          destroy();
-          shrink = false;
-          returned = true;
-          table[(row).toInt()][(column - 1).toInt()] = false;
-          ctable[row.toInt()][(column - 1).toInt()] = 0;
-        } else {
-          TextConfig comp = TextConfig(
-              color: Colors.white, fontSize: sizeF, fontFamily: "fontNum");
-          this.config = comp;
-          sizeF -= 2.5;
-          ctable[row.toInt()][(column - 1).toInt()] = 0;
-        }
-      }
-
-      if (shrinkCollect) {
-        counter++;
-        if (counter < 40) {
-          globalShrink = true;
-        } else {
-          globalShrink = false;
+      } else {
+        if (row != (rowCount - 1) && !fall) {
+          if (table[(row + 1).toInt()][(column - 1).toInt()] == false) {
+            table[(row).toInt()][(column - 1).toInt()] = false;
+            table[(row + 1).toInt()][(column - 1).toInt()] = true;
+            ctable[(row).toInt()][(column - 1).toInt()] = 0;
+            rand = true;
+            row++;
+          }
         }
 
-        if (sizeF < 0) {
-          globalShrink = false;
-          destroy();
-          shrinkCollect = false;
-          returned = true;
-          table[(row).toInt()][(column - 1).toInt()] = false;
-          ctable[row.toInt()][(column - 1).toInt()] = 0;
-        } else {
-          if (counter > 40) {
+        if (dtable[(row).toInt()][(column - 1).toInt()] == true &&
+            !fall &&
+            !newDeck) {
+          HapticFeedback.lightImpact();
+          dtable[row.toInt()][(column - 1).toInt()] = false;
+
+          this.config = TextConfig(
+              color: Colors.black, fontSize: 25.0.sp, fontFamily: "fontNum");
+          text = '+4';
+          _paint12 = Paint()..color = Color.fromRGBO(255, 215, 0, 1);
+
+          matchedColours = true;
+          shrinkCollect = true;
+        }
+
+        if (rand == true) {
+          if ((this.y + 5) <= positionArray[(row).toInt()]) {
+            this.y += 5;
+            ctable[(row).toInt()][(column - 1).toInt()] = 0;
+            accel++;
+          } else {
+            rand = false;
+            accel = 1;
+            this.y = positionArray[row.toInt()];
+            ctable[(row).toInt()][(column - 1).toInt()] = genColourComp + 1;
+            table[(row).toInt()][(column - 1).toInt()] = true;
+          }
+        }
+
+        if (shrink) {
+          if (sizeF < 0) {
+            destroy();
+            shrink = false;
+            returned = true;
+            table[(row).toInt()][(column - 1).toInt()] = false;
+            ctable[row.toInt()][(column - 1).toInt()] = 0;
+          } else {
             TextConfig comp = TextConfig(
-                color: Colors.black, fontSize: sizeF, fontFamily: "fontNum");
+                color: Colors.white, fontSize: sizeF, fontFamily: "fontNum");
             this.config = comp;
             sizeF -= 2.5;
             ctable[row.toInt()][(column - 1).toInt()] = 0;
           }
         }
-      }
 
-      if (m != null && !shrink && !globalShrink) {
-        if (pauseRect1.contains(m.globalPosition)) {
-          multipleTouched++;
-          shrink = true;
-          collectPrime = true;
+        if (shrinkCollect) {
+          counter++;
+          if (counter < 40) {
+            globalShrink = true;
+          } else {
+            globalShrink = false;
+          }
+
+          if (sizeF < 0) {
+            globalShrink = false;
+            destroy();
+            shrinkCollect = false;
+            returned = true;
+            table[(row).toInt()][(column - 1).toInt()] = false;
+            ctable[row.toInt()][(column - 1).toInt()] = 0;
+          } else {
+            if (counter > 40) {
+              TextConfig comp = TextConfig(
+                  color: Colors.black, fontSize: sizeF, fontFamily: "fontNum");
+              this.config = comp;
+              sizeF -= 2.5;
+              ctable[row.toInt()][(column - 1).toInt()] = 0;
+            }
+          }
         }
+
+        if (m != null && !shrink && !globalShrink) {
+          if (pauseRect1.contains(m.globalPosition)) {
+            multipleTouched++;
+            shrink = true;
+            collectPrime = true;
+          }
+        }
+
+        if (collectPrime) {
+          score++;
+
+          updateScore = true;
+          collectPrime = false;
+        }
+
+        if (matchedColours) {
+          score += 4;
+
+          updateScore = true;
+          matchedColours = false;
+        }
+
+        super.update(tt);
+
+
       }
-
-      if (collectPrime) {
-        score++;
-
-        updateScore = true;
-        collectPrime = false;
-      }
-
-      if (matchedColours) {
-        score += 4;
-
-        updateScore = true;
-        matchedColours = false;
-      }
-
-      super.update(tt);
-
-      if (changedMultiple == 1) {
-        fast = true;
-      }
-    }
       pauseRect1 = Rect.fromLTWH(
           (tempWidth / 7) * column - (tempWidth / 15),
           (this.y - 5) - (this.height / 2),
           (tempWidth / 15) * 2,
           this.height + 10);
+      }
     } else {
       if (this.x < -50) {
         returned = true;
@@ -470,6 +463,11 @@ class NotMultiple extends TextComponent with Tapable {
   @override
   void update(double tt) {
     if (!fast) {
+
+      if (changedMultiple == 1) {
+        fast = true;
+      }
+      else {
       if (fall && !shrink) {
         ctable[row.toInt()][(column - 1).toInt()] = 0;
         if ((this.y + 10) >= positionArray[row.toInt()]) {
@@ -482,134 +480,128 @@ class NotMultiple extends TextComponent with Tapable {
           this.y += 10;
           ctable[row.toInt()][(column - 1).toInt()] = 0;
         }
-      }
-      else {
-      if (row != (rowCount - 1) && !fall) {
-        if (table[(row + 1).toInt()][(column - 1).toInt()] == false) {
-          table[(row).toInt()][(column - 1).toInt()] = false;
-          table[(row + 1).toInt()][(column - 1).toInt()] = true;
-          ctable[(row + 1).toInt()][(column - 1).toInt()] = 0;
-          rand = true;
-          row++;
-        }
-      }
-
-      if (dtable[(row).toInt()][(column - 1).toInt()] == true &&
-          !fall &&
-          !newDeck) {
-        this.config = TextConfig(
-            color: Colors.black, fontSize: 25.0.sp, fontFamily: "fontNum");
-        text = '+4';
-        dtable[row.toInt()][(column - 1).toInt()] = false;
-        _paint12 = Paint()
-          ..color = Color.fromRGBO(255, 215, 0, 1);
-        matchedColours = true;
-        shrinkCollect = true;
-      }
-
-      if (rand == true) {
-        if ((this.y + 5) <= positionArray[(row).toInt()]) {
-          this.y += 5;
-          ctable[(row).toInt()][(column - 1).toInt()] = 0;
-          accel++;
-        } else {
-          rand = false;
-          accel = 1;
-          this.y = positionArray[row.toInt()];
-          ctable[(row).toInt()][(column - 1).toInt()] = genColourComp + 1;
-          table[(row).toInt()][(column - 1).toInt()] = true;
-        }
-      }
-
-      if (shrink) {
-        if (sizeF < 0) {
-          destroy();
-          shrink = false;
-          returned = true;
-          table[(row).toInt()][(column - 1).toInt()] = false;
-          ctable[row.toInt()][(column - 1).toInt()] = 0;
-        } else {
-          TextConfig comp = TextConfig(
-              color: Colors.white, fontSize: sizeF, fontFamily: "fontNum");
-
-          this.config = comp;
-          sizeF -= 2.5;
-          ctable[row.toInt()][(column - 1).toInt()] = 0;
-        }
-      }
-
-      if (shrinkCollect) {
-        counter++;
-
-        if (counter < 40) {
-          globalShrink = true;
-        } else {
-          globalShrink = false;
+      } else {
+        if (row != (rowCount - 1) && !fall) {
+          if (table[(row + 1).toInt()][(column - 1).toInt()] == false) {
+            table[(row).toInt()][(column - 1).toInt()] = false;
+            table[(row + 1).toInt()][(column - 1).toInt()] = true;
+            ctable[(row + 1).toInt()][(column - 1).toInt()] = 0;
+            rand = true;
+            row++;
+          }
         }
 
-        if (sizeF < 0) {
-          globalShrink = false;
-          destroy();
-          shrinkCollect = false;
-          returned = true;
-          table[(row).toInt()][(column - 1).toInt()] = false;
-          ctable[row.toInt()][(column - 1).toInt()] = 0;
-        } else {
-          if (counter > 40) {
+        if (dtable[(row).toInt()][(column - 1).toInt()] == true &&
+            !fall &&
+            !newDeck) {
+          this.config = TextConfig(
+              color: Colors.black, fontSize: 25.0.sp, fontFamily: "fontNum");
+          text = '+4';
+          dtable[row.toInt()][(column - 1).toInt()] = false;
+          _paint12 = Paint()..color = Color.fromRGBO(255, 215, 0, 1);
+          matchedColours = true;
+          shrinkCollect = true;
+        }
+
+        if (rand == true) {
+          if ((this.y + 5) <= positionArray[(row).toInt()]) {
+            this.y += 5;
+            ctable[(row).toInt()][(column - 1).toInt()] = 0;
+            accel++;
+          } else {
+            rand = false;
+            accel = 1;
+            this.y = positionArray[row.toInt()];
+            ctable[(row).toInt()][(column - 1).toInt()] = genColourComp + 1;
+            table[(row).toInt()][(column - 1).toInt()] = true;
+          }
+        }
+
+        if (shrink) {
+          if (sizeF < 0) {
+            destroy();
+            shrink = false;
+            returned = true;
+            table[(row).toInt()][(column - 1).toInt()] = false;
+            ctable[row.toInt()][(column - 1).toInt()] = 0;
+          } else {
             TextConfig comp = TextConfig(
-                color: Colors.black, fontSize: sizeF, fontFamily: "fontNum");
+                color: Colors.white, fontSize: sizeF, fontFamily: "fontNum");
+
             this.config = comp;
             sizeF -= 2.5;
             ctable[row.toInt()][(column - 1).toInt()] = 0;
           }
         }
-      }
 
-      if (m != null && !collectNot && !globalShrink) {
-        if (pauseRect1.contains(m.globalPosition)) {
-          _paint12 = Paint()
-            ..color = Color.fromRGBO(80, 80, 80, 0.9);
-          inc++;
-          this.config = TextConfig(
-              color: Colors.grey, fontSize: 25.0.sp, fontFamily: "fontNum");
-          ctable[row.toInt()][(column - 1).toInt()] = 0;
+        if (shrinkCollect) {
+          counter++;
 
-          text = 'X';
+          if (counter < 40) {
+            globalShrink = true;
+          } else {
+            globalShrink = false;
+          }
+
+          if (sizeF < 0) {
+            globalShrink = false;
+            destroy();
+            shrinkCollect = false;
+            returned = true;
+            table[(row).toInt()][(column - 1).toInt()] = false;
+            ctable[row.toInt()][(column - 1).toInt()] = 0;
+          } else {
+            if (counter > 40) {
+              TextConfig comp = TextConfig(
+                  color: Colors.black, fontSize: sizeF, fontFamily: "fontNum");
+              this.config = comp;
+              sizeF -= 2.5;
+              ctable[row.toInt()][(column - 1).toInt()] = 0;
+            }
+          }
         }
-      }
-      if (inc == 1) {
-        nonMultipleTouched ++;
-        if (score > 4) {
-          score -= 5;
-        } else {
-          score = 0;
+
+        if (m != null && !collectNot && !globalShrink) {
+          if (pauseRect1.contains(m.globalPosition)) {
+            _paint12 = Paint()..color = Color.fromRGBO(80, 80, 80, 0.9);
+            inc++;
+            this.config = TextConfig(
+                color: Colors.grey, fontSize: 25.0.sp, fontFamily: "fontNum");
+            ctable[row.toInt()][(column - 1).toInt()] = 0;
+
+            text = 'X';
+          }
         }
-        updateScore = true;
-      }
+        if (inc == 1) {
+          nonMultipleTouched++;
+          if (score > 4) {
+            score -= 5;
+          } else {
+            score = 0;
+          }
+          updateScore = true;
+        }
 
-      if (collectPrime) {
-        score++;
+        if (collectPrime) {
+          score++;
 
-        updateScore = true;
-        collectPrime = false;
-      }
-      if (matchedColours) {
-        score += 4;
+          updateScore = true;
+          collectPrime = false;
+        }
+        if (matchedColours) {
+          score += 4;
 
-        updateScore = true;
-        matchedColours = false;
-      }
+          updateScore = true;
+          matchedColours = false;
+        }
 
-      if (changedMultiple == 1) {
-        fast = true;
       }
-    }
       pauseRect1 = Rect.fromLTWH(
           (tempWidth / 7) * column - (tempWidth / 15),
           (this.y - 5) - (this.height / 2),
           (tempWidth / 15) * 2,
           this.height + 10);
-    } else {
+    } }else {
       if (this.x < -50) {
         returned = true;
         destroy();
@@ -658,9 +650,9 @@ class EndMenu extends TextComponent with Tapable {
     this.config = notValid;
     this.anchor = Anchor.center;
     this.x = 200;
-    this.y = tempHeight/2;
-    startRect = Rect.fromLTWH(this.x - this.width/2, (this.y - 5) - (this.height / 2),
-        this.width, this.height + 10);
+    this.y = tempHeight / 2;
+    startRect = Rect.fromLTWH(this.x - this.width / 2,
+        (this.y - 5) - (this.height / 2), this.width, this.height + 10);
   }
 
   @override
@@ -681,7 +673,7 @@ class EndMenu extends TextComponent with Tapable {
         stopAttempts = false;
         multipleTouched = 0;
         nonMultipleTouched = 0;
-        matchedRC ==0;
+        matchedRC == 0;
         returned = true;
         destroy();
       }
@@ -694,7 +686,6 @@ class EndMenu extends TextComponent with Tapable {
   void render(Canvas c) {
     c.drawRRect(
         RRect.fromRectAndRadius((startRect), Radius.circular(8.0)), _paint12);
-
 
     super.render(c);
   }
@@ -711,7 +702,7 @@ double heightApp = AppBar().preferredSize.height;
 
 int tempUpdate = 0;
 double statusBox = 0;
-int currentMultiple = 2;
+int currentMultiple = 3;
 var positionArray = new List(10);
 
 class MyGame extends BaseGame with HasTapableComponents {
@@ -723,7 +714,6 @@ class MyGame extends BaseGame with HasTapableComponents {
   EndMenu endMenu;
   NotMultiple notMultiple;
   var multiples = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
 
   var counter = 0;
   TextPainter textPainterScore;
@@ -739,11 +729,19 @@ class MyGame extends BaseGame with HasTapableComponents {
   Offset positionLivesText;
   Offset positionNoMoreLives;
   Offset positionNumType;
-  TextStyle scoreStyler = TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.w900,);
-  TextStyle roundStyler = TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.w900,);
+  TextStyle scoreStyler = TextStyle(
+    color: Colors.white,
+    fontSize: 25,
+    fontWeight: FontWeight.w900,
+  );
+  TextStyle roundStyler = TextStyle(
+    color: Colors.white,
+    fontSize: 25,
+    fontWeight: FontWeight.w900,
+  );
 
   @override
-  Color backgroundColor() => const Color.fromRGBO(0,0, 0, 1);
+  Color backgroundColor() => const Color.fromRGBO(0, 0, 0, 1);
   var count1 = new List(4);
 
   var count2 = new List(6);
@@ -753,25 +751,24 @@ class MyGame extends BaseGame with HasTapableComponents {
 
   MyGame(Size size) {
     currentMultiple = 2;
-    if (size.height < 650){
+    if (size.height < 650) {
       topSpaceTile = 150;
       rowCount = 8;
     }
-    testInc = (rowCount-1).toDouble();
-   table = List.generate(rowCount, (i) => List(7), growable: true);
+    testInc = (rowCount - 1).toDouble();
+    table = List.generate(rowCount, (i) => List(7), growable: true);
     ctable = List.generate(rowCount, (i) => List(7), growable: true);
     dtable = List.generate(rowCount, (i) => List(7), growable: true);
     print("height: " + (size.height).toString());
     pauseGame = false;
     for (int a = 0; a < rowCount; a++) {
-      positionArray[a] = topSpaceTile + (55*a);
+      positionArray[a] = topSpaceTile + (55 * a);
       for (int b = 0; b < 6; b++) {
         table[a][b] = false;
         ctable[a][b] = 0;
         dtable[a][b] = false;
       }
     }
-
 
     add(Bg());
     statusBox = 360;
@@ -797,11 +794,10 @@ class MyGame extends BaseGame with HasTapableComponents {
         text: TextSpan(
             text: "ROUND:",
             style: TextStyle(
-                color: Colors.yellow,
-              fontWeight: FontWeight
-                  .w700,
-                fontSize: 18,
-                )),
+              color: Colors.yellow,
+              fontWeight: FontWeight.w700,
+              fontSize: 18,
+            )),
         textDirection: TextDirection.ltr);
     textPainterLivesText.layout(
       minWidth: 0,
@@ -811,9 +807,7 @@ class MyGame extends BaseGame with HasTapableComponents {
 
     textPainterNumType = TextPainter(
         text: TextSpan(
-            text: "",
-            style: TextStyle(
-                color: Color(0xFFFF0000), fontSize: 32)),
+            text: "", style: TextStyle(color: Color(0xFFFF0000), fontSize: 32)),
         textDirection: TextDirection.ltr,
         textAlign: TextAlign.center);
 
@@ -823,9 +817,7 @@ class MyGame extends BaseGame with HasTapableComponents {
     );
 
     textPainterLives = TextPainter(
-        text: TextSpan(
-            text: lives.toString(),
-            style: roundStyler),
+        text: TextSpan(text: lives.toString(), style: roundStyler),
         textDirection: TextDirection.ltr);
     textPainterLives.layout(
       minWidth: 0,
@@ -836,11 +828,10 @@ class MyGame extends BaseGame with HasTapableComponents {
         text: TextSpan(
             text: "SCORE: ",
             style: TextStyle(
-              fontWeight: FontWeight
-                  .w700,
-                color: Colors.yellow,
-                fontSize: 18,
-                )),
+              fontWeight: FontWeight.w700,
+              color: Colors.yellow,
+              fontSize: 18,
+            )),
         textDirection: TextDirection.ltr);
     textPainterScoreText.layout(
       minWidth: 0,
@@ -918,7 +909,7 @@ class MyGame extends BaseGame with HasTapableComponents {
   String generateNotMultiple() {
     String text2;
     int num = rng.nextInt(40) + 2;
-    while (num * currentMultiple > 99) {
+    while (num * currentMultiple > 98) {
       num = rng.nextInt(40) + 2;
     }
     text2 = ((num * currentMultiple) + 1).toString();
@@ -926,10 +917,9 @@ class MyGame extends BaseGame with HasTapableComponents {
     return text2;
   }
 
-
   @override
   void update(double t) {
-    if (pauseGame){
+    if (pauseGame) {
       pauseEngine();
     }
 
@@ -949,9 +939,7 @@ class MyGame extends BaseGame with HasTapableComponents {
       lives = 3;
 
       textPainterLives = TextPainter(
-          text: TextSpan(
-              text: "0",
-              style: roundStyler),
+          text: TextSpan(text: "0", style: roundStyler),
           textDirection: TextDirection.ltr);
       textPainterLives.layout(
         minWidth: 0,
@@ -964,7 +952,8 @@ class MyGame extends BaseGame with HasTapableComponents {
             style: TextStyle(
               color: Color.fromRGBO(26, 22, 92, 1),
               fontSize: 34,
-              fontWeight: FontWeight.w900,)),
+              fontWeight: FontWeight.w900,
+            )),
         textDirection: TextDirection.ltr,
         textAlign: TextAlign.center,
       );
@@ -976,12 +965,12 @@ class MyGame extends BaseGame with HasTapableComponents {
     }
 
     if (!stopAttempts & masterGameStart) {
-
       if (!newDeck) {
         for (int c = 0; c < rowCount; c++) {
           for (int d = 0; d < 4; d++) {
             if (ctable[c][d] == ctable[c][d + 1] &&
-                ctable[c][d] == ctable[c][d + 2] && ctable[c][d] != 0 &&
+                ctable[c][d] == ctable[c][d + 2] &&
+                ctable[c][d] != 0 &&
                 dtable[c][d] == false &&
                 dtable[c][d + 1] == false &&
                 dtable[c][d + 2] == false &&
@@ -1034,10 +1023,10 @@ class MyGame extends BaseGame with HasTapableComponents {
         changedMultiple--;
       }
       counter++;
-        
+
       if (counter % 3000 == 0) {
-        if (online){
-        submitScore(score);
+        if (online) {
+          submitScore(score);
         }
         var rng = new Random();
         currentMultiple++;
@@ -1060,10 +1049,10 @@ class MyGame extends BaseGame with HasTapableComponents {
         text: TextSpan(
             text: " " + currentMultiple.toString(),
             style: TextStyle(
-                color: Color.fromRGBO(26, 22, 92, 1),
-                fontSize: 34,
+              color: Color.fromRGBO(26, 22, 92, 1),
+              fontSize: 34,
               fontWeight: FontWeight.w900,
-               )),
+            )),
         textDirection: TextDirection.ltr,
         textAlign: TextAlign.center,
       );
@@ -1072,14 +1061,12 @@ class MyGame extends BaseGame with HasTapableComponents {
         maxWidth: tempWidth,
       );
       positionNumType = Offset(
-          (size.width - textPainterNumType.width) * 0.5-(3),
+          (size.width - textPainterNumType.width) * 0.5 - (3),
           heightApp / 2 - textPainterNumType.height / 2 + heightApp / 1.25);
 
       if (updateLives) {
         textPainterLives = TextPainter(
-            text: TextSpan(
-                text: lives.toString(),
-                style: roundStyler),
+            text: TextSpan(text: lives.toString(), style: roundStyler),
             textDirection: TextDirection.ltr);
         textPainterLives.layout(
           minWidth: 0,
@@ -1113,9 +1100,13 @@ class MyGame extends BaseGame with HasTapableComponents {
 
       //  TextConfig primeC = TextConfig(color: colours[genColourPrime], fontSize: 40, fontFamily: "fontNum");
       TextConfig mult = TextConfig(
-          color: Color.fromRGBO(240, 240, 240, 1), fontSize: 25.0.sp, fontFamily: "fontNum");
+          color: Color.fromRGBO(240, 240, 240, 1),
+          fontSize: 25.0.sp,
+          fontFamily: "fontNum");
       TextConfig nmult = TextConfig(
-          color: Color.fromRGBO(240, 240, 240, 1), fontSize: 25.0.sp, fontFamily: "fontNum");
+          color: Color.fromRGBO(240, 240, 240, 1),
+          fontSize: 25.0.sp,
+          fontFamily: "fontNum");
       double Pos = 0;
 
       if (lives > 0) {
@@ -1198,7 +1189,7 @@ class MyGame extends BaseGame with HasTapableComponents {
             newDeck = false;
             spinNew = false;
             timerPrime = 0;
-            testInc = (rowCount-1).toDouble();
+            testInc = (rowCount - 1).toDouble();
           }
         } else if (table[0][0] == false) {
           table[0][0] = true;
@@ -1266,7 +1257,6 @@ class MyGame extends BaseGame with HasTapableComponents {
       }
     }
 
-
     super.update(t);
   }
 }
@@ -1291,9 +1281,12 @@ class Bg extends Component with Resizable {
                   tempWidth / 1.2, heightApp * (6 / 8)),
               Radius.circular(8.0)),
           _paint2);*/
-      c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(
-          (tempWidth-tempWidth/1.2)/2, heightApp*(3/4), tempWidth/1.2, heightApp ),
-          Radius.circular(8.0)), _top);
+      c.drawRRect(
+          RRect.fromRectAndRadius(
+              Rect.fromLTWH((tempWidth - tempWidth / 1.2) / 2,
+                  heightApp * (3 / 4), tempWidth / 1.2, heightApp),
+              Radius.circular(8.0)),
+          _top);
 
       c.drawRRect(
           RRect.fromRectAndRadius(
@@ -1301,8 +1294,7 @@ class Bg extends Component with Resizable {
               Radius.circular(8.0)),
           _dark);
 
-      c.drawCircle(Offset(tempWidth / 2, heightApp / 0.78),
-          30, _paint3);
+      c.drawCircle(Offset(tempWidth / 2, heightApp / 0.78), 30, _paint3);
     }
     Paint paint = Paint()
       ..color = Colors.red
@@ -1340,23 +1332,22 @@ class Bg extends Component with Resizable {
 }
 
 Future<void> statsWriter() async {
-
- // Data dataInst = new Data();
+  // Data dataInst = new Data();
   //List<String> arr = dataInst.readFile() as List<String>;
 //
   Data dataInst = new Data();
 
   List arr = await dataInst.readFile();
- //
+  //
 
   int hS = int.parse(arr[0]);
   int tA = int.parse(arr[1]);
   int mRC = int.parse(arr[3]);
   int mT = int.parse(arr[4]);
   int nmT = int.parse(arr[5]);
-  if (highScore > hS){
+  if (highScore > hS) {
     hS = highScore;
-    print("hs: " +  highScore.toString());
+    print("hs: " + highScore.toString());
   }
   tA++;
   mRC = mRC + matchedRC;
@@ -1364,8 +1355,8 @@ Future<void> statsWriter() async {
   nmT = nmT + nonMultipleTouched;
   int multipleAcc = 0;
   if (mT != 0 && nmT != 0) {
-    multipleAcc = ((mT/(nmT+mT)) * 100).round();
-    print("yes: " +  multipleAcc.toString());
+    multipleAcc = ((mT / (nmT + mT)) * 100).round();
+    print("yes: " + multipleAcc.toString());
   }
   String result = "";
 
@@ -1376,6 +1367,4 @@ Future<void> statsWriter() async {
   result += mT.toString() + "/";
   result += nmT.toString();
   dataInst.saveFile(result);
-
-
 }
