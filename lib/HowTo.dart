@@ -1,14 +1,8 @@
-import 'dart:io';
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:sizer/sizer.dart';
-
 import 'dataclass.dart';
 import 'fader.dart';
-import 'home.dart';
-import 'main.dart';
 import 'game.dart';
 import 'login.dart';
 

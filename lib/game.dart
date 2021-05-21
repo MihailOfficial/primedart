@@ -12,7 +12,6 @@ import 'package:flame/text_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
-import 'package:page_transition/page_transition.dart';
 import 'dart:math';
 import 'package:sizer/sizer.dart';
 import 'HowTo.dart';

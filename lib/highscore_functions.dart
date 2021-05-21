@@ -1,12 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_database/ui/firebase_sorted_list.dart';
 import 'package:flutter_udid/flutter_udid.dart';
 import 'dart:math';
-
 import 'package:firebase_database/firebase_database.dart';
-
 
 Future<bool> createUser(String usr) async {
   String uid = await FlutterUdid.consistentUdid;

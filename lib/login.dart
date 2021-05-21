@@ -1,12 +1,8 @@
 import 'package:bad_words/bad_words.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:keyboard_attachable/keyboard_attachable.dart';
-import 'package:keyboard_attachable/keyboard_attachable.dart';
-import 'package:profanity_filter/profanity_filter.dart';
 import 'highscore_functions.dart';
-import 'package:sizer/sizer.dart';
 
 class RegisterEmailSection extends StatefulWidget {
   final String title = 'Registration';

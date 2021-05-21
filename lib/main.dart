@@ -1,9 +1,7 @@
-
 import 'dart:async';
 import 'package:bird/highscore_functions.dart';
 import 'package:bird/welcome.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:sizer/sizer.dart';
 import 'dataclass.dart';
 import 'fader.dart';
@@ -18,6 +16,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'home.dart';
 import 'login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 bool usrCreated;
 
 void main() async {

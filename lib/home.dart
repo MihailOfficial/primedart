@@ -1,21 +1,12 @@
-import 'dart:io';
 import 'dart:ui';
-
 import 'package:bird/statspage.dart';
 import 'package:bird/welcome.dart';
 import 'package:blinking_text/blinking_text.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fullscreen/fullscreen.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:sizer/sizer.dart';
 import 'fader.dart';
 import 'highscore_functions.dart';
-
 import 'game.dart';
 
 class Home extends StatefulWidget {
