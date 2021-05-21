@@ -711,7 +711,7 @@ double heightApp = AppBar().preferredSize.height;
 
 int tempUpdate = 0;
 double statusBox = 0;
-int currentMultiple = 0;
+int currentMultiple = 2;
 var positionArray = new List(10);
 
 class MyGame extends BaseGame with HasTapableComponents {
@@ -752,7 +752,7 @@ class MyGame extends BaseGame with HasTapableComponents {
   var yPositions = new List(8);
 
   MyGame(Size size) {
-    currentMultiple = rng.nextInt(3)+2;
+    currentMultiple = 2;
     if (size.height < 650){
       topSpaceTile = 150;
       rowCount = 8;
@@ -775,7 +775,7 @@ class MyGame extends BaseGame with HasTapableComponents {
 
     add(Bg());
     statusBox = 360;
-    updateStatus = tempWidth * 0.14 / 2000;
+    updateStatus = tempWidth * 0.14 / 3000;
 
     for (int i = 0; i < 3; i++) {
       yPositions[i] = ((tempWidth) / 3) * (i + 1);
@@ -860,7 +860,7 @@ class MyGame extends BaseGame with HasTapableComponents {
       maxWidth: size.width,
     );
 
-    updateStatus = 360 / 2000;
+    updateStatus = 360 / 3000;
 
     positionNumType = Offset((size.width - textPainterNumType.width) * 0.5,
         heightApp / 2 - textPainterNumType.height / 2 + heightApp / 2.7);
@@ -905,7 +905,7 @@ class MyGame extends BaseGame with HasTapableComponents {
 
   String generateMultiple() {
     String text;
-    int num = 100;
+    int num = rng.nextInt(40) + 2;
     while (num * currentMultiple > 99) {
       num = rng.nextInt(40) + 2;
     }
@@ -917,7 +917,7 @@ class MyGame extends BaseGame with HasTapableComponents {
 
   String generateNotMultiple() {
     String text2;
-    int num = 100;
+    int num = rng.nextInt(40) + 2;
     while (num * currentMultiple > 99) {
       num = rng.nextInt(40) + 2;
     }
@@ -1035,12 +1035,12 @@ class MyGame extends BaseGame with HasTapableComponents {
       }
       counter++;
         
-      if (counter % 2000 == 0) {
+      if (counter % 3000 == 0) {
         if (online){
         submitScore(score);
         }
         var rng = new Random();
-        currentMultiple = rng.nextInt(3)+2;
+        currentMultiple++;
         changedMultiple = 1;
         newDeck = true;
 
@@ -1050,6 +1050,7 @@ class MyGame extends BaseGame with HasTapableComponents {
         } else {
           stopInc = 0;
           stopAttempts = true;
+          currentMultiple = 2;
         }
 
         statusBox = 360;
