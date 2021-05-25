@@ -121,11 +121,9 @@ class Game extends StatelessWidget {
           child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                SizedBox(width: 10),
-                Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: RaisedButton(
-                      child: new Text("BACK/PAUSE",
+                  SizedBox(width:5),
+                 RaisedButton(
+                      child: new Text("BACK",
                           style: new TextStyle(
                             fontSize: 18.0,
                             color: Color.fromRGBO(180, 180, 180, 1),
@@ -150,10 +148,35 @@ class Game extends StatelessWidget {
                       }
                       //onPressed:
                       ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: RaisedButton(
+
+                RaisedButton(
+                      child: new Text("RESTART",
+                          style: new TextStyle(
+                            fontSize: 18.0,
+                            color: Color.fromRGBO(180, 180, 180, 1),
+                          )),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      color: Color.fromRGBO(30, 30, 30, 1),
+                      onPressed: () {
+                        pauseGame = true;
+                        if (online) {
+                          Navigator.push(
+                            context,
+                            FadeRoute(page: Home()),
+                          );
+                        } else {
+                          Navigator.push(
+                            context,
+                            FadeRoute(page: Welcomer1()),
+                          );
+                        }
+                      }
+                    //onPressed:
+                  ),
+
+                 RaisedButton(
                       child: new Text("HELP",
                           style: new TextStyle(
                             fontSize: 18.0,
@@ -172,8 +195,8 @@ class Game extends StatelessWidget {
                       }
                       //onPressed:
                       ),
-                ),
-                SizedBox(width: 10),
+
+                SizedBox(width:5),
               ])),
     ]));
   }
@@ -720,7 +743,7 @@ class MyGame extends BaseGame with HasTapableComponents {
   TextPainter textPainterScoreText;
   TextPainter textPainterLivesText;
   TextPainter textPainterNoMoreLives;
-
+  double spacerTile = 55;
   TextPainter textPainterNumType;
   Offset positionScore;
   Offset positionLives;
@@ -744,16 +767,24 @@ class MyGame extends BaseGame with HasTapableComponents {
   var count1 = new List(4);
 
   var count2 = new List(6);
-  double topSpaceTile = 160;
+  double topSpaceTile= 160;
   double previousPos = 0.0;
   var yPositions = new List(8);
 
   MyGame(Size size) {
     currentMultiple = 2;
-    if (size.height < 650) {
+
+
+    if (size.height < 580) {
+      topSpaceTile = 150;
+      rowCount = 7;
+      spacerTile = 48;
+    } else if (size.height < 650) {
       topSpaceTile = 150;
       rowCount = 8;
+      spacerTile = 52;
     }
+
     testInc = (rowCount - 1).toDouble();
     table = List.generate(rowCount, (i) => List(7), growable: true);
     ctable = List.generate(rowCount, (i) => List(7), growable: true);
@@ -761,7 +792,7 @@ class MyGame extends BaseGame with HasTapableComponents {
     print("height: " + (size.height).toString());
     pauseGame = false;
     for (int a = 0; a < rowCount; a++) {
-      positionArray[a] = topSpaceTile + (55 * a);
+      positionArray[a] = positionArray[a] = topSpaceTile + (spacerTile * a);
       for (int b = 0; b < 6; b++) {
         table[a][b] = false;
         ctable[a][b] = 0;

@@ -38,6 +38,7 @@ void main() async {
   flameUtil.addGestureRecognizer(tapper);
   tempWidth = size.width;
   tempHeight = size.height;
+
   game = MyGame(size);
   SharedPreferences prefs = await SharedPreferences.getInstance();
   bool _seen = (prefs.getBool('seen') ?? false);
