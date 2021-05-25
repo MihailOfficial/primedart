@@ -786,35 +786,7 @@ class _HomeState extends State<Home> {
                                                                             color: Color.fromRGBO(100, 152, 176, 1)))),
                                                                   ],
                                                                 ),
-                                                                DataRow(
-                                                                  cells: <DataCell>[
-                                                                    DataCell(Text('7',
-                                                                        style: TextStyle(
-                                                                            fontWeight:
-                                                                            FontWeight
-                                                                                .w900,
-                                                                            fontSize:
-                                                                            15.0.sp,
-                                                                            color: Color.fromRGBO(100, 152, 176, 1)))),
-                                                                    DataCell(SizedBox(
-                                                                        width: 150,
-                                                                        child: Text(
-                                                                            "_",
-                                                                            overflow:
-                                                                            TextOverflow
-                                                                                .ellipsis,
-                                                                            style: TextStyle(
-                                                                                fontSize:
-                                                                                15.0.sp,
-                                                                                color: Color.fromRGBO(100, 152, 176, 1))))),
-                                                                    DataCell(Text(
-                                                                        "_",
-                                                                        style: TextStyle(
-                                                                            fontSize:
-                                                                            15.0.sp,
-                                                                            color: Color.fromRGBO(100, 152, 176, 1)))),
-                                                                  ],
-                                                                ),
+
                                                                 DataRow(
                                                                   cells: <DataCell>[
                                                                     DataCell(Text(

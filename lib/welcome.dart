@@ -225,6 +225,7 @@ class _WelcomeState extends State<Welcomer1> {
                                                 onPressed: () => setState(() {
 
                                                   Navigator.push(
+
                                                     context,
                                                     ScaleRoute(page: Game(tempt: false)),
 

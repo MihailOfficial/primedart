@@ -91,31 +91,7 @@ class Game extends StatelessWidget {
         constraints: BoxConstraints.expand(),
         child: game.widget,
       ),
-      Padding(
-        padding: EdgeInsets.all(10),
-        child: Align(
-            alignment: Alignment.topCenter,
-            child: Column(
-              children: <Widget>[
-                if (online)
-                  Text(
-                    "ONLINE",
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.grey,
-                    ),
-                  ),
-                if (!online)
-                  Text(
-                    "OFFLINE",
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.grey,
-                    ),
-                  )
-              ],
-            )),
-      ),
+
       Align(
           alignment: Alignment.bottomCenter,
           child: Row(
@@ -131,7 +107,7 @@ class Game extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
                       ),
-                      color: Color.fromRGBO(30, 30, 30, 1),
+                      color: Color.fromRGBO(40, 40, 40, 1),
                       onPressed: () {
                         pauseGame = true;
                         if (online) {
@@ -158,20 +134,22 @@ class Game extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
                       ),
-                      color: Color.fromRGBO(30, 30, 30, 1),
+                      color: Color.fromRGBO(40, 40, 40, 1),
                       onPressed: () {
-                        pauseGame = true;
-                        if (online) {
-                          Navigator.push(
-                            context,
-                            FadeRoute(page: Home()),
-                          );
-                        } else {
-                          Navigator.push(
-                            context,
-                            FadeRoute(page: Welcomer1()),
-                          );
+                        stopAttempts = true;
+                        changedMultiple = 1;
+
+                        stopInc = 0;
+                        for (int a = 0; a < rowCount; a++) {
+
+                          for (int b = 0; b < 6; b++) {
+                            table[a][b] = false;
+                            ctable[a][b] = 0;
+                            dtable[a][b] = false;
+                          }
                         }
+                        statusBox = 360;
+
                       }
                     //onPressed:
                   ),
@@ -185,7 +163,7 @@ class Game extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
                       ),
-                      color: Color.fromRGBO(30, 30, 30, 1),
+                      color: Color.fromRGBO(40, 40, 40, 1),
                       onPressed: () {
                         pauseGame = true;
                         Navigator.push(
@@ -883,9 +861,6 @@ class MyGame extends BaseGame with HasTapableComponents {
 
     updateStatus = 360 / 3000;
 
-    positionNumType = Offset((size.width - textPainterNumType.width) * 0.5,
-        heightApp / 2 - textPainterNumType.height / 2 + heightApp / 2.7);
-
     positionLivesText = Offset(
         size.width * (5 / 20) - textPainterLivesText.width / 2,
         heightApp / 2 - textPainterLivesText.height / 2 + heightApp / 2);
@@ -956,7 +931,7 @@ class MyGame extends BaseGame with HasTapableComponents {
     if (stopAttempts) {
       if (stopInc == 0) {
         highScore = score;
-        add(endMenu = EndMenu("Play again"));
+        add(endMenu = EndMenu(" PLAY "));
         String value;
 
         //call stats here
@@ -978,7 +953,7 @@ class MyGame extends BaseGame with HasTapableComponents {
 
       textPainterNumType = TextPainter(
         text: TextSpan(
-            text: " X",
+            text: "X",
             style: TextStyle(
               color: Color.fromRGBO(26, 22, 92, 1),
               fontSize: 34,
@@ -1077,7 +1052,7 @@ class MyGame extends BaseGame with HasTapableComponents {
 
       textPainterNumType = TextPainter(
         text: TextSpan(
-            text: " " + currentMultiple.toString(),
+            text: currentMultiple.toString(),
             style: TextStyle(
               color: Color.fromRGBO(26, 22, 92, 1),
               fontSize: 34,
@@ -1091,8 +1066,8 @@ class MyGame extends BaseGame with HasTapableComponents {
         maxWidth: tempWidth,
       );
       positionNumType = Offset(
-          (size.width - textPainterNumType.width) * 0.5 - (3),
-          heightApp / 2 - textPainterNumType.height / 2 + heightApp / 1.25);
+          (size.width - textPainterNumType.width) * 0.5 ,
+          heightApp / 2 - textPainterNumType.height / 2 + heightApp / 1.33);
 
       if (updateLives) {
         textPainterLives = TextPainter(
@@ -1299,7 +1274,7 @@ class Bg extends Component with Resizable {
 
   Paint _paint4 = Paint()..color = COLOR4;
   Paint _master = Paint()..color = Color.fromRGBO(50, 50, 50, 1);
-  Paint _top = Paint()..color = Color.fromRGBO(50, 50, 50, 1);
+  Paint _top = Paint()..color = Color.fromRGBO(40, 40, 40, 1);
   Paint _dark = Paint()..color = Color.fromRGBO(20, 20, 20, 0);
 
   @override
@@ -1313,8 +1288,8 @@ class Bg extends Component with Resizable {
           _paint2);*/
       c.drawRRect(
           RRect.fromRectAndRadius(
-              Rect.fromLTWH((tempWidth - tempWidth / 1.2) / 2,
-                  heightApp * (3 / 4), tempWidth / 1.2, heightApp),
+              Rect.fromLTWH((tempWidth - tempWidth / 1.3) / 2,
+                  heightApp * (3 / 4), tempWidth / 1.3, heightApp),
               Radius.circular(8.0)),
           _top);
 
@@ -1324,7 +1299,7 @@ class Bg extends Component with Resizable {
               Radius.circular(8.0)),
           _dark);
 
-      c.drawCircle(Offset(tempWidth / 2, heightApp / 0.78), 30, _paint3);
+      c.drawCircle(Offset(tempWidth / 2, heightApp / 0.795), 31, _paint3);
     }
     Paint paint = Paint()
       ..color = Colors.red
@@ -1341,7 +1316,7 @@ class Bg extends Component with Resizable {
     // Adds a quarter arc
     path2.addArc(
         Rect.fromLTWH((tempWidth / 2) - (heightApp * 5 / 6) / 2,
-            heightApp / 1.15, heightApp * 5 / 6, heightApp * 5 / 6),
+            heightApp / 1.19, heightApp * 5 / 6, heightApp * 5 / 6),
         degToRad(0),
         degToRad(360));
     c.drawPath(path2, paint11);
@@ -1349,7 +1324,7 @@ class Bg extends Component with Resizable {
     // Adds a quarter arc
     path.addArc(
         Rect.fromLTWH((tempWidth / 2) - (heightApp * 5 / 6) / 2,
-            heightApp / 1.15, heightApp * 5 / 6, heightApp * 5 / 6),
+            heightApp / 1.19, heightApp * 5 / 6, heightApp * 5 / 6),
         degToRad(0),
         degToRad(statusBox));
     c.drawPath(path, paint);
