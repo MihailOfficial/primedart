@@ -33,7 +33,10 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
 
 
   void _register() async {
-    bool _success = await createUser(_usernameController.text);
+    if (!badName){
+      bool _success = await createUser(_usernameController.text);
+    }
+
     if (_success && !badName) {
       Flushbar(
         messageText: Text(
@@ -54,9 +57,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
         _userEmail = _usernameController.text;
       });
       signIn.call();
-    } else if (badName){
-
-      }
+    }
       else {
       Flushbar(
         messageText: Text(
@@ -98,8 +99,9 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                   onPressed: () async {
                     error = false;
                     if (_formKey.currentState.validate()) {
-                      _register();
-                      //print("test");
+                      if(!badName) {
+                        _register();
+                      }
                     }
                   },
                   child: const Text('CONTINUE',

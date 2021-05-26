@@ -138,14 +138,11 @@ class Game extends StatelessWidget {
                       onPressed: () {
                         stopAttempts = true;
                         changedMultiple = 1;
-
                         stopInc = 0;
                         for (int a = 0; a < rowCount; a++) {
-
                           for (int b = 0; b < 6; b++) {
                             table[a][b] = false;
-                            ctable[a][b] = 0;
-                            dtable[a][b] = false;
+
                           }
                         }
                         statusBox = 360;
@@ -1361,7 +1358,10 @@ Future<void> statsWriter() async {
   int multipleAcc = 0;
   if (mT != 0 && nmT != 0) {
     multipleAcc = ((mT / (nmT + mT)) * 100).round();
-    print("yes: " + multipleAcc.toString());
+    if (multipleAcc == 0){
+      multipleAcc =  100;
+    }
+
   }
   String result = "";
 
