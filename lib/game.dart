@@ -700,7 +700,7 @@ double heightApp = AppBar().preferredSize.height;
 int tempUpdate = 0;
 double statusBox = 0;
 int currentMultiple = 3;
-var positionArray = new List(10);
+var positionArray;
 
 class MyGame extends BaseGame with HasTapableComponents {
   double timerPrime = 0;
@@ -752,14 +752,31 @@ class MyGame extends BaseGame with HasTapableComponents {
 
     if (size.height < 580) {
       topSpaceTile = 150;
-      rowCount = 7;
+      rowCount = 8;
       spacerTile = 48;
-    } else if (size.height < 650) {
+    } else if (size.height < 640) {
       topSpaceTile = 150;
       rowCount = 8;
       spacerTile = 52;
+    } else if (size.height < 700) {
+      topSpaceTile = 150;
+      rowCount = 9;
+      spacerTile = 52;
+    } else if (size.height < 850) {
+      topSpaceTile = 150;
+      rowCount = 11;
+      spacerTile = 54;
+    }else if (size.height < 900) {
+      topSpaceTile = 160;
+      rowCount = 12;
+      spacerTile = 54;
     }
-
+    else if (size.height < 1000) {
+      topSpaceTile = 150;
+      rowCount = 12;
+      spacerTile = 58;
+    }
+    positionArray = new List(rowCount);
     testInc = (rowCount - 1).toDouble();
     table = List.generate(rowCount, (i) => List(7), growable: true);
     ctable = List.generate(rowCount, (i) => List(7), growable: true);
