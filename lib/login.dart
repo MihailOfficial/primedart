@@ -33,11 +33,11 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
 
 
   void _register() async {
-    if (!badName){
-      bool _success = await createUser(_usernameController.text);
-    }
+    if ( !badName) {
 
-    if (_success && !badName) {
+
+      bool _success = await createUser(_usernameController.text);
+      if(_success){
       Flushbar(
         messageText: Text(
           "SUCCESSFUL LOGIN",
@@ -57,6 +57,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
         _userEmail = _usernameController.text;
       });
       signIn.call();
+    }
     }
       else {
       Flushbar(
@@ -265,6 +266,8 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                               leftBarIndicatorColor: Colors.yellow,
                               duration: Duration(seconds: 2),
                             )..show(context);
+                        } else {
+                          badName = false;
                         }
 
                       },
