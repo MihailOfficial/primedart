@@ -634,7 +634,7 @@ class EndMenu extends TextComponent with Tapable {
   bool returned = false;
   Paint _paint12 = Paint()..color = Colors.yellow;
   TextConfig notValid =
-      TextConfig(color: Colors.black, fontSize: 35, fontFamily: "fontNum");
+      TextConfig(color: Colors.black, fontSize: 25.0.sp, fontFamily: "fontNum");
   TapDownDetails m;
   Rect startRect;
 
@@ -646,7 +646,7 @@ class EndMenu extends TextComponent with Tapable {
     //masterGameStart = true;
     this.config = notValid;
     this.anchor = Anchor.center;
-    this.x = 200;
+    this.x = tempWidth / 2;
     this.y = tempHeight / 2;
     startRect = Rect.fromLTWH(this.x - this.width / 2,
         (this.y - 5) - (this.height / 2), this.width, this.height + 10);
@@ -752,7 +752,7 @@ class MyGame extends BaseGame with HasTapableComponents {
 
     if (size.height < 580) {
       topSpaceTile = 150;
-      rowCount = 8;
+      rowCount = 7;
       spacerTile = 48;
     } else if (size.height < 640) {
       topSpaceTile = 150;
@@ -945,7 +945,7 @@ class MyGame extends BaseGame with HasTapableComponents {
     if (stopAttempts) {
       if (stopInc == 0) {
         highScore = score;
-        add(endMenu = EndMenu(" PLAY "));
+        add(endMenu = EndMenu(" Press to play "));
         String value;
 
         //call stats here

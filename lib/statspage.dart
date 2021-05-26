@@ -650,9 +650,11 @@ class _StatsPageState extends State<StatsPage> {
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(15, 20, 15, 20),
+                        Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5.0),
+                        child:
+                        Padding(
+                                padding: const EdgeInsets.all(11),
                                 child: ClipOval(
                                   child: Material(
                                     color: Color.fromRGBO(
@@ -682,7 +684,7 @@ class _StatsPageState extends State<StatsPage> {
                                     ),
                                   ),
                                 ),
-                              ),
+                              ),),
 
                               Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
