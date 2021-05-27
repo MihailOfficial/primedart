@@ -67,6 +67,7 @@ int nonMultipleTouched = 0;
 int matchedRC = 0;
 double timerPrime = 0;
 String tempStr = "temp";
+var counter1 = 0;
 
 var x;
 var y;
@@ -79,8 +80,6 @@ var online = false;
 class Game extends StatelessWidget {
   static const String routeName = "/home";
   final bool tempt;
-
-  /// Here is your constructor
 
   const Game({Key key, this.tempt}) : super(key: key);
 
@@ -98,11 +97,14 @@ class Game extends StatelessWidget {
       ),
       Align(
           alignment: Alignment.bottomCenter,
-          child: Row(
+          child: Padding(
+             padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
+
                 SizedBox(width: 5),
-                RaisedButton(
+                 RaisedButton(
                     child: new Text("BACK",
                         style: new TextStyle(
                           fontSize: 18.0,
@@ -145,7 +147,7 @@ class Game extends StatelessWidget {
 
                       stopAttempts = true;
                       changedMultiple = 1;
-                      stopInc = 0;
+
                       for (int a = 0; a < rowCount; a++) {
                         for (int b = 0; b < 6; b++) {
                           table[a][b] = false;
@@ -156,6 +158,9 @@ class Game extends StatelessWidget {
                       lives = 3;
                       updateLives = true;
                       statusBox = 360;
+                      stopInc = 0;
+                      currentMultiple = 2;
+                      counter1 = 0;
                     } else {
                       Flushbar(
                         messageText: Text(
@@ -198,7 +203,9 @@ class Game extends StatelessWidget {
                     //onPressed:
                     ),
                 SizedBox(width: 5),
-              ])),
+              ]))),
+
+
     ]));
   }
 }
@@ -750,7 +757,6 @@ class MyGame extends BaseGame with HasTapableComponents {
   NotMultiple notMultiple;
   var multiples = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-  var counter = 0;
   TextPainter textPainterScore;
   TextPainter textPainterLives;
   TextPainter textPainterScoreText;
@@ -788,7 +794,7 @@ class MyGame extends BaseGame with HasTapableComponents {
     currentMultiple = 2;
 
     if (size.height < 580) {
-      topSpaceTile = 150;
+      topSpaceTile = 155;
       rowCount = 7;
       spacerTile = 48;
     } else if (size.height < 640) {
@@ -1085,9 +1091,9 @@ class MyGame extends BaseGame with HasTapableComponents {
       if (changedMultiple >= 0) {
         changedMultiple--;
       }
-      counter++;
+      counter1++;
 
-      if (counter % 3000 == 0) {
+      if (counter1 % 3000 == 0) {
         if (online) {
           submitScore(score);
         }
