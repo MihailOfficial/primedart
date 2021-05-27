@@ -1,5 +1,6 @@
 import 'package:bird/welcome.dart';
 import 'package:flame/components/mixins/tapable.dart';
+import 'package:flame/palette.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
@@ -33,6 +34,7 @@ var colours = [
   Color.fromRGBO(148, 0, 211, 1),
   Color.fromRGBO(215, 123, 31, 1)
 ];
+
 double testInc;
 const SIZE = 52.0;
 const GRAVITY = 200.0;
@@ -241,9 +243,14 @@ class Multiple extends TextComponent with Tapable {
   Paint _paint12;
   int counter = 0;
 
+  @override
+  int priority() {
+    return 5;
+  }
   Multiple(
       String text, TextConfig textConfig, double Column, double Row, double top)
       : super(text) {
+
     pauseRect1 = Rect.fromLTWH(0, 0, 0, 0);
     this.config = textConfig;
     this.anchor = Anchor.center;
@@ -455,7 +462,10 @@ class NotMultiple extends TextComponent with Tapable {
   int genColourComp;
   int counter = 0;
   bool shrinkCollect = false;
-
+  @override
+  int priority() {
+    return 1;
+  }
   NotMultiple(
       String text, TextConfig textConfig, double Column, double Row, double top)
       : super(text) {
@@ -715,6 +725,7 @@ class EndMenu extends TextComponent with Tapable {
   }
 }
 
+
 double tempWidth = 0;
 String message;
 bool specialMessage = false;
@@ -826,6 +837,7 @@ class MyGame extends BaseGame with HasTapableComponents {
     }
 
     textPainterNoMoreLives = TextPainter(
+
         text: TextSpan(
             text: "", style: TextStyle(color: Color(0xFFFF0000), fontSize: 32)),
         textDirection: TextDirection.ltr);
@@ -838,6 +850,7 @@ class MyGame extends BaseGame with HasTapableComponents {
         size.height / 2 - textPainterNoMoreLives.height / 2);
 
     textPainterLivesText = TextPainter(
+
         text: TextSpan(
             text: "ROUND:",
             style: TextStyle(
@@ -853,6 +866,7 @@ class MyGame extends BaseGame with HasTapableComponents {
     var te1;
 
     textPainterNumType = TextPainter(
+
         text: TextSpan(
             text: "", style: TextStyle(color: Color(0xFFFF0000), fontSize: 32)),
         textDirection: TextDirection.ltr,
@@ -924,8 +938,8 @@ class MyGame extends BaseGame with HasTapableComponents {
   @override
   void render(Canvas c) {
 
-    super.render(c);
     if (masterGameStart) {
+      super.render(c);
       textPainterScore.paint(c, positionScore);
       textPainterScoreText.paint(c, positionScoreText);
       textPainterLives.paint(c, positionLives);
@@ -933,6 +947,7 @@ class MyGame extends BaseGame with HasTapableComponents {
       textPainterNoMoreLives.paint(c, positionNoMoreLives);
 
       textPainterNumType.paint(c, positionNumType);
+
     }
 
   }
@@ -962,6 +977,7 @@ class MyGame extends BaseGame with HasTapableComponents {
 
     return text2;
   }
+
 
   @override
   void update(double t) {

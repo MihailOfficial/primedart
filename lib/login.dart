@@ -2,6 +2,8 @@ import 'package:bad_words/bad_words.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:keyboard_attachable/keyboard_attachable.dart';
+import 'WidgetChooser.dart';
+import 'game.dart';
 import 'highscore_functions.dart';
 
 class RegisterEmailSection extends StatefulWidget {
@@ -125,29 +127,61 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                 child: Form(
                   key: _formKey,
                   child: ListView(shrinkWrap: true, children: <Widget>[
-                    SizedBox(height: 20),
+                  WidgetChooser(
+                  condition: tempHeight>650,
+                  trueChild: SizedBox(height: 20),
+                  falseChild: SizedBox(height: 10),
+                  ),
 
-                    Center(
-                        child: Container(
-                            child: Text('NumDash',
-                                style: TextStyle(
-                                  fontFamily: 'rage',
-                                  fontSize: 40,
-                                  color: Colors.yellow,
-                                  shadows: <Shadow>[
-                                    Shadow(
-                                      offset: Offset(5.0, 5.0),
-                                      blurRadius: 3.0,
-                                      color: Color.fromRGBO(240, 240, 240, 0.2),
-                                    ),
-                                    Shadow(
-                                      offset: Offset(5.0, 5.0),
-                                      blurRadius: 8.0,
-                                      color: Color.fromRGBO(240, 240, 240, 0.2),
-                                    ),
-                                  ],
-                                )))),
-                    SizedBox(height: 40),
+                    WidgetChooser(
+                      condition: tempHeight>650,
+                      trueChild:  Center(
+                          child: Container(
+                              child: Text('NumDash',
+                                  style: TextStyle(
+                                    fontFamily: 'rage',
+                                    fontSize: 40,
+                                    color: Colors.yellow,
+                                    shadows: <Shadow>[
+                                      Shadow(
+                                        offset: Offset(5.0, 5.0),
+                                        blurRadius: 3.0,
+                                        color: Color.fromRGBO(240, 240, 240, 0.2),
+                                      ),
+                                      Shadow(
+                                        offset: Offset(5.0, 5.0),
+                                        blurRadius: 8.0,
+                                        color: Color.fromRGBO(240, 240, 240, 0.2),
+                                      ),
+                                    ],
+                                  )))),
+                      falseChild:  Center(
+                      child: Container(
+                      child: Text('NumDash',
+                    style: TextStyle(
+                        fontFamily: 'rage',
+                        fontSize: 35,
+                        color: Colors.yellow,
+                        shadows: <Shadow>[
+                    Shadow(
+                    offset: Offset(5.0, 5.0),
+                  blurRadius: 3.0,
+                  color: Color.fromRGBO(240, 240, 240, 0.2),
+                ),
+                Shadow(
+                  offset: Offset(5.0, 5.0),
+                  blurRadius: 8.0,
+                  color: Color.fromRGBO(240, 240, 240, 0.2),
+                ),
+                ],
+              )))),
+                    ),
+
+                    WidgetChooser(
+                      condition: tempHeight>650,
+                      trueChild: SizedBox(height: 40),
+                      falseChild: SizedBox(height: 20),
+                    ),
                     Container(
                       child: const Text(
                           'Your username:',
@@ -301,6 +335,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
                   ]),
                 ),
               ),
-            ))));
+            )))
+    );
   }
 }
