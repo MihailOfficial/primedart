@@ -801,11 +801,11 @@ class MyGame extends BaseGame with HasTapableComponents {
       topSpaceTile = 150;
       rowCount = 8;
       spacerTile = 52;
-    } else if (size.height < 720) {
+    } else if (size.height < 750) {
       topSpaceTile = 150;
       rowCount = 9;
-      spacerTile = 52;
-    } else if (size.height < 790) {
+      spacerTile = 56;
+    } else if (size.height < 800) {
       topSpaceTile = 150;
       rowCount = 10;
       spacerTile = 55;
